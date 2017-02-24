@@ -1,179 +1,80 @@
-@CHARSET "UTF-8";
-
-body {
-	margin: 0;
-	padding: 0;
+@CHARSET "EUC-KR";
+body{margin:0;padding:0;}
+.container {position:relative; width:1680px; padding-top:0px; padding-bottom:0px; margin-left:auto; margin-right:auto;}
+#cops-content {width:1450px; min-height:540px; padding:20px 20px; position:static; filter:none;}
+.row {margin-left:0px;}
+.user-info-cops {
+	height:57px;
+	background: #6798FD;
+	padding:18px;
+	color:whitesmoke; 
+	text-align:right;
+	width:calc(100% - 260px);
 }
 
-.container {
-	position: relative;
-	width: auto;
-	padding-top: auto;
-	margin-left: auto;
-	margin-right: auto;
-	overflow:auto;
+.menu-info-cops {
+	width:calc(100% - 260px);
 }
 
-.row {
-	margin-left: 3px;
+.cops-data {float:left; width:100%; margin-top:10px;}
+.cops-data .expl{ border-top:2px solid #cacaca; background-color:#F9F9F9; padding-bottom:10px; }
+.cops-data .expl .content{ margin:10px 10px 0 10px; color:#666666; }
+
+/* statbox */
+.statbox-small, .statbox-mid, .statbox-large {
+	margin : 0px;
 }
 
-#top_logo{
-	background-color: #23282e;
+/* dashboard */
+.dashboard-box-left {
+	margin : 15px 20px 0px 0px !important;
+}
+.dashboard-box-right {
+	margin : 15px 0px 0px 15px !important;
+}
+.dashboard-box-mid {
+	margin : 15px 0px 0px 0px !important;
 }
 
-/* s:leftMenu */
-.nav-side-menu {
-	overflow: auto;
-	font-family: verdana;
-	font-size: 12px;
-	font-weight: 200;
-	background-color: #2e353d;
-	top: 0px;
-	width: 250px;
-	height: 900px;
-	color: #e1ffff;
+.vm-status {
+	background-color: #FF7012; 
+	color:white; 
+	border-radius: 9px;
 }
 
-.nav-side-menu .brand {
-	background-color: #23282e;
-	line-height: 50px;
-	display: block;
-	text-align: center;
-	font-size: 25px;
+.overhost{
+	background: #EAEAEA; 
+	height:60px;
 }
 
-.nav-side-menu .brand a {
-	color: #e1ffff;
-}
+.member-login-btn { width:120px; display:inline-table; line-height:93px; height:93px; font-size:18px; text-align:center; vertical-align:middle; color:#fff; background-color:#09B3AD; font-weight:bold; }
 
-.nav-side-menu .toggle-btn {
-	display: none;
-}
+/*subtitle type*/
+.subtitle-type1 {  font-size:16px; color:#000; font-weight:bold;  margin-bottom:5px; background:url(../img/icon/icon_dot.png) no-repeat; background-position: left center; padding-left:10px;}
+.subtitle-type2 { color:#000; font-weight:bold; font-size:18px;line-height:30px;}
 
-.nav-side-menu ul, .nav-side-menu li {
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
-	line-height: 35px;
-	cursor: pointer;
-}
+/* table */
+.table-type {background-color:#f9f9f9; text-align:right !important; font-weight:bold; color:#666;}
+.table-type2 {background-color:#f9f9f9; text-align:center !important; font-weight:bold; color:#666;}
+.table-value {text-align:left;}
 
-.nav-side-menu .menu-list {
-	margin-left: 0px;
-}
+.modal-title {color:#fff;}
 
-.nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
-	{
-	font-family: FontAwesome;
-	content: "\f078";
-	display: inline-block;
-	padding-left: 10px;
-	padding-right: 10px;
-	vertical-align: middle;
-	float: right;
-}
+/* footer */
+#footer {display:block;clear:both;}
+#footer .container { position:absolute;  width:100%; min-width:1280px; margin-top:70px;  border-top:1px solid #cacaca; margin-bottom:20px;}
+#footer .container .contents { width:1280px; margin-left:auto; margin-right:auto;}
+#footer .container .contents .cops-logo {  margin-top:10px; float:left; }
+#footer .container .contents .info { margin-top:14px; float:left; margin-left:25px; color:#666666; font-size:12px;}
+#footer .container .contents .info  .txt { width:940px; margin-top:17px; margin-bottom:11px; }
+#footer .box { text-align:center; margin-top:4px; margin-right:3px; border:1px solid #cacaca; width:90px; padding-bottom:2px;}
 
-.nav-side-menu ul .active, .nav-side-menu li .active {
-	border-left: 3px solid #d19b3d;
-	background-color: #4f5b69;
-}
-
-.nav-side-menu ul .sub-menu li.active, .nav-side-menu li .sub-menu li.active
-	{
-	color: #d19b3d;
-}
-
-.nav-side-menu ul .sub-menu li.active a, .nav-side-menu li .sub-menu li.active a
-	{
-	color: #d19b3d;
-}
-
-.nav-side-menu ul .sub-menu li, .nav-side-menu li .sub-menu li {
-	background-color: #181c20;
-	border: none;
-	line-height: 28px;
-	border-bottom: 1px solid #23282e;
-	margin-left: 0px;
-}
-
-.nav-side-menu ul .sub-menu li:hover, .nav-side-menu li .sub-menu li:hover
-	{
-	background-color: #020203;
-}
-
-.nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
-	{
-	font-family: FontAwesome;
-	content: "\f105";
-	display: inline-block;
-	padding-left: 10px;
-	padding-right: 10px;
-	vertical-align: middle;
-}
-
-.nav-side-menu li {
-	padding-left: 0px;
-	border-left: 3px solid #2e353d;
-	border-bottom: 1px solid #23282e;
-}
-
-.nav-side-menu li a {
-	text-decoration: none;
-	color: #e1ffff;
-}
-
-.nav-side-menu li a i {
-	padding-left: 10px;
-	width: 20px;
-	padding-right: 20px;
-}
-
-.nav-side-menu li:hover {
-	border-left: 3px solid #d19b3d;
-	background-color: #4f5b69;
-	-webkit-transition: all 1s ease;
-	-moz-transition: all 1s ease;
-	-o-transition: all 1s ease;
-	-ms-transition: all 1s ease;
-	transition: all 1s ease;
-}
-
-@media ( max-width : 767px) {
-	.nav-side-menu {
-		position: relative;
-		width: 100%;
-		margin-bottom: 10px;
-	}
-	.nav-side-menu .toggle-btn {
-		display: block;
-		cursor: pointer;
-		position: absolute;
-		right: 10px;
-		top: 10px;
-		z-index: 10 !important;
-		padding: 3px;
-		background-color: #ffffff;
-		color: #000;
-		width: 40px;
-		text-align: center;
-	}
-	.brand {
-		text-align: left !important;
-		font-size: 22px;
-		padding-left: 20px;
-		line-height: 50px !important;
-	}
-}
-
-@media ( min-width : 767px) {
-	.nav-side-menu .menu-list .menu-content {
-		display: block;
-		height: 100%;
-	}
-}
-/* e:leftmenu */
-body {
-	margin: 0px;
-	padding: 0px;
+.page-info {float:left; margin-top:-1px; width:100%; height:100px; min-height:76px;}
+.page-info .icon { width:110px; margin:10px 0 0 15px; float:left;}
+.page-info .title { width:850px; float:left; font-size:15px; font-weight:bold; color:#666666; margin:16px 5px; word-break:break-all;}
+.page-info .title .expl {font-size:12px; font-weight:normal; margin-top:10px;}
+/* label */
+label {
+display:inline-flex;
+margin-bottom:0px;
 }

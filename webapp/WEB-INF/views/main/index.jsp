@@ -22,7 +22,12 @@
 	<jsp:include page="../common/top.jsp"></jsp:include>
 	<div class="row">
 		<jsp:include page="../common/leftMenu.jsp" flush="false"></jsp:include>
-		<div class="fLeft" id="main_content">
+		<div class="fLeft menu-info-cops">
+			<ul class="breadcrumb" style="margin-bottom:0px;">
+				<li><i class="icon-home"></i>메인메뉴<i class="icon-angle-right"></i></li>
+			</ul>
+		</div>
+		<div class="fLeft menu-info-cops">
 			<div class="box_content">
 				<div id="orgs_board"></div>
 				<div id="calendar" style="width: 500px;"></div>
@@ -30,7 +35,6 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>
-<%-- <jsp:include page="../common/footer.jsp" flush="false"></jsp:include> --%>
+<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
+
 <!-- e:container -->

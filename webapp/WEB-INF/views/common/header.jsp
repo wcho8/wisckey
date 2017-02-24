@@ -9,7 +9,7 @@
 <link rel="shortcut icon" href="../images/common/uw_logo.jpg" />
 
 <!-- Title -->
-<title>sample 페이지</title>
+<title>WiscKey 페이지</title>
 
 <!-- Default StyleSheet -->
 <link type="text/css" href="/include/css/default.css" rel="stylesheet" />
@@ -18,6 +18,7 @@
 <script type="text/javascript" src="/include/jQuery/jquery-1.12.1.js"></script>
 <script src="/include/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script type="text/javascript" src="/include/js/alertMessage.js"></script>
+<script type="text/javascript" src="/include/js/custom.js"></script>
 
 <!-- jsgrid -->
 <link type="text/css" href="/include/jsgrid/jsgrid.min.css" rel="stylesheet" />
@@ -29,7 +30,8 @@
 <script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
 
 <!-- bootstrap-->
-<link href="/include/css/bootstrap.min.css" rel="stylesheet">
+<link href="/include/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/include/css/style.css" rel="stylesheet"/>
 <script src="/include/js/bootstrap.min.js"></script>
 
 <!-- SmartEditor -->

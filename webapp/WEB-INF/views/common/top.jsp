@@ -11,7 +11,7 @@
 	</div>
 	
 	<div class="fLeft wisckey_top_tab">
-		<span style="color: white;" id="userInfo"></span> | 
+		<span style="color: white; width:90%;" id="userInfo"></span> | 
 		<a><i style="text-align: center;"></i></a>
 	</div>
 </div>
