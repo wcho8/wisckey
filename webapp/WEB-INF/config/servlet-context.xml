@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<context:component-scan base-package="kr" />
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- <annotation-driven /> -->
+	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+	<!-- <beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
+	<beans:bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+	    <beans:property name="conversionService" ref="conversionService" />
+	    <!-- <beans:property name="validator" ref="validator" /> -->
+	</beans:bean>
+	<beans:bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <beans:property name="webBindingInitializer" ref="webBindingInitializer" />
+	    <beans:property name="messageConverters">
+	        <beans:list>
+	            <beans:bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	            <beans:bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+	            <beans:bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+	            <beans:bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+	            <beans:bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+	            <beans:bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+				<!-- <beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+					<beans:property name="supportedMediaTypes">
+						<beans:list>
+							<beans:value>application/json</beans:value>
+						</beans:list>
+					</beans:property>
+					<beans:property name="objectMapper">
+						<beans:bean class="kr.madison.util.ObjectMapper"/>
+					</beans:property>
+				</beans:bean> -->
+	        </beans:list>
+	    </beans:property>
+	</beans:bean>
+	<beans:bean class="org.springframework.web.servlet.handler.MappedInterceptor">
+	    <beans:constructor-arg index="0"><beans:null /></beans:constructor-arg>
+	    <beans:constructor-arg index="1">
+	        <beans:bean class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor">
+	            <beans:constructor-arg index="0" ref="conversionService"/>
+	        </beans:bean>
+	    </beans:constructor-arg>
+	</beans:bean>
+	<beans:bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
+	<tx:annotation-driven proxy-target-class="true" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/include/**" location="/WEB-INF/views/include/" />
+	<resources mapping="/images/**" location="/WEB-INF/views/images/" />
+	<resources mapping="/attachment/**" location="/WEB-INF/views/attachment/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="exposeContextBeansAsAttributes" value="true" />
+		<beans:property name="redirectHttp10Compatible" value="false" />
+	</beans:bean>
+	
+	<!-- Session -->
+	<!-- SessionVO
+	<beans:bean id="session" class="" scope="session">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</beans:bean>
+	 -->
+	 
+	<!-- PreCheck Interceptor -->
+	<!-- 	AuthcheckInterceptor
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<beans:bean class=""/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	 -->
+	
+	<!-- Multipart Resolver -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<!-- Path Properties -->
+	<beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>/WEB-INF/config/config.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+</beans:beans>
