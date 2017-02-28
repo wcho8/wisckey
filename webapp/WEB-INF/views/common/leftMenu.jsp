@@ -71,7 +71,7 @@
 				</li>
 				<li name="mainMenu">
 					<a class="dropmenu" href="#">
-						<span class="hidden-tablet"> 로그관리</span><span class="icon-chevron-down fRight"></span>
+						<span class="hidden-tablet">Q&A</span><span class="icon-chevron-down fRight"></span>
 					</a>
 					<ul>
 						<li>

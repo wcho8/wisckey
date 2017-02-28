@@ -1,69 +1,33 @@
-@CHARSET "EUC-KR";
+@CHARSET "UTF-8";
 body{margin:0;padding:0;}
-.container {position:relative; width:1680px; padding-top:0px; padding-bottom:0px; margin-left:auto; margin-right:auto;}
-#cops-content {width:1450px; min-height:540px; padding:20px 20px; position:static; filter:none;}
+.container {position:relative; width:100%; padding-top:0px; padding-bottom:0px; margin-left:auto; margin-right:auto;}
 .row {margin-left:0px;}
-.user-info-cops {
-	height:57px;
-	background: #6798FD;
-	padding:18px;
-	color:whitesmoke; 
-	text-align:right;
-	width:calc(100% - 260px);
+.navbar-header{
+	width:250px;
+	text-align : center;
+	padding-top: 15px;
+}
+.navbar-brand{
+	float:none;
+}
+.carousel{
+	width:75%;
+	height:150px;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img{
+	height:150px;
+	width:100%;
+}
+.indexCal{
+	margin-top: 30px;
+	width: 75%;
 }
 
-.menu-info-cops {
-	width:calc(100% - 260px);
-}
-
-.cops-data {float:left; width:100%; margin-top:10px;}
-.cops-data .expl{ border-top:2px solid #cacaca; background-color:#F9F9F9; padding-bottom:10px; }
-.cops-data .expl .content{ margin:10px 10px 0 10px; color:#666666; }
-
-/* statbox */
-.statbox-small, .statbox-mid, .statbox-large {
-	margin : 0px;
-}
-
-/* dashboard */
-.dashboard-box-left {
-	margin : 15px 20px 0px 0px !important;
-}
-.dashboard-box-right {
-	margin : 15px 0px 0px 15px !important;
-}
-.dashboard-box-mid {
-	margin : 15px 0px 0px 0px !important;
-}
-
-.vm-status {
-	background-color: #FF7012; 
-	color:white; 
-	border-radius: 9px;
-}
-
-.overhost{
-	background: #EAEAEA; 
-	height:60px;
-}
-
-.member-login-btn { width:120px; display:inline-table; line-height:93px; height:93px; font-size:18px; text-align:center; vertical-align:middle; color:#fff; background-color:#09B3AD; font-weight:bold; }
-
-/*subtitle type*/
-.subtitle-type1 {  font-size:16px; color:#000; font-weight:bold;  margin-bottom:5px; background:url(../img/icon/icon_dot.png) no-repeat; background-position: left center; padding-left:10px;}
-.subtitle-type2 { color:#000; font-weight:bold; font-size:18px;line-height:30px;}
-
-/* table */
-.table-type {background-color:#f9f9f9; text-align:right !important; font-weight:bold; color:#666;}
-.table-type2 {background-color:#f9f9f9; text-align:center !important; font-weight:bold; color:#666;}
-.table-value {text-align:left;}
-
-.modal-title {color:#fff;}
 
 /* footer */
 #footer {display:block;clear:both;}
 #footer .container { position:absolute;  width:100%; min-width:1280px; margin-top:70px;  border-top:1px solid #cacaca; margin-bottom:20px;}
-#footer .container .contents { width:1280px; margin-left:auto; margin-right:auto;}
+#footer .container .contents { width:100; margin-left:auto; margin-right:auto;}
 #footer .container .contents .cops-logo {  margin-top:10px; float:left; }
 #footer .container .contents .info { margin-top:14px; float:left; margin-left:25px; color:#666666; font-size:12px;}
 #footer .container .contents .info  .txt { width:940px; margin-top:17px; margin-bottom:11px; }

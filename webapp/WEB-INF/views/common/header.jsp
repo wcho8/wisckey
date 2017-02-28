@@ -13,6 +13,8 @@
 
 <!-- Default StyleSheet -->
 <link type="text/css" href="/include/css/default.css" rel="stylesheet" />
+<link type="text/css" href="/include/jQuery/theme/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
+
 
 <!-- js -->
 <script type="text/javascript" src="/include/jQuery/jquery-1.12.1.js"></script>
@@ -20,19 +22,19 @@
 <script type="text/javascript" src="/include/js/alertMessage.js"></script>
 <script type="text/javascript" src="/include/js/custom.js"></script>
 
-<!-- jsgrid -->
-<link type="text/css" href="/include/jsgrid/jsgrid.min.css" rel="stylesheet" />
-<script type="text/javascript" src="/include/jsgrid/jsgrid.min.js"></script>
-
-<!-- fullCalendar -->
-<link type="text/css" href="/include/fullcalendar/fullcalendar.css" rel="stylesheet" />
-<script type="text/javascript" src="/include/fullcalendar/fullcalendar.js"></script>
-<script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
+<!-- jqgrid -->
+<link type="text/css" href="/include/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
+<script type="text/javascript" src="/include/jqGrid/js/jquery.jqgrid.src.js"></script>
 
 <!-- bootstrap-->
 <link href="/include/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="/include/css/style.css" rel="stylesheet"/>
 <script src="/include/js/bootstrap.min.js"></script>
+
+<!-- fullCalendar -->
+<link type="text/css" href="/include/fullcalendar/fullcalendar.css" rel="stylesheet" />
+<script type="text/javascript" src="/include/fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
 
 <!-- SmartEditor -->
 <script type="text/javascript" src="/include/SmartEditor/js/HuskyEZCreator.js"></script>
@@ -44,3 +46,5 @@
 <link type="text/css" rel="stylesheet" href="/include/css/krMadison.css" />
 
 </head>
+
+
