@@ -292,7 +292,7 @@ h5 {
 
 h6 {
 	font-size: 12px;
-	line-height: 12px; /* �ٰ��� */
+	line-height: 12px; /* 占쌕곤옙占쏙옙 */
 }
 
 /* Header Section
@@ -315,10 +315,10 @@ h6 {
 	text-shadow: 1px 1px 1px #0a0c0e;
 	border: none;
 	color: #fff;
-  	-webkit-border-radius: 0px; /* webkit ������ ũ��, ������ ���ĸ� ���ζ���� ��� */
+  	-webkit-border-radius: 0px; /* webkit 占쏙옙占쏙옙占쏙옙 크占쏙옙, 占쏙옙占쏙옙占쏙옙 占쏙옙占식몌옙 占쏙옙占싸띰옙占쏙옙占� 占쏙옙占� */
        -moz-border-radius: 0px;
           	border-radius: 0px;
-  	*zoom: 1; /* ������Ʈ Ȯ�� */
+  	*zoom: 1; /* 占쏙옙占쏙옙占쏙옙트 확占쏙옙 */
 	/*border-bottom: 1px solid #38383D; *//* rgba(0, 0, 0, 0.05); */
 	
 }
@@ -3036,11 +3036,10 @@ ul.messagesList li span.date {
 	font-size: 35px;
 }
 
-/* ���� ------------------------------------------------------------------------------- */
+/* 占쏙옙占쏙옙 ------------------------------------------------------------------------------- */
 
 .logo, .logo-login {
 	
-	background: #4FC9DE;
 	height: 57px;
 	text-align: center;
 	padding-left: 20px;
@@ -3096,7 +3095,9 @@ ul.messagesList li span.date {
 }
 
 .hr_dash {
-	height: 2px; 
+	height: 2px;
+	margin-left: 0px;
+	margin-right: 0px;
 	margin-top: 10px; 
 	margin-bottom: 10px; 
 	background: lightgray;

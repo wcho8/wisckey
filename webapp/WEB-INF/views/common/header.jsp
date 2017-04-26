@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <!-- favicon -->
-<link rel="shortcut icon" href="../images/common/uw_logo.jpg" />
+<link rel="shortcut icon" href="../images/common/LOGO.png" />
 
 <!-- Title -->
 <title>WiscKey 페이지</title>
@@ -39,11 +39,9 @@
 <!-- SmartEditor -->
 <script type="text/javascript" src="/include/SmartEditor/js/HuskyEZCreator.js"></script>
 
-<!-- kakaotalk -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
 <!-- wisckey -->
-<link type="text/css" rel="stylesheet" href="/include/css/krMadison.css" />
+<link type="text/css" rel="stylesheet" href="/include/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/include/css/wisckey.css" />
 
 </head>
 
