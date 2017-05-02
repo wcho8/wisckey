@@ -7,7 +7,7 @@ body{margin:0;padding:0;}
   width: 80%;
 }
 .top_nav{
-	background-image:url('/images/sample_carousel_3.jpg');
+	/* background-image:url('/images/sample_carousel_3.jpg'); */
 	background-size:cover;
 	background-repeat:no-repeat;
 	/* opacity:0.5; */
@@ -62,7 +62,6 @@ body{margin:0;padding:0;}
 }
 #login{
 	width:calc(100% - 5px);
-	margin-top:70px;
 }
 #bot_left{
 	width:20%;

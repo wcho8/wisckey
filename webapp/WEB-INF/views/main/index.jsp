@@ -42,141 +42,33 @@
 					</div>
 				</div>
 				<div class="fLeft" id="top_right">
+					<img src="../images/common/wisckey_1.png" style="height:150px;">		
 					<table id="login">
 						<colgroup>
-							<col style="width: 100px;">
+							<col style="width: 80px;">
 							<col style="width: *;">
 							<col style="width: 50px;">
 						</colgroup>
 						<tr>
-							<td colspan="2">아이디</td>
-							<td rowspan="4">로그인</td>
+							<th>ID : </th>
+							<td><input type="text" style="margin-bottom: 5px; width:95%;"></td>
+							<td rowspan="2" style="padding-left:3px;">
+							<button type="button" class="btn btn-warning" style="height:50px;">로그인</button>
+							</td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="text" style="margin-bottom: 5px; width:95%;"></td>
+							<th>Password : </th>
+							<td><input type="password" style="width:95%;"></td>
 						</tr>
-						<tr>
-							<td>비밀번호</td>
-						</tr>
-						<tr>
-							<td colspan="2"><input type="password" style="width:95%;"></td>
-						</tr>
-						<tr style="margin-top: 10px;">
+						<tr style="margin-top: 20px;">
 							<td colspan="3"><a href="#">아이디/비밀번호 찾기</a> | <a href="#">회원가입</a>
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<div class="body_bot">
-				<div class="fLeft" id="bot_left">
-					<table id="top_post">
-						<tbody>
-							<tr style="border: 0px; height:34px;">
-								<th style="border:0px;">
-									top 10 게시물
-								</th>
-								<td style="float:right; border:0px;">더보기</td>
-							</tr>
-							<tr>
-								<th>1</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>4</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>5</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>6</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>7</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>8</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>9</th>
-								<td>test</td>
-							</tr>
-							<tr>
-								<th>10</th>
-								<td>test</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="fLeft" id="bot_mid">
-					<table id="mid_table">
-						<colgroup>
-							<col style="width:30%;">
-							<col style="width*;">
-						</colgroup>
-						<tbody>
-							<tr style="height:34px;">
-								<th style="border:0px;">정보 게시판</th>
-								<td style="float:right; border:0px;">더보기</td>
-							</tr>
-							<tr>
-								<th rowspan="6">취업정보</th>
-							</tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr>
-								<td rowspan="6">족보정보</td>
-							</tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr>
-								<td rowspan="6">벼룩시장</td>
-							</tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-							<tr><td>test</td></tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="fLeft" id="bot_right">
-					<table id="new_face" style="height:calc(100% - 3px);">
-						<tr>
-							<th style="border:0px; height:34px;">신입생 게시판</th>
-							<td style="float:right; border:0px;">더보기</td>
-						</tr>
-						<tr><th>1</th><td>test</td></tr>
-						<tr><th>2</th><td>test</td></tr>
-						<tr><th>3</th><td>test</td></tr>
-						<tr><th>4</th><td>test</td></tr>
-						<tr><th>5</th><td>test</td></tr>
-						<tr><th>6</th><td>test</td></tr>
-						<tr><th>7</th><td>test</td></tr>
-						<tr><th>8</th><td>test</td></tr>
-						<tr><th>9</th><td>test</td></tr>
-						<tr><th>10</th><td>test</td></tr>
-					</table>
-				</div>
+			<div class="body_mid">
+				
 			</div>
 		</div>
 	</div>
