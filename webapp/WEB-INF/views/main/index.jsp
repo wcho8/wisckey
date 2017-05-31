@@ -50,18 +50,16 @@
 							<col style="width: 50px;">
 						</colgroup>
 						<tr>
-							<th>ID : </th>
-							<td><input type="text" style="margin-bottom: 5px; width:95%;"></td>
+							<td colspan="2"><input type="text" placeholder="아이디" style="margin-bottom: 5px; width:95%;"></td>
 							<td rowspan="2" style="padding-left:3px;">
 							<button type="button" class="btn btn-warning" style="height:50px;">로그인</button>
 							</td>
 						</tr>
 						<tr>
-							<th>Password : </th>
-							<td><input type="password" style="width:95%;"></td>
+							<td colspan="2"><input type="password" placeholder="패스워드" style="width:95%;"></td>
 						</tr>
 						<tr style="margin-top: 20px;">
-							<td colspan="3"><a href="#">아이디/비밀번호 찾기</a> | <a href="#">회원가입</a>
+							<td colspan="3"><a href="#">아이디/비밀번호 찾기</a> | <a href="/Member/">회원가입</a>
 							</td>
 						</tr>
 					</table>

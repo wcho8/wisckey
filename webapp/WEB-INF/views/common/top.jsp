@@ -12,13 +12,13 @@ $(document).ready(function(){
 <div class="row top_nav">
 		<div style="width:100%; height:120px;">
 			<div class="logo" id="top_logo" style="width:30%; height:100%; margin-left:auto; margin-right:auto">
-				<a id="logoSrc" href="#"><img style="height:100%; width: 80%;"src="../images/common/LOGO.png" alt="logo" /></a>
+				<a id="logoSrc" href="/"><img style="height:100%; width: 80%;"src="../images/common/LOGO.png" alt="logo" /></a>
 			</div>
 		</div>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Wisckey</a>
+					<a class="navbar-brand" href="/">Wisckey</a>
 				</div>
 				<div class="div_nav">
 					<ul class="nav navbar-nav">

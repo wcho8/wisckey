@@ -17,7 +17,9 @@
 	<context:component-scan base-package="kr" />
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<!-- <annotation-driven /> -->
+	<!-- <annotation-driven />
+	<tx:annotation-driven proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManager"/> -->
 	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 	<!-- <beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
 	<beans:bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
@@ -35,7 +37,7 @@
 	            <beans:bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
 	            <beans:bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
 	            <beans:bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
-				<!-- <beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 					<beans:property name="supportedMediaTypes">
 						<beans:list>
 							<beans:value>application/json</beans:value>
@@ -44,7 +46,7 @@
 					<beans:property name="objectMapper">
 						<beans:bean class="kr.madison.util.ObjectMapper"/>
 					</beans:property>
-				</beans:bean> -->
+				</beans:bean>
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
@@ -80,14 +82,12 @@
 	 -->
 	 
 	<!-- PreCheck Interceptor -->
-	<!-- 	AuthcheckInterceptor
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<beans:bean class=""/>
+			<beans:bean class="kr.madison.common.controller.AuthCheckInterceptorController"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	 -->
 	
 	<!-- Multipart Resolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />

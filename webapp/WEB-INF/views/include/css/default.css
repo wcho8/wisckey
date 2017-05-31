@@ -3,6 +3,12 @@
 input[type='textarea']{
 padding-left:5px;
 }
+/* Text Important */
+.important{
+	color:#f63a3a;
+	font-weight:bold;
+	font-size:12px;
+}
 
 /* Text Bold */
 .tBold{font-weight:bold;}

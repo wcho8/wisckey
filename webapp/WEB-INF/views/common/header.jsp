@@ -42,6 +42,7 @@
 <!-- wisckey -->
 <link type="text/css" rel="stylesheet" href="/include/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/include/css/wisckey.css" />
+<script type="text/javascript" src="/include/js/wisckey.js"></script>
 
 </head>
 

@@ -12,8 +12,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import kr.madison.common.vo.SessionVO;
 
 public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
-	@Autowired
-	private SessionVO session;
 	//@Autowired
 	//private AuthCheckInterceptorService authCheckInterceptorService;
 	
@@ -21,7 +19,13 @@ public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String servletPath = request.getServletPath();
 		String referer = request.getHeader("Referer");
-		boolean isMobile = false;
+		
+		if(servletPath.equals("/")){
+			return true;
+		} else if(servletPath.equals("/Member/")){
+			return true;
+		}
+		
 		
 		/*// 로그인 체크 제외
 		if (servletPath.equals("/")) {
