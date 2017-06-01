@@ -19,24 +19,15 @@ public class LogInOutService {
 			logVO = logInOutDAO.Login(paramVO);
 			
 			if(logVO != null){
-				if(paramVO.getUserpwd().equals(logVO.getUserpwd()) || Util.encryptSHA256(paramVO.getUserpwd()).equals(logVO.getUserpwd())){
+				if(paramVO.getPasswd().equals(logVO.getPasswd()) || Util.encryptSHA256(paramVO.getPasswd()).equals(logVO.getPasswd())){
 					// 비밀번호 일치
 					if (logVO.getUseyn() == null){
-						//대기중 회원
-						logVO.setStatus("Waiting");
+						logVO.setStatus("NotFound");
 					} else if(logVO.getUseyn() != null && logVO.getUseyn().equals("Y")){
-						//로그인 성공
 						logVO.setStatus("Success");
-						
 						paramVO.setUserno(logVO.getUserno());
 						paramVO.setSuccessyn("Y");
 						logInOutDAO.addLoginData(paramVO);
-					} else if(logVO.getUseyn() != null && logVO.getUseyn().equals("N")){
-						//탈퇴한 회원
-						logVO.setStatus("Deleted");
-					} else if(logVO.getUseyn() != null && logVO.getUseyn().equals("R")){
-						//반려된 회원
-						logVO.setStatus("Rejected");
 					}
 				}else{
 					//비밀번호 틀림

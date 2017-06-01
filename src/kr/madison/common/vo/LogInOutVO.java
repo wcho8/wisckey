@@ -5,7 +5,7 @@ public class LogInOutVO extends SessionVO{
 	private static final long serialVersionUID = 1880516785960236906L;
 
 	// WEB_USERS : 회원
-	private String userpwd = null; // 비밀번호
+	private String passwd = null; // 비밀번호
 	private String useyn = null; // 사용여부
 
 	// HRS_EMPLOGIN : 로그인 정보
@@ -14,11 +14,11 @@ public class LogInOutVO extends SessionVO{
 	private String useragent = null; // 유저 에이전트
 	private String successyn = null; // 로그인 성공여부
 	
-	public String getUserpwd() {
-		return userpwd;
+	public String getPasswd() {
+		return passwd;
 	}
-	public void setUserpwd(String userpwd) {
-		this.userpwd = userpwd;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 	public String getUseyn() {
 		return useyn;

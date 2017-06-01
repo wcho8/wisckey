@@ -2,16 +2,35 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
-var chkId;
-var chkNickname;
+var chkId = false;
+var chkNickname = false;
 var params;
 $(document).ready(function(){
-	$("#birthday").datepicker({
+	$("#birthdate").datepicker({
 		dateFormat: "yy-mm-dd",
 		changeMonth: true,
-		changeYear: true
+		changeYear: true,
+		yearRange: "1950"
 	});
-	console.log(new Date());
+	
+	$("#birthdate").change(function(){
+		var birthday = new Date($("#birthdate").val());
+		if(birthday > new Date()){
+			alert("유효한 생일이 아닙니다.");
+			$("#birthdate").val("");
+		}
+	});
+	
+	$("#userid").change(function(){
+		if(chkId){
+			chkId = false;
+		}
+	});
+	$("#nickname").change(function(){
+		if(chkNickname){
+			chkNickname = false;
+		}
+	});
 });
 
 //이메일 정규식 체크
@@ -155,6 +174,7 @@ function chkValid(){
 
 function addMember(){
 	var params = $("#infos").serialization();
+	//TODO: 권한 관리
 	params.authid = 5;
 	params.gender = $("input[name=gender]:checked").val();
 	if(!chkId){
@@ -166,7 +186,7 @@ function addMember(){
 		return;
 	}
 	
-	if($("#birthday").val() != null && $("#birthday").val() != ""){
+	if($("#birthdate").val() != null && $("#birthdate").val() != ""){
 		var today = new Date();
 		
 	}
@@ -179,7 +199,7 @@ function addMember(){
 			}else{
 				alert("가입에 실패하였습니다. 다시 시도해 주시기 바랍니다.");
 			}
-			//location.href = "/";
+			location.href = "/";
 		}).fail(function(){
 			alert("가입에 실패하였습니다. 다시 시도해 주시기 바랍니다.");
 		});
@@ -228,7 +248,6 @@ border-bottom:1px solid #e5e5e5;
 				<ul class="memberTab" style="list-style:none; padding-left:0px;">
 					<li><a href="/Member/">회원가입</a></li>
 					<li><a href="">아이디/비밀번호 찾기</a></li>
-					<li><a href="#">정보 관리</a></li>
 				</ul>
 			</div>
 			<div class="addMember" style="float:left; width:870px; margin-left:30px;">
@@ -301,7 +320,7 @@ border-bottom:1px solid #e5e5e5;
 							<tr class="bot_line">
 								<th>생일 </th>
 								<td colspan="3">
-									<input type="text" id="birthday">
+									<input type="text" id="birthdate">
 								</td>
 							</tr>
 							<tr class="bot_line">

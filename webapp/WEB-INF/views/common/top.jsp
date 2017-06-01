@@ -2,11 +2,44 @@
 	pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
+var defaultParams = {
+		userno: "${session.userno}",
+		userid: "${session.userid}",
+		nickname: "${session.nickname}",
+		email: "${session.email}"
+	}
 $(document).ready(function(){
 	var navbars;
 	var url;
 	
 });
+function login(){
+	var url = "/LogInOut/Login";
+	var params = $("#login").serialization();
+	$.post(url, params, function(data){
+		if(data == "Success"){
+			$.cookie("saveid", params.userid, {
+				expires:7
+			});
+			location.reload();
+		} else if(data == "NotFound"){
+			alert("존재하지 않는 회원입니다.");
+			$.cookie("saveid", '', {expires:-1});
+			$("#userid").val('');
+			$("#userid").focus();
+			$("#passwd").val('');
+		} else if(data == "Fail"){
+			alert("비밀번호가 일치하지 않습니다.");
+			$.cookie("saveid", '', {expires:-1});
+			$("#passwd").val('');
+			$("#passwd").focus();
+		}
+	}).error(function(){
+		alert("로딩에 실패하였습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
+	});
+	
+}
+
 </script>
 
 <div class="row top_nav">

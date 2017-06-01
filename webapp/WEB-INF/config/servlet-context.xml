@@ -75,11 +75,9 @@
 	</beans:bean>
 	
 	<!-- Session -->
-	<!-- SessionVO
-	<beans:bean id="session" class="" scope="session">
+	<beans:bean id="session" class="kr.madison.common.vo.SessionVO" scope="session">
 		<aop:scoped-proxy proxy-target-class="true" />
 	</beans:bean>
-	 -->
 	 
 	<!-- PreCheck Interceptor -->
 	<mvc:interceptors>

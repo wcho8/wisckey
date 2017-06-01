@@ -16,7 +16,6 @@ public class MemberController extends CommonController{
 	@Autowired
 	MemberService memberService;
 	
-	//@RequestMapping("/Member/join")
 	@RequestMapping("/")
 	public ModelAndView memberJoin(){
 		ModelAndView mav = new ModelAndView();

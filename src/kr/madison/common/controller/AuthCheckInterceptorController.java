@@ -1,19 +1,19 @@
 package kr.madison.common.controller;
 
-import java.lang.reflect.Method;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import kr.madison.common.vo.SessionVO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 	//@Autowired
 	//private AuthCheckInterceptorService authCheckInterceptorService;
+	
+	@Autowired
+	SessionVO sessionVO;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -22,9 +22,9 @@ public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 		
 		if(servletPath.equals("/")){
 			return true;
-		} else if(servletPath.equals("/Member/")){
+		} /*else if(servletPath.equals("/Member/")){
 			return true;
-		}
+		} */
 		
 		
 		/*// 로그인 체크 제외

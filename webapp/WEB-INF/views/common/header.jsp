@@ -21,6 +21,7 @@
 <script src="/include/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script type="text/javascript" src="/include/js/alertMessage.js"></script>
 <script type="text/javascript" src="/include/js/custom.js"></script>
+<script type="text/javascript" src="/include/jQuery/jquery.cookie.js"></script>
 
 <!-- jqgrid -->
 <link type="text/css" href="/include/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
