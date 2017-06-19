@@ -59,11 +59,12 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">ABOUT <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">위스키 소개</a></li>
-								<li><a href="#">학교소개</a></li>
-								<li><a href="#">공지사항</a></li>
-								<li><a href="#">주요사이트 소개</a></li>
-							</ul></li>
+								<li><a href="/About/introWisckey">위스키 소개</a></li>
+								<li><a href="/About/introUniv">학교소개</a></li>
+								<li><a href="/About/notice">공지사항</a></li>
+								<li><a href="/About/otherSites">주요사이트 소개</a></li>
+							</ul>
+						</li>
 					</ul>
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"

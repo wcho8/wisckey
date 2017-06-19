@@ -90,6 +90,7 @@
 	<!-- Multipart Resolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	
+	
 	<!-- Path Properties -->
 	<beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<beans:property name="locations">
