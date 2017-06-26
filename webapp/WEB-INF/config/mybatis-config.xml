@@ -5,6 +5,7 @@
 		<typeAlias alias="MemberVO" type="kr.madison.member.vo.MemberVO" /> 
 		<typeAlias alias="SessionVO" type="kr.madison.common.vo.SessionVO" />
 		<typeAlias alias="LogInOutVO" type="kr.madison.common.vo.LogInOutVO" />
+		<typeAlias alias="BoardVO" type="kr.madison.board.vo.BoardVO" />
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="kr.madison.util.LocalDateTimeTypeHandler"/>

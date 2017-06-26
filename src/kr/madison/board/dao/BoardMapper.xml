@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
+SELECT
+	b.brdid,
+	b.frid,
+	b.title,
+	b.regdate,
+	a.nickname as writer
+FROM brd_freeboard b
+LEFT JOIN info_userinfo a on b.userno = a.userno
+ORDER BY b.brdid DESC
+</select>
+<select id="findBoardContent" parameterType="BoardVO" resultType="BoardVO">
+SELECT
+	b.brdid,
+	b.frid,
+	b.title,
+	b.regdate,
+	b.content,
+	a.nickname as writer,
+	b.userno
+	<!-- File 셀렉트 하는것 필요 -->
+FROM brd_freeboard b
+LEFT JOIN info_userinfo a on b.userno = a.userno
+WHERE b.brdid = #{brdid}
+</select>
+<insert id="addBoardData" parameterType="BoardVO">
+INSERT INTO brd_freeboard(
+	frid,
+	title,
+	regdate,
+	moddate,
+	content,
+	userno
+) VALUES(
+	#{frid},
+	#{title},
+	NOW(),
+	NOW(),
+	#{content},
+	#{userno}
+)
+<!-- File 추가 -->
+</insert>
+</mapper>

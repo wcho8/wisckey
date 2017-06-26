@@ -1,7 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#addBoard").click(function(){
+		var url = "/Board/BoardEdit";
+		$(location).attr("href", url);
+	});
+});
+
+function viewBoard(brdid){
+	var url = "/Board/BoardView?brdid=" + brdid;
+	$(location).attr("href", url);
+}
 
 </script>
 <style>
@@ -10,6 +21,13 @@ border-bottom:1px solid black;
 }
 .right_menu>div{
 border:1px dashed red; 
+}
+#board_table>thead>tr>th{
+border:1px solid black;
+text-align:center;
+}
+#board_table>tbody>tr>td{
+height:25px;
 }
 </style>
 <!-- s:container -->
@@ -31,13 +49,47 @@ border:1px dashed red;
 				</div>
 				<div class="hr_dash"></div>
 				<div id="board_name" style="margin-top:15px;text-align:center;background-color:green;font-size:20px;height:40px;color:white;">
-					게시판 제목
+					자유 게시판
 				</div>
-				<ul style="list-style:none;">
-					<li style="text-align:center;">
-						내용
-					</li>
-				</ul>
+				<div id="board_main">
+					<table id="board_table">
+						<colgroup>
+							<col style="width:50px;">
+							<col style="width:450px;">
+							<col style="width:150px;">
+							<col style="width:120px;">
+							<col style="width:50px;">
+							<col style="width:50px;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>닉네임</th>
+								<th>등록일</th>
+								<th>조회</th>
+								<th>추천수</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach items="${boardList}" var="list">
+							<tr onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer;">
+								<td>${list.brdid}</td>
+								<td>${list.title}</td>
+								<td>
+									${list.writer}
+								</td>
+								<td>${list.regdate}</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<button class="btn btn-warning fRight" id="addBoard">글쓰기</button>
+				</div>
 			</div>
 		</div>
 	</div>
