@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="About">
+	<select id="listNotice" parameterType="AboutVO" resultType="AboutVO">
+		select title, writer, date, hit from to_be_delete_notice order by idNum desc
+	</select>
+	<select id="viewNotice" parameterType="AboutVO" resultType="AboutVO">
+		select title, writer, date, hit from to_be_delete_notice where id
+	</select>
+	<insert id="addNewNotice" parameterType="AboutVO">
+		insert into to_be_delete_notice(
+			title, 
+			writer,
+			content,
+			date,
+			fix
+		) values(
+			#{title},
+			#{writer}, 
+			#{content},
+			NOW(),
+			#{fix}
+		)
+	</insert>
+	
+	<delete id="deleteNotice">
+		delete from to_be_delete_notice where idNum=#{param1}
+	</delete>
+
+<!-- 
+About bean
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name = "mapperLocations" value="classpath:/kr/madison/about/dao/*.xml"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
+ -->
+</mapper>
+
