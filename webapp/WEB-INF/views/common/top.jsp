@@ -71,8 +71,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">취업<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">취업공고</a></li>
-								<li><a href="#">취업 게시판</a></li>
+								<li><a href="/Career/employer">취업공고</a></li>
+								<li><a href="/Career/employBoard">취업 게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">

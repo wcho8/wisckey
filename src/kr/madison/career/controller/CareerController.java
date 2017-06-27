@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 @RequestMapping("/Career/*")
 public class CareerController {
@@ -23,6 +22,22 @@ public class CareerController {
 	public ModelAndView employer(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/career/employer");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/employBoard")
+	public ModelAndView employBoard(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/career/employBoard");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/viewEmployer")
+	public ModelAndView viewEmployer(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/career/viewEmployer");
 		
 		return mav;
 	}

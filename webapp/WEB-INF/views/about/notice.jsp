@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
+
 <script type="text/javascript">
 
 function writePost(){
@@ -14,7 +15,6 @@ $(document).ready(function(){
 	var url="/About/listNotice";
 	
 	$.post(url, {}, function(data){
-		console.log(data[0].fix);
 		for(var i=0; i<data.length; i++){
 			var d = new Date(data[i].date);
 			
