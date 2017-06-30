@@ -18,6 +18,7 @@ public class SessionVO implements Serializable {
 	private String nickname = null; //닉네임
 	
 	private String status = null;
+	private boolean islogin = false;
 	
 	public Integer getUserno() {
 		return userno;
@@ -77,6 +78,14 @@ public class SessionVO implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public boolean isIslogin() {
+		return islogin;
+	}
+
+	public void setIslogin(boolean islogin) {
+		this.islogin = islogin;
 	}
 	
 }

@@ -38,7 +38,11 @@
 <script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
 
 <!-- SmartEditor -->
-<script type="text/javascript" src="/include/SmartEditor/js/HuskyEZCreator.js"></script>
+<!-- <script type="text/javascript" src="/include/SmartEditor/js/HuskyEZCreator.js"></script>
+<script type="text/javascript" src="/include/SmartEditor/quick_photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"> </script> -->
+
+<!-- ckeditor -->
+<script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script>
 
 <!-- wisckey -->
 <link type="text/css" rel="stylesheet" href="/include/css/style.css" />

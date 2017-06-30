@@ -27,6 +27,7 @@ public class LogInOutService {
 						logVO.setStatus("Success");
 						paramVO.setUserno(logVO.getUserno());
 						paramVO.setSuccessyn("Y");
+						paramVO.setIslogin(true);
 						logInOutDAO.addLoginData(paramVO);
 					}
 				}else{

@@ -67,7 +67,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div class="fLeft" id="top_right">
-					<img src="../images/common/wisckey_1.png" style="height:150px;">		
+					<img src="../images/common/wisckey_1.png" style="height:150px;width:290px;margin-left:-20px;">		
 					<table id="login" style=" width:190px;float:left;">
 						<tr>
 							<td><input type="text" placeholder="아이디" style="margin-bottom: 5px; width:95%;" id="userid"></td>

@@ -3,24 +3,44 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-		oAppRef:oEditors,
-		elPlaceHolder:"content",
-		sSkinURI:"/include/SmartEditor/SmartEditor2Skin.html",	
-		htParams:{
-			bUseToolbar:true
-		},
-		fCreator:"createSEditor2"
+	var editor = CKEDITOR.replace('content',{
+		filebrowserImageUploadUrl: '/Board/uploadImageFile',
+		imageUploadUrl: '/Board/uploadImageFile',
+		uploadUrl: '/Board/uploadImageFile',
+		extraPlugins: 'uploadimage'
 	});
+	
+	
+	editor.on( 'fileUploadRequest', function( evt ) {
+	    var xhr = evt.data.fileLoader.xhr;
+		console.log(this.fileName);
+	    xhr.setRequestHeader( 'Cache-Control', 'no-cache' );
+	    xhr.setRequestHeader( 'X-File-Name', this.fileName );
+	    xhr.setRequestHeader( 'X-File-Size', this.total );
+	    xhr.send( this.file );
+
+	    // Prevented the default behavior.
+	    evt.stop();
+	} );
 	
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-		var params = $.extend({}, $("#brdContent").serialization(), {frid:1});
-		$.post(url, params, function(data){
-			$(location).attr("href", "/Board/");
-		});
+		var content = CKEDITOR.instances.content.getData(); 
+		var params = $.extend({}, $("#brdContent").serialization(), {frid:1,content:content}); //TODO: frid -> 보드 타입 (추가 개발 필요)
+		if(params.title == null || params.title == ""){
+			alert("제목을 입력하여 주십시오.");
+			$("#title").focus();
+			return;
+		}
+		if(params.content == null || params.content == ""){
+			alert("내용을 입력하여 주십시오.");
+			$("#content").focus();
+			return;
+		}else{
+			$.post(url, params, function(data){
+				$(location).attr("href", "/Board/BoardView?brdid="+data);
+			});
+		}
 	});
 });
 </script>
@@ -59,7 +79,7 @@ border:1px dashed red;
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td><textarea id="content" style="width:100%; height:400px; display:none;" valid="내용"></textarea></td>
+								<td style="background-color:white;"><textarea id="content" style="width:100%; height:400px; display:none; "valid="내용"></textarea></td>
 							</tr>
 						</tbody>
 					</table>

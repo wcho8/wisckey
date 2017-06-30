@@ -20,11 +20,13 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.madison.common.controller.CommonController;
+import kr.madison.common.vo.CommonVO;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
 
-public class Util {
+public class Util extends CommonController{
 	public static String getDateString(Date objDate, String strFormat) {
 		String strResult = "";
 		SimpleDateFormat formatter;
@@ -788,5 +790,33 @@ public class Util {
 		}
 		
 	    return result;
+	}
+	
+	public static void setPaging(CommonVO paramVO, int totalcount, int pageRow) {
+		int pagegroup = 5;	// 페이징 그룹의 수 [1][2][3][4][5] - [6][7][8][9][10]....
+		int mypage = paramVO.getMypage();	//현재 페이지
+		
+		if (mypage == 0) {	// 최초 진입 시 mypage가 0이므로 1으로 세팅
+			mypage = 1;
+		}
+		
+		int skiprow = (mypage * pageRow) - pageRow;	// DB에 SKIP 속성에 사용할 변수 
+		int block = totalcount / pageRow;			// block = 총 게시글 수 / 한 페이지의 게시글 수 ==> 총 페이지 수 
+		int startpage = (((mypage - 1)/pagegroup) * pagegroup) + 1;			//페이지 그룹의 시작점
+		int endpage = ((mypage + pagegroup - 1) / pagegroup) * pagegroup;	//페이지 그룹의 끝점
+		if ((totalcount % pageRow) > 0) {			// ex) 총 게시글 개수 72개면 2개가 남으므로 총 페이지 수 + 1
+			block++;
+		}
+		
+		//페이지 그룹의 끝 번호가 최종 끝 번호보다 클 경우 
+		if (endpage > block) {
+			endpage = block;
+		}
+		paramVO.setMypage(mypage);
+		paramVO.setBlock(block);
+		paramVO.setSkiprow(skiprow);
+		paramVO.setStartpage(startpage);
+		paramVO.setEndpage(endpage);
+		paramVO.setPagerow(pageRow);
 	}
 }

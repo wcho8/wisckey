@@ -177,6 +177,7 @@ function addMember(){
 	//TODO: 권한 관리
 	params.authid = 5;
 	params.gender = $("input[name=gender]:checked").val();
+	params.useyn = 'Y';
 	if(!chkId){
 		alert("아이디 중복확인 하여 주십시오.");
 		return;

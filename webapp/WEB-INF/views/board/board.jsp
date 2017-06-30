@@ -2,10 +2,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
+var curPage = "/Board/?";
 $(document).ready(function(){
+	var defaultParams = {
+		userno: "${session.userno}",
+		username: "${session.username}",
+		nickname: "${session.nickname}",
+		mypage: "${paramVO.mypage}"
+	}
 	$("#addBoard").click(function(){
 		var url = "/Board/BoardEdit";
-		$(location).attr("href", url);
+		if(defaultParams.userno == "" || defaultParams.userno == null){
+			alert("로그인 하셔야 이용하실 수 있습니다.");
+			return;
+		}else{
+			$(location).attr("href", url);
+		}
+	});
+	$("#searchType").change(function(){
+		if($(this).val() == 1){
+			$("#searchTitle").show();
+			$("#searchNickname").hide();
+		}else if($(this).val() == 2){
+			$("#searchTitle").hide();
+			$("#searchNickname").show();
+		}
+	});
+	
+	$("#search").click(function(){
+		var url="/Board/searchBoard";
 	});
 });
 
@@ -23,11 +48,22 @@ border-bottom:1px solid black;
 border:1px dashed red; 
 }
 #board_table>thead>tr>th{
-border:1px solid black;
 text-align:center;
+font-size:15px;
+font-color:white;
+height:40px;
+background-color:#cacaca;
 }
 #board_table>tbody>tr>td{
 height:25px;
+}
+table{
+border:1px solid #cacaca;
+border-collapse:collapse;
+}
+td{
+border-top:1px solid #cacaca;
+font-size:13px;
 }
 </style>
 <!-- s:container -->
@@ -44,19 +80,21 @@ height:25px;
 				</ul>
 			</div>
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<div id="search_box" style="text-align:center;height:45px; padding-top:10px;background-color:grey;color:white;">
-					서치박스
+				<div id="board_name">
+					<div style="margin-top:15px;margin-left:15px;">
+						<span style="text-decoration:underline;font-size:23px;">자유 게시판</span><br/><br/>
+						
+						Wiskey의 자유게시판 입니다.<br/>
+						마음 편하게 작성하시기 바랍니다.
+					</div>
 				</div>
 				<div class="hr_dash"></div>
-				<div id="board_name" style="margin-top:15px;text-align:center;background-color:green;font-size:20px;height:40px;color:white;">
-					자유 게시판
-				</div>
-				<div id="board_main">
-					<table id="board_table">
+				<div id="board_main" style="width:100%;margin-top:10px;">
+					<table id="board_table" class="table-hover" style="width:875px;background-color:white;">
 						<colgroup>
 							<col style="width:50px;">
-							<col style="width:450px;">
-							<col style="width:150px;">
+							<col style="width:485px;">
+							<col style="width:120px;">
 							<col style="width:120px;">
 							<col style="width:50px;">
 							<col style="width:50px;">
@@ -74,22 +112,48 @@ height:25px;
 						<tbody>
 						<c:forEach items="${boardList}" var="list">
 							<tr onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer;">
-								<td>${list.brdid}</td>
-								<td>${list.title}</td>
-								<td>
-									${list.writer}
-								</td>
-								<td>${list.regdate}</td>
-								<td>0</td>
-								<td>0</td>
+								<td style="text-align:center;">&nbsp;${list.brdid}</td>
+								<td>&nbsp;${list.title}</td>
+								<td style="text-align:center;">&nbsp;${list.writer}</td>
+								<td style="text-align:center;">&nbsp;${list.regdate}</td>
+								<td style="text-align:center;">&nbsp;${list.count}</td>
+								<td style="text-align:center;">&nbsp;${list.likes}</td>
 							</tr>
 						</c:forEach>
 						</tbody>
 					</table>
+					<div id="search_box" style="text-align:center;height:45px; padding-top:10px;">
+						<select id="searchType" style="width:150px; float:left;">
+							<option value="1">제목</option>
+							<option value="2">닉네임</option>
+							<option value="3">게시물 타입</option>
+						</select>
+						<div id="searchValue" style="float:right;">
+							<input type="text" id="searchTitle" placeHolder="제목">
+							<input type="text" id="searchNickname" style="display:none;">
+							<%-- <select id="searchBrdType" style="width:150px;float:right;display:none;">
+								<option value="${vo.frid}">${vo.frname}</option>
+							</select> --%>
+							<button class="btn btn-default" id="search" style="margin-left:5px;">검색</button>
+						</div>
+					</div>
 				</div>
-				<div>
-					<button class="btn btn-warning fRight" id="addBoard">글쓰기</button>
-				</div>
+				<div class="col-10 mt15">
+		            <div class="fLeft text-left col-1">
+		                <b>⊙Total : ${totalCnt}</b>
+		            </div>
+		            <div class="fLeft text-center col-8">
+		                <jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
+		                 <%-- <c:if test="${paramVO.iTotalRowCount == 0}">
+					        &nbsp;
+					     </c:if>		 --%>
+		            </div>
+		            <div class="fRight text-right col-1">	
+		            	<c:if test="${session.userno > 0}">
+		                    <button class="btn btn-black" id="addBoard">글쓰기</button>
+		                </c:if>
+		            </div>
+		        </div>
 			</div>
 		</div>
 	</div>

@@ -1,47 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
-<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
-SELECT
-	b.brdid,
-	b.frid,
-	b.title,
-	b.regdate,
-	a.nickname as writer
-FROM brd_freeboard b
-LEFT JOIN info_userinfo a on b.userno = a.userno
-ORDER BY b.brdid DESC
-</select>
-<select id="findBoardContent" parameterType="BoardVO" resultType="BoardVO">
-SELECT
-	b.brdid,
-	b.frid,
-	b.title,
-	b.regdate,
-	b.content,
-	a.nickname as writer,
-	b.userno
-	<!-- File 셀렉트 하는것 필요 -->
-FROM brd_freeboard b
-LEFT JOIN info_userinfo a on b.userno = a.userno
-WHERE b.brdid = #{brdid}
-</select>
-<insert id="addBoardData" parameterType="BoardVO">
-INSERT INTO brd_freeboard(
-	frid,
-	title,
-	regdate,
-	moddate,
-	content,
-	userno
-) VALUES(
-	#{frid},
-	#{title},
-	NOW(),
-	NOW(),
-	#{content},
-	#{userno}
-)
-<!-- File 추가 -->
-</insert>
+	<select id="findBoardTotalCnt" parameterType="BoardVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_freeboard
+	</select>
+	<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			b.brdid,
+			b.frid,
+			b.title,
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
+			END as regdate,
+			a.nickname as writer,
+			b.count,
+			b.likes
+		FROM brd_freeboard b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		ORDER BY b.brdid DESC
+		LIMIT #{skiprow}, #{pagerow}
+	</select>
+	<select id="findBoardContent" parameterType="BoardVO"
+		resultType="BoardVO">
+		SELECT
+			b.brdid,
+			b.frid,
+			b.title,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			b.content,
+			a.nickname as writer,
+			b.userno,
+			b.count,
+			b.likes,
+			b.dislikes
+			<!-- File 셀렉트 하는것 필요 -->
+		FROM brd_freeboard b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE b.brdid = #{brdid}
+	</select>
+	<insert id="addBoardData" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
+		INSERT INTO brd_freeboard(
+			frid,
+			title,
+			regdate,
+			moddate,
+			content,
+			userno
+		) VALUES(
+			#{frid},
+			#{title},
+			NOW(),
+			NOW(),
+			#{content},
+			#{userno}
+		)
+		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		<!-- File 추가 -->
+	</insert>
+	<insert id="addBoardReply" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
+		INSERT INTO brd_freeboard_reply(
+			brdid,
+			content,
+			regdate,
+			moddate,
+			userno
+		)VALUES(
+			#{brdid},
+			#{repContent},
+			NOW(),
+			NOW(),
+			#{userno}
+		)
+		<selectKey keyProperty="repid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="modBoardCount" parameterType="BoardVO">
+		UPDATE brd_freeboard SET
+			count = count + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modBoardLikes" parameterType="BoardVO">
+		UPDATE brd_freeboard SET
+			likes = likes + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modBoardDislikes" parameterType="BoardVO">
+		UPDATE brd_freeboard SET
+			dislikes = dislikes + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modRepLikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply SET
+			likes = likes + 1
+		WHERE repid = #{repid}
+	</update>
+	<update id="modRepDisLikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply SET
+			dislikes = dislikes + 1
+		WHERE repid = #{repid}
+	</update>
+	<select id="getReplyCount" parameterType="BoardVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_freeboard_reply
+		WHERE brdid = #{brdid}
+	</select>
+	<select id="findBoardReply" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			a.repid,
+			b.nickname as replier,
+			a.content as repContent,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			a.likes as repLikes,
+			a.dislikes as repDislikes
+		FROM brd_freeboard_reply a
+		LEFT JOIN info_userinfo b on a.userno = b.userno
+		WHERE a.brdid = #{brdid}
+	</select>
 </mapper>
