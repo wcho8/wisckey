@@ -13,7 +13,7 @@ public class MainController {
 		ModelAndView mav = null;
 		
 		mav = new ModelAndView();
-		mav.setViewName("main/index");
+		mav.setViewName("/main/index");
 		
 		return mav;
 	}

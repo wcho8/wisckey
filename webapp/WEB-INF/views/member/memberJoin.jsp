@@ -174,8 +174,9 @@ function chkValid(){
 
 function addMember(){
 	var params = $("#infos").serialization();
-	//TODO: 권한 관리
-	params.authid = 5;
+                                             	
+	//TODO: 권한 관리                                                      
+	params.authid = 5;                       
 	params.gender = $("input[name=gender]:checked").val();
 	params.useyn = 'Y';
 	if(!chkId){
@@ -189,7 +190,7 @@ function addMember(){
 	
 	if($("#birthdate").val() != null && $("#birthdate").val() != ""){
 		var today = new Date();
-		
+			
 	}
 	
 	var url = "/Member/addMember";
