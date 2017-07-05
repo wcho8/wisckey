@@ -1,10 +1,12 @@
 package kr.madison.about.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.madison.about.dao.AboutDAO;
 import kr.madison.about.vo.AboutVO;
 import kr.madison.common.service.CommonService;
+import kr.madison.common.vo.SessionVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,37 +15,37 @@ import org.springframework.stereotype.Service;
 public class AboutService extends CommonService{
 
 	@Autowired
-	private AboutDAO aboutDAO;
+	AboutDAO aboutDAO;
+	
+	@Autowired
+	protected SessionVO session;
 	
 	public int addNewNotice(AboutVO paramVO){
-		int result=0;
-		try{
-			result = aboutDAO.addNewNotice(paramVO);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		paramVO.setUserno(session.getUserno());
+		
+		int result = aboutDAO.addNewNotice(paramVO);
+		
 		return result;
 	}
 	
 	public List<AboutVO> listNotice(AboutVO paramVO){
-		List<AboutVO> list = null;
+		List<AboutVO> list = new ArrayList<AboutVO>();
 		
-		try{
-			list = aboutDAO.listNotice(paramVO);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		list = aboutDAO.listNotice(paramVO);
+		
 		return list;
 	}
 	
-	public AboutVO viewNotice(AboutVO paramVO){
-		AboutVO aboutVO = new AboutVO();
-		try{
-			aboutVO = aboutDAO.viewNotice(paramVO);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+	public AboutVO findAboutContent(AboutVO paramVO){
+		AboutVO result = aboutDAO.findAboutContent(paramVO);
+
+		return result;
+	}
+
+
+	public int modNoticeCount(AboutVO paramVO) {
+		int result = aboutDAO.modNoticeCount(paramVO);
 		
-		return aboutVO;
+		return result;
 	}
 }

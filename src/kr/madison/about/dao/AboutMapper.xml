@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 	
 <mapper namespace="About">
 	<select id="listNotice" parameterType="AboutVO" resultType="AboutVO">
-		select title, writer, date, hit from to_be_delete_notice order by idNum desc
+		SELECT 
+			b.nid, 
+			b.title, 
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
+			END as regdate,
+			b.count,
+			b.likes,  
+			a.nickname as writer
+		FROM info_notice b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		ORDER BY b.nid DESC
 	</select>
 	<select id="viewNotice" parameterType="AboutVO" resultType="AboutVO">
-		select title, writer, date, hit from to_be_delete_notice where id
+		SELECT 
+			b.nid,
+			b.title,
+			b.regdate,
+			b.content,
+			a.nickname as writer,
+			b.userno,
+			b.count,
+			b.likes
+			<!-- File 셀렉트 하는것 필요 -->
+		FROM info_notice b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE b.nid = #{nid}
 	</select>
 	<insert id="addNewNotice" parameterType="AboutVO">
-		insert into to_be_delete_notice(
+		INSERT INTO info_notice(
 			title, 
-			writer,
+			regdate,
+			moddate,
 			content,
-			date,
-			fix
-		) values(
+			userno
+		) VALUES(
 			#{title},
-			#{writer}, 
-			#{content},
 			NOW(),
-			#{fix}
+			NOW(),
+			#{content},
+			#{userno}
 		)
+		<selectKey keyProperty="nid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		<!-- File 추가 -->
 	</insert>
-	
+	<update id="modNoticeCount" parameterType="AboutVO">
+		UPDATE info_notice SET
+			count = count+1
+		WHERE nid=#{nid}
+	</update>
 	<delete id="deleteNotice">
 		delete from to_be_delete_notice where idNum=#{param1}
 	</delete>

@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Career">
+	<select id="findEmployerList" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			b.brdid,
+			b.empid,
+			b.title,
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
+			END as regdate,
+			a.nickname as writer,
+			b.count,
+			b.likes
+		FROM brd_employment b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		ORDER BY b.brdid DESC
+	</select>
+	<select id="findEmployerContent" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			b.brdid,
+			b.empid,
+			b.title,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			b.content,
+			a.nickname as writer,
+			b.userno,
+			b.count,
+			b.likes
+		FROM brd_employment b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE b.brdid = #{brdid}
+	</select>
+	<insert id="addEmployerData" parameterType="CareerVO" useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
+		INSERT INTO brd_employment(
+			empid,
+			title,
+			deadline,
+			regdate,
+			moddate,
+			content,
+			userno
+		) VALUES(
+			#{empid},
+			#{title},
+			#{deadline},
+			NOW(),
+			NOW(),
+			#{content},
+			#{userno}
+		)
+		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		<!-- File 추가 -->
+	</insert>
+	<update id="modEmployerCount" parameterType="CareerVO">
+		UPDATE brd_employment SET
+			count = count + 1
+		WHERE brdid = #{brdid}
+	</update>
 
 </mapper>

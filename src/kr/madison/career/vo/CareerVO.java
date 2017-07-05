@@ -1,19 +1,37 @@
 package kr.madison.career.vo;
 
-import java.util.Calendar;
+import kr.madison.common.vo.CommonVO;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-public class CareerVO {
-	private int brdid;
-	private int empid;
-	private String title;
-	private String content;
-	private Calendar regdate;
-	private Calendar moddate;
-	private int userno;
-	private int count;
-	private int likes;
+@JsonSerialize(include=JsonSerialize.Inclusion.ALWAYS)
+public class CareerVO extends CommonVO{
+	public int brdid;
+	public int empid;
+	public String title;
+	public String content;
+	public String writer;
+	public String deadline;
+	public String regdate;
+	public String moddate;
+	public int userno;
+	public int count;
+	public int likes;
 	
+	
+	
+	public String getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public int getBrdid() {
 		return brdid;
 	}
@@ -38,23 +56,23 @@ public class CareerVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Calendar getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Calendar regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public Calendar getModdate() {
+	public String getModdate() {
 		return moddate;
 	}
-	public void setModdate(Calendar moddate) {
+	public void setModdate(String moddate) {
 		this.moddate = moddate;
 	}
-	public int getUserno() {
+	public Integer getUserno() {
 		return userno;
 	}
-	public void setUserno(int userno) {
-		this.userno = userno;
+	public void setUserno(Integer userno) {
+		this.userno = (int)userno;
 	}
 	public int getCount() {
 		return count;
@@ -68,7 +86,8 @@ public class CareerVO {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-
+	
+	
 
 
 

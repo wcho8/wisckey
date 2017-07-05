@@ -6,7 +6,7 @@
 			COUNT(*)
 		FROM brd_freeboard
 	</select>
-	<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
+ 	<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
 		SELECT
 			b.brdid,
 			b.frid,
