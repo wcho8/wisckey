@@ -30,7 +30,6 @@ public class CareerService extends CommonService{
 
 	public int addEmployerData(CareerVO paramVO) {
 		paramVO.setUserno(session.getUserno());
-		System.out.println("--------------------------------" + paramVO.getEmpid());
 		int result = careerDAO.addEmployerData(paramVO);
 		
 		return result;
@@ -46,5 +45,11 @@ public class CareerService extends CommonService{
 		
 		return result;
 		
+	}
+
+	public int findEmployerTotalCnt(CareerVO paramVO) {
+		int result = 0;
+		result = careerDAO.findEmployerTotalCnt(paramVO);
+		return result;
 	}
 }

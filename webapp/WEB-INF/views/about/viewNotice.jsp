@@ -6,6 +6,8 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
+
+
 $(document).ready(function(){
 	var defaultParams = {
 			nid: "${paramVO.nid}",
@@ -23,7 +25,7 @@ $(document).ready(function(){
 });
 
 function toNoticeList(){
-	var url="/About/notice";
+	var url="/About/";
 	$(location).attr("href", url);
 }
 

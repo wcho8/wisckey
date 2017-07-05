@@ -28,4 +28,8 @@ public class CareerDAO extends CommonDAO{
 		return getSqlSession().update("Career.modEmployerCount", paramVO);
 	}
 
+	public int findEmployerTotalCnt(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.findEmployerTotalCnt", paramVO);
+	}
+
 }

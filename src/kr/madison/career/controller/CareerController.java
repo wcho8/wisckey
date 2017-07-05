@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.madison.career.service.CareerService;
 import kr.madison.career.vo.CareerVO;
+import kr.madison.util.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/Career/*")
 public class CareerController {
 
+	final private int pageRow =10;
+	
 	@Autowired
 	CareerService careerService;
 	
@@ -26,11 +29,18 @@ public class CareerController {
 	}
 	
 	//취업공고
-	@RequestMapping("/employer")
+	@RequestMapping("/")
 	public ModelAndView employer(@ModelAttribute("paramVO") CareerVO paramVO){
 		ModelAndView mav = new ModelAndView();
+		
+		int totalcount = careerService.findEmployerTotalCnt(paramVO);
+		
+		Util.setPaging(paramVO, totalcount, pageRow);
+		
 		List<CareerVO> vo = careerService.findCareerList(paramVO);
+	
 		mav.addObject("careerList", vo);
+		mav.addObject("totalCnt", totalcount);
 		mav.setViewName("/career/employer");
 		
 		return mav;

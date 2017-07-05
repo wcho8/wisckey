@@ -4,6 +4,7 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
+var curPage = "/About/?";
 $(document).ready(function(){
 	var defaultParams ={
 			userno: "${session.userno}",
@@ -110,13 +111,13 @@ function viewNotice(nid){
 							</thead>
 							<tbody>
 							<c:forEach items="${aboutList}" var = "list">
-								<tr>
+								<tr style="height:40px;">
 									<td style="text-align: center;">&nbsp;${list.nid}</td>
 									<td onClick="javascript:viewNotice(${list.nid});" style="cursor:pointer; padding-left:10px;">&nbsp;${list.title}</td>
-									<td style="text-align: center;">${list.writer}</td>
-									<td style="text-align: center;">${list.regdate}</td>
-									<td style="text-align: center;">${list.count}</td>
-									<td style="text-align: center;">${list.likes}</td>
+									<td style="text-align: center;">&nbsp;${list.writer}</td>
+									<td style="text-align: center;">&nbsp;${list.regdate}</td>
+									<td style="text-align: center;">&nbsp;${list.count}</td>
+									<td style="text-align: center;">&nbsp;${list.likes}</td>
 								</tr>
 							</c:forEach>
 							</tbody>

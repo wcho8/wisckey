@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.madison.about.service.AboutService;
 import kr.madison.about.vo.AboutVO;
+import kr.madison.util.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/About/*")
 public class AboutController {
+	
+	final private int pageRow=10;
 	
 	@Autowired
 	AboutService aboutService;
@@ -53,12 +56,18 @@ public class AboutController {
 	}
 	
 	//여기서부터 공지사항 탭
-	@RequestMapping("/notice")
+	@RequestMapping("/")
 	public ModelAndView notice(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
+		
+		int totalcount = aboutService.findNoticeTotalCnt(paramVO);
+		
+		Util.setPaging(paramVO, totalcount, pageRow);
+		
 		List<AboutVO> vo = aboutService.listNotice(paramVO);
 		
 		mav.addObject("aboutList", vo);
+		mav.addObject("totalCnt", totalcount);
 		mav.setViewName("/about/notice");
 		return mav;
 	}

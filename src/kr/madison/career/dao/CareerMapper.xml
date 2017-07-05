@@ -4,6 +4,11 @@
 	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Career">
+	<select id="findEmployerTotalCnt" parameterType="CareerVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_employment
+	</select>
 	<select id="findEmployerList" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
 			b.brdid,
@@ -13,12 +18,15 @@
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
 				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
 			END as regdate,
+			b.deadline,
 			a.nickname as writer,
 			b.count,
 			b.likes
+			
 		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		ORDER BY b.brdid DESC
+		LIMIT #{skiprow}, #{pagerow}
 	</select>
 	<select id="findEmployerContent" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
@@ -27,6 +35,7 @@
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
+			b.deadline,
 			a.nickname as writer,
 			b.userno,
 			b.count,

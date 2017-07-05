@@ -5,6 +5,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <!-- 취업공고 올리는 곳 -->
 <script type="text/javascript">
+
+var curPage = "/Career/?";
 $(document).ready(function(){
 	var defaultParams={
 			userno:"${session.userno}",
@@ -40,7 +42,6 @@ function viewEmployer(brdid){
 }
 
 </script>
-
 
 <style type="text/css">
 #title_list li>a:active {
@@ -85,29 +86,32 @@ function viewEmployer(brdid){
 				</ul>
 			</div>
 			<div class="center_menu" style="width: 870px; float:left; margin-left:30px;">
-				<table id="primary_table" style="background-color: : #fffafa; width:870px;">
+				<table id="primary_table" style="background-color: #fffafa; width:870px; border-top: 2px solid #FF0000; border-bottom: 2px solid #FF0000;">
 					<colgroup>
-						<col style="width:60px;">
-						<col style="width:460px;">
-						<col style="width:130px;">
-						<col style="width:130px;">
-						<col style="width: 60px;">
+						<col style="width: 50px;">
+						<col style="width:390px;">
+						<col style="width:120px;">
+						<col style="width:150px;">
+						<col style="width: 80px;">
+						<col style="width: 50px;">
 					</colgroup>
 					<thead>
-						<tr id="top_row" style="width: 900px; height:100%; text-align:center; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
+						<tr id="top_row" style="width: 870px; height:30px; text-align:center; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
 							<td>번호</td>
 							<td>제목</td>
 							<td>닉네임</td>
+							<td>접수기한</td>
 							<td>작성일</td>
 							<td>조회수</td>
 						</tr>
 					</thead>
 					<tbody style="text-align: center; padding: 10px;">
 					<c:forEach items="${careerList}" var="list">
-						<tr>
+						<tr style="height:40px;">
 							<td style="text-align: center;">&nbsp;${list.brdid}</td>
 							<td onClick="javascript:viewEmployer(${list.brdid});" style="cursor:pointer; padding-left:10px;">&nbsp;${list.title}</td>
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
+							<td style="text-align: center;">&nbsp;${list.deadline }</td>
 							<td style="text-align: center;">&nbsp;${list.regdate}</td>
 							<td style="text-align: center;">&nbsp;${list.count}</td>
 						</tr>
@@ -128,6 +132,11 @@ function viewEmployer(brdid){
 				</div>
 				<div>
 					<button class="btn newEmployer" id="addEmployer" style="float:right;">글쓰기</button>
+				</div>
+				<div class="col-10 mt15">
+					<div class="fLeft text-center col-8" style="padding-top:20px;">
+				    	<jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
+					</div>
 				</div>
 			</div>
 		</div>

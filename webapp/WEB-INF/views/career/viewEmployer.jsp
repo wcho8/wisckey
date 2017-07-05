@@ -13,10 +13,12 @@ $(document).ready(function(){
 		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}"
 	};
-	
+	console.log(defaultParams);
 	$("#employerList").click(function(){
+		var params = $.param(defaultParams);
 		var url ="/Career/employer";
-		$(location).attr("href", url);
+		$(location).attr("href", "/Career/?"+params);
+		/*$(location).attr("href", url);*/
 	})
 });
 
@@ -76,7 +78,7 @@ $(document).ready(function(){
 				
 				<div id="notice_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="notice_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<b>${vo.title }</b> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<b>${vo.title }</b> <span style="font-size: 14px; margin-left:20px;">&nbsp;접수기한: ${vo.deadline}</span> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="notice_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
