@@ -11,13 +11,8 @@ import org.springframework.stereotype.Repository;
 public class AboutDAO extends CommonDAO{
 
 	public int addNewNotice(AboutVO paramVO) {
-		int result=0;
-		try{
-			result = getSqlSession().insert("About.addNewNotice", paramVO);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
+		getSqlSession().insert("About.addNewNotice",paramVO);
+		return paramVO.getNid();
 	}
 	
 	public List<AboutVO> listNotice(AboutVO paramVO){
@@ -27,9 +22,16 @@ public class AboutDAO extends CommonDAO{
 		return list;
 	}
 
-	public AboutVO viewNotice(AboutVO paramVO) {
-		AboutVO aboutVO = getSqlSession().selectOne("About.viewNotice", paramVO);
-		
-		return aboutVO;
+	public AboutVO findAboutContent(AboutVO paramVO) {
+		return getSqlSession().selectOne("About.viewNotice", paramVO);
 	}
+
+	public int modNoticeCount(AboutVO paramVO) {
+		return getSqlSession().update("About.modNoticeCount", paramVO);
+	}
+
+	public int findNoticeTotalCnt(AboutVO paramVO) {
+		return getSqlSession().selectOne("About.findNoticeTotalCnt", paramVO);
+	}
+
 }

@@ -5,7 +5,7 @@
 	SELECT
 		info.userno,
 		info.userid,
-		info.passwd,
+		info.passwd, 
 		info.korname,
 		info.email,
 		info.gender,

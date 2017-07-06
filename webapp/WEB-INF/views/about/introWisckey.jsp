@@ -53,21 +53,17 @@
 					<li><a href="/About/introWisckey">-위스키 소개</a></li>
 					<li><a href="/About/introUniv">-학교소개</a></li>
 					<li><a href="/About/notice">-공지사항</a></li>
-					<li><a href="/About/otherSites">-주요사이트 소개</a></li>
+					<li><a href="/About/otherSites">-주요사이트</a></li>
 				</ul>
 			</div>
 			
-			<div class="center_menu" style="width: 800px; height: 100%; float:left; border:1px solid #ff0000">
-				<div id="center_s_menu1" style="text-align: center; border: 1px solid #00ff00">
-					<img src="../images/uwMadison.jpg">
+			<div class="center_menu" style="width: 800px; height: 100%; float:left;">
+				<div id="center_s_menu1" style="text-align: center;">
+					<img src="../images/LOGO1.png">
 				</div>
-				<div id="center_s_menu2" style="overflow: hidden; border: 2px solid #0f0f0f">
-					<div id="center_s_menu2_1" style="float:left; border: 1px solid #0000ff">
-						<img src="../images/LOGO.jpg" style="width:300px; height: 100px;">
-						
-					</div>
-					<div id="center_s_menu2_2" style="width: 490px;float:left; border: 1px solid #0000ff">
-						<h3>안녕하세요. 위스키입sl다!</h3><br/>
+				<div id="center_s_menu2" style="overflow: hidden; margin-left:50px;">
+					<div id="center_s_menu2_1" style="width: 490px;float:left;">
+						<h3>안녕하세요. <b>위스키</b>입니다!</h3><br/>
 						<h5>위스키가 뭐냐구요???</h5><br/>
 						
 						<p>궁금해요?? 궁금하면 5백원aaaaaaaaaaaaaaaaaaaabdfbdfbdfb</p>
@@ -85,14 +81,6 @@
 						
 					</div>
 				</div>	
-			</div>
-			
-			<div class="right_menu" style="float:right; text-align:right; width: 130px; border-left:1px solid #cccccc;" >
-				<div id="r_title">오른쪽 타이틀</div>
-				<ul style="list-style:none;"> 
-					<li><a href="#">메뉴1</a></li>
-					<li><a href="#">메뉴2</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>

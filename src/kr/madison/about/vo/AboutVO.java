@@ -1,46 +1,34 @@
 package kr.madison.about.vo;
 
-import java.sql.Timestamp;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-public class AboutVO {
+import kr.madison.common.vo.CommonVO;
+
+@JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
+public class AboutVO extends CommonVO {
 	
-	private int idNumber;
+	private int nid;
 	private String title;
-	private String writer;
 	private String content;
-	private Timestamp date;
-	private int hit;
-	private String fix;
+	private String regdate;
+	private String moddate;
+	private String writer;
+	private int userno;
+	private int count;
+	private int likes;
 	
-	public Timestamp getDate() {
-		return date;
+	
+	public String getWriter() {
+		return writer;
 	}
-
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-
-	public int getHit() {
-		return hit;
+	public int getNid() {
+		return nid;
 	}
-
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
-
-	public String getFix() {
-		return fix;
-	}
-
-	public void setFix(String fix) {
-		this.fix = fix;
-	}
-
-	public int getIdNumber() {
-		return idNumber;
-	}
-	public void setIdNumber(int idNumber) {
-		this.idNumber = idNumber;
+	public void setNid(int nid) {
+		this.nid = nid;
 	}
 	public String getTitle() {
 		return title;
@@ -54,15 +42,34 @@ public class AboutVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public String getWriter() {
-		return writer;
+	public String getRegdate() {
+		return regdate;
 	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
-	
-	
-	
+	public String getModdate() {
+		return moddate;
+	}
+	public void setModdate(String moddate) {
+		this.moddate = moddate;
+	}
+	public Integer getUserno() {
+		return userno;
+	}
+	public void setUserno(Integer userno) {
+		this.userno = (int)userno;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
 }

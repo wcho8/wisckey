@@ -1,7 +1,5 @@
 package kr.madison.board.vo;
 
-import java.util.Date;
-
 import kr.madison.common.vo.CommonVO;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
