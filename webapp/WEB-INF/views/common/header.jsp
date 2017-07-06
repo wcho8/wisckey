@@ -28,21 +28,22 @@
 <script type="text/javascript" src="/include/jqGrid/js/jquery.jqgrid.src.js"></script>
 
 <!-- bootstrap-->
-<link href="/include/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/include/css/bootstrap.css" rel="stylesheet"/>
 <link href="/include/css/style.css" rel="stylesheet"/>
-<script src="/include/js/bootstrap.min.js"></script>
+<script src="/include/js/bootstrap.js"></script>
 
 <!-- fullCalendar -->
 <link type="text/css" href="/include/fullcalendar/fullcalendar.css" rel="stylesheet" />
 <script type="text/javascript" src="/include/fullcalendar/fullcalendar.js"></script>
 <script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
 
-<!-- SmartEditor -->
-<!-- <script type="text/javascript" src="/include/SmartEditor/js/HuskyEZCreator.js"></script>
-<script type="text/javascript" src="/include/SmartEditor/quick_photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"> </script> -->
-
 <!-- ckeditor -->
-<script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script>
+<!-- <script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script> -->
+
+<!-- Summernote -->
+<link type="text/css" href="/include/summernote-0.8.4-dist/dist/summernote.css" rel="stylesheet"/>
+<script type="text/javascript" src="/include/summernote-0.8.4-dist/dist/summernote.js"></script>
+<script type="text/javascript" src="/include/summernote-0.8.4-dist/dist/lang/summernote-ko-KR.js"></script>
 
 <!-- wisckey -->
 <link type="text/css" rel="stylesheet" href="/include/css/style.css" />

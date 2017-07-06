@@ -2,6 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias alias="ImageVO" type="kr.madison.common.vo.ImageVO" />
 		<typeAlias alias="MemberVO" type="kr.madison.member.vo.MemberVO" /> 
 		<typeAlias alias="SessionVO" type="kr.madison.common.vo.SessionVO" />
 		<typeAlias alias="LogInOutVO" type="kr.madison.common.vo.LogInOutVO" />

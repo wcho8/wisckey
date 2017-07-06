@@ -17,7 +17,8 @@
 			END as regdate,
 			a.nickname as writer,
 			b.count,
-			b.likes
+			b.likes,
+			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		ORDER BY b.brdid DESC

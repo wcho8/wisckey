@@ -27,9 +27,11 @@ public class BoardVO extends CommonVO{
 	public String repRegdate;
 	public int repLikes;
 	public int repDislikes;
+	public String responseType;
 	
 	//file upload
 	public String type;
+	public String CKEditorFuncNum; 
 	
 	public int getBrdid() {
 		return brdid;
@@ -138,5 +140,17 @@ public class BoardVO extends CommonVO{
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getResponseType() {
+		return responseType;
+	}
+	public void setResponseType(String responseType) {
+		this.responseType = responseType;
+	}
+	public String getCKEditorFuncNum() {
+		return CKEditorFuncNum;
+	}
+	public void setCKEditorFuncNum(String cKEditorFuncNum) {
+		CKEditorFuncNum = cKEditorFuncNum;
 	}
 }

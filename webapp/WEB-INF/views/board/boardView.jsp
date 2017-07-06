@@ -10,7 +10,7 @@ $(document).ready(function(){
 		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}"
 	};
-	console.log(defaultParams);
+	
 	$("#boardList").click(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", "/Board/?"+params);
@@ -95,14 +95,6 @@ border:1px dashed red;
 				</ul>
 			</div> 
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<!-- <div id="board_name">
-					<div style="margin-top:15px;margin-left:15px;">
-						<span style="text-decoration:underline;font-size:23px;">자유 게시판</span><br/><br/>
-						
-						Wiskey의 자유게시판 입니다.<br/>
-						마음 편하게 작성하시기 바랍니다.
-					</div>
-				</div> -->
 				<div style="float:left; width:100%;">
 					<button class="btn btn-default" id="boardList" style="float:right;">목록</button>
 				</div>

@@ -6,6 +6,11 @@ body{margin:0;padding:0;background-color:#f7f7f7;}
   margin-left:auto;
   width:1080px;
 }
+.note-btn{
+	color:black;
+	background-color:white;
+	font-size:10px;
+}
 .top_nav{
 	/* background-image:url('/images/sample_carousel_3.jpg'); */
 	background-size:cover;

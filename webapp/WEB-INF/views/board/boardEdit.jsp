@@ -3,38 +3,33 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
-	var editor = CKEDITOR.replace('content',{
-		filebrowserImageUploadUrl: '/Board/uploadImageFile',
-		imageUploadUrl: '/Board/uploadImageFile',
-		uploadUrl: '/Board/uploadImageFile',
-		extraPlugins: 'uploadimage'
-	});
 	
-	
-	editor.on( 'fileUploadRequest', function( evt ) {
-	    var xhr = evt.data.fileLoader.xhr;
-		console.log(this.fileName);
-	    xhr.setRequestHeader( 'Cache-Control', 'no-cache' );
-	    xhr.setRequestHeader( 'X-File-Name', this.fileName );
-	    xhr.setRequestHeader( 'X-File-Size', this.total );
-	    xhr.send( this.file );
-
-	    // Prevented the default behavior.
-	    evt.stop();
-	} );
-	
+	$('#content').summernote({
+		lang: 'ko-KR',
+		height: 400,
+		callbacks:{
+			onImageUpload: function(files){
+				for(var i = files.length - 1; i >= 0; i--){
+					sendFile(files[i], this);
+				}
+			},
+			onChange: function(contents, $editable) {
+		      console.log('onChange:', contents, $editable);
+		    }
+		}
+	  });
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
-		var content = CKEDITOR.instances.content.getData(); 
+		var content = $("#content").summernote('code');
 		var params = $.extend({}, $("#brdContent").serialization(), {frid:1,content:content}); //TODO: frid -> 보드 타입 (추가 개발 필요)
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
 			return;
 		}
-		if(params.content == null || params.content == ""){
+		if($("#content").summernote('isEmpty')){
 			alert("내용을 입력하여 주십시오.");
-			$("#content").focus();
+			$("#content").summernote('focus');
 			return;
 		}else{
 			$.post(url, params, function(data){
@@ -43,6 +38,23 @@ $(document).ready(function(){
 		}
 	});
 });
+function sendFile(file, el){
+	var data = new FormData();
+	data.append('file', file);
+	$.ajax({
+		data: data,
+		type: "POST",
+		url: "/Image/uploadImageFile",
+		cache: false,
+		contentType: false,
+		enctype: 'multipart/form-data',
+		processData: false,
+		success: function(url){
+			console.log(url);
+			$(el).summernote('insertImage', url);
+		}
+	});
+}
 </script>
 <style>
 .left_ul>li{
@@ -79,7 +91,9 @@ border:1px dashed red;
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td style="background-color:white;"><textarea id="content" style="width:100%; height:400px; display:none; "valid="내용"></textarea></td>
+								<td style="min-height:400px;">
+									<div id="content"></div>
+								</td>
 							</tr>
 						</tbody>
 					</table>

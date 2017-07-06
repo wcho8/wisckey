@@ -14,6 +14,7 @@ import kr.madison.common.vo.SessionVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardService extends CommonService{

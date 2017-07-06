@@ -28,6 +28,13 @@ public class CommonVO {
 	private Integer block = 0;
 	private Integer skiprow = 0;
 	
+	//file
+	private String filename;
+	private String filetype;
+	private long filesize;
+	private int fid; //파일 id
+	private byte[] fileContent;
+	
 	public Integer getUserno() {
 		return userno;
 	}
@@ -130,4 +137,35 @@ public class CommonVO {
 	public void setSkiprow(Integer skiprow) {
 		this.skiprow = skiprow;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public long getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(long filesize) {
+		this.filesize = filesize;
+	}
+	public String getFiletype() {
+		return filetype;
+	}
+	public void setFiletype(String filetype) {
+		this.filetype = filetype;
+	}
+	public int getFid() {
+		return fid;
+	}
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
+	public byte[] getFileContent() {
+		return fileContent;
+	}
+	public void setFileContent(byte[] fileContent) {
+		this.fileContent = fileContent;
+	}
+	
 }

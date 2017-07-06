@@ -158,36 +158,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping
-	public Map<String, String> uploadImageFile(HttpServletResponse res, HttpServletRequest req, BoardVO paramVO, @RequestParam MultipartFile upload){
-		OutputStream out = null;
-		PrintWriter printWriter = null;
-		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/html;charset=utf-8");
-		Map<String, String> test = new HashMap<String, String>();
-		try{
-
-			String fileName = upload.getOriginalFilename();
-			byte[] bytes = upload.getBytes();
-			String uploadPath = "C:/Users/chora/Desktop/업무/기타/wisckey/" + fileName;//저장경로
-
-			out = new FileOutputStream(new File(uploadPath));
-			out.write(bytes);
-
-		}catch(IOException e){
-			e.printStackTrace();
-		} finally {
-			try {
-				if (out != null) {
-					out.close();
-				}
-				if (printWriter != null) {
-					printWriter.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return test;
+	@ResponseBody
+	public String uploadImageFile(@RequestParam MultipartFile upload){
+		int fileId;
+		String filePath;
+		
+		return "";
 	}
 }

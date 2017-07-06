@@ -115,6 +115,9 @@ function login(){
 								<li><a href="#">갤러리</a></li>
 							</ul></li>
 					</ul>
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+					</ul>
 				</div>
 			</div>
 		</nav>
