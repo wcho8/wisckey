@@ -52,4 +52,65 @@ public class CareerService extends CommonService{
 		result = careerDAO.findEmployerTotalCnt(paramVO);
 		return result;
 	}
+	
+	public int addEmployerReply(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.addEmployerReply(paramVO);
+		
+		return result;
+	}
+
+	public List<CareerVO> findEmployerReply(CareerVO paramVO) {
+		List<CareerVO> result = new ArrayList<CareerVO>();
+		result = careerDAO.findEmployerReply(paramVO);
+		
+		return result;
+	}
+	//여기서부터 취업게시판
+	public int addEmployBoardData(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.addEmployBoardData(paramVO);
+		return result;
+	}
+
+	public CareerVO findEmployBoardContent(CareerVO paramVO) {
+		CareerVO result = careerDAO.findEmployBoardContent(paramVO);
+		return result;
+	}
+
+	public List<CareerVO> findEmployBoardList(CareerVO paramVO) {
+		List<CareerVO> result = new ArrayList<CareerVO>();
+		result = careerDAO.findEmployBoardList(paramVO);
+		
+		return result;
+	}
+
+	public int findEmployBoardTotalCnt(CareerVO paramVO) {
+		int result = careerDAO.findEmployBoardTotalCnt(paramVO);
+		
+		return result;
+	}
+
+	public int modBoardCount(CareerVO paramVO) {
+		int result = careerDAO.modBoardCount(paramVO);
+		
+		return result;
+	}
+
+	public int addEmployBoardReply(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.addEmployBoardReply(paramVO);
+		
+		return result;
+	}
+
+	public List<CareerVO> findBoardReply(CareerVO paramVO) {
+		List<CareerVO> result = new ArrayList<CareerVO>();
+		result = careerDAO.findBoardReply(paramVO);
+		
+		return result;
+	}
+
+
+	
 }

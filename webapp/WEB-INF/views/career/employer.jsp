@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@page import="java.text.SimpleDateFormat" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <!-- 취업공고 올리는 곳 -->
 <script type="text/javascript">
@@ -12,9 +12,9 @@ $(document).ready(function(){
 			userno:"${session.userno}",
 			username: "${session.username}",
 			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
+			mypage: "${paramVO.mypage}",
+			
 	};
-	
 	$("#addEmployer").click(function(){
 		var url = "/Career/writeEmployer";
 		if(defaultParams.userno==""||defaultParams.userno==null){
@@ -34,13 +34,21 @@ $(document).ready(function(){
 			$("#searchNickname").show();
 		}
 	});
+	
+	var curDate = new Date();
+	var day = curDate.getDate();
+	var month = curDate.getMonth()+1;
+	var year = curDate.getFullYear();
+	
+	curDate = year+"-"+month+"-"+day;
+	console.log(curDate);
 });
 
 function viewEmployer(brdid){
 	var url = "/Career/viewEmployer?brdid="+brdid;
 	$(location).attr("href", url);
 }
-
+<% %>
 </script>
 
 <style type="text/css">
@@ -109,9 +117,12 @@ function viewEmployer(brdid){
 					<c:forEach items="${careerList}" var="list">
 						<tr style="height:40px;">
 							<td style="text-align: center;">&nbsp;${list.brdid}</td>
-							<td onClick="javascript:viewEmployer(${list.brdid});" style="cursor:pointer; padding-left:10px;">&nbsp;${list.title}</td>
+							<td onClick="javascript:viewEmployer(${list.brdid});" style="text-align: left; 
+								padding-left: 20px; cursor:pointer; padding-left:10px;">
+								&nbsp;${list.title} (${list.repcount}) &nbsp;&nbsp;D-(${list.dDate})
+							</td>
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
-							<td style="text-align: center;">&nbsp;${list.deadline }</td>
+							<td id="deadline" style="text-align: center;">&nbsp;${list.deadline }</td>
 							<td style="text-align: center;">&nbsp;${list.regdate}</td>
 							<td style="text-align: center;">&nbsp;${list.count}</td>
 						</tr>
