@@ -88,6 +88,14 @@ public class CareerController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public int deleteEmployer(CareerVO paramVO){
+		int result = careerService.deleteEmployer(paramVO);
+		
+		return result;
+	}
+	
 	/*
 	 * 
 	 * 여기서부턴 취업게시판!!!!!!!
@@ -144,6 +152,14 @@ public class CareerController {
 	@ResponseBody
 	public int addEmployBoardReply(CareerVO paramVO){
 		int result = careerService.addEmployBoardReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int deleteEmployBoard(CareerVO paramVO){
+		int result = careerService.deleteEmployBoard(paramVO);
 		
 		return result;
 	}

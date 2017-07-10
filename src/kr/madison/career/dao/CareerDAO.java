@@ -39,6 +39,11 @@ public class CareerDAO extends CommonDAO{
 	public List<CareerVO> findEmployerReply(CareerVO paramVO) {
 		return getSqlSession().selectList("Career.findEmployerReply", paramVO);
 	}
+	
+	public int deleteEmployer(CareerVO paramVO) {
+		return getSqlSession().delete("Career.deleteEmployer", paramVO);
+	}
+	
 	//여기서부터 취업게시판
 	public int addEmployBoardData(CareerVO paramVO) {
 		getSqlSession().insert("Career.addEmployBoardData", paramVO);
@@ -69,6 +74,10 @@ public class CareerDAO extends CommonDAO{
 
 	public List<CareerVO> findBoardReply(CareerVO paramVO) {
 		return getSqlSession().selectList("Career.findBoardReply", paramVO);
+	}
+
+	public int deleteEmployBoard(CareerVO paramVO) {
+		return getSqlSession().delete("deleteEmployBoard", paramVO);
 	}
 
 

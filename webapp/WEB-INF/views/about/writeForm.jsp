@@ -4,11 +4,24 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		var editor = CKEDITOR.replace('content',{});
+		$('#content').summernote({
+			lang:'ko-KR',
+			height: 400,
+			callbacks:{
+				onImageUpload: function(files){
+					for(var i = files.length-1; i>=0; i--){
+						sendFile(files[i], this);
+					}
+				},
+				onChange: function(contents, $editable){
 
+				}
+				
+			}
+		});
 		$("#addData").click(function() {
 			var url = "/About/addNewNotice";
-			var content = CKEDITOR.instances.content.getData();
+			var content = $("#content").summernote('code');
 			var params = $.extend({}, $("#notice_info").serialization(), {content:content});
 				
 			if(params.title == null||params.title==""){
@@ -77,27 +90,22 @@
 				</ul>
 			</div>
 
-			<div class="center_menu"
-				style="float: left; margin-left: 10px; width: 900px; height: 100%;">
+			<div class="center_menu" style="float: left; margin-left: 30px; width: 870px;">	
 				
-				<div id="write_form"
-					style="width: 935px; height: 20%; border: 2px solid #00ffff">
-					
-					
-					<table id="notice_info" style="width: 900px;">
-						<tr style="border: 1px solid #ccc">
-							<td style="text-align: center; width: 150px;">제목</td>
-							<td><input type="text" id="title" style="width: 400px"></input>
-						</tr>
-						<tr style="border: 1px solid #ccc">
-							<td style="text-align: center; width: 150px;">내용</td>
-							<td><textarea id="content" style="width: 680px; height: 400px; text-align: left;"></textarea></td>
-						</tr>
-					</table>
-					
-					
-				</div>
-				
+				<table id="notice_info" style="width: 900px;">
+					<colgroup>
+						<col width="15%">
+						<col width="*">
+					</colgroup>
+					<tr style="border: 1px solid #ccc">
+						<td style="text-align: center; width: 150px;">제목</td>
+						<td><input type="text" id="title" style="width: 400px"></input>
+					</tr>
+					<tr style="border: 1px solid #ccc">
+						<td style="text-align: center; width: 150px;">내용</td>
+						<td><textarea id="content" style="width: 100%px; height: 400px; text-align: left;"></textarea></td>
+					</tr>
+				</table>	
 				<div style="float: right;">
 					<button type="button" class="btn confirm" id="addData">등록</button>
 				</div>

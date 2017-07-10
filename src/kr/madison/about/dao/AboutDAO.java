@@ -34,4 +34,8 @@ public class AboutDAO extends CommonDAO{
 		return getSqlSession().selectOne("About.findNoticeTotalCnt", paramVO);
 	}
 
+	public int noticeDelete(AboutVO paramVO) {
+		return getSqlSession().delete("noticeDelete", paramVO);
+	}
+
 }

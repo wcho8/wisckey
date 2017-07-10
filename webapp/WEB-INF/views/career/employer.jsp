@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page import="java.text.SimpleDateFormat" %>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <!-- 취업공고 올리는 곳 -->
 <script type="text/javascript">
@@ -35,20 +37,20 @@ $(document).ready(function(){
 		}
 	});
 	
-	var curDate = new Date();
-	var day = curDate.getDate();
-	var month = curDate.getMonth()+1;
-	var year = curDate.getFullYear();
-	
-	curDate = year+"-"+month+"-"+day;
-	console.log(curDate);
+	console.log("!!!!");
+	console.log($("#list_id").val());
+	if($("#list_id").val()==49){
+		console.log("!!#!#");
+		console.log($("#title").val());
+	}
+
 });
+
 
 function viewEmployer(brdid){
 	var url = "/Career/viewEmployer?brdid="+brdid;
 	$(location).attr("href", url);
 }
-<% %>
 </script>
 
 <style type="text/css">
@@ -76,8 +78,21 @@ function viewEmployer(brdid){
 	opacity: 0.4;
 	text-decoration: none;
 }
+#list_title{
+	overflow-x:hidden;;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	word-wrap:break-word; 
+	display: inline-block;
+	width: 360px;
+	
+}
 
-
+#d-day{
+	text-align: center;
+	display: inline-block;
+	width: 35px;
+}
 
 </style>
 <!-- s:container -->
@@ -93,7 +108,7 @@ function viewEmployer(brdid){
 					<li><a href="/Career/employBoard">-취업게시판</a></li>
 				</ul>
 			</div>
-			<div class="center_menu" style="width: 870px; float:left; margin-left:30px;">
+			<div class="center_menu" style="width: 870px; float:left; margin-left:30px;  text-overflow: ellipsis;">
 				<table id="primary_table" style="background-color: #fffafa; width:870px; border-top: 2px solid #FF0000; border-bottom: 2px solid #FF0000;">
 					<colgroup>
 						<col style="width: 50px;">
@@ -116,13 +131,36 @@ function viewEmployer(brdid){
 					<tbody style="text-align: center; padding: 10px;">
 					<c:forEach items="${careerList}" var="list">
 						<tr style="height:40px;">
-							<td style="text-align: center;">&nbsp;${list.brdid}</td>
+							<td id="list_id" style="text-align: center;">&nbsp;${list.brdid}</td>
 							<td onClick="javascript:viewEmployer(${list.brdid});" style="text-align: left; 
-								padding-left: 20px; cursor:pointer; padding-left:10px;">
-								&nbsp;${list.title} (${list.repcount}) &nbsp;&nbsp;D-(${list.dDate})
+								padding-left: 20px; cursor:pointer; padding-left:10px; white-space:nowrap; width: 120px;">
+								
+								<c:if test="${list.dDate > 5}">
+									<span id="d-day" style="display:inline-block; background-color:lightgrey; color:black; font-weight:bold;">D-${list.dDate}</span> 
+								</c:if>
+								<c:if test="${(list.dDate <= 5) && (list.dDate >=0)}">
+									<span id="d-day" style="display:inline-block; background-color:hotpink; color:ivory; font-weight:bold;">D-${list.dDate}</span>
+								</c:if>
+								<c:if test="${list.dDate < 0}">
+									<span id="d-day" style="display:inline-block; text-align:center; background-color:lightgrey; color:black; font-weight:bold;">-</span>
+								</c:if>
+								 
+								
+								 <c:set var="title" value="${list.title }"/> 
+								 
+								 <c:if test="${fn:length(title) > 31 }">
+									<span id="list_title">${list.title}</span><span>(${list.repcount})</span>
+								 </c:if>
+								 <c:if test="${fn:length(title) <=30 }">
+								 	<span id="list_title" style="">&nbsp;${list.title} (${list.repcount})</span>
+								 </c:if>
+							
 							</td>
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
-							<td id="deadline" style="text-align: center;">&nbsp;${list.deadline }</td>
+							<td id="deadline" style="text-align: center;">
+								
+								&nbsp;${list.deadline }
+							</td>
 							<td style="text-align: center;">&nbsp;${list.regdate}</td>
 							<td style="text-align: center;">&nbsp;${list.count}</td>
 						</tr>

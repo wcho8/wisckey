@@ -23,7 +23,7 @@
 			b.count,
 			b.likes,
 			(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as repcount,
-			(SELECT ABS(DATEDIFF(CURRENT_DATE, a.deadline)) from brd_employment a where a.brdid = b.brdid) as dDate
+			(SELECT -1*DATEDIFF(CURRENT_DATE, a.deadline) from brd_employment a where a.brdid = b.brdid) as dDate
 		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		ORDER BY b.brdid DESC
@@ -101,6 +101,13 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
+	<delete id="deleteEmployer" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment 
+		WHERE brdid=#{brdid}
+			
+	</delete>
+
 
 	<!-- 취업게시판 -->
 	<insert id="addEmployBoardData" parameterType="CareerVO"  useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
@@ -195,5 +202,11 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
+	<delete id="deleteEmployBoard" parameterType="CareerVO">
+		DELETE FROM
+			brd_extratips 
+		WHERE brdid=#{brdid}
+			
+	</delete>
 	
 </mapper>

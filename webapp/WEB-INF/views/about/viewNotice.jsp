@@ -9,6 +9,7 @@
 
 
 $(document).ready(function(){
+	$("#userno_notice").hide();
 	var defaultParams = {
 			nid: "${paramVO.nid}",
 			userno: "${session.userno}",
@@ -17,10 +18,22 @@ $(document).ready(function(){
 	};
 	console.log(defaultParams);
 	
-	<%--
-	$("#addReply").click(function(){
-		
-	});--%>
+	if($("#userno_notice").text().localeCompare(defaultParams.userno)==0){
+		$("#noticeDelete").show();
+		console.log("SAME USERNO");
+	}else{
+		$("#noticeDelete").hide();
+		console.log("DIFFERENT USERNO");
+	}
+
+	$("#noticeDelete").click(function(){
+		var url = "/About/deleteNotice";
+		var params = $.extend({}, defaultParams, {});
+		$.post(url, params, function(data){
+			alert("게시글이 삭제되었습니다.");
+			$(location).attr("href","/About/");
+		});
+	});
 	
 });
 
@@ -65,6 +78,7 @@ function toNoticeList(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
+			<span id="userno_notice" value="${vo.userno}">${vo.userno}</span>
 			<div id="left_menu" style="float: left; width: 130px; border-right: 1px solid #ccc;">
 				<div id="l_title" style="font-weight: bold; font-size: 130%">ABOUT
 				</div>
@@ -79,9 +93,8 @@ function toNoticeList(){
 
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 870px;">
 				<div style="float: left; width:100%;">
-					<button class="btn confirm" id="NoticeList" style="float: right; margin-top: 5px;" onClick="javascript:toNoticeList()">
-						목록
-					</button>			
+					<button class="btn delete" id="noticeDelete" style="float: right; margin-top:5px;">삭제</button>
+					<button class="btn confirm" id="NoticeList" style="float: right; margin-top: 5px;" onClick="javascript:toNoticeList()">목록</button>			
 				</div>
 				
 				<div style="clear:both;"></div>

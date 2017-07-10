@@ -6,6 +6,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	$("#userno_employBoard").hide();
 	var defaultParams={
 			brdid: "${paramVO.brdid}",
 			userno: "${session.userno}",
@@ -35,6 +36,24 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	if($("#userno_employBoard").text().localeCompare(defaultParams.userno)==0){
+		$("#employBoardDelete").show();
+		console.log("SAME USERNO");
+	}else{
+		$("#employBoardDelete").hide();
+		console.log("DIFFERENT USERNO");
+	}
+
+	$("#employBoardDelete").click(function(){
+		var url = "/Career/deleteEmployBoard";
+		var params = $.extend({}, defaultParams, {});
+		$.post(url, params, function(data){
+			alert("게시글이 삭제되었습니다.");
+			$(location).attr("href","/Career/employBoard");
+		});
+	});
+	
 });
 
 </script>
@@ -71,6 +90,7 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
+			<span id="userno_employBoard" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:130px; border-right: 1px solid #cccccc;">
 				<div id="l_title" style="font-weight: bold; font-size:130%">취업</div>
 				<ul id="title_list" style="list-style:none; padding-left:0px; text-decoration: none;">
@@ -80,9 +100,10 @@ $(document).ready(function(){
 			</div>
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 870px;">
 				<div style="float: left; width:100%;">
-					<button class="btn confirm" id="employBoardList" style="float: right; margin-top: 5px;">
-						목록
-					</button>			
+					<button class="btn delete" id="employBoardDelete" style="float: right; margin-top:5px;">삭제</button>
+					<button class="btn confirm" id="employBoardList" style="float: right; margin-top: 5px;">목록</button>		
+		
+						
 				</div>
 				
 				<div style="clear:both;"></div>

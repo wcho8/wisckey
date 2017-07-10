@@ -115,6 +115,14 @@ public class AboutController {
 		return vo;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public int deleteNotice(AboutVO paramVO){
+		int result = aboutService.noticeDelete(paramVO);
+		
+		return result;
+	}
+	
 	
 	
 }

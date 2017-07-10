@@ -65,20 +65,12 @@
 			count = count+1
 		WHERE nid=#{nid}
 	</update>
-	<delete id="deleteNotice">
-		delete from to_be_delete_notice where idNum=#{param1}
+
+	<delete id="noticeDelete" parameterType="AboutVO">
+		DELETE FROM
+			info_notice
+		WHERE nid=#{nid}
 	</delete>
 
-<!-- 
-About bean
-	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
-		<beans:property name = "mapperLocations" value="classpath:/kr/madison/about/dao/*.xml"></beans:property>
-	</beans:bean>
-	
-	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
-	</beans:bean>
- -->
 </mapper>
 

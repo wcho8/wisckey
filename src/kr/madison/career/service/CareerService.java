@@ -66,6 +66,15 @@ public class CareerService extends CommonService{
 		
 		return result;
 	}
+	
+	public int deleteEmployer(CareerVO paramVO) {
+		int result = careerDAO.deleteEmployer(paramVO);
+		
+		return result;
+	}
+
+	
+	
 	//여기서부터 취업게시판
 	public int addEmployBoardData(CareerVO paramVO) {
 		paramVO.setUserno(session.getUserno());
@@ -108,6 +117,11 @@ public class CareerService extends CommonService{
 		List<CareerVO> result = new ArrayList<CareerVO>();
 		result = careerDAO.findBoardReply(paramVO);
 		
+		return result;
+	}
+
+	public int deleteEmployBoard(CareerVO paramVO) {
+		int result = careerDAO.deleteEmployBoard(paramVO);
 		return result;
 	}
 

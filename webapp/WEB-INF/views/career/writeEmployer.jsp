@@ -24,7 +24,7 @@ $(document).ready(function(){
 		dateFormat: "yy-mm-dd",
 		changeMonth: true, 
 		changeYear: true, 
-		yearRange: "2017"
+		yearRange: "+0:+2"
 	});
 	
 	$("#dealine").change(function(){
@@ -120,7 +120,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
-							<td><input type="text" id="title" style="width:400px;;"></td>
+							<td><input type="text" id="title" style="width:400px;"></td>
 						</tr>
 						<tr style="border: 1px solid #ccc">
 							<th style="text-align: center">접수기한</th>

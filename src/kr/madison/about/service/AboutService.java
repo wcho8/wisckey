@@ -53,4 +53,9 @@ public class AboutService extends CommonService{
 		int result = aboutDAO.findNoticeTotalCnt(paramVO);
 		return result;
 	}
+
+	public int noticeDelete(AboutVO paramVO) {
+		int result = aboutDAO.noticeDelete(paramVO);
+		return result;
+	}
 }
