@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/Board/*")
 public class BoardController {
 	
-	final private int pageRow = 10;
+	final private int pageRow = 20;
 	
 	@Autowired
 	BoardService boardService;
@@ -159,10 +159,10 @@ public class BoardController {
 	
 	@RequestMapping
 	@ResponseBody
-	public String uploadImageFile(@RequestParam MultipartFile upload){
-		int fileId;
-		String filePath;
+	public int modBoardData(BoardVO paramVO){
+		int result = boardService.modBoardData(paramVO);
 		
-		return "";
+		return result;
 	}
+	
 }

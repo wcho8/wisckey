@@ -19,6 +19,8 @@ public class SessionVO implements Serializable {
 	
 	private String status = null;
 	private boolean islogin = false;
+	private Integer authid; // 권한
+	private String authname; // 권한 이름
 	
 	public Integer getUserno() {
 		return userno;
@@ -86,6 +88,22 @@ public class SessionVO implements Serializable {
 
 	public void setIslogin(boolean islogin) {
 		this.islogin = islogin;
+	}
+
+	public Integer getAuthid() {
+		return authid;
+	}
+
+	public void setAuthid(Integer authid) {
+		this.authid = authid;
+	}
+
+	public String getAuthname() {
+		return authname;
+	}
+
+	public void setAuthname(String authname) {
+		this.authname = authname;
 	}
 	
 }

@@ -60,4 +60,8 @@ public class BoardDAO extends CommonDAO{
 	public int getReplyCount(BoardVO paramVO){
 		return getSqlSession().selectOne("Board.getReplyCount", paramVO);
 	}
+	
+	public int modBoardData(BoardVO paramVO){
+		return getSqlSession().update("Board.modBoardData", paramVO);
+	}
 }

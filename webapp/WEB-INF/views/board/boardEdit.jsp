@@ -2,8 +2,13 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
+var upImgIds = [];
 $(document).ready(function(){
-	
+	var defaultParams = {
+			brdid: "${paramVO.brdid}",
+			userno: "${session.userno}",
+			mypage:"${paramVO.mypage}"
+	};
 	$('#content').summernote({
 		lang: 'ko-KR',
 		height: 400,
@@ -12,12 +17,21 @@ $(document).ready(function(){
 				for(var i = files.length - 1; i >= 0; i--){
 					sendFile(files[i], this);
 				}
-			},
-			onChange: function(contents, $editable) {
-		      console.log('onChange:', contents, $editable);
-		    }
+			}
 		}
-	  });
+	});
+	
+	var brdid = defaultParams.brdid;
+	var bEdit = false;
+	if(brdid != 0 && brdid != '' && brdid != null){
+		var url = "/Board/findBoardContent";
+		bEdit = true;
+		$.post(url, defaultParams, function(data){
+			$("#title").val(data.title);
+			$("#content").summernote('code', data.content);
+		});
+	}
+	
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');
@@ -31,6 +45,13 @@ $(document).ready(function(){
 			alert("내용을 입력하여 주십시오.");
 			$("#content").summernote('focus');
 			return;
+		}
+		if(bEdit){
+			url = "/Board/modBoardData";
+			params.brdid = brdid;
+			$.post(url, params, function(data){
+				$(location).attr("href", "/Board/BoardView?brdid="+data);
+			});
 		}else{
 			$.post(url, params, function(data){
 				$(location).attr("href", "/Board/BoardView?brdid="+data);
@@ -49,9 +70,12 @@ function sendFile(file, el){
 		contentType: false,
 		enctype: 'multipart/form-data',
 		processData: false,
-		success: function(url){
-			console.log(url);
-			$(el).summernote('insertImage', url);
+		success: function(fid){
+			var url = "/Image/loadImage/" + fid;
+			$(el).summernote('insertImage', url, function($image){
+				$image.attr('id', fid);
+			});
+			upImgIds.push(fid);
 		}
 	});
 }

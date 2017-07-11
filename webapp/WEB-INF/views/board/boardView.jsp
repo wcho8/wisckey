@@ -11,10 +11,23 @@ $(document).ready(function(){
 		mypage: "${paramVO.mypage}"
 	};
 	
+	var writerno = "${vo.userno}";
+	
+	if(defaultParams.userno == writerno){
+		$("#update").show();
+	}
+	
+	$("#update").click(function(){
+		var url = "/Board/BoardEdit?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	})
+	
 	$("#boardList").click(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", "/Board/?"+params);
 	});
+	
 	$("#likes").click(function(){
 		$.post("/Board/modBoardLikes", defaultParams, function(data){
 			if(data > 0){
@@ -97,6 +110,7 @@ border:1px dashed red;
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
 				<div style="float:left; width:100%;">
 					<button class="btn btn-default" id="boardList" style="float:right;">목록</button>
+					<button id="update" style="float:right;display:none;" class="btn btn-default">수정</button>
 				</div>
 				<div style="clear:both;"></div>
 				<div id="main_board" style="width:100%;border:1px solid #cacaca;margin-top:5px;padding:10px;background-color:white;">
@@ -135,7 +149,7 @@ border:1px dashed red;
 								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
 							</span>
 							<br/>
-							<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
+							<span style="font-size:13px;margin-top:10px;word-break:break-all;width:100%;">${rep.repContent}</span>
 						</div>
 					</c:forEach>
 					<div style="clear:both;"></div>

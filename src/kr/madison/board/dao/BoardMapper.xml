@@ -124,4 +124,11 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
 	</select>
+	<update id="modBoardData" parameterType="BoardVO">
+		UPDATE brd_freeboard SET
+			content = #{content},
+			title = #{title},
+			moddate = NOW()
+		WHERE brdid = #{brdid}
+	</update>
 </mapper>

@@ -101,4 +101,9 @@ public class BoardService extends CommonService{
 		
 		return result;
 	}
+	
+	public int modBoardData(BoardVO paramVO){
+		boardDAO.modBoardData(paramVO);
+		return paramVO.getBrdid();
+	}
 }

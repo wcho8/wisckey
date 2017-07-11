@@ -149,9 +149,7 @@ font-size:13px;
 					     </c:if>		 --%>
 		            </div>
 		            <div class="fRight text-right col-1">	
-		            	<c:if test="${session.userno > 0}">
-		                    <button class="btn btn-black" id="addBoard">글쓰기</button>
-		                </c:if>
+	                    <button class="btn btn-black" id="addBoard">글쓰기</button>
 		            </div>
 		        </div>
 			</div>

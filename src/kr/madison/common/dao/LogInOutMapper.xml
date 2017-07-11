@@ -11,8 +11,9 @@
 		info.gender,
 		info.nickname,
 		info.birthdate,
-		auth.name,
-		info.useyn
+		auth.name as authname,
+		info.useyn,
+		info.authid
 	FROM info_userinfo info
 	LEFT JOIN cod_userauth auth ON info.authid = auth.authid
 	WHERE info.userid = #{userid}

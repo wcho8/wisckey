@@ -21,17 +21,15 @@ public class ImageController extends CommonController{
 	
 	@RequestMapping("/uploadImageFile")
 	@ResponseBody
-	public String uploadImageFile(@RequestParam("file") MultipartFile upload) throws Exception{
+	public int uploadImageFile(@RequestParam("file") MultipartFile upload) throws Exception{
 		int fid = 0;
 		try{
 			fid = imageService.uploadImageFile(upload);
 			
-			String filepath = "/Image/loadImage/"+fid;
-			
-			return filepath;
+			return fid;
 		}catch(Exception e){
 			e.printStackTrace();
-			return "Image too large";
+			return 0;
 		}
 	}
 	
