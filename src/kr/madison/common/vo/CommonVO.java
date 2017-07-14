@@ -1,5 +1,7 @@
 package kr.madison.common.vo;
 
+import kr.madison.util.Util;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
@@ -34,6 +36,13 @@ public class CommonVO {
 	private long filesize;
 	private int fid; //파일 id
 	private byte[] fileContent;
+	
+	// 그리드 요청 파라미터
+	private Integer page = null; // 그리드의 현재 페이지
+	private Integer rows = null; // 그리드 한 페이지의 행 개수
+	private String sidx = null; // 그리드 정렬 기준 컬럼
+	private String sord = null; // 그리드 정렬 순서 (오름차순, 내림차순)
+	private Integer srow = null; // 그리드 데이터 시작 위치
 	
 	public Integer getUserno() {
 		return userno;
@@ -167,5 +176,40 @@ public class CommonVO {
 	public void setFileContent(byte[] fileContent) {
 		this.fileContent = fileContent;
 	}
-	
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+		if (this.rows != null) {
+			setSrow(this.rows * this.page - this.rows);
+		}
+	}
+	public Integer getRows() {
+		return rows;
+	}
+	public void setRows(Integer rows) {
+		this.rows = rows;
+		if (this.page != null) {
+			setSrow(this.rows * this.page - this.rows);
+		}
+	}
+	public String getSidx() {
+		return sidx;
+	}
+	public void setSidx(String sidx) {
+		this.sidx = Util.escapeSql(sidx);
+	}
+	public String getSord() {
+		return sord;
+	}
+	public void setSord(String sord) {
+		this.sidx = Util.escapeSql(sord);
+	}
+	public Integer getSrow() {
+		return srow;
+	}
+	public void setSrow(Integer srow) {
+		this.srow = srow;
+	}
 }

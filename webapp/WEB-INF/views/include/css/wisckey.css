@@ -2,8 +2,8 @@
 body{margin:0;padding:0;background-color:#f7f7f7;}
 .container {position:relative; width:1280px !important; padding:0px; margin-left:auto; margin-right:auto;}
 .row {
-  margin-right:auto;
   margin-left:auto;
+  margin-right:auto;
   width:1080px;
 }
 .note-btn{
@@ -59,11 +59,32 @@ body{margin:0;padding:0;background-color:#f7f7f7;}
 #myCarousel>.carousel-control{
 	border-radius:2em;
 }
+li{
+	list-style:none;
+}
 .main_body{
 	width:100%;
 	overflow:hidden;
 	disply:inline-block;
 	float:left;
+}
+.body_div{
+	padding-bottom:10px;
+	width:96%; 
+	margin-left:0px;
+	border-bottom:2px solid #8d052a;
+}
+.body_inside{
+	background-color:#8d052a;
+	padding-bottom:10px;
+	width:100%; 
+	text-align:center; 
+	font-size:21px; 
+	padding:3px;
+	color:white;
+}
+.body_inside > a{
+	color:white;
 }
 #login{
 	width:calc(100% - 5px);
@@ -150,12 +171,17 @@ background-color:white;
 .pagination .last {padding:0 11px; background-image:url(/images/icon/icon_pg-last.png);}
 .pagination .total {float:right; margin-left:-70px; margin-top:5px; margin-right:10px; color:#666; font-weight:bold;}
 /* footer */
-#footer {display:block;clear:both;position:relative;}
-#footer .container { position:relative;  width:80%; margin-top:70px;  border-top:1px solid #cacaca; margin-bottom:20px; margin-left:auto; margin-right:auto;}
-#footer .container .contents { width:100; margin-left:auto; margin-right:auto;}
-#footer .container .contents .info { margin-top:14px; float:left; margin-left:25px; color:#666666; font-size:12px;}
-#footer .container .contents .info  .txt {margin-top:17px; margin-bottom:11px; }
-#footer .box { text-align:center; margin-top:4px; margin-right:3px; border:1px solid #cacaca; width:90px; padding-bottom:2px;}
+#footer {
+	display:block;
+	clear:both;
+	position:relative;
+	width:1080px;
+	margin:auto;
+	margin-top:40px;
+	border-top:2px solid #8d052a;
+	border-bottom:2px solid #8d052a;
+	height:100px;
+}
 
 .page-info {float:left; margin-top:-1px; width:100%; height:100px; min-height:76px;}
 .page-info .icon { width:110px; margin:10px 0 0 15px; float:left;}

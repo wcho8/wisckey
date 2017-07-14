@@ -32,6 +32,46 @@ $(document).ready(function(){
 	$("#search").click(function(){
 		var url="/Board/searchBoard";
 	});
+	/* 
+	var objGrid = $("#board_table");
+	objGrid.jqGrid({
+		url:"/Board/findBoardList",
+		width:875,
+		height:"auto",
+		postData:defaultParams,
+		datatype:"json",
+		mtype:"post",
+		jsonReader:{repeatitems:false,page:1},
+		colNames:[
+		          "번호",
+		          "제목",
+		          "닉네임",
+		          "등록일",
+		          "조회",
+		          "추천수"
+		          ],
+		colModel:[
+		          {name:"brdid", width:50},
+		          {name:"title", width:485},
+		          {name:"writer", width:120},
+		          {name:"regdate", width:120},
+		          {name:"count", width:50},
+		          {name:"likes", width:50}
+		          ],
+		caption:"자유 게시판",
+		hidegrid:false,
+		viewrecords:true,
+		shrinkToFit:true,
+		pager:"#pager",
+		rowNum:20
+	});
+	
+	objGrid.jqGrid("setGridParam", {
+		onSelectRow:function(row, status, event) {
+			var rowData = objGrid.jqGrid("getRowData", row);
+			$(location).attr("href", "./BoardView?brdid="+rowData.brdid);
+		}
+	}); */
 });
 
 function viewBoard(brdid){
@@ -80,17 +120,17 @@ font-size:13px;
 				</ul>
 			</div>
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<div id="board_name">
+				<!-- <div id="board_name">
 					<div style="margin-top:15px;margin-left:15px;">
 						<span style="text-decoration:underline;font-size:23px;">자유 게시판</span><br/><br/>
 						
 						Wiskey의 자유게시판 입니다.<br/>
 						마음 편하게 작성하시기 바랍니다.
 					</div>
-				</div>
+				</div> -->
 				<div class="hr_dash"></div>
 				<div id="board_main" style="width:100%;margin-top:10px;">
-					<table id="board_table" class="table-hover" style="width:875px;background-color:white;">
+					<table id="board_table" class="table-hover" style="width:875px;background-color:white;" >
 						<colgroup>
 							<col style="width:50px;">
 							<col style="width:485px;">
@@ -122,6 +162,7 @@ font-size:13px;
 						</c:forEach>
 						</tbody>
 					</table>
+					<div id="pager"></div>
 					<div id="search_box" style="text-align:center;height:45px; padding-top:10px;">
 						<select id="searchType" style="width:150px; float:left;">
 							<option value="1">제목</option>
@@ -154,8 +195,9 @@ font-size:13px;
 		        </div>
 			</div>
 		</div>
+		<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
 	</div>
 </div>
-<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
+
 
 <!-- e:container -->

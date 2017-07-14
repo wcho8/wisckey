@@ -1,29 +1,20 @@
 package kr.madison.board.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.madison.board.service.BoardService;
 import kr.madison.board.vo.BoardVO;
+import kr.madison.common.vo.GridVO;
 import kr.madison.util.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 //자유게시판
@@ -35,18 +26,18 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
-
+	
 	@RequestMapping("/")
 	public ModelAndView boardMain(@ModelAttribute("paramVO") BoardVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
 		
-		int totalcount = boardService.findBoardTotalCnt(paramVO);
+		int totalcnt = boardService.findBoardTotalCnt(paramVO);
 		
-		Util.setPaging(paramVO, totalcount, pageRow);
+		Util.setPaging(paramVO, totalcnt, pageRow);
 		List<BoardVO> vo = boardService.findBoardList(paramVO);
 		
 		mav.addObject("boardList", vo);
-		mav.addObject("totalCnt", totalcount);
+		mav.addObject("totalCnt", totalcnt);
 		mav.setViewName("/board/board");
 		return mav;
 	}
@@ -78,10 +69,14 @@ public class BoardController {
 
 	@RequestMapping
 	@ResponseBody
-	public List<BoardVO> findBoardList(BoardVO paramVO){
-		List<BoardVO> result = new ArrayList<BoardVO>();
-		result = boardService.findBoardList(paramVO);
-		
+	public GridVO findBoardList(BoardVO paramVO){
+		GridVO result = new GridVO();
+		try{
+			result.bindPaging(boardService.findBoardTotalCnt(paramVO), paramVO);
+			result.bindData(boardService.findBoardList(paramVO));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

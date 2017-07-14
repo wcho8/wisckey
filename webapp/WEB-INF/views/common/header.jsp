@@ -14,7 +14,6 @@
 <!-- Default StyleSheet -->
 <link type="text/css" href="/include/css/default.css" rel="stylesheet" />
 <link type="text/css" href="/include/jQuery/theme/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
-<link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" rel="stylesheet"/>
 
 
 <!-- js -->
@@ -23,11 +22,8 @@
 <script type="text/javascript" src="/include/js/alertMessage.js"></script>
 <script type="text/javascript" src="/include/js/custom.js"></script>
 <script type="text/javascript" src="/include/jQuery/jquery.cookie.js"></script>
-<script type="text/javascript" src="/include/jQuery/jquery.timepicker.min.css"></script>
+<link type="text/css" href="/include/jQuery/jquery.timepicker.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/include/jQuery/jquery.timepicker.min.js"></script>
-
-
-
 
 <!-- jqgrid -->
 <link type="text/css" href="/include/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
@@ -42,9 +38,6 @@
 <link type="text/css" href="/include/fullcalendar/fullcalendar.css" rel="stylesheet" />
 <script type="text/javascript" src="/include/fullcalendar/fullcalendar.js"></script>
 <script type="text/javascript" src="/include/moment/moment-with-locales.min.js"></script>
-
-<!-- ckeditor -->
-<!-- <script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script> -->
 
 <!-- Summernote -->
 <link type="text/css" href="/include/summernote-0.8.4-dist/dist/summernote.css" rel="stylesheet"/>

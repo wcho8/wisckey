@@ -2,21 +2,19 @@
 
 <!-- footer -->
 <div id="footer">
-    <div class="container">
-        <div class="contents">
-            <div class="info">
-                <div class="txt">
-                    <div class="fLeft col-10">
-                    	한인 학생회 페이지입니다.
-                    </div>    
-                    <div class="fLeft mt6">
-                    	contact: 010-4472-9073
-                    </div>
-                </div><!-- end : txt -->
-            </div><!-- end : info -->
-        </div><!-- end : contents -->
-    </div><!-- end : container -->
+	<div class="txt" style="width:100%;padding-left:70px;">
+	    <div class="fLeft" style="padding-left:60px; width:30%;">
+	    	<a href="/"><img src="/images/common/wisckey_1.png" style="height:100px;"/></a>
+	    </div>    
+	    <div class="fLeft" style="padding-top:40px;padding-bottom:30px; font-size:15px;">
+	    	<a href="#">이용약관</a> | 
+	    	<a href="#">개인정보활용계획</a> | 
+	    	<a href="#">관리자 연락처</a> | 
+	    	<a href="#">게시판 이용규칙</a> | 
+	    	<a href="#">FAQ</a>
+	    </div>
+	</div><!-- end : txt -->
 </div><!-- end : Footer -->
-
+<div style="height:50px;width:100%;"></div>
 </body>
 </html>

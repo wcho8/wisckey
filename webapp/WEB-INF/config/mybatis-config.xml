@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="ImageVO" type="kr.madison.common.vo.ImageVO" />
+		<typeAlias alias="MainVO" type="kr.madison.main.vo.MainVO" />
 		<typeAlias alias="MemberVO" type="kr.madison.member.vo.MemberVO" /> 
 		<typeAlias alias="SessionVO" type="kr.madison.common.vo.SessionVO" />
 		<typeAlias alias="LogInOutVO" type="kr.madison.common.vo.LogInOutVO" />

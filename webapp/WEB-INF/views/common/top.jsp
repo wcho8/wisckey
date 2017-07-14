@@ -6,12 +6,16 @@ var defaultParams = {
 		userno: "${session.userno}",
 		userid: "${session.userid}",
 		nickname: "${session.nickname}",
-		email: "${session.email}"
+		email: "${session.email}",
+		authid: "${session.authid}",
+		authname: "${session.authname}"
 	}
 $(document).ready(function(){
 	var navbars;
 	var url;
-	
+	if(defaultParams.authid == 1){
+		$("#admin_menu").show();
+	}
 });
 function login(){
 	var url = "/LogInOut/Login";
@@ -112,11 +116,18 @@ function login(){
 							aria-expanded="false">자유게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Board/">게시판</a></li>
-								<li><a href="#">갤러리</a></li>
+								<li><a href="#">신입생 게시판</a></li>
 							</ul></li>
 					</ul>
-					<ul class="nav navbar-nav">
-						<li class="dropdown">
+					<ul class="nav navbar-nav" style="display:none;" id="admin_menu">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">관리자<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">ABOUT 관리</a></li>
+								<li><a href="#">게시판 관리</a></li>
+								<li><a href="/Admin/ManageOrg">동아리 관리</a></li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>

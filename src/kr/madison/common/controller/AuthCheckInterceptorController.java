@@ -22,9 +22,37 @@ public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 		
 		if(servletPath.equals("/")){
 			return true;
-		} /*else if(servletPath.equals("/Member/")){
+		} else if(servletPath.indexOf("/include/") == 0){
 			return true;
-		} */
+		} else if(servletPath.indexOf("/images/") == 0){
+			return true;
+		} else if(servletPath.indexOf("/Notice/") == 0){
+			return true;
+		} else if(servletPath.equals("/findTopBoardList")){
+			return true;
+		} else if(servletPath.equals("/findRecentNoticeList")){
+			return true;
+		} else if(servletPath.equals("/NeedLogin")){
+			return true;
+		} else if(servletPath.indexOf("/Member/") == 0){
+			return true;
+		} else if(servletPath.indexOf("/LogInOut/") == 0){
+			return true;
+		}
+		
+		if(sessionVO != null && sessionVO.getUserid() != null && !sessionVO.getUserid().equals("")){
+			if(servletPath.indexOf("/Admin/") == 0){
+				if(sessionVO.getAuthid() == 1 && sessionVO.getAuthid() != null){
+				}else{
+					response.sendRedirect("/403");
+					return false;
+				}
+			}
+		}
+		else{
+			response.sendRedirect("/NeedLogin");
+			return false;
+		}
 		
 		
 		/*// 로그인 체크 제외

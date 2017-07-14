@@ -23,6 +23,7 @@
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		ORDER BY b.brdid DESC
 		LIMIT #{skiprow}, #{pagerow}
+		<!-- LIMIT #{srow}, #{rows} -->
 	</select>
 	<select id="findBoardContent" parameterType="BoardVO"
 		resultType="BoardVO">

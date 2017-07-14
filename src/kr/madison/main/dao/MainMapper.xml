@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Main">
+	<select id="findTopBoardList" parameterType="MainVO" resultType="BoardVO">
+		SELECT
+			a.brdid,
+			a.title,
+			b.nickname,
+			a.likes,
+			CASE WHEN a.regdate > CURDATE()
+				THEN DATE_FORMAT(a.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
+			END as regdate
+		FROM brd_freeboard a
+		LEFT JOIN info_userinfo b ON a.userno = b.userno
+		ORDER BY a.likes DESC, a.regdate desc
+		LIMIT 15
+	</select>
+	<select id="findRecentNoticeList" parameterType="MainVO" resultType="AboutVO">
+		SELECT
+			nid,
+			title,
+			CASE WHEN regdate > CURDATE()
+				THEN DATE_FORMAT(regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
+			END as regdate
+		FROM info_notice
+		ORDER BY regdate DESC
+		LIMIT 5
+	</select>
+</mapper>
