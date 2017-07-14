@@ -33,24 +33,36 @@ public class AboutController {
 	
 	//위스키 소개 탭
 	@RequestMapping("/introWisckey")
-	public ModelAndView introWisckey(){
+	public ModelAndView introWisckey(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
+		
+		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
+		
+		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/introWisckey");
 		return mav;
 	}
 	
 	//학교소개 탭
 	@RequestMapping("/introUniv")
-	public ModelAndView introUniv(){
+	public ModelAndView introUniv(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
+		
+		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
+		
+		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/introUniv");
 		return mav;
 	}
 	
 	//주요사이트 탭
 	@RequestMapping("/otherSites")
-	public ModelAndView otherSites(){
+	public ModelAndView otherSites(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
+		
+		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
+		
+		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/otherSites");
 		return mav;
 	}

@@ -38,4 +38,10 @@ public class AboutDAO extends CommonDAO{
 		return getSqlSession().delete("noticeDelete", paramVO);
 	}
 
+	public List<AboutVO> listFourNotice(AboutVO paramVO) {
+		List<AboutVO> list = getSqlSession().selectList("About.listFourNotice", paramVO);
+		
+		return list;
+	}
+
 }

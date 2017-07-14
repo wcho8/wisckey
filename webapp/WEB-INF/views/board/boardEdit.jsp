@@ -9,6 +9,7 @@ $(document).ready(function(){
 			userno: "${session.userno}",
 			mypage:"${paramVO.mypage}"
 	};
+	
 	$('#content').summernote({
 		lang: 'ko-KR',
 		height: 400,

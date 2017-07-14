@@ -3,7 +3,11 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	var defaultParams={
+		brdid: "${paramVO.brdid}",
+		userno: "${session.userno}",
+		mypage: "${paramVO.mypage}"
+	};
 	$('#content').summernote({
 		lang:'ko-KR',
 		height: 400,
@@ -12,14 +16,21 @@ $(document).ready(function(){
 				for(var i = files.length-1; i>=0; i--){
 					sendFile(files[i], this);
 				}
-			},
-			onChange: function(contents, $editable){
-
-			}
-			
+			}		
 		}
 	});
-
+	
+	var brdid = defaultParams.brdid;
+	var bEdit = false;
+	
+	if(brdid !=0 && brdid!='' && brdid != null){
+		var url="/Career/findEmployerContent";
+		bEdit = true;
+		$.post(url, defaultParams, function(data){
+			$('#title').val(data.title);
+			$('#content').summernote('code', data.content);
+		});
+	}
 	$("#deadline").datepicker({
 		dateFormat: "yy-mm-dd",
 		changeMonth: true, 
@@ -29,12 +40,12 @@ $(document).ready(function(){
 	
 	$("#dealine").change(function(){
 		var duedate = new Date($("#deadline").val());
+		console.log(duedate);
 		if(duedate < new Date()){
 			alert("유효한 날짜가 아닙니다.");
 			$("#deadline").val("");
 		}
 	});
-	$("input.timepicker").timepicker();
 	
 	$("#addEmployer").click(function(){ 
 		var url = "/Career/addEmployerData";
@@ -48,21 +59,47 @@ $(document).ready(function(){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
 			return;
-		}else if(params.content == null || params.content == ""){
+		}
+		if($("#content").summernote('isEmpty')){
 			alert("내용을 입력하여 주십시오.");
-			$("#content").focus();
+			$("#content").summernote('focus');
 			return;
+		}
+		if(bEdit){
+			url = "/Career/modEmployerData";
+			params.brdid = brdid;
+			$.post(url, params, function(data){
+				$(location).attr("href", "/Career/viewEmployer?brdid="+data);
+			});
 		}else{
 			$.post(url, params, function(data){
-				console.log(data);
+				
 				$(location).attr("href", "/Career/viewEmployer?brdid="+data);
 			});
 		}
 	});
-	
-		
-	
 });
+
+function sendFile(file, el){
+	var data = new FormData();
+	data.append('file', file);
+	$.ajax({
+		data: data,
+		type: "POST",
+		url: "/Image/uploadImageFile",
+		cache: false,
+		contentType: false,
+		enctype: 'multipart/form-data',
+		processData: false,
+		success: function(fid){
+			var url = "/Image/loadImage/" + fid;
+			$(el).summernote('insertImage', url, function($image){
+				$image.attr('id', fid);
+			});
+			upImgIds.push(fid);
+		}
+	});
+}
 
 </script>
 

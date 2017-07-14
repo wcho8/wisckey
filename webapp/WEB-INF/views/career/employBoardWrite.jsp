@@ -5,6 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 $(document).ready(function(){
+	var defaultParams={
+			brdid: "${paramVO.brdid}",
+			userno: "${session.userno}",
+			mypage: "${paramVO.mypage}"
+		};
 	
 	$('#content').summernote({
 		lang:'ko-KR',
@@ -14,13 +19,22 @@ $(document).ready(function(){
 				for(var i = files.length-1; i>=0; i--){
 					sendFile(files[i], this);
 				}
-			},
-			onChange: function(contents, $editable){
-
 			}
-			
 		}
 	});
+	
+	var brdid = defaultParams.brdid;
+	var bEdit = false;
+	
+	if(brdid!=0 && brdid!="" && brdid!=null){
+		var url="/Career/findEmployBoardContent";
+		bEdit = true;
+		$.post(url, defaultParams, function(data){
+			$("#title").val(data.title);
+			$("#content").summernote('code', data.content);
+		});
+	}
+	
 	$("#addEmployBoard").click(function(){ 
 		var url = "/Career/addEmployBoardData";
 		var content = $("#content").summernote('code');
@@ -31,20 +45,45 @@ $(document).ready(function(){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
 			return;
-		}else if(params.content == null || params.content == ""){
+		}
+		if($("#content").summernote('isEmpty')){
 			alert("내용을 입력하여 주십시오.");
-			$("#content").focus();
+			$("#content").summernote('focus');
 			return;
+		}
+		if(bEdit){
+			url = "/Career/modEmployBoardData";
+			params.brdid = brdid;
+			$.post(url, params, function(data){
+				$(location).attr("href", "/Career/employBoardView?brdid="+data);
+			});
 		}else{
 			$.post(url, params, function(data){
-				console.log(data);
 				$(location).attr("href", "/Career/employBoardView?brdid="+data);
 			});
 		}
 	});
-	
 });
-
+function sendFile(file, el){
+	var data = new FormData();
+	data.append('file', file);
+	$.ajax({
+		data: data,
+		type: "POST",
+		url: "/Image/uploadImageFile",
+		cache: false,
+		contentType: false,
+		enctype: 'multipart/form-data',
+		processData: false,
+		success: function(fid){
+			var url = "/Image/loadImage/" + fid;
+			$(el).summernote('insertImage', url, function($image){
+				$image.attr('id', fid);
+			});
+			upImgIds.push(fid);
+		}
+	});
+}
 </script>
 
 

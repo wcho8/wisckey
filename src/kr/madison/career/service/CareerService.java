@@ -73,6 +73,10 @@ public class CareerService extends CommonService{
 		return result;
 	}
 
+	public int modEmployerData(CareerVO paramVO) {
+		careerDAO.modEmployerData(paramVO);
+		return paramVO.getBrdid();
+	}
 	
 	
 	//여기서부터 취업게시판
@@ -123,6 +127,12 @@ public class CareerService extends CommonService{
 	public int deleteEmployBoard(CareerVO paramVO) {
 		int result = careerDAO.deleteEmployBoard(paramVO);
 		return result;
+	}
+
+
+	public int modEmployBoardData(CareerVO paramVO) {
+		careerDAO.modEmployBoardData(paramVO);
+		return paramVO.getBrdid();
 	}
 
 

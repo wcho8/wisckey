@@ -58,4 +58,11 @@ public class AboutService extends CommonService{
 		int result = aboutDAO.noticeDelete(paramVO);
 		return result;
 	}
+
+	public List<AboutVO> listFourNotice(AboutVO paramVO) {
+		List<AboutVO> list = new ArrayList<AboutVO>();
+		
+		list = aboutDAO.listFourNotice(paramVO);
+		return list;
+	}
 }

@@ -6,7 +6,9 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
 	$("#userno_employBoard").hide();
+	
 	var defaultParams={
 			brdid: "${paramVO.brdid}",
 			userno: "${session.userno}",
@@ -54,6 +56,16 @@ $(document).ready(function(){
 		});
 	});
 	
+	var writerno = "${vo.userno}";
+	
+	if(defaultParams.userno == writerno){
+		$("#employBoardUpdate").show();
+	}
+	$("#employBoardUpdate").click(function(){
+		var url = "/Career/employBoardWrite?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 });
 
 </script>
@@ -102,6 +114,8 @@ $(document).ready(function(){
 				<div style="float: left; width:100%;">
 					<button class="btn delete" id="employBoardDelete" style="float: right; margin-top:5px;">삭제</button>
 					<button class="btn confirm" id="employBoardList" style="float: right; margin-top: 5px;">목록</button>		
+					<button class="btn update" id="employBoardUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
+					
 		
 						
 				</div>

@@ -14,10 +14,9 @@ $(document).ready(function(){
 		userno: "${session.userno}",
 		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}",
-		
 	};
 	
-
+	
 	$("#employerList").click(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", "/Career/?"+params);
@@ -58,6 +57,19 @@ $(document).ready(function(){
 			alert("게시글이 삭제되었습니다.");
 			$(location).attr("href","/Career/");
 		});
+	});
+	
+	var writerno = "${vo.userno}";
+	
+	if(defaultParams.userno == writerno){
+		console.log("userno == writerno");
+		$("#employerUpdate").show();
+	}
+	
+	$("#employerUpdate").click(function(){
+		var url = "/Career/writeEmployer?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
 	});
 });
 
@@ -110,7 +122,8 @@ $(document).ready(function(){
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 870px;">
 				<div style="float: left; width:100%;">
 					<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
-					<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>	
+					<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
+					<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
 						
 				
 				</div>

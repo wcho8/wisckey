@@ -107,7 +107,15 @@
 		WHERE brdid=#{brdid}
 			
 	</delete>
-
+	<update id="modEmployerData" parameterType="CareerVO">
+		UPDATE brd_employment SET
+			content = #{content},
+			title = #{title},
+			moddate = NOW()
+		WHERE brdid=#{brdid}
+	</update>
+	
+	
 
 	<!-- 취업게시판 -->
 	<insert id="addEmployBoardData" parameterType="CareerVO"  useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
@@ -206,7 +214,12 @@
 		DELETE FROM
 			brd_extratips 
 		WHERE brdid=#{brdid}
-			
 	</delete>
-	
+	<update id="modEmployBoardData" parameterType="CareerVO">
+		UPDATE brd_extratips SET
+			content = #{content},
+			title = #{title},
+			moddate = NOW()
+		WHERE brdid=#{brdid}
+	</update>
 </mapper>

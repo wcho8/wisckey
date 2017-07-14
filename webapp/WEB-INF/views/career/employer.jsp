@@ -36,13 +36,6 @@ $(document).ready(function(){
 			$("#searchNickname").show();
 		}
 	});
-	
-	console.log("!!!!");
-	console.log($("#list_id").val());
-	if($("#list_id").val()==49){
-		console.log("!!#!#");
-		console.log($("#title").val());
-	}
 
 });
 

@@ -96,6 +96,24 @@ public class CareerController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public CareerVO findEmployerContent(CareerVO paramVO){
+		CareerVO result = careerService.findEmployerContent(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modEmployerData(CareerVO paramVO){
+		int result = careerService.modEmployerData(paramVO);
+		
+		return result;
+	}
+	
+	
+	
 	/*
 	 * 
 	 * 여기서부턴 취업게시판!!!!!!!
@@ -160,6 +178,21 @@ public class CareerController {
 	@ResponseBody
 	public int deleteEmployBoard(CareerVO paramVO){
 		int result = careerService.deleteEmployBoard(paramVO);
+		
+		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public int modEmployBoardData(CareerVO paramVO){
+		int result = careerService.modEmployBoardData(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public CareerVO findEmployBoardContent(CareerVO paramVO){
+		CareerVO result = careerService.findEmployBoardContent(paramVO);
 		
 		return result;
 	}
