@@ -67,10 +67,15 @@ function changeBest(ab){
 }
 
 </script>
+<style>
+td{
+padding:5px;
+}
+</style>
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:100%;"></div>
+	<div class="hr_dash" style="width:88%; margin-left:auto;margin-right:auto;"></div>
 	<div class="row">
 		<div class="main_body">
 			<div class="body_top">
@@ -142,7 +147,7 @@ function changeBest(ab){
 							학교 주요사이트
 						</div>
 						<div style="padding:3px; width:100%;font-size:14px;">
-							<ol id="" style="padding-left:0px;">
+							<!-- <ol id="" style="padding-left:0px;">
 								<li style="margin-top:8px;maring-left:0px;font-size:14px;">
 									<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
 								</li>
@@ -152,7 +157,25 @@ function changeBest(ab){
 								<li style="margin-top:8px;maring-left:0px;font-size:14px;">
 									<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
 								</li>
-							</ol>
+							</ol> -->
+							<table id="" style="padding-left:0px;">
+								<tr>
+									<td>
+										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+									</td>
+									<td>
+										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+									</td>
+									<td>
+										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>

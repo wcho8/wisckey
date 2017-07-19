@@ -3,12 +3,23 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var curPage = "/Board/?";
+var defaultParams = {};
 $(document).ready(function(){
-	var defaultParams = {
+	defaultParams = {
 		userno: "${session.userno}",
 		username: "${session.username}",
 		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}"
+	}
+	var srchType = "${paramVO.srchType}";
+	if(srchType != null && srchType != ''){
+		$("#searchType").val("${paramVO.srchType}");
+		$("#keyword").val("${paramVO.keyword}");
+		if(srchType == 1){
+			$("#keyword").attr("placeholder", "제목");
+		}else if(srchType == 2){
+			$("#keyword").attr("placeholder", "닉네임");
+		}
 	}
 	$("#addBoard").click(function(){
 		var url = "/Board/BoardEdit";
@@ -20,62 +31,34 @@ $(document).ready(function(){
 		}
 	});
 	$("#searchType").change(function(){
+		$("#keyword").val("");
 		if($(this).val() == 1){
-			$("#searchTitle").show();
-			$("#searchNickname").hide();
+			$("#keyword").attr("placeholder", "제목");
 		}else if($(this).val() == 2){
-			$("#searchTitle").hide();
-			$("#searchNickname").show();
+			$("#keyword").attr("placeholder", "닉네임");
 		}
 	});
 	
 	$("#search").click(function(){
-		var url="/Board/searchBoard";
+		search();
 	});
-	/* 
-	var objGrid = $("#board_table");
-	objGrid.jqGrid({
-		url:"/Board/findBoardList",
-		width:875,
-		height:"auto",
-		postData:defaultParams,
-		datatype:"json",
-		mtype:"post",
-		jsonReader:{repeatitems:false,page:1},
-		colNames:[
-		          "번호",
-		          "제목",
-		          "닉네임",
-		          "등록일",
-		          "조회",
-		          "추천수"
-		          ],
-		colModel:[
-		          {name:"brdid", width:50},
-		          {name:"title", width:485},
-		          {name:"writer", width:120},
-		          {name:"regdate", width:120},
-		          {name:"count", width:50},
-		          {name:"likes", width:50}
-		          ],
-		caption:"자유 게시판",
-		hidegrid:false,
-		viewrecords:true,
-		shrinkToFit:true,
-		pager:"#pager",
-		rowNum:20
-	});
-	
-	objGrid.jqGrid("setGridParam", {
-		onSelectRow:function(row, status, event) {
-			var rowData = objGrid.jqGrid("getRowData", row);
-			$(location).attr("href", "./BoardView?brdid="+rowData.brdid);
+	$("#keyword").keydown(function(key){
+		if(key.keyCode ==13){
+			search();
 		}
-	}); */
+	});
 });
 
+function search(){
+	var keyword = $("#keyword").val();
+	var searchType = $("#searchType").val();
+	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
+	var url="/Board/?" + $.param(params);
+	$(location).attr("href", url)
+}
+
 function viewBoard(brdid){
-	var url = "/Board/BoardView?brdid=" + brdid;
+	var url = "/Board/BoardView?brdid=" + brdid + "&mypage=" + defaultParams.mypage;
 	$(location).attr("href", url);
 }
 
@@ -170,8 +153,7 @@ font-size:13px;
 							<option value="3">게시물 타입</option>
 						</select>
 						<div id="searchValue" style="float:right;">
-							<input type="text" id="searchTitle" placeHolder="제목">
-							<input type="text" id="searchNickname" style="display:none;">
+							<input type="text" id="keyword" placeHolder="제목">
 							<%-- <select id="searchBrdType" style="width:150px;float:right;display:none;">
 								<option value="${vo.frid}">${vo.frname}</option>
 							</select> --%>
@@ -180,9 +162,9 @@ font-size:13px;
 					</div>
 				</div>
 				<div class="col-10 mt15">
-		            <div class="fLeft text-left col-1">
+		           <%--  <div class="fLeft text-left col-1">
 		                <b>⊙Total : ${totalCnt}</b>
-		            </div>
+		            </div> --%>
 		            <div class="fLeft text-center col-8">
 		                <jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
 		                 <%-- <c:if test="${paramVO.iTotalRowCount == 0}">

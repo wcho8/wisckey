@@ -21,6 +21,15 @@
 			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE 1=1
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND b.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
 		ORDER BY b.brdid DESC
 		LIMIT #{skiprow}, #{pagerow}
 		<!-- LIMIT #{srow}, #{rows} -->
