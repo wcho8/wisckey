@@ -68,7 +68,7 @@ $(document).ready(function(){
 
 </script>
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -81,7 +81,7 @@ $(document).ready(function(){
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_list li>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
@@ -99,6 +99,14 @@ $(document).ready(function(){
 #title_list>li{
 	list-style-type: disc;
 	list-style-position: none ;
+}
+
+#employBoardDelete, #employBoardUpdate,#employBoardList{
+	margin-left:5px; 
+	line-height: 20px; 
+	width:45px; 
+	vertical-align:middle; 
+	padding:0px;
 }
 </style>
 
@@ -119,22 +127,12 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 700px;">
-				<div style="float: left; width:100%;">
-					<button class="btn delete" id="employBoardDelete" style="float: right; margin-top:5px;">삭제</button>
-					<button class="btn confirm" id="employBoardList" style="float: right; margin-top: 5px;">목록</button>		
-					<button class="btn update" id="employBoardUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
-					
-		
-						
-				</div>
 				
-				<div style="clear:both;"></div>
-				
-				<div id="notice_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
-					<div id="notice_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
+				<div id="employBoard_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
+					<div id="employBoard_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
 						<b>${vo.title }</b> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
-					<div id="notice_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
+					<div id="employBoard_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
 							작성자: <b>${vo.writer }</b>
 						</span>
@@ -145,13 +143,25 @@ $(document).ready(function(){
 					
 					<div style="clear:both;"></div>
 					
-					<div class="hr_dash" style="background: grey;"></div>
+					<div class="hr_dash" style="opacity: 0.3; background: grey;"></div>
 					
-					<div id="notice_content" style="width:100%; min-height: 300px; margin-top:10px;">
+					<div id="employBoard_content" style="width:100%; min-height: 300px; margin-top:10px;">
 						${vo.content }
 					</div>
 					
+						
 					<div class="hr_dash" style="background: grey;"></div>
+					<div style="clear:both;"></div>
+
+					<div style="float: left; width:100%;">
+						<button class="btn delete" id="employBoardDelete" style="float: right;"><span style="font-size:80%;">삭제</span></button>
+						<button class="btn update" id="employBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
+						<button class="btn confirm" id="employBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
+					</div>
+					
+				
+					
+					<div style="clear:both;"></div>
 					<div id="employBoard_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>

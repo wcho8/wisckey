@@ -99,6 +99,14 @@ $(document).ready(function(){
 	list-style-type: disc;
 	list-style-position: none ;
 }
+
+#pastWorkDelete, #pastWorkUpdate,#pastWorkList{
+	margin-left:5px; 
+	line-height: 20px; 
+	width:45px; 
+	vertical-align:middle; 
+	padding:0px;
+}
 </style>
 
 
@@ -135,13 +143,24 @@ $(document).ready(function(){
 					
 					<div style="clear:both;"></div>
 					
-					<div class="hr_dash" style="background: grey;"></div>
-					
+					<div class="hr_dash" style="opacity: 0.3; background: grey;"></div>
+
 					<div id="pastWork_content" style="width:100%; min-height: 300px; margin-top:10px;">
 						${vo.content }
 					</div>
 					
+					
 					<div class="hr_dash" style="background: grey;"></div>
+					<div style="clear:both;"></div>
+					
+					<div style="float:hidden; margin-top: 10px; width:100%;">
+						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn confirm" id="pastWorkList" style="float: right; margin-top: 5px;">목록	</button>
+						<button class="btn update" id="pastWorkUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
+					</div>
+		
+					<div style="clear:both;"></div>
+					
 					<div id="pastWork_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
@@ -158,13 +177,7 @@ $(document).ready(function(){
 						</div>
 					</c:forEach>
 				</div>
-				<div style="clear:both;"></div>
-					<div style="float:hidden; margin-top: 10px; width:100%;">
-						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;">삭제</button>
-						<button class="btn confirm" id="pastWorkList" style="float: right; margin-top: 5px;">목록	</button>
-						<button class="btn update" id="pastWorkUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
-					</div>
-			</div>
+							</div>
 		</div>
 	</div>
 </div>

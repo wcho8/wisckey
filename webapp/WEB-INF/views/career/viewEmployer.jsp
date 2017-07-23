@@ -72,7 +72,7 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -85,7 +85,7 @@ $(document).ready(function(){
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_list li>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
@@ -97,11 +97,18 @@ $(document).ready(function(){
 	padding-left: 10px;
 	box-shadow: 2px 2px #778899;
 */
-border-right:2px solid #a80e34;
+	border-right:2px solid #a80e34;
 }
 #title_list>li{
 	list-style-type: disc;
 	list-style-position: none ;
+}
+#employerDelete, #employerUpdate,#employerList{
+	margin-left:5px; 
+	line-height: 20px; 
+	width:45px; 
+	vertical-align:middle; 
+	padding:0px;
 }
 
 
@@ -124,13 +131,7 @@ border-right:2px solid #a80e34;
 				</div>
 			</div>
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 700px;">
-				<div style="float: left; width:100%;">
-					<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
-					<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
-					<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
-						
 				
-				</div>
 				
 				<div style="clear:both;"></div>
 				
@@ -149,13 +150,22 @@ border-right:2px solid #a80e34;
 					
 					<div style="clear:both;"></div>
 					
-					<div class="hr_dash" style="background: grey;"></div>
+					<div class="hr_dash" style="opacity: 0.3; background: grey;"></div>
 					
 					<div id="notice_content" style="width:100%; min-height: 300px; margin-top:10px;">
 						${vo.content }
 					</div>
 					
 					<div class="hr_dash" style="background: grey;"></div>
+					<div style="clear:both;"></div>
+					
+					<div style="float: left; width:100%;">
+						<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
+						<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
+					</div>
+					
+					<div style="clear:both;"></div>
 					<div id="employer_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
@@ -163,7 +173,6 @@ border-right:2px solid #a80e34;
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
-					
 					
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">

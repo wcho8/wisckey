@@ -76,7 +76,7 @@ function viewNotice(nid){
 
 </script>
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -89,7 +89,7 @@ function viewNotice(nid){
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_listli>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
@@ -114,13 +114,13 @@ function viewNotice(nid){
 }
 
 */
-#title_list_about>li{
+#title_list>li{
 	list-style-type: disc; 
 	list-style-position: inside;	
 }
 #noticeDelete, #noticeUpdate,#noticeList{
 	margin-left:5px; 
-	line-height: 17px; 
+	line-height: 20px; 
 	width:45px; 
 	vertical-align:middle; 
 	padding:0px;
@@ -141,7 +141,7 @@ function viewNotice(nid){
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
-					<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
+					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
 						<li><a href="/About/introWisckey">위스키 소개</a></li>
 						<li><a href="/About/introUniv">학교소개</a></li>
 						<li><a id="current" href="/About/">공지사항</a></li>
@@ -176,7 +176,7 @@ function viewNotice(nid){
 
 					<div style="clear:both;"></div>
 					
-					<div class="hr_dash" style="background: grey;"></div>
+					<div class="hr_dash" style="opacity: 0.3; background: grey;"></div>
 					
 					<div id="notice_content" style="width:100%; min-height: 300px; padding-top: 20px; padding-left: 10px;">
 						${vo.content }
@@ -192,7 +192,6 @@ function viewNotice(nid){
 					</div>
 
 					<div style="clear:both;"></div>
-					<div class="hr_dash" style="background: grey;"></div>
 					<div id="notice_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>

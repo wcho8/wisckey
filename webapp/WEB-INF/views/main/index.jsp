@@ -30,8 +30,8 @@ $(document).ready(function(){
 	$.post("./findTopBoardList", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
-			if(title.length > 17){
-				title = title.substring(0, 17);
+			if(title.length > 13){
+				title = title.substring(0, 13);
 				title += "...";
 			}
 			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + title
@@ -56,8 +56,8 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(title.length > 20){
-				title = title.substring(0, 20);
+			if(title.length > 23){
+				title = title.substring(0, 23);
 				title += " ...";
 			}
 			
@@ -71,8 +71,8 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(title.length > 27){
-				title = title.substring(0, 27);
+			if(title.length > 23){
+				title = title.substring(0, 23);
 				title += " ...";
 			}
 			
@@ -166,7 +166,7 @@ padding:5px;
 				</div>
 			</div>
 			<div class="body_mid" style="width:100%; height:850px; margin-top:10px;">
-				<div class="mid_left" style="float:left; width:35%; height:800px;">
+				<div class="mid_left" style="float:left; width:27.7%; height:800px;">
 					<div id="top_freeboard" class="body_div">
 						<div class="body_inside">
 							<a href="/Board/">Best 자유 게시판</a>
@@ -213,8 +213,8 @@ padding:5px;
 						</div>
 					</div>
 				</div>
-				<div class="mid_right" style="float:left;width:65%; height:800px;">
-					<div class="right_left" style="float:left; width:60%; height:100%;">
+				<div class="mid_right" style="float:left;width:72.3%; height:800px;">
+					<div class="right_left" style="float:left; width:61.68%; height:100%;">
 						<div id="top_etc" class="body_div">
 							<div class="body_inside">
 								Best 게시물 
@@ -291,7 +291,7 @@ padding:5px;
 							</div>
 						</div>
 					</div>
-					<div class="right_right" style="float:left; width:40%; height:100%;">
+					<div class="right_right" style="float:left; width:38.32%; height:100%;">
 						<div id="notice" class="body_div">
 							<div class="body_inside">
 								<a href="/About/">공지사항</a>
