@@ -10,6 +10,7 @@
 		<typeAlias alias="BoardVO" type="kr.madison.board.vo.BoardVO" />
 		<typeAlias alias="AboutVO" type="kr.madison.about.vo.AboutVO"/>
 		<typeAlias alias="CareerVO" type="kr.madison.career.vo.CareerVO"/>
+		<typeAlias alias="SchoolVO" type="kr.madison.school.vo.SchoolVO"/>
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="kr.madison.util.LocalDateTimeTypeHandler"/>

@@ -84,8 +84,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">학업 <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">족보</a></li>
-								<li><a href="#">학업게시판</a></li>
+								<li><a href="/School/pastWork">족보</a></li>
+								<li><a href="/School/education">학업게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">

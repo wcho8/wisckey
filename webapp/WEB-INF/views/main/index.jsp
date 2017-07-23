@@ -43,8 +43,8 @@ $(document).ready(function(){
 	$.post("./findRecentNoticeList", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
-			if(title.length > 16){
-				title = title.substring(0, 16);
+			if(title.length > 13){
+				title = title.substring(0, 13);
 				title += "...";
 			}
 			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/About/viewNotice?nid=" + item.nid+ "'>" + title
@@ -52,22 +52,56 @@ $(document).ready(function(){
 			$("#recentNotice").append(li);
 		});
 	});
+	$.post("./findEmployerList", {}, function(data){
+		$.each(data, function(index,item){
+			var title = item.title;
+			
+			if(title.length > 20){
+				title = title.substring(0, 20);
+				title += " ...";
+			}
+			
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
+					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			$("#employer_list").append(li);
+
+		})
+	});
+	$.post("./findEducationList", {}, function(data){
+		$.each(data, function(index,item){
+			var title = item.title;
+			
+			if(title.length > 27){
+				title = title.substring(0, 27);
+				title += " ...";
+			}
+			
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
+					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			$("#education_list").append(li);
+
+		})
+	});
 });
 
 function changeBest(ab){
-	$("#a").show();
-	$("#b").hide();
+	$("#employer_list").show();
+	$("#education_list").hide();
 	if(ab == 1){
-		$("#a").show();
-		$("#b").hide();
+		$("#employer_list").show();
+		$("#education_list").hide();
 	}else if(ab == 2){
-		$("#a").hide();
-		$("#b").show();
+		$("#employer_list").hide();
+		$("#education_list").show();
 	}
 }
 
 </script>
 <style>
+a:hover{
+	font-weight: bold;
+	text-decoration:none;
+}
 td{
 padding:5px;
 }
@@ -189,57 +223,9 @@ padding:5px;
 								</span>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="a" style="padding-left:0px;">
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=33">여기는 취업(23)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=34">여기는 취업((10)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 취업((2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">여기는 취업((2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 취업((2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">여기는 취업((2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
-								</ul>
-								<ul id="b" style="padding-left:0px; display: none;">
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=33">여기는 학업(23)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=34">여기는 학업(10)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 학업(2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">bb(2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 학업(2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">bb(2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
+								<ul id="employer_list" style="padding-left:0px;">
+								</ul>								
+								<ul id="education_list" style="padding-left:0px; display: none; height: 216px;">
 								</ul>
 							</div>
 						</div>

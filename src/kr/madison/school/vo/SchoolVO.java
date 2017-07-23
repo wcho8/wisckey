@@ -1,22 +1,20 @@
-package kr.madison.career.vo;
-
-import kr.madison.common.vo.CommonVO;
+package kr.madison.school.vo;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import kr.madison.common.vo.CommonVO;
+
 @JsonSerialize(include=JsonSerialize.Inclusion.ALWAYS)
-public class CareerVO extends CommonVO{
+public class SchoolVO extends CommonVO{
 	public int brdid;
-	public int empid;
+	public int swid;
 	public String title;
 	public String content;
-	public String writer;
-	public String deadline;
 	public String regdate;
 	public String moddate;
+	public String writer;
 	public int count;
 	public int likes;
-	public int tipid;
 	public int repcount;
 	
 	public int repid;
@@ -24,56 +22,8 @@ public class CareerVO extends CommonVO{
 	public String repRegdate;
 	public String replier;
 	
-	public int dDate;
 	
-	public int getdDate() {
-		return dDate;
-	}
-	public void setdDate(int dDate) {
-		this.dDate = dDate;
-	}
-	public int getRepcount() {
-		return repcount;
-	}
-	public void setRepcount(int repcount) {
-		this.repcount = repcount;
-	}
-	public int getRepid() {
-		return repid;
-	}
-	public void setRepid(int repid) {
-		this.repid = repid;
-	}
-	public String getRepContent() {
-		return repContent;
-	}
-	public void setRepContent(String repContent) {
-		this.repContent = repContent;
-	}
-	public String getRepRegdate() {
-		return repRegdate;
-	}
-	public void setRepRegdate(String repRegdate) {
-		this.repRegdate = repRegdate;
-	}
-	public String getReplier() {
-		return replier;
-	}
-	public void setReplier(String replier) {
-		this.replier = replier;
-	}
-	public int getTipid() {
-		return tipid;
-	}
-	public void setTipid(int tipid) {
-		this.tipid = tipid;
-	}
-	public String getDeadline() {
-		return deadline;
-	}
-	public void setDeadline(String deadline) {
-		this.deadline = deadline;
-	}
+	
 	public String getWriter() {
 		return writer;
 	}
@@ -86,11 +36,11 @@ public class CareerVO extends CommonVO{
 	public void setBrdid(int brdid) {
 		this.brdid = brdid;
 	}
-	public int getEmpid() {
-		return empid;
+	public int getSwid() {
+		return swid;
 	}
-	public void setEmpid(int empid) {
-		this.empid = empid;
+	public void setSwid(int swid) {
+		this.swid = swid;
 	}
 	public String getTitle() {
 		return title;
@@ -128,9 +78,37 @@ public class CareerVO extends CommonVO{
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
+	public int getRepcount() {
+		return repcount;
+	}
+	public void setRepcount(int repcount) {
+		this.repcount = repcount;
+	}
+	public int getRepid() {
+		return repid;
+	}
+	public void setRepid(int repid) {
+		this.repid = repid;
+	}
+	public String getRepContent() {
+		return repContent;
+	}
+	public void setRepContent(String repContent) {
+		this.repContent = repContent;
+	}
+	public String getRepRegdate() {
+		return repRegdate;
+	}
+	public void setRepRegdate(String repRegdate) {
+		this.repRegdate = repRegdate;
+	}
+	public String getReplier() {
+		return replier;
+	}
+	public void setReplier(String replier) {
+		this.replier = replier;
+	}
 	
 	
-
-
-
+	
 }
