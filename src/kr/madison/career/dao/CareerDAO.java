@@ -41,6 +41,7 @@ public class CareerDAO extends CommonDAO{
 	}
 	
 	public int deleteEmployer(CareerVO paramVO) {
+		getSqlSession().delete("Career.deleteEmployerReply", paramVO);
 		return getSqlSession().delete("Career.deleteEmployer", paramVO);
 	}
 
@@ -84,7 +85,8 @@ public class CareerDAO extends CommonDAO{
 	}
 
 	public int deleteEmployBoard(CareerVO paramVO) {
-		return getSqlSession().delete("deleteEmployBoard", paramVO);
+		getSqlSession().delete("Career.deleteEmployBoardReply", paramVO);
+		return getSqlSession().delete("Career.deleteEmployBoard", paramVO);
 	}
 
 

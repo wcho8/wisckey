@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 $(document).ready(function(){
 	var defaultParams={
-			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			mypage: "${paramVO.mypage}"
-		};
+		brdid: "${paramVO.brdid}",
+		userno: "${session.userno}",
+		mypage: "${paramVO.mypage}"
+	};
 	
 	$('#content').summernote({
 		lang:'ko-KR',
@@ -39,7 +39,7 @@ $(document).ready(function(){
 		var url = "/Career/addEmployBoardData";
 		var content = $("#content").summernote('code');
 		
-		var params = $.extend({}, $("#emplyBoardContent").serialization(), {tipid:1, content:content});
+		var params = $.extend({}, $("#emplyBoardContent").serialization(), {empid:2, content:content});
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -88,33 +88,38 @@ function sendFile(file, el){
 
 
 <style type="text/css">
-
-#title_list li>a:active {
-font-size: 110%;
-font-weight: bold;
-text-decoration: none;
-}
-
-#title_list li>a:hover {
+#title_list_about li>a:hover {
 	text-decoration: none;
-	font-size: 110%;
+	font-size: 105%;
 	font-weight: bold;
 	opacity: 1;
 	color: black;
 }
-
-#title_list li>a:visited {
+#current{
 	font-size: 110%;
 	font-weight: bold;
+	opacity:1;
+	color: black;
+}
+#title_list_about li>a {
+	opacity: 0.7;
 	text-decoration: none;
+	
 }
 
-#title_list li>a {
-	opacity: 0.4;
-	text-decoration: none;
+#l_title{
+/*
+	border: 2px solid #808080;
+	border-radius: 25px;
+	padding-left: 10px;
+	box-shadow: 2px 2px #778899;
+*/
+	border-right:2px solid #a80e34;
 }
-
-
+#title_list>li{
+	list-style-type: disc;
+	list-style-position: none ;
+}
 
 </style>
 <!-- s:container -->
@@ -123,14 +128,16 @@ text-decoration: none;
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-			<div class="left_menu" style="float:left; width:130px; border-right: 1px solid #cccccc;">
-				<div id="l_title" style="font-weight: bold; font-size:130%">취업</div>
-				<ul id="title_list" style="list-style:none; padding-left:0px; text-decoration: none;">
-					<li><a href="/Career/">-취업공고</a></li>
-					<li><a href="/Career/employBoard">-취업게시판</a></li>
-				</ul>
+				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_title" style="font-weight: bold;">
+					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
+					<ul id="title_list" style="list-style:none; text-decoration: none;">
+						<li><a href="/Career/">취업공고</a></li>
+						<li><a id="current" href="/Career/employBoard">취업게시판</a></li>
+					</ul>
+				</div>
 			</div>
-			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
+			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
 				
 				
 				<table style="width:100%;" id="emplyBoardContent">

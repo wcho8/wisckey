@@ -5,9 +5,11 @@ import java.util.List;
 
 import kr.madison.about.vo.AboutVO;
 import kr.madison.board.vo.BoardVO;
+import kr.madison.career.vo.CareerVO;
 import kr.madison.common.controller.CommonController;
 import kr.madison.main.service.MainService;
 import kr.madison.main.vo.MainVO;
+import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,4 +59,23 @@ public class MainController extends CommonController{
 		result = mainService.findRecentNoticeList(paramVO);
 		return result;
 	}
+	
+	@RequestMapping("/findEmployerList")
+	@ResponseBody
+	public List<CareerVO> findEmployerList(MainVO paramVO){
+		List<CareerVO> result = new ArrayList<CareerVO>();
+		
+		result = mainService.findEmployerList(paramVO);
+		return result;
+	}
+	
+	@RequestMapping("/findEducationList")
+	@ResponseBody
+	public List<SchoolVO> findEducationList(MainVO paramVO){
+		List<SchoolVO> result = new ArrayList<SchoolVO>();
+		
+		result = mainService.findEducationList(paramVO);
+		return result;
+	}
+	
 }

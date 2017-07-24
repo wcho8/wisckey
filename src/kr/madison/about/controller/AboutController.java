@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/About/*")
 public class AboutController {
 	
-	final private int pageRow=10;
+	final private int pageRow=15;
 	
 	@Autowired
 	AboutService aboutService;
@@ -37,6 +37,7 @@ public class AboutController {
 		ModelAndView mav = new ModelAndView();
 		
 		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
+		
 		
 		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/introWisckey");
@@ -135,6 +136,28 @@ public class AboutController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public List<AboutVO> listFourNotice(AboutVO paramVO){
+		List<AboutVO> list = new ArrayList<AboutVO>();
+		list = aboutService.listFourNotice(paramVO);
+		return list;
+	}
 	
+	@RequestMapping 
+	@ResponseBody
+	public int modAboutData(AboutVO paramVO){
+		int result = aboutService.modAboutData(paramVO);
+		
+		return result;
+	}
 	
+	@RequestMapping
+	@ResponseBody
+	public List<AboutVO> searchNotice(AboutVO paramVO){
+		List<AboutVO> list = new ArrayList<AboutVO>();
+		list = aboutService.searchNotice(paramVO);
+		
+		return list;
+	}
 }

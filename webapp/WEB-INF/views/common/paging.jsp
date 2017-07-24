@@ -14,7 +14,7 @@ function page_change(pagenum) {
 	$(location).attr("href", url);
 }
 </script>
-<div id="paging" class="pagination">
+<div id="paging" class="pagination" style="padding-top: 10px; margin: auto;">
 	<c:set var="mypage" value="${paramVO.mypage}" />
 	<c:set var="block" value="${paramVO.block}" />
 	<c:set var="startpage" value="${paramVO.startpage}" />

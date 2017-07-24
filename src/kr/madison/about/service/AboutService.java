@@ -48,7 +48,6 @@ public class AboutService extends CommonService{
 		
 		return result;
 	}
-
 	public int findNoticeTotalCnt(AboutVO paramVO) {
 		int result = aboutDAO.findNoticeTotalCnt(paramVO);
 		return result;
@@ -65,4 +64,17 @@ public class AboutService extends CommonService{
 		list = aboutDAO.listFourNotice(paramVO);
 		return list;
 	}
+
+	public int modAboutData(AboutVO paramVO) {
+		int result = aboutDAO.modAboutData(paramVO);
+		
+		return result;
+	}
+
+	public List<AboutVO> searchNotice(AboutVO paramVO) {
+		List<AboutVO> list = new ArrayList<AboutVO>();
+		list = aboutDAO.searchNotice(paramVO);
+		return list;
+	}
 }
+	

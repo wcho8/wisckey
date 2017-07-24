@@ -7,7 +7,8 @@
 	<select id="findEmployerTotalCnt" parameterType="CareerVO" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM brd_employment
+		FROM brd_employment 
+		WHERE empid=1
 	</select>
 	<select id="findEmployerList" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
@@ -25,7 +26,16 @@
 			(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as repcount,
 			(SELECT -1*DATEDIFF(CURRENT_DATE, a.deadline) from brd_employment a where a.brdid = b.brdid) as dDate
 		FROM brd_employment b
-		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN info_userinfo a on b.userno = a.userno	
+		WHERE empid=1
+		<if test = "keyword !=null and keyword != ''">
+			<if test = "srchType ==1">
+				AND b.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test = "srchType ==2">
+				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
 		ORDER BY b.brdid DESC
 		LIMIT #{skiprow}, #{pagerow}
 	</select>
@@ -101,9 +111,14 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
+	<delete id = "deleteEmployerReply" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_reply
+		WHERE brdid=#{brdid}
+	</delete>
 	<delete id="deleteEmployer" parameterType="CareerVO">
 		DELETE FROM
-			brd_employment 
+			brd_employment
 		WHERE brdid=#{brdid}
 			
 	</delete>
@@ -119,15 +134,15 @@
 
 	<!-- 취업게시판 -->
 	<insert id="addEmployBoardData" parameterType="CareerVO"  useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
-		INSERT INTO brd_extratips(
-			tipid,
+		INSERT INTO brd_employment(
+			empid,
 			title,
 			content,
 			regdate,
 			moddate,
 			userno
 		) VALUES(
-			#{tipid},
+			#{empid},
 			#{title},
 			#{content},
 			NOW(),
@@ -141,7 +156,7 @@
 	<select id="findEmployBoardContent" parameterType="CareerVO" resultType="CareerVO">
 		SELECT 
 			b.brdid,
-			b.tipid,
+			b.empid,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
@@ -149,14 +164,14 @@
 			b.userno,
 			b.count,
 			b.likes	
-		FROM brd_extratips b
+		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		WHERE b.brdid = #{brdid}
 	</select>
 	<select id="findEmployBoardList" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
 			b.brdid,
-			b.tipid,
+			b.empid,
 			b.title,
 			CASE WHEN b.regdate > CURDATE()
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
@@ -166,24 +181,34 @@
 			b.userno,
 			b.count,	
 			b.likes,			
-			(SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = b.brdid) as repcount
-		FROM brd_extratips b
+			(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as repcount
+		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE empid=2
+		<if test = "keyword !=null and keyword != ''">
+			<if test = "srchType ==1">
+				AND b.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test = "srchType ==2">
+				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
 		ORDER bY b.brdid DESC
 		LIMIT #{skiprow}, #{pagerow}
 	</select>
 	<select id ="findEmployBoardTotalCnt" parameterType="CareerVO" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM brd_extratips
+		FROM brd_employment 
+		WHERE empid=2
 	</select>
 	<update id="modBoardCount" parameterType="CareerVO">
-		UPDATE brd_extratips SET
+		UPDATE brd_employment SET
 			count = count + 1
 		WHERE brdid = #{brdid}
 	</update>
 	<insert id="addEmployBoardReply" parameterType="CareerVO" useGeneratedKeys=" true" keyProperty="repid" keyColumn="repid">
-		INSERT INTO brd_extratips_reply(
+		INSERT INTO brd_employment_reply(
 			brdid,
 			content,
 			regdate,
@@ -206,17 +231,22 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
-		FROM brd_extratips_reply a
+		FROM brd_employment_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
+	<delete id="deleteEmployBoardReply" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_reply
+		WHERE brdid = #{brdid}
+	</delete>
 	<delete id="deleteEmployBoard" parameterType="CareerVO">
 		DELETE FROM
-			brd_extratips 
+			brd_employment 
 		WHERE brdid=#{brdid}
 	</delete>
 	<update id="modEmployBoardData" parameterType="CareerVO">
-		UPDATE brd_extratips SET
+		UPDATE brd_employment SET
 			content = #{content},
 			title = #{title},
 			moddate = NOW()
