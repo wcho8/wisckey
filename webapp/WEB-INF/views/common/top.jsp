@@ -125,7 +125,7 @@ function login(){
 							aria-expanded="false">관리자<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">ABOUT 관리</a></li>
-								<li><a href="#">게시판 관리</a></li>
+								<li><a href="/Admin/ManageMenu">게시판 관리</a></li>
 								<li><a href="/Admin/ManageOrg">동아리 관리</a></li>
 							</ul></li>
 					</ul>
