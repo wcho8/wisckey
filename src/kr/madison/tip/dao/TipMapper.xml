@@ -8,6 +8,11 @@
 			COUNT(*)
 		FROM brd_extratips
 	</select>
+	<select id="getFoodCount" parameterType="TipVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_extratips
+	</select>
  	<select id="findFoodList" parameterType="TipVO" resultType="TipVO">
 		SELECT
 			b.brdid,

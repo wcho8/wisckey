@@ -111,6 +111,7 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
+			<span id="userno_food" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">±ú¾ËÆÁ</span>

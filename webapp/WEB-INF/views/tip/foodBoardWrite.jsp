@@ -134,10 +134,10 @@ function sendFile(file, el){
 		<div class="main_body" style="overflow:hidden">
 				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
+					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">깨알팁</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
-						<li><a href="/Career/">취업공고</a></li>
-						<li><a id="current" href="/Career/foodBoard">취업게시판11</a></li>
+						<li><a id="current" href="/Career/">맛집</a></li>
+						<li><a  href="/Career/foodBoard">벼룩시장</a></li>
 					</ul>
 				</div>
 			</div>
