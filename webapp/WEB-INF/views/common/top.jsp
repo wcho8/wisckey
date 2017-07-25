@@ -102,12 +102,11 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">동아리 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">동아리 정보</a></li>
-								<li><a href="#">KUSA</a></li>
-								<li><a href="#">KESA</a></li>
-								<li><a href="#">KAFES</a></li>
-								<li><a href="#">KBSA</a></li>
-								<li><a href="#">ULSSU</a></li>
+								<li><a href="#">소개</a></li>
+								<li><a href="#">학술</a></li>
+								<li><a href="#">스포츠</a></li>
+								<li><a href="#">취미</a></li>
+								<li><a href="#">종교</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">

@@ -2,38 +2,61 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
-	var objGrid = $("#grid_list");
-	var url = "/Board/findBoardList";
+	var objGrid = $("#grid_table");
+	var url = "/Admin/findOrgList";
 	objGrid.jqGrid({
 		url: url,
 		width:875,
 		height:"auto",
-		postData:{skiprow:0, pagerow:20},
+		postData:{},
 		datatype:"json",
 		mtype:"post",
 		jsonReader:{repeatitems:false},
 		colNames:[
 		          "번호",
-		          "제목",
-		          "닉네임",
+		          "이름",
+		          "설명",
 		          "등록일",
-		          "조회",
-		          "추천수"
+		          "회장",
+		          "부회장",
+		          "동아리 타입"
 		          ],
 		colModel:[
-		          {name:"brdid", width:50},
-		          {name:"title", width:485},
-		          {name:"writer", width:120},
-		          {name:"regdate", width:120},
-		          {name:"count", width:50},
-		          {name:"likes", width:50}
+		          {name:"orgid", width:50},
+		          {name:"name", width:150},
+		          {name:"comment", width:150},
+		          {name:"regdate", width:150},
+		          {name:"prname", width:50},
+		          {name:"vprname", width:50},
+		          {name:"orgtype", width:50}
 		          ],
-		caption:"그리드 테스트",
+		caption:"동아리 관리",
 		hidegrid:false,
 		viewrecords:true,
-		shrinkToFit:true
+		shrinkToFit:true,
+		grouping:true,
+		groupingView:{
+			groupField : ['orgtype']
+			, groupColumnShow:[false]
+			, groupText : ['<b>동아리 타입: {0} ( {1}개 )</b>']
+			, groupCollapse:false
+		}
+	});
+	
+	$("#addOrg").click(function(){
+		editOrg();
 	});
 });
+
+function editOrg(){
+	$("#dialog_container").dialog({
+		title:'동아리 추가',
+		modal:true,
+		width:600,
+		height:400,
+		resize:false
+	});
+}
 </script>
 <!-- s:container -->
 <div class="container">
@@ -49,7 +72,15 @@ $(document).ready(function(){
 				</ul>
 			</div>
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<table id="grid_list"></table>
+				<div style="width:100%; float:left; padding:0px;">
+					<table style="float:left; width:100%;" id="grid_table"></table>
+				</div>
+				<div style="float:right; margin-top:10px;">
+					<button id="addOrg">추가</button>
+				</div>
+			</div>
+			<div id="dialog_container" style="display:none;">
+				<jsp:include page="./orgEdit.jsp" flush="false"></jsp:include>
 			</div>
 		</div>
 	</div>

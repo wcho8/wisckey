@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Admin">
+	<select id="findEmpBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+		SELECT
+			empid as bid,
+			name,
+			comment,
+			regdate,
+			useyn
+		FROM cod_employment
+	</select>
+	<select id="findRestBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+		SELECT
+			tid as bid,
+			name,
+			comment,
+			regdate,
+			useyn
+		FROM cod_employment
+	</select>
+	<select id="findSaleBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+	
+	</select>
+	<select id="findFreeBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+		SELECT
+			frid as bid,
+			name,
+			comment,
+			regdate,
+			useyn
+		FROM cod_freeboard
+	</select>
+	<select id="findSchoolBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+		SELECT
+			swid as bid,
+			name,
+			comment,
+			regdate,
+			useyn
+		FROM cod_schoolwork
+	</select>
+	<select id="findOrgList" resultType="OrgVO" parameterType="AdminVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			a.regdate,
+			a.moddate,
+			a.prno,
+			a.prname,
+			a.vprno,
+			a.vprname,
+			b.name as orgtype,
+			b.useyn
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
+	</select>
+</mapper>
