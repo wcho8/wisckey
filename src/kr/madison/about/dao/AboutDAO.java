@@ -44,4 +44,14 @@ public class AboutDAO extends CommonDAO{
 		return list;
 	}
 
+	public int modAboutData(AboutVO paramVO) {
+		return getSqlSession().update("About.modAboutData",paramVO);
+	}
+
+	public List<AboutVO> searchNotice(AboutVO paramVO) {
+		List<AboutVO> list = getSqlSession().selectList("About.searchNotice", paramVO);
+		
+		return list;
+	}
+
 }

@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="../common/header.jsp"></jsp:include>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
-var curPage = "/About/?";
+var curPage = "/School/education?";
+
 $(document).ready(function(){
-	var defaultParams ={
-			userno: "${session.userno}",
-			username:"${session.username}",
+	var defaultParams={
+			userno:"${session.userno}",
+			username: "${session.username}",
 			nickname: "${session.nickname}",
-			mypage:"${paramVO.mypage}"
+			mypage: "${paramVO.mypage}"
 	};
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
@@ -22,14 +25,13 @@ $(document).ready(function(){
 			$("keyword").attr("placeholder", "닉네임");
 		}
 	}	
-	//새 공지 등록
-	$("#addNotice").click(function(){
-		var url = "/About/writeForm";
-		if(defaultParams.userno==""||defaultParams.userno == null){
-			alert("로그인 후에 이용하실 수 있습니다.");
+	$("#addEducation").click(function(){
+		var url = "/School/educationWrite";
+		if(defaultParams.userno==""||defaultParams.userno==null){
+			alert("로그인 후에 이용하실 수 있습니다");
 			return;
 		}else{
-			$(location).attr("href",url);
+			$(location).attr("href", url);
 		}
 	});
 	
@@ -49,48 +51,23 @@ $(document).ready(function(){
 			search();
 		}
 	});
-
-	
-	//왼쪽 공지사항 탭 목록
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-		
-			var title = item.title;
-			
-			if(title.length>10){
-				title = title.substring(0, 10);
-				title += "...";
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
-	});
-});
+})
 
 function search(){
 	var keyword = $("#keyword").val();
 	var searchType = $("#searchType").val();
 	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
-	var url ="/About/?" +$.param(params);
+	var url ="/School/education?" +$.param(params);
 	$(location).attr("href",url);
 }
-//공지보기
-function viewNotice(nid){
-	var url = "/About/viewNotice?nid=" + nid;
+function viewEducation(brdid){
+	var url = "/School/educationView?brdid="+brdid;
 	$(location).attr("href", url);
 }
 </script>
 
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -103,30 +80,12 @@ function viewNotice(nid){
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_list li>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
 }
-/*
-#l_first_title{
-
-
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-
-}
-
-#l_second_title{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-}
-*/
-#title_list_about>li{
+#title_list>li{
 	list-style-type: disc; 
 	list-style-position: inside;	
 }
@@ -136,10 +95,20 @@ function viewNotice(nid){
 #top_row>td{
 	font-size: 80%;
 }
+#list_title{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 320px;
+	display: inline-block;
+	float:left;
+	padding-left: 5px;
+}
 input::placeholder{
 	font-size:65%;
 }
 </style>
+
 <!-- s:container -->
 <div class="container" >
 	<jsp:include page="../common/top.jsp"></jsp:include>
@@ -148,13 +117,11 @@ input::placeholder{
 		<div class="main_body" style="overflow: hidden;">
 			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> <!-- -20px -->
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
-					<ul id="title_list_about" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/About/introWisckey">위스키 소개</a></li>
-						<li><a href="/About/introUniv">학교소개</a></li>
-						<li><a id="current" href="/About/">공지사항</a></li>
-						<li><a href="/About/otherSites">주요사이트</a></li>
+					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
+						<li><a href="/School/pastWork">족보</a></li>
+						<li><a id="current" href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>
 				<!--  
@@ -191,10 +158,18 @@ input::placeholder{
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${aboutList}" var = "list">
+							<c:forEach items="${educationList}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
-									<td style="text-align: center; font-size: 80%;">&nbsp;${list.nid}</td>
-									<td onClick="javascript:viewNotice(${list.nid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}</td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
+									<td onClick="javascript:viewEducation(${list.brdid});" style="cursor:pointer; padding-top: 7px;padding-left:30px;">
+										<c:set var="title" value="${list.title }"/> 
+										<c:if test="${fn:length(title) > 33 }">
+											<p id="list_title" style="font-weight: 100%;">${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+										</c:if>
+								 		<c:if test="${fn:length(title) <=33 }">
+								 			<p id="list_title" style="font-weight: 100%;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
+								 		</c:if>
+									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
@@ -204,7 +179,7 @@ input::placeholder{
 							</tbody>
 						</table>
 						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; ">
-								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
+								<button class="btn" id="addEducation" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 									<span style="font-size: 80%;">글쓰기</span>
 								</button>
 						</div>

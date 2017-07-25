@@ -32,7 +32,7 @@ $(document).ready(function(){
 			$("#content").summernote('code', data.content);
 		});
 	}
-	
+
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');

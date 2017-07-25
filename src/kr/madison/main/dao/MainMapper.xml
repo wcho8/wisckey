@@ -26,6 +26,32 @@
 			END as regdate
 		FROM info_notice
 		ORDER BY regdate DESC
-		LIMIT 5
+		LIMIT 4
+	</select>
+	<select id="findEmployerList" parameterType="MainVO" resultType="CareerVO">
+		SELECT
+			brdid,
+			title,
+			CASE WHEN regdate > CURDATE()
+				THEN DATE_FORMAT(regdate, '%Y-%m-%d')
+				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
+			END as regdate
+		FROM brd_employment
+		WHERE empid = 1
+		ORDER BY brdid DESC
+		LIMIT 8	
+	</select>
+	<select id="findEducationList" parameterType="MainVO" resultType="SchoolVO">
+		SELECT
+			brdid,
+			title,
+			CASE WHEN regdate > CURDATE()
+				THEN DATE_FORMAT(regdate, '%Y-%m-%d')
+				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
+			END as regdate
+		FROM brd_schoolwork
+		WHERE swid = 2
+		ORDER BY brdid DESC
+		LIMIT 8
 	</select>
 </mapper>

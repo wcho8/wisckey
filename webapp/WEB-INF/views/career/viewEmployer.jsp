@@ -39,15 +39,12 @@ $(document).ready(function(){
 				location.reload(true);
 			});
 		}
-		
 	});
 
 	if($("#userno_employer").text().localeCompare(defaultParams.userno)==0){
 		$("#employerDelete").show();
-		console.log("SAME USERNO");
 	}else{
 		$("#employerDelete").hide();
-		console.log("DIFFERENT USERNO");
 	}
 
 	$("#employerDelete").click(function(){
@@ -62,7 +59,6 @@ $(document).ready(function(){
 	var writerno = "${vo.userno}";
 	
 	if(defaultParams.userno == writerno){
-		console.log("userno == writerno");
 		$("#employerUpdate").show();
 	}
 	
@@ -76,31 +72,44 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
-#title_list li>a:active {
-	font-size: 110%;
-	font-weight: bold;
-	text-decoration: none;
-}
-
 #title_list li>a:hover {
 	text-decoration: none;
-	font-size: 110%;
+	font-size: 105%;
 	font-weight: bold;
 	opacity: 1;
 	color: black;
-}	
-
-#title_list li>a:visited {
+}
+#current{
 	font-size: 110%;
 	font-weight: bold;
-	text-decoration: none;
+	opacity:1;
+	color: black;
 }
-
 #title_list li>a {
-	opacity: 0.4;
+	opacity: 0.7;
 	text-decoration: none;
+	
 }
-
+#l_title{
+/*
+	border: 2px solid #808080;
+	border-radius: 25px;
+	padding-left: 10px;
+	box-shadow: 2px 2px #778899;
+*/
+	border-right:2px solid #a80e34;
+}
+#title_list>li{
+	list-style-type: disc;
+	list-style-position: none ;
+}
+#employerDelete, #employerUpdate,#employerList{
+	margin-left:5px; 
+	line-height: 20px; 
+	width:45px; 
+	vertical-align:middle; 
+	padding:0px;
+}
 
 
 </style>
@@ -112,21 +121,17 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
 			<span id="userno_employer" value="${vo.userno}">${vo.userno}</span>
-			<div class="left_menu" style="float:left; width:130px; border-right: 1px solid #cccccc;">
-				<div id="l_title" style="font-weight: bold; font-size:130%">취업</div>
-				<ul id="title_list" style="list-style:none; padding-left:0px; text-decoration: none;">
-					<li><a href="/Career/employer">-취업공고</a></li>
-					<li><a href="/Career/employBoard">-취업게시판</a></li>
-				</ul>
-			</div>
-			<div class="center_menu" style="float: left; margin-left: 35px; width: 870px;">
-				<div style="float: left; width:100%;">
-					<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
-					<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
-					<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
-						
-				
+			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_title" style="font-weight: bold;">
+					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
+					<ul id="title_list" style="list-style:none; text-decoration: none;">
+						<li><a id="current" href="/Career/">취업공고</a></li>
+						<li><a href="/Career/employBoard">취업게시판</a></li>
+					</ul>
 				</div>
+			</div>
+			<div class="center_menu" style="float: left; margin-left: 35px; width: 700px;">
+				
 				
 				<div style="clear:both;"></div>
 				
@@ -145,21 +150,29 @@ $(document).ready(function(){
 					
 					<div style="clear:both;"></div>
 					
-					<div class="hr_dash" style="background: grey;"></div>
+					<div class="hr_dash" style="opacity: 0.3; background: grey;"></div>
 					
 					<div id="notice_content" style="width:100%; min-height: 300px; margin-top:10px;">
 						${vo.content }
 					</div>
 					
 					<div class="hr_dash" style="background: grey;"></div>
-					<div id="notice_reply" style="margin-top:20px; border radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
+					<div style="clear:both;"></div>
+					
+					<div style="float: left; width:100%;">
+						<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
+						<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
+					</div>
+					
+					<div style="clear:both;"></div>
+					<div id="employer_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:750px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="height:60px; width: 65px;">등록</button>
+						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
+						<button id="addReply" style="float: right;height:50px; width: 50px;">등록</button>
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
-					
 					
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">

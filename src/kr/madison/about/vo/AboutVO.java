@@ -13,7 +13,6 @@ public class AboutVO extends CommonVO {
 	private String regdate;
 	private String moddate;
 	private String writer;
-	private int userno;
 	private int count;
 	private int likes;
 	
@@ -53,12 +52,6 @@ public class AboutVO extends CommonVO {
 	}
 	public void setModdate(String moddate) {
 		this.moddate = moddate;
-	}
-	public Integer getUserno() {
-		return userno;
-	}
-	public void setUserno(Integer userno) {
-		this.userno = (int)userno;
 	}
 	public int getCount() {
 		return count;
