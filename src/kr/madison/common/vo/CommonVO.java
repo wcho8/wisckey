@@ -44,6 +44,9 @@ public class CommonVO {
 	private String sord = null; // 그리드 정렬 순서 (오름차순, 내림차순)
 	private Integer srow = null; // 그리드 데이터 시작 위치
 	
+	// 각 게시판의 타입
+	private Integer typeid = 0;
+	
 	public Integer getUserno() {
 		return userno;
 	}
@@ -211,5 +214,11 @@ public class CommonVO {
 	}
 	public void setSrow(Integer srow) {
 		this.srow = srow;
+	}
+	public Integer getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(Integer typeid) {
+		this.typeid = typeid;
 	}
 }

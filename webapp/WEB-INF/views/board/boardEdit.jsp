@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var upImgIds = [];
@@ -36,7 +37,8 @@ $(document).ready(function(){
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');
-		var params = $.extend({}, $("#brdContent").serialization(), {frid:1,content:content}); //TODO: frid -> 보드 타입 (추가 개발 필요)
+		var frid = $("#frid").val();
+		var params = $.extend({}, $("#brdContent").serialization(), {frid:frid,content:content});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
@@ -80,6 +82,7 @@ function sendFile(file, el){
 		}
 	});
 }
+
 </script>
 <style>
 .left_ul>li{
@@ -110,6 +113,15 @@ border:1px dashed red;
 							<col width="*">
 						</colgroup>
 						<tbody>
+							<tr>
+								<th>말머리</th>
+								<td>
+									<select id="frid">
+										<c:forEach items="${frtypes}" var="frtype">
+											<option value="${frtype.frid}">${frtype.typename}</option>
+										</c:forEach>
+									</select>
+								</td>
 							<tr>
 								<th>제목</th>
 								<td><input type="text" id="title" style="width:100%;"></td>

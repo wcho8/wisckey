@@ -136,7 +136,7 @@ font-size:13px;
 						<c:forEach items="${boardList}" var="list">
 							<tr onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer;">
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
-								<td>&nbsp;${list.title} (${list.repcount})</td>
+								<td>&nbsp;[${list.typename}] ${list.title} (${list.repcount})</td>
 								<td style="text-align:center;">&nbsp;${list.writer}</td>
 								<td style="text-align:center;">&nbsp;${list.regdate}</td>
 								<td style="text-align:center;">&nbsp;${list.count}</td>

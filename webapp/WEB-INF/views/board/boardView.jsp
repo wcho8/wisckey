@@ -115,7 +115,7 @@ border:1px dashed red;
 				<div style="clear:both;"></div>
 				<div id="main_board" style="width:100%;border:1px solid #cacaca;margin-top:5px;padding:10px;background-color:white;">
 					<div id="boardTitle" style="width:100%; background-color:lightgrey;font-size:20px;padding:5px;border-top:2px solid grey;">
-						<b>${vo.title}</b> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
+						<b>[${vo.typename}] ${vo.title}</b> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
 					</div>
 					<div id="other_infos" style="width:100%;padding:5px;font-size:12px;">
 						<span style="float:left;">
