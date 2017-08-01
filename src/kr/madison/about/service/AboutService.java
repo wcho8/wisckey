@@ -24,7 +24,6 @@ public class AboutService extends CommonService{
 		paramVO.setUserno(session.getUserno());
 		
 		int result = aboutDAO.addNewNotice(paramVO);
-		
 		return result;
 	}
 	

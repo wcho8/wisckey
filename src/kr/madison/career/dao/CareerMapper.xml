@@ -36,7 +36,7 @@
 				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
-		ORDER BY b.brdid DESC
+		ORDER BY b.deadline ASC
 		LIMIT #{skiprow}, #{pagerow}
 	</select>
 	<select id="findEmployerContent" parameterType="CareerVO" resultType="CareerVO">

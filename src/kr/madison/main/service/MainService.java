@@ -8,6 +8,7 @@ import kr.madison.career.vo.CareerVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.main.dao.MainDAO;
 import kr.madison.main.vo.MainVO;
+import kr.madison.member.vo.MemberVO;
 import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.beans.factory.annotation.Autowired;

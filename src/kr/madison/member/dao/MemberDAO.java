@@ -40,4 +40,16 @@ public class MemberDAO extends CommonDAO{
 		
 		return result;
 	}
+
+	public MemberVO findMemberData(MemberVO paramVO) {
+		return getSqlSession().selectOne("Member.findMemberData", paramVO);
+	}
+
+	public int memberEdit(MemberVO paramVO) {
+		return getSqlSession().update("Member.memberEdit", paramVO);
+	}
+
+	public int modPasswdEdit(MemberVO paramVO) {
+		return getSqlSession().update("Member.modPasswdEdit", paramVO);
+	}
 }

@@ -54,7 +54,7 @@ $(document).ready(function() {
 				$(location).attr("href", "/About/viewNotice?nid="+data);
 			});
 		}else{
-			$.post(url, params, function(data) {
+			$.post(url, params, function(data){
 				$(location).attr("href", "/About/viewNotice?nid="+data);
 			});
 		}

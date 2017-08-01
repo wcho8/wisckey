@@ -39,7 +39,7 @@
 		FROM brd_employment
 		WHERE empid = 1
 		ORDER BY brdid DESC
-		LIMIT 8	
+		LIMIT 8
 	</select>
 	<select id="findEducationList" parameterType="MainVO" resultType="SchoolVO">
 		SELECT
@@ -54,4 +54,5 @@
 		ORDER BY brdid DESC
 		LIMIT 8
 	</select>
+	
 </mapper>

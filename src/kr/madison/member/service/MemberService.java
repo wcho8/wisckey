@@ -1,6 +1,7 @@
 package kr.madison.member.service;
 
 import kr.madison.common.service.CommonService;
+import kr.madison.common.vo.SessionVO;
 import kr.madison.member.dao.MemberDAO;
 import kr.madison.member.vo.MemberVO;
 import kr.madison.util.Util;
@@ -13,6 +14,9 @@ public class MemberService extends CommonService{
 
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	protected SessionVO session;
 	
 	public int addNewMember(MemberVO paramVO){
 		int result = 0;
@@ -43,6 +47,25 @@ public class MemberService extends CommonService{
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	public MemberVO findMemberData(MemberVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		MemberVO result = memberDAO.findMemberData(paramVO);
+		return result;
+	}
+
+	public int memberEdit(MemberVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		memberDAO.memberEdit(paramVO);
+		return paramVO.getUserno();
+		
+	}
+
+	public int modPasswdEdit(MemberVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = memberDAO.modPasswdEdit(paramVO);
 		return result;
 	}
 }

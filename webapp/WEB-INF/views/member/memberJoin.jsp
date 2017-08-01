@@ -190,7 +190,6 @@ function addMember(){
 	
 	if($("#birthdate").val() != null && $("#birthdate").val() != ""){
 		var today = new Date();
-			
 	}
 	
 	var url = "/Member/addMember";

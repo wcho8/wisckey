@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	var defaultParams={
 		brdid: "${paramVO.brdid}",
 		userno: "${session.userno}",
@@ -63,6 +64,10 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	$('input[type=checkbox]').on('change',function(){
+		$(this).siblings('input[type=checkbox]').not(this).attr('checked', false);
+	});
 });
 function sendFile(file, el){
 	var data = new FormData();
@@ -120,6 +125,12 @@ function sendFile(file, el){
 	list-style-type: disc;
 	list-style-position: none ;
 }
+div input{
+	float:left;
+}
+.checkBox{
+	display:table-cell;
+}
 
 </style>
 <!-- s:container -->
@@ -138,8 +149,6 @@ function sendFile(file, el){
 				</div>
 			</div>
 			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
-				
-				
 				<table style="width:100%;" id="emplyBoardContent">
 					<colgroup>
 						<col width="15%" >
@@ -151,6 +160,19 @@ function sendFile(file, el){
 							<td><input type="text" id="title" style="width:400px;;"></td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
+							<th  style="text-align: center;"> 말머리</th>
+							<td>
+								<input type="checkbox" name="header" value="normal" checked>
+								<span style="font-weight: normal; font-size:90%; display:block;float:left;">일반</span>
+								
+								<input type="checkbox"style="margin-left: 30px;" name="header" value="question"/>
+								<span style="font-weight: normal; font-size:90%; display:block; float:left;">질문</span>
+								
+								<input type="checkbox" style="margin-left: 30px;" name="header" value="ssul"/>
+								<span style="font-weight: normal; font-size:90%; display:block;float:left;">후기</span>
+							</td>
+						</tr>
+						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;">내용</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
 								<textarea id="content" style="width:100%; height:400px; display:none;" valid="내용"></textarea>
@@ -159,8 +181,6 @@ function sendFile(file, el){
 						</tr>
 					</tbody>
 				</table>
-				
-				
 			<div class="buttons">
 				<button class="btn newEmployBoard" id="addEmployBoard" style="float: right;">글쓰기</button>
 			</div>

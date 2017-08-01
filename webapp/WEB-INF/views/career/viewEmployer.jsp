@@ -41,6 +41,7 @@ $(document).ready(function(){
 		}
 	});
 
+	//delete
 	if($("#userno_employer").text().localeCompare(defaultParams.userno)==0){
 		$("#employerDelete").show();
 	}else{
@@ -56,6 +57,8 @@ $(document).ready(function(){
 		});
 	});
 	
+	
+	//update
 	var writerno = "${vo.userno}";
 	
 	if(defaultParams.userno == writerno){

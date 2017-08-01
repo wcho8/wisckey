@@ -8,7 +8,6 @@
 %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
-
 $(document).ready(function(){
 	$("#passwd").keydown(function(key){
 		if(key.keyCode == 13){
@@ -79,11 +78,16 @@ $(document).ready(function(){
 			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
-
 		})
 	});
+	
+	var userid=$("#userid").val();
+	$("#memberView").click(function(){
+		var url = "/Member/memberView";
+		$(location).attr("href", url);
+		
+	})
 });
-
 function changeBest(ab){
 	$("#employer_list").show();
 	$("#education_list").hide();
@@ -162,6 +166,10 @@ padding:5px;
 					<div id="userinfo">
 						안녕하세요  ${session.nickname} 님
 						<a href="/LogInOut/Logout"><button type="button" class="btn btn-warning" style="height:50px;">로그아웃</button></a>
+						<a href="/Member/memberView"><button type="button" class="btn btn-detail" style=" width: 70px; line-height:15px; vertical-align: center;">
+							<span style="font-size: 70%;">내 정보</span>
+						</button></a>
+						
 					</div>
 				</div>
 			</div>
@@ -193,20 +201,44 @@ padding:5px;
 								</li>
 							</ol> -->
 							<table id="" style="padding-left:0px;">
-								<tr>
+								<tr style="margin-top: 8px;  font-size: 14px;">
 									<td>
-										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
 									</td>
 									<td>
-										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+										<a href="http://www.wisc.edu">홈페이지</a>
 									</td>
 								</tr>
-								<tr>
+								<tr style="margin-top: 8px;  font-size: 14px;">
 									<td>
-										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
 									</td>
 									<td>
-										<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+								</tr>
+								<tr style="margin-top: 8px;  font-size: 14px;">
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+								</tr>
+								<tr style="margin-top: 8px;  font-size: 14px;">
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+								</tr>
+								<tr style="margin-top: 8px;  font-size: 14px;">
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
+									</td>
+									<td>
+										<a href="http://www.wisc.edu"> 홈페이지</a>
 									</td>
 								</tr>
 							</table>
@@ -229,7 +261,7 @@ padding:5px;
 								</ul>
 							</div>
 						</div>
-						<div id="top_tips" class="body_div mt15">
+						<div id="top_tips" class="body_div mt15" style="margin-top:20px;">
 							<div class="body_inside">
 								깨알팁 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
@@ -256,12 +288,7 @@ padding:5px;
 									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
 										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
 											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 학업(2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">bb(2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
+									
 								</ul>
 							</div>
 						</div>
@@ -286,7 +313,6 @@ padding:5px;
 									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
 										href="/Board/BoardView?brdid=13">여기는 소식((2)<span
 											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
-									
 								</ul>
 							</div>
 						</div>

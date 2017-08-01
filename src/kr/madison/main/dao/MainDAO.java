@@ -7,6 +7,7 @@ import kr.madison.board.vo.BoardVO;
 import kr.madison.career.vo.CareerVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.main.vo.MainVO;
+import kr.madison.member.vo.MemberVO;
 import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.stereotype.Repository;

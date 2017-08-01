@@ -1,47 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Member"> 
-<insert id="addNewMember" parameterType="MemberVO">
-	INSERT INTO info_userinfo(
-		userid,
-		passwd,
-		korname,
-		nickname,
-		email,
-		telnum,
-		gender,
-		birthdate,
-		major,
-		minor,
-		regdate,
-		moddate,
-		authid
-	) VALUES(
-		#{userid},
-		#{passwd},
-		#{korname},
-		#{nickname},
-		#{email},
-		#{telnum},
-		#{gender},
-		#{birthdate},
-		#{major},
-		#{minor},
-		NOW(),
-		NOW(),
-		#{authid}
-	)
-</insert>
-<select id="chkId" parameterType="MemberVO" resultType="MemberVO">
-	SELECT
-		userno
-	FROM info_userinfo
-	WHERE userid = #{userid}
-</select>
-<select id="chkNickname" parameterType="MemberVO" resultType="MemberVO">
-	SELECT
-		userno
-	FROM info_userinfo
-	WHERE nickname = #{nickname}
-</select>
+<mapper namespace="Member">
+	<insert id="addNewMember" parameterType="MemberVO">
+		INSERT INTO info_userinfo(
+			userid,
+			passwd,
+			korname,
+			nickname,
+			email,
+			telnum,
+			gender,
+			birthdate,
+			major,
+			minor,
+			regdate,
+			moddate,
+			authid
+		) VALUES(
+			#{userid},
+			#{passwd},
+			#{korname},
+			#{nickname},
+			#{email},
+			#{telnum},
+			#{gender},
+			#{birthdate},
+			#{major},
+			#{minor},
+			NOW(),
+			NOW(),
+			#{authid}
+		)
+	</insert>
+	<select id="chkId" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			userno
+		FROM info_userinfo
+		WHERE userid = #{userid}
+	</select>
+	<select id="chkNickname" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			userno
+		FROM info_userinfo
+		WHERE nickname = #{nickname}
+	</select>
+	<select id="findMemberData" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			userid,
+			passwd,
+			korname,
+			nickname,
+			email,
+			telnum,
+			birthdate,
+			major,
+			minor
+		FROM info_userinfo
+		WHERE userno = #{userno}
+	</select>
+	<update id="memberEdit" parameterType="MemberVO">
+		UPDATE info_userinfo SET
+			korname = #{korname},
+			userid = #{userid},
+			passwd = #{passwd},
+			nickname = #{nickname},
+			email = #{email},
+			birthdate = #{birthdate},
+			telnum = #{telnum},
+			major = #{major},
+			minor = #{minor},
+			moddate = NOW()
+		WHERE userno = #{userno}
+	</update>
+	<update id="modPasswdEdit" parameterType="MemberVO">
+		UPDATE info_userinfo SET
+			passwd = #{passwd}
+		WHERE userno = #{userno}
+	</update>
 </mapper>

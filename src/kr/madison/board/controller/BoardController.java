@@ -47,6 +47,7 @@ public class BoardController {
 	public ModelAndView boardView(@ModelAttribute("paramVO") BoardVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
 		BoardVO vo = boardService.findBoardContent(paramVO);
+		
 		List<BoardVO> replies = boardService.findBoardReply(paramVO);
 		int repcount = boardService.getReplyCount(paramVO);
 		
@@ -54,10 +55,10 @@ public class BoardController {
 			boardService.modBoardCount(paramVO);
 		}
 		
-		mav.setViewName("/board/boardView");
 		mav.addObject("vo", vo);
 		mav.addObject("repCnt", repcount);
 		mav.addObject("reps", replies);
+		mav.setViewName("/board/boardView");
 		return mav;
 	}
 	
@@ -93,7 +94,6 @@ public class BoardController {
 	@ResponseBody
 	public int addBoardData(BoardVO paramVO){
 		int result = boardService.addBoardData(paramVO);
-		
 		return result;
 	}
 	

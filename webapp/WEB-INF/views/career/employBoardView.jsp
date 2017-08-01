@@ -7,8 +7,6 @@
 
 $(document).ready(function(){
 	
-	$("#userno_employBoard").hide();
-	
 	var defaultParams={
 			brdid: "${paramVO.brdid}",
 			userno: "${session.userno}",
@@ -38,12 +36,6 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
-	if($("#userno_employBoard").text().localeCompare(defaultParams.userno)==0){
-		$("#employBoardDelete").show();
-	}else{
-		$("#employBoardDelete").hide();
-	}
 
 	$("#employBoardDelete").click(function(){
 		var url = "/Career/deleteEmployBoard";
@@ -58,6 +50,7 @@ $(document).ready(function(){
 	
 	if(defaultParams.userno == writerno){
 		$("#employBoardUpdate").show();
+		$("#employBoardDelete").show();
 	}
 	$("#employBoardUpdate").click(function(){
 		var url = "/Career/employBoardWrite?";
@@ -116,7 +109,6 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_employBoard" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
@@ -154,7 +146,7 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="employBoardDelete" style="float: right;"><span style="font-size:80%;">삭제</span></button>
+						<button class="btn delete" id="employBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">삭제</span></button>
 						<button class="btn update" id="employBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
 						<button class="btn confirm" id="employBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
 					</div>

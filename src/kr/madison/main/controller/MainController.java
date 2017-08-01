@@ -3,16 +3,20 @@ package kr.madison.main.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.madison.about.vo.AboutVO;
 import kr.madison.board.vo.BoardVO;
 import kr.madison.career.vo.CareerVO;
 import kr.madison.common.controller.CommonController;
 import kr.madison.main.service.MainService;
 import kr.madison.main.vo.MainVO;
+import kr.madison.member.vo.MemberVO;
 import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,5 +81,4 @@ public class MainController extends CommonController{
 		result = mainService.findEducationList(paramVO);
 		return result;
 	}
-	
 }
