@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <!-- favicon -->
-<link rel="shortcut icon" href="../images/common/LOGO.png" />
+<link rel="shortcut icon" href="/images/common/LOGO.png" />
 
 <!-- Title -->
 <title>WiscKey 페이지</title>
@@ -18,7 +18,6 @@
 
 <!-- js -->
 <script type="text/javascript" src="/include/jQuery/jquery-1.12.1.js"></script>
-<script src="/include/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script type="text/javascript" src="/include/js/alertMessage.js"></script>
 <script type="text/javascript" src="/include/js/custom.js"></script>
 <script type="text/javascript" src="/include/jQuery/jquery.cookie.js"></script>
@@ -33,6 +32,8 @@
 <link href="/include/css/bootstrap.css" rel="stylesheet"/>
 <link href="/include/css/style.css" rel="stylesheet"/>
 <script src="/include/js/bootstrap.js"></script>
+
+<script src="/include/js/jquery-ui-1.10.0.custom.min.js"></script>
 
 <!-- fullCalendar -->
 <link type="text/css" href="/include/fullcalendar/fullcalendar.css" rel="stylesheet" />

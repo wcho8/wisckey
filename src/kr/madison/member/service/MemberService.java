@@ -66,6 +66,17 @@ public class MemberService extends CommonService{
 	public int modPasswdEdit(MemberVO paramVO) {
 		paramVO.setUserno(session.getUserno());
 		int result = memberDAO.modPasswdEdit(paramVO);
+		
+		return result;
+	}
+	
+	public MemberVO searchById(MemberVO paramVO) {
+		MemberVO result = new MemberVO();
+		try{
+			result = memberDAO.searchById(paramVO);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 		return result;
 	}
 }

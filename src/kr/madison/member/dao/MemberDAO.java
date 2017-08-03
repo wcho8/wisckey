@@ -52,4 +52,15 @@ public class MemberDAO extends CommonDAO{
 	public int modPasswdEdit(MemberVO paramVO) {
 		return getSqlSession().update("Member.modPasswdEdit", paramVO);
 	}
+	
+	public MemberVO searchById(MemberVO paramVO){
+		MemberVO result = new MemberVO();
+		try{
+			result = getSqlSession().selectOne("Member.searchById", paramVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

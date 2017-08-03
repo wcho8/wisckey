@@ -10,6 +10,7 @@
 		SELECT
 			b.brdid,
 			b.frid,
+			d.name as typename,
 			b.title,
 			CASE WHEN b.regdate > CURDATE()
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
@@ -21,6 +22,7 @@
 			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_freeboard d on b.frid = d.frid
 		WHERE 1=1
 		<if test="keyword != null and keyword != ''">
 			<if test="srchType == 1">
@@ -39,6 +41,7 @@
 		SELECT
 			b.brdid,
 			b.frid,
+			d.name as typename,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
@@ -50,6 +53,7 @@
 			<!-- File 셀렉트 하는것 필요 -->
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_freeboard d on b.frid = d.frid
 		WHERE b.brdid = #{brdid}
 	</select>
 	<insert id="addBoardData" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
@@ -141,4 +145,11 @@
 			moddate = NOW()
 		WHERE brdid = #{brdid}
 	</update>
+	<select id="getFrtypes" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			frid,
+			name as typename
+		FROM cod_freeboard
+		WHERE typeid = #{typeid}
+	</select>
 </mapper>

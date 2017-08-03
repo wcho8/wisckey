@@ -77,4 +77,13 @@
 			passwd = #{passwd}
 		WHERE userno = #{userno}
 	</update>
+<select id="searchById" parameterType="MemberVO" resultType="MemberVO">
+	SELECT
+		userno,
+		korname,
+		birthdate,
+		userid
+	FROM info_userinfo
+	WHERE userid = #{userid}
+</select>
 </mapper>

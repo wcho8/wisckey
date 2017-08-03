@@ -64,4 +64,8 @@ public class BoardDAO extends CommonDAO{
 	public int modBoardData(BoardVO paramVO){
 		return getSqlSession().update("Board.modBoardData", paramVO);
 	}
+	
+	public List<BoardVO> getFrtypes(BoardVO paramVO){
+		return getSqlSession().selectList("Board.getFrtypes", paramVO);
+	}
 }

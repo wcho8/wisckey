@@ -65,7 +65,12 @@ public class BoardController {
 	@RequestMapping("/BoardEdit")
 	public ModelAndView boardEdit(@ModelAttribute("paramVO") BoardVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
+		paramVO.setTypeid(1);
+		List<BoardVO> frtypes = boardService.getFrtypes(paramVO);
+		
 		mav.setViewName("/board/boardEdit");
+		mav.addObject("frtypes", frtypes);
+		
 		return mav;
 	}
 

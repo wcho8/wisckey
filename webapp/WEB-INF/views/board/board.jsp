@@ -3,14 +3,8 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var curPage = "/Board/?";
-var defaultParams = {};
 $(document).ready(function(){
-	defaultParams = {
-		userno: "${session.userno}",
-		username: "${session.username}",
-		nickname: "${session.nickname}",
-		mypage: "${paramVO.mypage}"
-	}
+	defaultParams.mypage="${paramVO.mypage}";
 	var srchType = "${paramVO.srchType}";
 	if(srchType != null && srchType != ''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -87,6 +81,19 @@ border-collapse:collapse;
 td{
 border-top:1px solid #cacaca;
 font-size:13px;
+#title_list_about>li{
+	list-style-type: disc; 
+	list-style-position: inside;	
+}
+#row>td{
+	font-size: 11.5px;
+}
+#top_row>td{
+	font-size: 80%;
+}
+input::placeholder{
+	font-size:65%;
+}
 }
 </style>
 <!-- s:container -->
@@ -95,86 +102,67 @@ font-size:13px;
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body">
-			<div id="leftMenu_x" style="float:left; width:170px;">
-				<div class="left_title" style="background-color:#475055; text-align:center; color:white;">왼쪽 타이틀 </div>
-				<ul class="left_ul" style="list-style:none; padding-left:0px;">
-					<li><a href="#">메뉴1</a></li>
-					<li><a href="#">메뉴2</a></li>
-				</ul>
-			</div>
-			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<!-- <div id="board_name">
-					<div style="margin-top:15px;margin-left:15px;">
-						<span style="text-decoration:underline;font-size:23px;">자유 게시판</span><br/><br/>
-						
-						Wiskey의 자유게시판 입니다.<br/>
-						마음 편하게 작성하시기 바랍니다.
+			<jsp:include page="./leftmenu.jsp"></jsp:include>
+			<div class="center_menu"
+				style="float: left; width: 700px;  margin-left:30px;">
+					<div id="notice" style="width: 700px; ">
+						<table id="top_table" style="width:670px; background-color:#f7f7f7;border-top: 2px solid #910019;">
+							<colgroup>
+								<col style="width:5%;">
+								<col style="width:65%;">
+								<col style="width:10%;">
+								<col style="width:10%;">
+								<col style="width:5%;">
+								<col style="width:5%;">
+							</colgroup>
+							<thead>	
+								<tr id="top_row" style="background-color:#d3d3d3; height:30px; text-align: center; border-bottom: 1px solid #ccc; padding: 10px;">
+									<td>번호</td>
+									<td><span>제</span><span style="padding-left: 40px;">목</span></td>
+									<td>닉네임</td>
+									<td>날짜</td>
+									<td>조회</td>
+									<td>추천</td>
+								</tr>
+							</thead>
+							<tbody>
+							<c:forEach items="${boardList}" var = "list">
+								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.likes}</td>
+								</tr>
+							</c:forEach>
+							</tbody>
+						</table>
+						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; ">
+								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
+									<span style="font-size: 80%;">글쓰기</span>
+								</button>
+						</div>
 					</div>
-				</div> -->
-				<div class="hr_dash"></div>
-				<div id="board_main" style="width:100%;margin-top:10px;">
-					<table id="board_table" class="table-hover" style="width:875px;background-color:white;" >
-						<colgroup>
-							<col style="width:50px;">
-							<col style="width:485px;">
-							<col style="width:120px;">
-							<col style="width:120px;">
-							<col style="width:50px;">
-							<col style="width:50px;">
-						</colgroup>
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>닉네임</th>
-								<th>등록일</th>
-								<th>조회</th>
-								<th>추천수</th>
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach items="${boardList}" var="list">
-							<tr onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer;">
-								<td style="text-align:center;">&nbsp;${list.brdid}</td>
-								<td>&nbsp;${list.title} (${list.repcount})</td>
-								<td style="text-align:center;">&nbsp;${list.writer}</td>
-								<td style="text-align:center;">&nbsp;${list.regdate}</td>
-								<td style="text-align:center;">&nbsp;${list.count}</td>
-								<td style="text-align:center;">&nbsp;${list.likes}</td>
-							</tr>
-						</c:forEach>
-						</tbody>
-					</table>
-					<div id="pager"></div>
-					<div id="search_box" style="text-align:center;height:45px; padding-top:10px;">
-						<select id="searchType" style="width:150px; float:left;">
-							<option value="1">제목</option>
-							<option value="2">닉네임</option>
-							<option value="3">게시물 타입</option>
-						</select>
-						<div id="searchValue" style="float:right;">
-							<input type="text" id="keyword" placeHolder="제목">
-							<%-- <select id="searchBrdType" style="width:150px;float:right;display:none;">
-								<option value="${vo.frid}">${vo.frname}</option>
-							</select> --%>
-							<button class="btn btn-default" id="search" style="margin-left:5px;">검색</button>
+					<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
+						<div id="searchValue" >
+							<select id="searchType" style="width:100px; height:20px; font-size: 60%;">
+						 		<option value="1">제목</option>
+								<option value="2">닉네임</option>
+								<option value="3">게시물 타입</option>
+							</select>
+							<input type="text" id="keyword" placeHolder = "제목" style="width: 120px; height:20px;">
+							<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
+								<span style="font-size:80%">검색</span>
+							</button>
+						</div>
+					</div>
+					<div class="col-10">
+						<div class="fLeft text-center col-8" style="margin-left: 80px; padding-top:30px;">
+							   <jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
 						</div>
 					</div>
 				</div>
-				<div class="col-10 mt15">
-		           <%--  <div class="fLeft text-left col-1">
-		                <b>⊙Total : ${totalCnt}</b>
-		            </div> --%>
-		            <div class="fLeft text-center col-8">
-		                <jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
-		                 <%-- <c:if test="${paramVO.iTotalRowCount == 0}">
-					        &nbsp;
-					     </c:if>		 --%>
-		            </div>
-		            <div class="fRight text-right col-1">	
-	                    <button class="btn btn-black" id="addBoard">글쓰기</button>
-		            </div>
-		        </div>
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>

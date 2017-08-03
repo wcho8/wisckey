@@ -20,6 +20,7 @@ $(document).ready(function(){
 function login(){
 	var url = "/LogInOut/Login";
 	var params = $("#login").serialization();
+	
 	$.post(url, params, function(data){
 		if(data == "Success"){
 			$.cookie("saveid", params.userid, {
@@ -49,7 +50,7 @@ function login(){
 <div class="row top_nav">
 		<div style="width:100%; height:140px;">
 			<div class="logo" id="top_logo" style="width:35%; height:100%; margin-left:auto; margin-right:auto">
-				<a id="logoSrc" href="/"><img style="height:100%; width: 100%;"src="../images/common/LOGO.png" alt="logo" /></a>
+				<a id="logoSrc" href="/"><img style="height:100%; width: 100%;"src="/images/common/LOGO.png" alt="logo" /></a>
 			</div>
 		</div>
 		<nav class="navbar navbar-default">
@@ -99,12 +100,11 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">동아리 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">동아리 정보</a></li>
-								<li><a href="#">KUSA</a></li>
-								<li><a href="#">KESA</a></li>
-								<li><a href="#">KAFES</a></li>
-								<li><a href="#">KBSA</a></li>
-								<li><a href="#">ULSSU</a></li>
+								<li><a href="/Org/">소개</a></li>
+								<li><a href="/Org/orgBoard/academic">학술</a></li>
+								<li><a href="/Org/orgBoard/hobby">취미</a></li>
+								<li><a href="/Org/orgBoard/sports">스포츠</a></li>
+								<li><a href="/Org/orgBoard/religion">종교</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -122,7 +122,7 @@ function login(){
 							aria-expanded="false" style="color:white; margin-left:20px;">관리자<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">ABOUT 관리</a></li>
-								<li><a href="#">게시판 관리</a></li>
+								<li><a href="/Admin/ManageMenu">게시판 관리</a></li>
 								<li><a href="/Admin/ManageOrg">동아리 관리</a></li>
 							</ul></li>
 					</ul>
