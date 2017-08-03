@@ -104,6 +104,8 @@ div.tabcontent{
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 }
+.doc{
+}
 </style>
 
 <!-- s:container -->
@@ -153,10 +155,14 @@ div.tabcontent{
 						<h3>여기는 운영진 소개</h3>
 					</div>
 					<div id = "serviceTerms" class="tabcontent" style="display:none;">
-						<h3>여기는 이용약관</h3>
+							<iframe class="doc" src="/images/service_terms.jpg" 
+							style=" border: none; width:100%; height: 500px;"> 
+						</iframe>
 					</div>
 					<div id = "privacyPolicy" class="tabcontent" style="display:none;">
-						<h3>여기는 개인정보 보호정책</h3>
+						<iframe class="doc" src="/images/privacy_policy.jpg" 
+							style=" border: none; width:100%; height: 500px;"> 
+						</iframe>
 					</div>
 				</div>	
 			</div>

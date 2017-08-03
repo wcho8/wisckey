@@ -134,5 +134,9 @@ public class SchoolService extends CommonService{
 		schoolDAO.modEducationData(paramVO);
 		return paramVO.getBrdid();
 	}
+	public int modEducationLikes(SchoolVO paramVO) {
+		int result = schoolDAO.modEducationLikes(paramVO);
+		return result;
+	}
 
 }

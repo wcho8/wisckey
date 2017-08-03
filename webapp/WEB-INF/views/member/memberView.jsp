@@ -12,6 +12,7 @@ $(document).ready(function(){
 			userno: "${session.userno}",
 			userpw: "${session.passwd}"
 	};
+	
 	$(function(){
 		$("#dialog").dialog({
 			autoOpen: false,
@@ -43,9 +44,18 @@ $(document).ready(function(){
 								}
 							}
 						}
-					}	
+					},	
+				 	{
+				 		text:"취소",
+				 		click:function(e){
+				 			$("#dialog").dialog('close');
+				 		}
+				 	}
 				 ]
 		});
+
+		$(".ui-dialog-titlebar").hide();
+		
 		
 	});
 	$("#memberUpdate").on("click", function(){
@@ -140,7 +150,7 @@ $(document).ready(function(){
 						<button class="btn btn-modify" id="memberUpdate" style="float:right;">개인정보 변경</button>
 					</div>
 					<div id="dialog" title="" style="display:none;">
-						<form action="" method="post">
+						<form id="inner_form" action="" method="post" style="padding-top: 20px;">
 							<span>비밀번호: </span>
 							<input id="pw" name="pw" type="password"><br/>
 							<span>비밀번호 확인:</span>

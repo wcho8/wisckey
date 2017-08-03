@@ -26,7 +26,7 @@
 			END as regdate
 		FROM info_notice
 		ORDER BY regdate DESC
-		LIMIT 4
+		LIMIT 5
 	</select>
 	<select id="findEmployerList" parameterType="MainVO" resultType="CareerVO">
 		SELECT
@@ -39,7 +39,7 @@
 		FROM brd_employment
 		WHERE empid = 1
 		ORDER BY brdid DESC
-		LIMIT 8
+		LIMIT 6
 	</select>
 	<select id="findEducationList" parameterType="MainVO" resultType="SchoolVO">
 		SELECT
@@ -52,7 +52,7 @@
 		FROM brd_schoolwork
 		WHERE swid = 2
 		ORDER BY brdid DESC
-		LIMIT 8
+		LIMIT 6
 	</select>
 	
 </mapper>

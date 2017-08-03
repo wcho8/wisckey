@@ -245,4 +245,9 @@
 			moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
+	<update id="modEducationLikes" parameterType="SchoolVO">
+		UPDATE brd_schoolwork SET
+			likes = likes+1
+		WHERE brdid=#{brdid}
+	</update>
 </mapper>

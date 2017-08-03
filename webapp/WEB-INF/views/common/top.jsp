@@ -53,15 +53,12 @@ function login(){
 			</div>
 		</div>
 		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/">Wisckey</a>
-				</div>
+			<div class="container-fluid" style="background-color: #910019">
 				<div class="div_nav">
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">ABOUT</a>
+							aria-expanded="false" style="color:white;padding-left:60px;"><span style="font-weight: bold;">ABOUT</span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/About/introWisckey">위스키 소개</a></li>
 								<li><a href="/About/introUniv">학교소개</a></li>
@@ -73,7 +70,7 @@ function login(){
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">취업<span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">취업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Career/">취업공고</a></li>
 								<li><a href="/Career/employBoard">취업 게시판</a></li>
@@ -82,7 +79,7 @@ function login(){
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">학업 <span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">학업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/School/pastWork">족보</a></li>
 								<li><a href="/School/education">학업게시판</a></li>
@@ -91,7 +88,7 @@ function login(){
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">깨알팁<span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">깨알팁<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">맛집</a></li>
 								<li><a href="#">벼룩시장</a></li>
@@ -100,7 +97,7 @@ function login(){
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">동아리 게시판<span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">동아리 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">동아리 정보</a></li>
 								<li><a href="#">KUSA</a></li>
@@ -113,7 +110,7 @@ function login(){
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">자유게시판<span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">자유 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Board/">게시판</a></li>
 								<li><a href="#">신입생 게시판</a></li>
@@ -122,7 +119,7 @@ function login(){
 					<ul class="nav navbar-nav" style="display:none;" id="admin_menu">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">관리자<span class="caret"></span></a>
+							aria-expanded="false" style="color:white; margin-left:20px;">관리자<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">ABOUT 관리</a></li>
 								<li><a href="#">게시판 관리</a></li>

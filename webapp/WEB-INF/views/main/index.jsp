@@ -107,7 +107,7 @@ a:hover{
 	text-decoration:none;
 }
 td{
-padding:5px;
+	padding:5px;
 }
 </style>
 <!-- s:container -->
@@ -147,31 +147,6 @@ padding:5px;
 						</a>
 					</div>
 				</div>
-				<div class="fLeft" id="top_right">
-					<img src="../images/common/wisckey_1.png" style="height:150px;width:290px;margin-left:-20px;">		
-					<table id="login" style=" width:190px;float:left;">
-						<tr>
-							<td><input type="text" placeholder="아이디" style="margin-bottom: 5px; width:95%;" id="userid"></td>
-						</tr>
-						<tr>
-							<td><input type="password" placeholder="패스워드" style="width:95%;" id="passwd"></td>
-						</tr>
-					</table>
-					<div style="float:left; margin-top:13px;" id="login_button">
-						<button type="button" class="btn btn-warning" style="height:50px;" onClick="javascript:login()">로그인</button>
-					</div>
-					<div style="margin-top:10px; float:left;" id="login_function">
-						<a href="#">아이디/비밀번호 찾기</a> | <a href="/Member/">회원가입</a>
-					</div>
-					<div id="userinfo">
-						안녕하세요  ${session.nickname} 님
-						<a href="/LogInOut/Logout"><button type="button" class="btn btn-warning" style="height:50px;">로그아웃</button></a>
-						<a href="/Member/memberView"><button type="button" class="btn btn-detail" style=" width: 70px; line-height:15px; vertical-align: center;">
-							<span style="font-size: 70%;">내 정보</span>
-						</button></a>
-						
-					</div>
-				</div>
 			</div>
 			<div class="body_mid" style="width:100%; height:850px; margin-top:10px;">
 				<div class="mid_left" style="float:left; width:27.7%; height:800px;">
@@ -184,64 +159,13 @@ padding:5px;
 							</ol>
 						</div>
 					</div>
-					<div id="websites" class="body_div mt15">
+					<div id="notice" class="body_div mt15">
 						<div class="body_inside">
-							학교 주요사이트
+							<a href="/About/">공지사항</a>
 						</div>
-						<div style="padding:3px; width:100%;font-size:14px;">
-							<!-- <ol id="" style="padding-left:0px;">
-								<li style="margin-top:8px;maring-left:0px;font-size:14px;">
-									<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
-								</li>
-								<li style="margin-top:8px;maring-left:0px;font-size:14px;">
-									<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
-								</li>
-								<li style="margin-top:8px;maring-left:0px;font-size:14px;">
-									<a href="http://www.wisc.edu">위스콘신 대학교 홈페이지</a>
-								</li>
-							</ol> -->
-							<table id="" style="padding-left:0px;">
-								<tr style="margin-top: 8px;  font-size: 14px;">
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-									<td>
-										<a href="http://www.wisc.edu">홈페이지</a>
-									</td>
-								</tr>
-								<tr style="margin-top: 8px;  font-size: 14px;">
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-								</tr>
-								<tr style="margin-top: 8px;  font-size: 14px;">
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-								</tr>
-								<tr style="margin-top: 8px;  font-size: 14px;">
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-								</tr>
-								<tr style="margin-top: 8px;  font-size: 14px;">
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-									<td>
-										<a href="http://www.wisc.edu"> 홈페이지</a>
-									</td>
-								</tr>
-							</table>
+						<div style="padding:3px;width:100%;font-size:14px;">
+							<ul id="recentNotice" style="padding-left:0px;list-style:none;">
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -261,7 +185,7 @@ padding:5px;
 								</ul>
 							</div>
 						</div>
-						<div id="top_tips" class="body_div mt15" style="margin-top:20px;">
+						<div id="top_tips" class="body_div mt15" style="margin-top:17px;">
 							<div class="body_inside">
 								깨알팁 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
@@ -273,7 +197,7 @@ padding:5px;
 									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
 										href="/Board/BoardView?brdid=33">여기는 팁(23)<span
 											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
+									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px; height: 23px"><a
 										href="/Board/BoardView?brdid=34">여기는 팁(10)<span
 											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
 									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
@@ -317,18 +241,49 @@ padding:5px;
 							</div>
 						</div>
 					</div>
-					<div class="right_right" style="float:left; width:38.32%; height:100%;">
-						<div id="notice" class="body_div">
-							<div class="body_inside">
-								<a href="/About/">공지사항</a>
+					<div class="right_right" style="float:left; width:38.32%; height:100%; border-top: 1px solid #CCC;">
+						<div class="login" style="float:left; padding-top: 10px; padding-left: 15px; background-color: #f2f2f2; border-bottom: 1px solid #ccc;
+								padding-bottom: 10px;">
+							<table id="login" style=" float:left;width:280px;">
+								<tr>
+									<td ><input type="text" placeholder="아이디" style="width:95%;" id="userid"></td>
+								</tr>
+								<tr>
+									<td><input type="password" placeholder="패스워드" style="width:95%;" id="passwd"></td>
+								</tr>
+							</table>
+							<div id="userinfo" style="padding-top:20px; width:285px;">
+								<div style="line-height: 60px; text-align:center;">
+									안녕하세요 <span style="font-weight: bold;"> ${session.nickname}</span> 님
+								</div>
+								
+								<div class="detail" style=" width: 100%; height:40px; text-align:center;">
+									<span style="font-size: 90%;"><a href="/Member/memberView">내 정보</a></span>
+								</div>
+								
+								<a href="/LogInOut/Logout"> <button type="button" class="btn btn-warning" style="color: white; height:50px; width:255px;
+								   background-color:#910019; margin-top:20px; margin-left: 5px; border: #910019;">
+									<span style="letter-spacing: 5px;">LOGOUT</span></button>
+								</a>
 							</div>
-							<div style="padding:7px;width:100%;font-size:14px;">
-								<ul id="recentNotice" style="padding-left:0px;list-style:none;">
-								</ul>
+							
+							<div style="float:left; margin-top:13px;" id="login_button">
+								<button type="button" class="btn btn-warning" style="color: white; height:50px; width:255px;
+									 background-color:#910019; margin-top:20px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
+									<span style="letter-spacing: 5px;">LOGIN</span>
+								</button>
+							</div>
+							
+							<div style="clear:both;"></div>
+							<div class="hr_dash" style="width: 255px; margin-left:5px;"></div>
+							<div style="float:left;" id="login_function">
+								<div style="float:left; margin-left:5px;display: inline-block; width: 60px;"><a href="/Member/">Sign Up</a></div>
+							    <div style="float:left; display: inline-block; width:120px; margin-left: 85px;"><a href="#">Forgot Password?</a></div> 
 							</div>
 						</div>
-						<div id="advertise" class="body_div mt15">
-							<img src="/images/truck.png" style="width:75%;margin-bottom:30px;padding-left:10px;" />
+						
+						<div id="advertisea" class="body_div mt15">
+							<img src="/images/truck.png" style="width:75%;margin-bottom:30px;padding-left:10px; margin-top: 50px;" />
 							<img src="/images/truck.png" style="width:75%;padding-left:10px;" />
 						</div>
 					</div>
@@ -338,5 +293,5 @@ padding:5px;
 	</div>
 </div>
 		<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
-
+	
 <!-- e:container -->

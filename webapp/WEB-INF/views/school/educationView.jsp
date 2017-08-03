@@ -40,9 +40,9 @@ $(document).ready(function(){
 	});
 	
 	if($("#userno_education").text().localeCompare(defaultParams.userno)==0){
-		$("educationDelete").show();
+		$("#educationDelete").show();
 	}else{
-		$("educationDelete").hide();
+		$("#educationDelete").hide();
 	}
 	$("#educationDelete").click(function(){
 		var url = "/School/deleteEducation";
@@ -64,6 +64,15 @@ $(document).ready(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	})
+	
+	$("#likes").click(function(){
+		$.post("/School/modEducationLikes", defaultParams, function(data){
+			if(data > 0){
+				alert("추천하였습니다.");
+				location.reload(true);
+			}
+		});
+	});
 });
 </script>
 
@@ -137,7 +146,7 @@ $(document).ready(function(){
 							작성자: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							조회수: ${vo.count}
+							조회수: ${vo.count} 추천: ${vo.likes} 
 						</span>
 					</div>
 					
@@ -149,6 +158,12 @@ $(document).ready(function(){
 						${vo.content }
 					</div>
 					
+					<div style="clear:both;"></div>
+					<div class="hr_dash" style="background:inherit;"></div>
+					
+					<div style="margin-top: 25px; text-align: center; margin-bottom: 20px;">
+						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
+					</div>
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>
 					

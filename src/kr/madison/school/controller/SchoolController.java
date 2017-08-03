@@ -189,4 +189,12 @@ public class SchoolController {
 		
 		return result;
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modEducationLikes(SchoolVO paramVO){
+		int result = schoolService.modEducationLikes(paramVO);
+		
+		return result;
+	}
 }

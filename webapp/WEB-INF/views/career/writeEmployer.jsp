@@ -38,11 +38,12 @@ $(document).ready(function(){
 		yearRange: "+0:+2"
 	});
 	
-	$("#dealine").change(function(){
+	$("#deadline").change(function(){
 		var duedate = new Date($("#deadline").val());
 		if(duedate < new Date()){
 			alert("유효한 날짜가 아닙니다.");
 			$("#deadline").val("");
+			$("#deadline").focus();
 		}
 	});
 	
@@ -164,7 +165,7 @@ border-right:2px solid #a80e34;
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
-							<td><input type="text" id="title" style="width:400px;"></td>
+							<td><input maxlength="30" type="text" id="title" style="width:400px; "></td>
 						</tr>
 						<tr style="border: 1px solid #ccc">
 							<th style="text-align: center">접수기한</th>
