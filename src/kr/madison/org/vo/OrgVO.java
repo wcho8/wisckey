@@ -15,6 +15,14 @@ public class OrgVO extends CommonVO{
 	private Integer vprno;
 	private String prname;
 	private String vprname;
+	private byte[] filecontent;
+	private Integer brdid;
+	
+	// 동아리 게시판용
+	private String title;
+	private String content;
+	private Integer count;
+	private Integer likes;
 	
 	public Integer getOrgid() {
 		return orgid;
@@ -82,4 +90,41 @@ public class OrgVO extends CommonVO{
 	public void setVprname(String vprname) {
 		this.vprname = vprname;
 	}
+	public byte[] getFilecontent() {
+		return filecontent;
+	}
+	public void setFilecontent(byte[] filecontent) {
+		this.filecontent = filecontent;
+	}
+	public Integer getBrdid() {
+		return brdid;
+	}
+	public void setBrdid(Integer brdid) {
+		this.brdid = brdid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	public Integer getLikes() {
+		return likes;
+	}
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+	
 }

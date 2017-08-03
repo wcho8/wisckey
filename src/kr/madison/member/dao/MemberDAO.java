@@ -40,4 +40,15 @@ public class MemberDAO extends CommonDAO{
 		
 		return result;
 	}
+	
+	public MemberVO searchById(MemberVO paramVO){
+		MemberVO result = new MemberVO();
+		try{
+			result = getSqlSession().selectOne("Member.searchById", paramVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

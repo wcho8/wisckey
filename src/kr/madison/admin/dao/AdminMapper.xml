@@ -40,20 +40,21 @@
 			useyn
 		FROM cod_schoolwork
 	</select>
-	<select id="findOrgList" resultType="OrgVO" parameterType="AdminVO">
+	<select id="findBoardTypeList" resultType="AdminVO" parameterType="AdminVO">
 		SELECT
-			a.orgid,
-			a.name as orgname,
-			a.comment,
-			a.regdate,
-			a.moddate,
-			a.prno,
-			a.prname,
-			a.vprno,
-			a.vprname,
-			b.name as orgtype,
-			b.useyn
-		FROM info_organization a
-		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
+			typeid,
+			name as typename,
+			comment,
+			regdate,
+			useyn
+		FROM cod_boardtypes
+		<choose>
+		<when test="ptypeid == null or ptypeid == ''">
+			WHERE ptypeid = 0
+		</when>
+		<otherwise>
+			WHERE ptypeid = #{ptypeid}
+		</otherwise>
+		</choose>
 	</select>
 </mapper>

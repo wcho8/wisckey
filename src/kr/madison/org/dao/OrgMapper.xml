@@ -1,4 +1,222 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Org">
+	<select id="findOrgListData" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) as prname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) as vprname,
+			b.name as orgtype,
+			a.filecontent
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
+		WHERE a.orgtypeid = #{orgtypeid}
+	</select>
+	<select id="findOrgList" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d') as regdate,
+			a.moddate,
+			a.prno,
+			(select korname from info_userinfo c where a.prno = c.userno) as prname,
+			a.vprno,
+			(select korname from info_userinfo c where a.vprno = c.userno) as vprname,
+			b.name as orgtype,
+			b.useyn
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
+		ORDER BY b.orgtypeid ASC, a.regdate DESC;
+	</select>
+	<select id="getOrgCount" resultType="int" parameterType="OrgVO">
+		SELECT
+			COUNT(*)
+		FROM info_organization
+	</select>
+	<select id="getOrgData" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d') as regdate,
+			a.moddate,
+			a.prno,
+			(select korname from info_userinfo c where a.prno = c.userno) as prname,
+			a.vprno,
+			(select korname from info_userinfo c where a.vprno = c.userno) as vprname,
+			b.name as orgtype,
+			b.useyn
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
+		WHERE a.orgid = #{orgid}
+	</select>
+	<insert id="addOrgData" parameterType="OrgVO">
+		INSERT INTO info_organization(
+			name,
+			comment,
+			regdate,
+			moddate,
+			prno,
+			vprno,
+			orgtypeid
+		) VALUES(
+			#{orgname},
+			#{comment},
+			NOW(),
+			NOW(),
+			#{prno},
+			#{vprno},
+			#{orgtypeid}
+		)
+	</insert>
+	<update id="editOrgData" parameterType="OrgVO">
+		UPDATE info_organization SET
+			name = #{name},
+			comment = #{comment},
+			moddate = NOW(),
+			prno = #{prno},
+			vprno = #{vprno}
+		WHERE orgid = #{orgid}
+	</update>
+	<delete id="delOrgData" parameterType="OrgVO">
+		DELETE FROM info_organization
+			WHERE orgid = #{orgid}
+	</delete>
+	<select id="findOrgBoardTotalCnt" parameterType="OrgVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_orgnization a
+		LEFT JOIN info_organization b on a.orgid = b.orgid
+		WHERE b.orgtypeid = #{orgtypeid}
+	</select>
+	<select id="findOrgBoardList" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			a.brdid,
+			a.orgid,
+			b.name as orgname,
+			b.orgtypeid,
+			a.title,
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(a.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
+			END as regdate,
+			c.korname,
+			a.count,
+			a.likes
+		FROM brd_orgnization a
+		LEFT JOIN info_organization b on a.orgid = b.orgid
+		LEFT JOIN info_userinfo c on a.userno = c.userno
+		WHERE b.orgtypeid = #{orgtypeid}
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND a.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND c.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		ORDER BY a.brdid DESC
+		LIMIT #{skiprow}, #{pagerow}
+	</select>
+	<select id="getOrgBoardData" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			a.brdid,
+			a.orgid,
+			b.name as orgname,
+			a.content,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			a.title,
+			c.korname,
+			a.count,
+			a.likes
+		FROM brd_orgnization a
+		LEFT JOIN info_organization b on a.orgid = b.orgid
+		LEFT JOIN info_userinfo c on a.userno = c.userno
+		WHERE a.orgid = #{orgid}
+			AND b.orgtypeid = #{orgtypeid}
+	</select>
+	<insert id="addOrgBoardData" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
+		INSERT INTO brd_orgnization(
+			orgid,
+			title,
+			regdate,
+			moddate,
+			content,
+			userno
+		) VALUES(
+			#{orgid},
+			#{title},
+			NOW(),
+			NOW(),
+			#{content},
+			#{userno}
+		)
+		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<insert id="addOrgBoardReply" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
+		INSERT INTO brd_orgnization_reply(
+			brdid,
+			content,
+			regdate,
+			moddate,
+			userno
+		)VALUES(
+			#{brdid},
+			#{repContent},
+			NOW(),
+			NOW(),
+			#{userno}
+		)
+		<selectKey keyProperty="repid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="modOrgBoardCount" parameterType="OrgVO">
+		UPDATE brd_orgnization SET
+			count = count + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modOrgBoardLikes" parameterType="OrgVO">
+		UPDATE brd_orgnization SET
+			likes = likes + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modOrgBoardDislikes" parameterType="OrgVO">
+		UPDATE brd_orgnization SET
+			dislikes = dislikes + 1
+		WHERE brdid = #{brdid}
+	</update>
+	<update id="modOrgRepLikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_reply SET
+			likes = likes + 1
+		WHERE repid = #{repid}
+	</update>
+	<update id="modOrgRepDisLikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_reply SET
+			dislikes = dislikes + 1
+		WHERE repid = #{repid}
+	</update>
+	<select id="getOrgReplyCount" parameterType="OrgVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM brd_orgnization_reply
+		WHERE brdid = #{brdid}
+	</select>
+	<select id="findOrgBoardReply" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			a.repid,
+			b.nickname as replier,
+			a.content as repContent,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			a.likes as repLikes,
+			a.dislikes as repDislikes
+		FROM brd_orgnization_reply a
+		LEFT JOIN info_userinfo b on a.userno = b.userno
+		WHERE a.brdid = #{brdid}
+	</select>
 </mapper>

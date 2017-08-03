@@ -30,8 +30,7 @@ public class AdminDAO extends CommonDAO{
 	public List<AdminVO> findSchoolBoardTypes(AdminVO paramVO){
 		return getSqlSession().selectList("Admin.findSchoolBoardTypes", paramVO);
 	}
-	
-	public List<OrgVO> findOrgList(AdminVO paramVO){
-		return getSqlSession().selectList("Admin.findOrgList", paramVO);
+	public List<AdminVO> findBoardTypeList(AdminVO paramVO){
+		return getSqlSession().selectList("Admin.findBoardTypeList", paramVO);
 	}
 }

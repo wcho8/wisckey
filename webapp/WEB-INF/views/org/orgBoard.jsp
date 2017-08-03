@@ -2,9 +2,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
-var curPage = "/Board/?";
+var curPage = "/Org/orgBoard/";
 $(document).ready(function(){
-	defaultParams.mypage="${paramVO.mypage}";
+	defaultParams.mypage="${paramVO.mypage}"
+	defaultParams.orgtype="${paramVO.orgtypeid}";
+	$(".current").removeClass('current');
+	console.log(defaultParams.orgtype);
+	switch(defaultParams.orgtype){
+	case 1:
+		curPage += "academic?";
+		$("#left_academic").addClass('current');
+		break;
+	case 2:
+		curPage += "hobby?";
+		$("#left_hobby").addClass('current');
+		break;
+	case 3:
+		curPage += "sports?";
+		$("#left_sports").addClass('current');
+		break;
+	case 4:
+		curPage += "religion?";
+		$("#left_religion").addClass('current');
+		break;
+	}
 	var srchType = "${paramVO.srchType}";
 	if(srchType != null && srchType != ''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -15,8 +36,8 @@ $(document).ready(function(){
 			$("#keyword").attr("placeholder", "닉네임");
 		}
 	}
-	$("#addBoard").click(function(){
-		var url = "/Board/BoardEdit";
+	$("#addOrgBoard").click(function(){
+		var url = "/Org/BoardEdit";
 		if(defaultParams.userno == "" || defaultParams.userno == null){
 			alert("로그인 하셔야 이용하실 수 있습니다.");
 			return;
@@ -126,11 +147,11 @@ input::placeholder{
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${boardList}" var = "list">
+							<c:forEach items="${oblist}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
-									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}</td>
+									<td style="text-align: center; font-size: 80%;">&nbsp;${list.korname}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.likes}</td>

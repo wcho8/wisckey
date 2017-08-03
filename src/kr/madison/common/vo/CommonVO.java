@@ -46,6 +46,8 @@ public class CommonVO {
 	
 	// 각 게시판의 타입
 	private Integer typeid = 0;
+	private String typename;
+	private Integer ptypeid;
 	
 	public Integer getUserno() {
 		return userno;
@@ -221,4 +223,17 @@ public class CommonVO {
 	public void setTypeid(Integer typeid) {
 		this.typeid = typeid;
 	}
+	public String getTypename() {
+		return typename;
+	}
+	public void setTypename(String typename) {
+		this.typename = typename;
+	}
+	public Integer getPtypeid() {
+		return ptypeid;
+	}
+	public void setPtypeid(Integer ptypeid) {
+		this.ptypeid = ptypeid;
+	}
+	
 }

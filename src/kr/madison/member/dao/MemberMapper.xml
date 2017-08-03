@@ -44,4 +44,13 @@
 	FROM info_userinfo
 	WHERE nickname = #{nickname}
 </select>
+<select id="searchById" parameterType="MemberVO" resultType="MemberVO">
+	SELECT
+		userno,
+		korname,
+		birthdate,
+		userid
+	FROM info_userinfo
+	WHERE userid = #{userid}
+</select>
 </mapper>

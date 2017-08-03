@@ -39,8 +39,12 @@ public class AdminService extends CommonService{
 		
 		return result;
 	}
-	
-	public List<OrgVO> findOrgList(AdminVO paramVO){
-		return adminDAO.findOrgList(paramVO);
+	public List<AdminVO> findBoardTypeList(AdminVO paramVO){
+		List<AdminVO> result = new ArrayList<AdminVO>();
+		
+		result = adminDAO.findBoardTypeList(paramVO);
+		
+		return result;
 	}
+	
 }

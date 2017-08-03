@@ -35,30 +35,22 @@ public class AdminController extends CommonController{
 	@RequestMapping("/ManageMenu")
 	public ModelAndView manageMenu(AdminVO paramVO){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin/manageMenu");
+		List<AdminVO> boardtype = new ArrayList<AdminVO>();
+		boardtype = adminService.findBoardTypeList(paramVO);
 		
+		mav.addObject("boardtypes", boardtype);
+		mav.setViewName("admin/manageMenu");
 		return mav;
 	}
 	
-	@RequestMapping("/FindBoardType/{btype}")
+	@RequestMapping()
 	@ResponseBody
-	public List<AdminVO> findBoardType(@PathVariable("btype") int btype, AdminVO paramVO){
+	public List<AdminVO> findBoardTypeList(AdminVO paramVO){
 		List<AdminVO> result = new ArrayList<AdminVO>();
 		
-		result = adminService.findBoardType(btype, paramVO);
+		result = adminService.findBoardTypeList(paramVO);
 		
 		return result;
 	}
 	
-	@RequestMapping("/findOrgList")
-	@ResponseBody
-	public GridVO findOrgList(AdminVO paramVO){
-		GridVO grid = new GridVO();
-		List<OrgVO> result = adminService.findOrgList(paramVO);
-		int recordCount = 20;
-		grid.bindPaging(recordCount, paramVO);
-		grid.bindData(result);
-		
-		return grid;
-	}
 }

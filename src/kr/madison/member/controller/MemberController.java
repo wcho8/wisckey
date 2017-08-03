@@ -62,4 +62,17 @@ public class MemberController extends CommonController{
 		
 		return result;
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public MemberVO searchById(MemberVO paramVO){
+		MemberVO result = new MemberVO();
+		try{
+			result = memberService.searchById(paramVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
