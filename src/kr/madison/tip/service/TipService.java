@@ -103,6 +103,93 @@ public class TipService extends CommonService{
 		tipDAO.modFoodData(paramVO);
 		return paramVO.getBrdid();
 	}
+	
+	
+	
+	
+	public int findMarketTotalCnt(TipVO paramVO){
+		int result = 0;
+		result = tipDAO.findMarketTotalCnt(paramVO);
+		
+		return result;
+	}
+	
+	public List<TipVO> findMarketList(TipVO paramVO){
+		List<TipVO> results = new ArrayList<TipVO>();
+		
+		results = tipDAO.findMarketList(paramVO);
 
+		return results;
+	}
+	
+	public TipVO findMarketContent(TipVO paramVO){
+		TipVO result = tipDAO.findMarketContent(paramVO);
+		
+		return result;
+	}
+
+	public int addMarketData(TipVO paramVO) {
+		// TODO Auto-generated method stub
+		paramVO.setUserno(session.getUserno());
+		int result = tipDAO.addMarketData(paramVO);
+		return result;
+	}
+	
+	
+	public int addMarketReply(TipVO paramVO){
+		paramVO.setUserno(session.getUserno());
+		int result = tipDAO.addMarketReply(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketCount(TipVO paramVO){
+		int result = tipDAO.modMarketCount(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketLikes(TipVO paramVO){
+		int result = tipDAO.modMarketLikes(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketDislikes(TipVO paramVO){
+		int result = tipDAO.modMarketDislikes(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketRepLikes(TipVO paramVO){
+		int result = tipDAO.modMarketRepLikes(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketRepDislikes(TipVO paramVO){
+		int result = tipDAO.modMarketRepDislikes(paramVO);
+		
+		return result;
+	}
+	
+	public int getMarketReplyCount(TipVO paramVO){
+		int result = tipDAO.getMarketReplyCount(paramVO);
+		
+		return result;
+	}
+	
+	public List<TipVO> findMarketReply(TipVO paramVO){
+		List<TipVO> result = tipDAO.findMarketReply(paramVO);
+		
+		return result;
+	}
+	
+	public int modMarketData(TipVO paramVO){
+		tipDAO.modMarketData(paramVO);
+		return paramVO.getBrdid();
+	}
+	
+	
 
 }

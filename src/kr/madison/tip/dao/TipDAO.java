@@ -67,4 +67,63 @@ public class TipDAO extends CommonDAO {
 		return getSqlSession().update("Tip.modFoodData", paramVO);
 	}
 
+	
+	
+	
+	
+	public int findMarketTotalCnt(TipVO paramVO){
+		return getSqlSession().selectOne("Tip.findMarketTotalCnt", paramVO);
+	}
+	
+	public List<TipVO> findMarketList(TipVO paramVO){
+		return getSqlSession().selectList("Tip.findMarketList", paramVO);
+	}
+	
+	public TipVO findMarketContent(TipVO paramVO){
+		return getSqlSession().selectOne("Tip.findMarketContent", paramVO);
+	}
+	
+
+	public int addMarketData(TipVO paramVO) {
+		getSqlSession().insert("Tip.addMarketData",paramVO);
+		
+		return paramVO.getBrdid();
+	}
+	
+	public int addMarketReply(TipVO paramVO){
+		getSqlSession().insert("Tip.addMarketReply", paramVO);
+		return paramVO.getRepid();
+	}
+	
+	public int modMarketCount(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketCount", paramVO);
+	}
+	
+	public int modMarketLikes(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketLikes", paramVO);
+	}
+	
+	public int modMarketDislikes(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketDislikes", paramVO);
+	}
+	
+	public int modMarketRepLikes(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketRepLikes", paramVO);
+	}
+	
+	public int modMarketRepDislikes(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketRepDislikes", paramVO);
+	}
+	
+	public List<TipVO> findMarketReply(TipVO paramVO){
+		return getSqlSession().selectList("Tip.findMarketReply", paramVO);
+	}
+	
+	public int getMarketReplyCount(TipVO paramVO){
+		return getSqlSession().selectOne("Tip.getMarketCount", paramVO);
+	}
+	
+	public int modMarketData(TipVO paramVO){
+		return getSqlSession().update("Tip.modMarketData", paramVO);
+	}
 }

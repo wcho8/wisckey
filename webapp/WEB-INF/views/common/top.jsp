@@ -140,7 +140,7 @@
                                     <a href="/Tip/food" >맛집</a>
                                 </li>
                                 <li >
-                                    <a href="#" >벼룩시장</a>
+                                    <a href="/Tip/market" >벼룩시장</a>
                                 </li>
                                 
                             </ul>
