@@ -91,8 +91,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">깨알팁<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">맛집</a></li>
-								<li><a href="#">벼룩시장</a></li>
+								<li><a href="/Tip/food">맛집</a></li>
+								<li><a href="/Tip/market">벼룩시장</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">

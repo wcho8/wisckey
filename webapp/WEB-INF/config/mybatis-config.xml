@@ -13,6 +13,7 @@
 		<typeAlias alias="AdminVO" type="kr.madison.admin.vo.AdminVO"/>
 		<typeAlias alias="SchoolVO" type="kr.madison.school.vo.SchoolVO"/>
 		<typeAlias alias="OrgVO" type="kr.madison.org.vo.OrgVO"/>
+		<typeAlias alias="TipVO" type="kr.madison.tip.vo.TipVO"/>
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="kr.madison.util.LocalDateTimeTypeHandler"/>
