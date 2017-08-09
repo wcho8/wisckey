@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/Board/*")
 public class BoardController {
 	
-	final private int pageRow = 20;
+	final private int pageRow = 15;
 	
 	@Autowired
 	BoardService boardService;
@@ -48,6 +48,8 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		BoardVO vo = boardService.findBoardContent(paramVO);
 		
+		paramVO.setPtypeid(vo.getPtypeid());
+		
 		List<BoardVO> replies = boardService.findBoardReply(paramVO);
 		int repcount = boardService.getReplyCount(paramVO);
 		
@@ -67,6 +69,10 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		paramVO.setTypeid(1);
 		List<BoardVO> frtypes = boardService.getFrtypes(paramVO);
+		try{
+		}catch(Exception e){
+			
+		}
 		
 		mav.setViewName("/board/boardEdit");
 		mav.addObject("frtypes", frtypes);
@@ -166,4 +172,9 @@ public class BoardController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public void delBoardData(BoardVO paramVO){
+		boardService.delBoardData(paramVO);
+	}
 }

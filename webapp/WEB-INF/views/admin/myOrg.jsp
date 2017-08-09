@@ -6,32 +6,18 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".current").removeClass('current');
-	$("#left_intro").addClass('current');
-	changeIntro(1);
+	$("#manMyOrg").addClass('current');
+	$("#intro").empty();
+	var url = "/Org/findMyOrgList";
+	var userno = "${session.userno}";
+	reloadOrgs();
 });
 
-function changeIntro(oid){
+function reloadOrgs(){
 	$("#intro").empty();
-	switch(oid){
-	case 1:
-		$(".act_div").removeClass("act_div");
-		$("#academic").addClass('act_div');
-		break;
-	case 2:
-		$(".act_div").removeClass("act_div");
-		$("#sports").addClass('act_div');
-		break;
-	case 3:
-		$(".act_div").removeClass("act_div");
-		$("#hobby").addClass('act_div');
-		break;
-	case 4:
-		$(".act_div").removeClass("act_div");
-		$("#religion").addClass('act_div');
-		break;
-	}
-	var url = "/Org/findOrgListData";
-	$.post(url, {orgtypeid: oid}, function(data){
+	var url = "/Org/findMyOrgList";
+	var userno = "${session.userno}";
+	$.post(url, {userno:userno}, function(data){
 		$.each(data, function(index, item){
 			var vprname = "";
 			if(item.vprname == '' || item.vprname == null){
@@ -139,21 +125,10 @@ div.tabcontent{
 		<div class="main_body" style="overflow:hidden">
 			<jsp:include page="./leftmenu.jsp"></jsp:include>			
 			<div class="center_menu" id="center" style="width: 700px; float:left; margin-left:30px;">
-				<div class="categories" style="width:100%;">
-					<div class="tab" align="center">
-						<button class="tablink act_div" id="academic" onclick="javascript:changeIntro(1)" style="width:24%;"> 학술 </button>
-						<button class="tablink" id="sports" onclick="javascript:changeIntro(2)" style="width:24%; margin-left:1.3%;"> 취미 </button>
-						<button class="tablink" id="hobby" onclick="javascript:changeIntro(3)" style="width:24%; margin-left:1.3%;">스포츠</button>
-						<button class="tablink" id="religion" onclick="javascript:changeIntro(4)" style="width:24%; margin-left:1.4%;">종교</button>
-					</div>
-				</div>
-				<div style="width:100%;">
-					<div id="intro" style="width:100%;margin-bottom:20px;border:1px solid #cacaca;background-color:white;">
-					</div>
+				<div id="intro" style="width:100%;margin-bottom:20px;border:1px solid #cacaca;background-color:white;">
 				</div>
 			</div>
 			<div id="org_detail_dialog" style="display:none;">
-				<jsp:include page="./orgDetail.jsp" flush="false"></jsp:include>
 			</div>
 		</div>
 	</div>

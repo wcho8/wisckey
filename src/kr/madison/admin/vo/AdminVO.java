@@ -9,6 +9,10 @@ public class AdminVO extends CommonVO{
 	private String comment;
 	private char useyn;
 	
+	private Integer id;
+	private String cod_table;
+	private String idname; //코드 테이블의 PK id 이름
+	
 	public Integer getBid() {
 		return bid;
 	}
@@ -33,4 +37,23 @@ public class AdminVO extends CommonVO{
 	public void setUseyn(char useyn) {
 		this.useyn = useyn;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCod_table() {
+		return cod_table;
+	}
+	public void setCod_table(String cod_table) {
+		this.cod_table = cod_table;
+	}
+	public String getIdname() {
+		return idname;
+	}
+	public void setIdname(String idname) {
+		this.idname = idname;
+	}
+	
 }

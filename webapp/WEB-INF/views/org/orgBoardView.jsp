@@ -8,8 +8,11 @@ $(document).ready(function(){
 		brdid: "${paramVO.brdid}",
 		userno: "${session.userno}",
 		nickname: "${session.nickname}",
-		mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
+		orgtypeid: "${paramVO.orgtypeid}"
 	};
+	
+	console.log(defaultParams);
 	
 	var writerno = "${vo.userno}";
 	
@@ -18,18 +21,18 @@ $(document).ready(function(){
 	}
 	
 	$("#update").click(function(){
-		var url = "/Board/BoardEdit?";
+		var url = "/Org/BoardEdit?";
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	})
 	
 	$("#boardList").click(function(){
 		var params = $.param(defaultParams);
-		$(location).attr("href", "/Board/?"+params);
+		$(location).attr("href", "/Org/orgBoard?"+params);
 	});
 	
 	$("#likes").click(function(){
-		$.post("/Board/modBoardLikes", defaultParams, function(data){
+		$.post("/Org/modBoardLikes", defaultParams, function(data){
 			if(data > 0){
 				alert("추천하였습니다.");
 				location.reload(true);
@@ -38,7 +41,7 @@ $(document).ready(function(){
 	});
 	
 	$("#dislike").click(function(){
-		$.post("/Board/modBoardDislikes", defaultParams, function(data){
+		$.post("/Org/modBoardDislikes", defaultParams, function(data){
 			if(data > 0){
 				alert("비추하였습니다.");
 				location.reload(true);
@@ -47,7 +50,7 @@ $(document).ready(function(){
 	})
 	
 	$("#addReply").click(function(){
-		var url = "/Board/addBoardReply";
+		var url = "/Org/addBoardReply";
 		var replyContent = $("#reply").val();
 		var params = $.extend({}, defaultParams, {repContent:replyContent});
 		if(params.repContent == "" || params.repContent == null){
@@ -71,10 +74,10 @@ function likes(like, repid){
 	var url = "";
 	var msg = "";
 	if(like == 'Y'){
-		url = "/Board/modRepLikes";
+		url = "/Org/modRepLikes";
 		msg = "추천하였습니다.";
 	}else if(like == 'N'){
-		url = "/Board/modRepDislikes";
+		url = "/Org/modRepDislikes";
 		msg = "비추하였습니다.";
 	}
 	var params = $.extend({}, defaultParams, {repid:repid});
@@ -101,22 +104,18 @@ border:1px dashed red;
 	<div class="row">
 		<div class="main_body">
 			<jsp:include page="./leftmenu.jsp"></jsp:include>
-			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
-				<div style="float:left; width:100%;">
-					<button class="btn btn-default" id="boardList" style="float:right;">목록</button>
-					<button id="update" style="float:right;display:none;" class="btn btn-default">수정</button>
-				</div>
+			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
 				<div style="clear:both;"></div>
 				<div id="main_board" style="width:100%;border:1px solid #cacaca;margin-top:5px;padding:10px;background-color:white;">
 					<div id="boardTitle" style="width:100%; background-color:lightgrey;font-size:20px;padding:5px;border-top:2px solid grey;">
-						<b>[${vo.typename}] ${vo.title}</b> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
+						<b>[${vo.orgname}] ${vo.title}</b> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
 					</div>
-					<div id="other_infos" style="width:100%;padding:5px;font-size:12px;">
+					<div id="other_infos" style="width:100%;padding:5px;background-color:white;font-size:12px;">
 						<span style="float:left;">
-							작성자: <b>${vo.writer}</b>
+							작성자: <b>${vo.korname}</b>
 						</span>
 						<span style="float:right;">
-							조회수: ${vo.count} 추천: ${vo.likes} 비추: ${vo.dislikes} 댓글: ${repCnt} <!-- 비추 + 댓글 필요 --> 
+							조회수: ${vo.count} 추천: ${vo.likes} 댓글: ${repCnt} <!-- 비추 + 댓글 필요 --> 
 						</span>
 					</div>
 					<div style="clear:both;"></div>
@@ -126,13 +125,19 @@ border:1px dashed red;
 					</div>
 					<div style="margin-top:25px; text-align:center; margin-bottom:20px;">
 						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
-						<button id="dislike" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> 비추 ${vo.dislikes}</button>
 					</div>
 					<div class="hr_dash" style="background:grey;"></div>
+					<div style="clear:both;"></div>
+					<div style="float: left; width:100%;">
+						<button class="btn delete" id="boardDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn confirm" id="boardList" style="float: right; margin-top: 5px;">목록	</button>
+						<button class="btn update" id="update" style="float:right; margin-top:5px; display:none;">수정</button>	
+					</div>
+					<div style="clear:both;"></div>
 					<div id="reply_box" style="margin-top:20px; border-radius:2em; border:1px solid #cacaca; padding:10px; font-size:12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:750px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
-						<button id="addReply" style="height:60px;width:65px;">등록</button>
+						<textarea id="reply" style="width:600px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
+						<button id="addReply" style="height:50px;width:50px;">등록</button>
 					</div>
 					<div style="height:1px;background-color:lightgrey;width:100%;margin-top:15px;"></div>
 					<c:forEach items="${reps}" var="rep">

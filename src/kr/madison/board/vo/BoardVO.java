@@ -31,9 +31,6 @@ public class BoardVO extends CommonVO{
 	public String type;
 	public String CKEditorFuncNum; 
 	
-	//게시판 타입
-	public String typename;
-	
 	public int getBrdid() {
 		return brdid;
 	}
@@ -154,10 +151,5 @@ public class BoardVO extends CommonVO{
 	public void setCKEditorFuncNum(String cKEditorFuncNum) {
 		CKEditorFuncNum = cKEditorFuncNum;
 	}
-	public String getTypename() {
-		return typename;
-	}
-	public void setTypename(String typename) {
-		this.typename = typename;
-	}
+	
 }

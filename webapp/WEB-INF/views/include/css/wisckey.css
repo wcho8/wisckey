@@ -190,3 +190,10 @@ label {
 display:inline-flex;
 margin-bottom:0px;
 }
+
+.ui-widget-overlay{
+position:fixed;
+}
+.ui-dialog .ui-dialog-titlebar-close span{
+margin:-9px;
+}

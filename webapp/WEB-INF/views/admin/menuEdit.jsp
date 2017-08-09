@@ -13,6 +13,16 @@ $(document).ready(function(){
 			<col width="20%" />
 			<col width="*" />
 		</colgroup>
+		<tbody>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" id="typename"></td>
+			</tr>
+			<tr>
+				<th>코멘트</th>
+				<td><textarea id="comment" maxlength="255"></textarea></td>
+			</tr>
+		</tbody>
 	</table>
 	<div style="float:right;">
 		<button id="add">추가</button>

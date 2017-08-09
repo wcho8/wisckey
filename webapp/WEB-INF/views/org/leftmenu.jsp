@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript">
+$(document).ready(function(){
+	var orgtypeid = "${paramVO.orgtypeid}";
+	$(".current").removeClass('current');
+	switch(orgtypeid){
+	case "1":
+		$("#left_academic").addClass('current');
+		break;
+	case "2":
+		$("#left_hobby").addClass('current');
+		break;
+	case "3":
+		$("#left_sports").addClass('current');
+		break;
+	case "4":
+		$("#left_religion").addClass('current');
+		break;
+	default:
+		$("#left_intro").addClass('current');
+	}
+});
+</script>
 <style type="text/css">
 #title_list_about li>a:hover {
 	text-decoration: none;
@@ -31,10 +53,10 @@
 		<div style="clear:both;"></div>
 		<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
 			<li><a class="current" id="left_intro" href="/Org/">동아리 소개</a></li>
-			<li><a id="left_academic" href="/Org/orgBoard/academic">학술</a></li>
-			<li><a id="left_hobby" href="/Org/orgBoard/hobby">취미</a></li>
-			<li><a id="left_sports" href="/Org/orgBoard/sports">스포츠</a></li>
-			<li><a id="left_religion" href="/Org/orgBoard/religion">종교</a></li>
+			<li><a id="left_academic" href="/Org/orgBoard?orgtypeid=1">학술</a></li>
+			<li><a id="left_hobby" href="/Org/orgBoard?orgtypeid=2">취미</a></li>
+			<li><a id="left_sports" href="/Org/orgBoard?orgtypeid=3">스포츠</a></li>
+			<li><a id="left_religion" href="/Org/orgBoard?orgtypeid=4">종교</a></li>
 		</ul>
 	</div>
 </div>

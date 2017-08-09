@@ -13,8 +13,11 @@ var defaultParams = {
 $(document).ready(function(){
 	var navbars;
 	var url;
-	if(defaultParams.authid == 1){
+	if(defaultParams.authid == 1 || defaultParams.authid == 2){
 		$("#admin_menu").show();
+		if(defaultParams.authid == 2){
+			$(".superadmin").hide();
+		}
 	}
 });
 function login(){
@@ -101,10 +104,10 @@ function login(){
 							aria-expanded="false" style="color:white; margin-left:20px;">동아리 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Org/">소개</a></li>
-								<li><a href="/Org/orgBoard/academic">학술</a></li>
-								<li><a href="/Org/orgBoard/hobby">취미</a></li>
-								<li><a href="/Org/orgBoard/sports">스포츠</a></li>
-								<li><a href="/Org/orgBoard/religion">종교</a></li>
+								<li><a href="/Org/orgBoard?orgtypeid=1">학술</a></li>
+								<li><a href="/Org/orgBoard?orgtypeid=2">취미</a></li>
+								<li><a href="/Org/orgBoard?orgtypeid=3">스포츠</a></li>
+								<li><a href="/Org/orgBoard?orgtypeid=4">종교</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -112,8 +115,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">자유 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Board/">게시판</a></li>
-								<li><a href="#">신입생 게시판</a></li>
+								<li><a href="/Board/?ptypeid=1">게시판</a></li>
+								<li><a href="/Board/?ptypeid=2">신입생 게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav" style="display:none;" id="admin_menu">
@@ -121,10 +124,11 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">관리자<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">ABOUT 관리</a></li>
-								<li><a href="/Admin/ManageMenu">게시판 관리</a></li>
-								<li><a href="/Admin/ManageOrg">동아리 관리</a></li>
-							</ul></li>
+								<li class='superadmin'><a href="/Admin/ManageMenu">게시판 관리</a></li>
+								<li class='superadmin'><a href="/Admin/ManageOrg">동아리 관리</a></li>
+								<li class='orgadmin'><a href="/Admin/MyOrg">내 동아리</a>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>

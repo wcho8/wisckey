@@ -68,4 +68,10 @@ public class BoardDAO extends CommonDAO{
 	public List<BoardVO> getFrtypes(BoardVO paramVO){
 		return getSqlSession().selectList("Board.getFrtypes", paramVO);
 	}
+	public int delBoardData(BoardVO paramVO){
+		return getSqlSession().delete("Board.delBoardData", paramVO);
+	}
+	public int delBoardReplyData(BoardVO paramVO){
+		return getSqlSession().delete("Board.delBoardReplyData", paramVO);
+	}
 }

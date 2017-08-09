@@ -16,26 +16,56 @@ public class AdminService extends CommonService{
 	@Autowired
 	AdminDAO adminDAO;
 	
-	public List<AdminVO> findBoardType(int btype, AdminVO paramVO){
-		List<AdminVO> result = new ArrayList<AdminVO>();
-		
-		switch(btype){
+	public AdminVO checkTables(AdminVO paramVO){
+		String cod_table = "";
+		String idname = "";
+		switch(paramVO.getPtypeid()){
 		case 1:
-			result = adminDAO.findEmpBoardTypes(paramVO);
+			cod_table = "cod_freeboard";
+			idname = "frid";
 			break;
 		case 2:
-			result = adminDAO.findFreeBoardTypes(paramVO);
+			cod_table = "cod_freeboard";
+			idname = "frid";
 			break;
 		case 3:
-			result = adminDAO.findSchoolBoardTypes(paramVO);
+			cod_table = "cod_employment";
+			idname = "empid";
 			break;
 		case 4:
-			result = adminDAO.findRestBoardTypes(paramVO);
+			cod_table = "cod_schoolwork";
+			idname = "swid";
 			break;
 		case 5:
-			result = adminDAO.findSaleBoardTypes(paramVO);
+			cod_table = "cod_schoolwork";
+			idname = "swid";
+			break;
+		case 6:
+			cod_table = "cod_extratips";
+			idname = "tipid";
+			break;
+		case 7:
+			cod_table = "cod_extratips";
+			idname = "tipid";
+			break;
+		case 8:
+			cod_table = "cod_employment";
+			idname = "empid";
 			break;
 		}
+		
+		paramVO.setCod_table(cod_table);
+		paramVO.setIdname(idname);
+		
+		return paramVO;
+	}
+	
+	public List<AdminVO> findBoardTypes(AdminVO paramVO){
+		List<AdminVO> result = new ArrayList<AdminVO>();
+		
+		paramVO = checkTables(paramVO);
+		
+		result = adminDAO.findBoardTypes(paramVO);
 		
 		return result;
 	}
@@ -46,5 +76,22 @@ public class AdminService extends CommonService{
 		
 		return result;
 	}
-	
+	public int addOrgFileData(OrgVO paramVO) {
+		Integer result = 0;
+		try {
+			result = adminDAO.addOrgFileData(paramVO);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public void delOrg(OrgVO paramVO){
+		try{
+			adminDAO.delOrg(paramVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

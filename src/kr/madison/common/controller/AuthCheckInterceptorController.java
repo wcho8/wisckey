@@ -46,10 +46,19 @@ public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 		
 		if(sessionVO != null && sessionVO.getUserid() != null && !sessionVO.getUserid().equals("")){
 			if(servletPath.indexOf("/Admin/") == 0){
-				if(sessionVO.getAuthid() == 1 && sessionVO.getAuthid() != null){
-				}else{
-					response.sendRedirect("/403");
-					return false;
+				if(servletPath.indexOf("/MyOrg") != 0){
+					if(sessionVO.getAuthid() == 1 || sessionVO.getAuthid() == 2 && sessionVO.getAuthid() != null){
+						return true;
+					}else{
+						return false;
+					}
+				}
+				else{
+					if(sessionVO.getAuthid() == 1 && sessionVO.getAuthid() != null){
+					}else{
+						response.sendRedirect("/403");
+						return false;
+					}
 				}
 			}
 		}

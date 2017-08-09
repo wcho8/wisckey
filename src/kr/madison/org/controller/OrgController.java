@@ -36,24 +36,9 @@ public class OrgController extends CommonController{
 		return mav;
 	}
 	
-	@RequestMapping("/orgBoard/{orgtype}")
-	public ModelAndView orgBoard(@PathVariable("orgtype") String orgtype, OrgVO paramVO){	
+	@RequestMapping("/orgBoard")
+	public ModelAndView orgBoard(@ModelAttribute("paramVO")OrgVO paramVO){	
 		ModelAndView mav = new ModelAndView();
-		
-		switch(orgtype){
-		case "academic":
-			paramVO.setOrgtypeid(1);
-			break;
-		case "hobby":
-			paramVO.setOrgtypeid(2);
-			break;
-		case "sports":
-			paramVO.setOrgtypeid(3);
-			break;
-		case "religion":
-			paramVO.setOrgtypeid(4);
-			break;
-		}
 		
 		int totalCnt = orgService.findOrgBoardTotalCnt(paramVO);
 		Util.setPaging(paramVO, totalCnt, pageRow);
@@ -70,28 +55,29 @@ public class OrgController extends CommonController{
 	@RequestMapping("/BoardView")
 	public ModelAndView boardView(@ModelAttribute("paramVO") OrgVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
-		/*OrgVO vo = boardService.findBoardContent(paramVO);
-		List<OrgVO> replies = boardService.findBoardReply(paramVO);
-		int repcount = boardService.getReplyCount(paramVO);
+		OrgVO vo = orgService.getOrgBoardData(paramVO);
+		paramVO.setOrgtypeid(vo.getOrgtypeid());
+		List<OrgVO> replies = orgService.findBoardReply(paramVO);
+		int repcount = orgService.getReplyCount(paramVO);
 		
 		if(vo != null){
-			boardService.modBoardCount(paramVO);
-		}*/
+			orgService.modBoardCount(paramVO);
+		}
 		
 		mav.setViewName("org/orgBoardView");
-		/*mav.addObject("vo", vo);
+		mav.addObject("vo", vo);
 		mav.addObject("repCnt", repcount);
-		mav.addObject("reps", replies);*/
+		mav.addObject("reps", replies);
 		return mav;
 	}
 	
 	@RequestMapping("/BoardEdit")
 	public ModelAndView boardEdit(@ModelAttribute("paramVO") OrgVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
-		/*List<OrgVO> frtypes = boardService.getFrtypes(paramVO);
-		*/
+		List<OrgVO> orglist = orgService.findOrgListData(paramVO);
+		
 		mav.setViewName("org/orgBoardEdit");
-//		mav.addObject("frtypes", frtypes);
+		mav.addObject("orglist", orglist);
 		
 		return mav;
 	}
@@ -101,6 +87,19 @@ public class OrgController extends CommonController{
 	public List<OrgVO> findOrgListData(OrgVO paramVO){
 		List<OrgVO> result = orgService.findOrgListData(paramVO);
 		
+		return result;
+	}
+	
+	@RequestMapping("/loadOrgImage/{orgid}")
+	@ResponseBody
+	public byte[] loadOrgImage(@PathVariable("orgid") Integer orgid, OrgVO paramVO){
+		byte[] result = null;
+		paramVO.setOrgid(orgid);
+		try{
+			result = orgService.loadOrgImage(paramVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return result;
 	}
 
@@ -131,7 +130,120 @@ public class OrgController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
+	public int addOrgBoardData(OrgVO paramVO){
+		paramVO.setUserno(session.getUserno());
+		return orgService.addOrgBoardData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
 	public int editOrgData(OrgVO paramVO){
 		return orgService.editOrgData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int addBoardReply(OrgVO paramVO){
+		paramVO.setUserno(session.getUserno());
+		int result = orgService.addBoardReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modBoardLikes(OrgVO paramVO){
+		int result = orgService.modBoardLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modRepLikes(OrgVO paramVO){
+		int result = orgService.modRepLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modRepDislikes(OrgVO paramVO){
+		int result = orgService.modRepDislikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getReplyCount(OrgVO paramVO){
+		int result = orgService.getReplyCount(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<OrgVO> findBoardReply(OrgVO paramVO){
+		List<OrgVO> result = orgService.findBoardReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modBoardData(OrgVO paramVO){
+		orgService.modBoardData(paramVO);
+		return paramVO.getBrdid();
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delBoardData(OrgVO paramVO){
+		orgService.delBoardData(paramVO);
+		orgService.delBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int delBoardReplyData(OrgVO paramVO){
+		return orgService.delBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<OrgVO> findMyOrgList(OrgVO paramVO){
+		return orgService.findMyOrgList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public OrgVO getMyOrgData(OrgVO paramVO){
+		return orgService.getMyOrgData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public OrgVO getMyOrgDetails(OrgVO paramVO){
+		return orgService.getMyOrgDetails(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modMyOrgData(OrgVO paramVO){
+		return orgService.modMyOrgData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modMyOrgDetail(OrgVO paramVO){
+		return orgService.modMyOrgDetail(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int addMyOrgDetail(OrgVO paramVO){
+		orgService.addMyOrgDetail(paramVO);
+		return paramVO.getDetid();
 	}
 }

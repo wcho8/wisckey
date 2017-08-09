@@ -40,6 +40,7 @@ $(document).ready(function(){
 	
 	$("#deadline").change(function(){
 		var duedate = new Date($("#deadline").val());
+		console.log(new Date());
 		if(duedate < new Date()){
 			alert("유효한 날짜가 아닙니다.");
 			$("#deadline").val("");

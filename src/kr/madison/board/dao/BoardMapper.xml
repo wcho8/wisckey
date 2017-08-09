@@ -3,8 +3,10 @@
 <mapper namespace="Board">
 	<select id="findBoardTotalCnt" parameterType="BoardVO" resultType="int">
 		SELECT
-			COUNT(*)
-		FROM brd_freeboard
+			count(*)
+		FROM brd_freeboard a
+		LEFT JOIN cod_freeboard b ON a.frid = b.frid
+		WHERE b.ptypeid= #{ptypeid}
 	</select>
  	<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
 		SELECT
@@ -24,6 +26,9 @@
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_freeboard d on b.frid = d.frid
 		WHERE 1=1
+		<if test="ptypeid != null and ptypeid != ''">
+			AND d.ptypeid = #{ptypeid}
+		</if>
 		<if test="keyword != null and keyword != ''">
 			<if test="srchType == 1">
 				AND b.title LIKE CONCAT('%',#{keyword},'%')
@@ -36,12 +41,12 @@
 		LIMIT #{skiprow}, #{pagerow}
 		<!-- LIMIT #{srow}, #{rows} -->
 	</select>
-	<select id="findBoardContent" parameterType="BoardVO"
-		resultType="BoardVO">
+	<select id="findBoardContent" parameterType="BoardVO" resultType="BoardVO">
 		SELECT
 			b.brdid,
 			b.frid,
 			d.name as typename,
+			d.ptypeid,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
@@ -150,6 +155,17 @@
 			frid,
 			name as typename
 		FROM cod_freeboard
-		WHERE typeid = #{typeid}
+		WHERE ptypeid = #{ptypeid}
 	</select>
+	<delete id="delBoardData" parameterType="BoardVO">
+		DELETE FROM brd_freeboard
+		WHERE brdid = #{brdid}
+	</delete>
+	<delete id="delBoardReplyData" parameterType="BoardVO">
+		DELETE FROM brd_freeboard_reply
+		WHERE brdid = #{brdid}
+		<if test="repid != null and repid != ''">
+			AND repid = #{repid}
+		</if>
+	</delete>
 </mapper>
