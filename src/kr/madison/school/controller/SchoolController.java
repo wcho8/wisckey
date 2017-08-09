@@ -197,4 +197,12 @@ public class SchoolController {
 		
 		return result;
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modEducationDislikes(SchoolVO paramVO){
+		int result = schoolService.modEducationDislikes(paramVO);
+		
+		return result;
+	}
 }

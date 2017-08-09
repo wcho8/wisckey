@@ -7,8 +7,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#userno_pastWork").hide();
-	
 	var defaultParams={
 			brdid: "${paramVO.brdid}",
 			userno: "${session.userno}",
@@ -39,11 +37,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	if($("#userno_pastWork").text().localeCompare(defaultParams.userno)==0){
-		$("pastWorkDelete").show();
-	}else{
-		$("pastWorkDelete").hide();
-	}
 	$("#pastWorkDelete").click(function(){
 		var url = "/School/deletePastWork";
 		var params =$.extend({},defaultParams, {});
@@ -57,6 +50,7 @@ $(document).ready(function(){
 	
 	if(defaultParams.userno == writerno){
 		$("#pastWorkUpdate").show();
+		$("#pastWorkDelete").show();
 	}
 	
 	$("#pastWorkUpdate").click(function(){
@@ -116,7 +110,6 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_pastWork" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
@@ -154,23 +147,23 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 					
 					<div style="float:hidden; margin-top: 10px; width:100%;">
-						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;display:none;">삭제</button>
 						<button class="btn confirm" id="pastWorkList" style="float: right; margin-top: 5px;">목록	</button>
 						<button class="btn update" id="pastWorkUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
 					</div>
 		
 					<div style="clear:both;"></div>
 					
-					<div id="pastWork_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
+					<div id="pastWork_reply" style="margin-top:20px; border: 1px solid #cacaca; border-left:0px; border-right:0px;padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; width: 50px;">등록</button>
+						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; margin-top:5px; padding-top:5px;"></textarea>
+						<button id="addReply" style="float: right; height:50px; margin-top: 8px;width: 50px;">등록</button>
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 					
 					<c:forEach items="${reps }" var="rep">
-						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">
+						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>

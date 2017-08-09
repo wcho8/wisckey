@@ -88,10 +88,10 @@ function likes(like, repid){
 </script>
 <style>
 .left_ul>li{
-border-bottom:1px solid black;
+	border-bottom:1px solid black;
 }
 .right_menu>div{
-border:1px dashed red; 
+	border:1px dashed red; 
 }
 </style>
 <!-- s:container -->

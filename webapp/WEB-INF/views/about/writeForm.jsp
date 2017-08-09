@@ -3,7 +3,8 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function() {
-	var defaultPArams ={
+	var upImgIds = [];
+	var defaultParams ={
 			nid: "${paramVO.nid}",
 			userno: "${session.userno}",
 			mypage: "${paramVO.mypage}"

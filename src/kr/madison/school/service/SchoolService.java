@@ -27,6 +27,16 @@ public class SchoolService extends CommonService{
 		
 		result = schoolDAO.findPastWorkList(paramVO);
 		
+		String title="";
+		for(int i=0; i<result.size(); i++){
+			if(result.get(i).title.length()>25){
+				title = result.get(i).title.substring(0, 25);
+				title +="...";
+			}else{
+				title = result.get(i).getTitle();
+			}
+			result.get(i).setTitle(title);
+		}
 		return result;
 	}
 	public int addPastWorkData(SchoolVO paramVO) {
@@ -87,6 +97,16 @@ public class SchoolService extends CommonService{
 		
 		result = schoolDAO.findEducationList(paramVO);
 		
+		String title="";
+		for(int i=0; i<result.size(); i++){
+			if(result.get(i).title.length()>25){
+				title = result.get(i).title.substring(0, 25);
+				title +="...";
+			}else{
+				title = result.get(i).getTitle();
+			}
+			result.get(i).setTitle(title);
+		}
 		return result;
 	}
 	public int addEducationData(SchoolVO paramVO) {
@@ -138,5 +158,10 @@ public class SchoolService extends CommonService{
 		int result = schoolDAO.modEducationLikes(paramVO);
 		return result;
 	}
+	public int modEducationDislikes(SchoolVO paramVO) {
+		int result = schoolDAO.modEducationDislikes(paramVO);
+		return result;
+	}
+	
 
 }

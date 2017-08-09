@@ -7,8 +7,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#userno_education").hide();
-	
 	var defaultParams={
 			brdid: "${paramVO.brdid}",
 			userno: "${session.userno}",
@@ -39,11 +37,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	if($("#userno_education").text().localeCompare(defaultParams.userno)==0){
-		$("#educationDelete").show();
-	}else{
-		$("#educationDelete").hide();
-	}
 	$("#educationDelete").click(function(){
 		var url = "/School/deleteEducation";
 		var params =$.extend({},defaultParams, {});
@@ -57,6 +50,7 @@ $(document).ready(function(){
 	
 	if(defaultParams.userno == writerno){
 		$("#educationUpdate").show();
+		$("#educationDelete").show();
 	}
 	
 	$("#educationUpdate").click(function(){
@@ -69,6 +63,14 @@ $(document).ready(function(){
 		$.post("/School/modEducationLikes", defaultParams, function(data){
 			if(data > 0){
 				alert("추천하였습니다.");
+				location.reload(true);
+			}
+		});
+	});
+	$("#dislikes").click(function(){
+		$.post("/School/modEducationDislikes", defaultParams, function(data){
+			if(data > 0){
+				alert("비추천하였습니다.");
 				location.reload(true);
 			}
 		});
@@ -124,7 +126,6 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_education" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
@@ -146,7 +147,7 @@ $(document).ready(function(){
 							작성자: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							조회수: ${vo.count} 추천: ${vo.likes} 
+							조회수: ${vo.count} 추천: ${vo.likes} 비추천: ${vo.dislikes}
 						</span>
 					</div>
 					
@@ -163,6 +164,7 @@ $(document).ready(function(){
 					
 					<div style="margin-top: 25px; text-align: center; margin-bottom: 20px;">
 						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
+						<button id="dislikes" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> 비추 ${vo.dislikes}</button>
 					</div>
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>
@@ -174,16 +176,16 @@ $(document).ready(function(){
 					</div>
 					
 					<div style="clear:both;"></div>
-					<div id="education_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
+					<div id="education_reply" style="margin-top:20px; border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; width: 50px;">등록</button>
+						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; margin-top:5px; padding-top:5px;"></textarea>
+						<button id="addReply" style="float: right;height:50px; margin-top: 8px; width: 50px;">등록</button>
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 					
 					<c:forEach items="${reps }" var="rep">
-						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">
+						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>

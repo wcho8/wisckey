@@ -2,12 +2,15 @@
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <script type="text/javascript">
+var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams={
 		brdid: "${paramVO.brdid}",
 		userno: "${session.userno}",
 		mypage: "${paramVO.mypage}"
 	};
+	
+	//summernote 에디터
 	$('#content').summernote({
 		lang:'ko-KR',
 		height: 400,
@@ -20,9 +23,9 @@ $(document).ready(function(){
 		}
 	});
 	
+	//수정
 	var brdid = defaultParams.brdid;
 	var bEdit = false;
-	
 	if(brdid !=0 && brdid!='' && brdid != null){
 		var url="/Career/findEmployerContent";
 		bEdit = true;
@@ -31,22 +34,26 @@ $(document).ready(function(){
 			$('#content').summernote('code', data.content);
 		});
 	}
+	
+	//데드라인
 	$("#deadline").datepicker({
 		dateFormat: "yy-mm-dd",
 		changeMonth: true, 
 		changeYear: true, 
 		yearRange: "+0:+2"
 	});
-	
 	$("#deadline").change(function(){
-		var duedate = new Date($("#deadline").val());
-		if(duedate < new Date()){
+		var duedate = $("#deadline").datepicker({dateFormat: 'yy-mm-dd'}).val();
+		var today = $.datepicker.formatDate('yy-mm-dd', new Date());
+		
+		if(duedate < today){
 			alert("유효한 날짜가 아닙니다.");
 			$("#deadline").val("");
 			$("#deadline").focus();
 		}
 	});
 	
+	//취업공고 올리기
 	$("#addEmployer").click(function(){ 
 		var url = "/Career/addEmployerData";
 		var content = $("#content").summernote('code');
@@ -72,12 +79,18 @@ $(document).ready(function(){
 				$(location).attr("href", "/Career/viewEmployer?brdid="+data);
 			});
 		}else{
-			$.post(url, params, function(data){
-				
-				$(location).attr("href", "/Career/viewEmployer?brdid="+data);
-			});
+			if(byteCheck(params.title)<=82){
+				$.post(url, params, function(data){
+					$(location).attr("href", "/Career/viewEmployer?brdid="+data);
+				});
+			}else{
+				alert("제목 길이가 제한을 초과하였습니다.");
+				$("#title").focus();
+			}
 		}
 	});
+	
+	
 });
 
 function sendFile(file, el){
@@ -99,6 +112,46 @@ function sendFile(file, el){
 			upImgIds.push(fid);
 		}
 	});
+}
+
+//제목 글자제한
+function byteCheck(str){
+	var byteLen = 0;
+	for(var i = 0; i<str.length; i++){
+		var eachChar = escape(str.charAt(i));
+		if(eachChar.length == 1){
+			byteLen++;
+		}else if(eachChar.indexOf("%u") != -1){
+			byteLen+=3;
+		}else if(eachChar.indexOf("%") != -1){
+			byteLen ++;
+		}
+	}
+	
+	return byteLen;
+}
+function titleByte(){
+	var title = $("#title").val();
+	var length = byteCheck(title);
+	if(length>82){
+		var tmp = cutInUTF8(title,76);
+		alert("제목 길이가 제한을 초과하였습니다.");
+		$("#title").text(tmp);
+		$("#title").focus();
+		
+	}
+}
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
 }
 
 </script>
@@ -131,7 +184,7 @@ function sendFile(file, el){
 	padding-left: 10px;
 	box-shadow: 2px 2px #778899;
 */
-border-right:2px solid #a80e34;
+	border-right:2px solid #a80e34;
 }
 #title_list>li{
 	list-style-type: disc;
@@ -165,7 +218,9 @@ border-right:2px solid #a80e34;
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
-							<td><input maxlength="30" type="text" id="title" style="width:400px; "></td>
+							<td>
+								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
+							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc">
 							<th style="text-align: center">접수기한</th>
@@ -178,15 +233,12 @@ border-right:2px solid #a80e34;
 							<td style="padding-top: 8px; padding-bottom: 8px;">
 								<textarea id="content" style="width:100%; height:400px; display:none;" valid="내용"></textarea>
 							</td>
-							
 						</tr>
 					</tbody>
 				</table>
-				
-				
-			<div class="buttons">
-				<button class="btn newEmployer" id="addEmployer" style="float: right;">글쓰기</button>
-			</div>
+				<div class="buttons">
+					<button class="btn newEmployer" id="addEmployer" style="float: right;">글쓰기</button>
+				</div>
 			</div>
 		</div>
 	</div>

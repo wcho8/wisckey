@@ -37,7 +37,6 @@ public class CareerController {
 		int totalcount = careerService.findEmployerTotalCnt(paramVO);
 		
 		Util.setPaging(paramVO, totalcount, pageRow);
-		
 		List<CareerVO> vo = careerService.findCareerList(paramVO);
 	
 		mav.addObject("careerList", vo);

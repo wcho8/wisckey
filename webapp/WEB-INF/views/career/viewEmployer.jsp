@@ -7,8 +7,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#userno_employer").hide();
-	
 	var defaultParams={
 		brdid: "${paramVO.brdid}",
 		userno: "${session.userno}",
@@ -41,13 +39,6 @@ $(document).ready(function(){
 		}
 	});
 
-	//delete
-	if($("#userno_employer").text().localeCompare(defaultParams.userno)==0){
-		$("#employerDelete").show();
-	}else{
-		$("#employerDelete").hide();
-	}
-
 	$("#employerDelete").click(function(){
 		var url = "/Career/deleteEmployer";
 		var params = $.extend({}, defaultParams, {});
@@ -63,6 +54,7 @@ $(document).ready(function(){
 	
 	if(defaultParams.userno == writerno){
 		$("#employerUpdate").show();
+		$("#employerDelete").show();
 	}
 	
 	$("#employerUpdate").click(function(){
@@ -70,8 +62,33 @@ $(document).ready(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});
-});
+	
+	
+	
+	var title = new String($("#title").text());
+	var length = ~-encodeURI(title).split(/%..|./).length;
+	//76바이트가 넘으면 alt
+	if(length>76){
+		$('span#title').attr('title',title);
+		var title = cutInUTF8(title, 76);
+		title += "...";
+		$("#title").text(title);
+	}
+	console.log("title length: "+ length);
+})
 
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
 </script>
 
 <style type="text/css">
@@ -123,7 +140,6 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_employer" value="${vo.userno}">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
@@ -139,8 +155,8 @@ $(document).ready(function(){
 				<div style="clear:both;"></div>
 				
 				<div id="notice_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
-					<div id="notice_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<b>${vo.title }</b>  <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+					<div id="notice_title" style="width: 100%; background-color: lightgrey; font-size: 19px; padding:5px; border-top: 2px solid grey; ">
+						<span id="title" style="font-weight:bold;" title="" val="${vo.title}">${vo.title }</span>  <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="notice_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
@@ -164,22 +180,22 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 					
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px;">삭제</button>
+						<button class="btn delete" id="employerDelete" style="float: right; margin-top:5px; display:none;">삭제</button>
 						<button class="btn confirm" id="employerList" style="float: right; margin-top: 5px;">목록	</button>
 						<button class="btn update" id="employerUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
 					</div>
 					
 					<div style="clear:both;"></div>
-					<div id="employer_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
+					<div id="employer_reply" style="margin-top:20px; border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; width: 50px;">등록</button>
+						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto;  margin-top:5px; padding-top:5px;"></textarea>
+						<button id="addReply" style="float: right; height:50px; width: 50px; margin-top:8px;">등록</button>
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 					
 					<c:forEach items="${reps }" var="rep">
-						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">
+						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>

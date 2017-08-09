@@ -6,12 +6,12 @@
 <script type="text/javascript">
 var curPage = "/About/?";
 $(document).ready(function(){
-	var defaultParams ={
-			userno: "${session.userno}",
-			username:"${session.username}",
-			nickname: "${session.nickname}",
-			mypage:"${paramVO.mypage}"
-	};
+	defaultParams.mypage="${paramVO.mypage}";
+
+	var authid = defaultParams.authid;
+	if( authid ==1 ){
+		$("writeBtn").show();
+	}
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -84,7 +84,7 @@ function search(){
 }
 //공지보기
 function viewNotice(nid){
-	var url = "/About/viewNotice?nid=" + nid;
+	var url = "/About/viewNotice?nid=" + nid+ "&mypage=" + defaultParams.mypage;
 	$(location).attr("href", url);
 }
 </script>
@@ -203,7 +203,7 @@ input::placeholder{
 							</c:forEach>
 							</tbody>
 						</table>
-						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; ">
+						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; display:none; ">
 								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 									<span style="font-size: 80%;">글쓰기</span>
 								</button>

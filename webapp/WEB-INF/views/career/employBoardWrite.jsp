@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
+var upImgIds = [];
 $(document).ready(function(){
 	
 	var defaultParams={
@@ -65,9 +65,23 @@ $(document).ready(function(){
 		}
 	});
 	
+	//富赣府
 	$('input[type=checkbox]').on('change',function(){
 		$(this).siblings('input[type=checkbox]').not(this).attr('checked', false);
 	});
+	
+	//力格 臂磊荐 力茄
+	var maxChars = $("#title");
+	var maxLength = maxChars.attr('maxlength');
+	$("#maxLength").text(maxLength);
+	if(maxLength>0){
+		maxChars.bind('keyup', function(e){
+			length = new Number(maxChars.val().length);
+			var counter = maxLength = length;
+			$("#counter").text(counter);
+		});
+	}
+	
 });
 function sendFile(file, el){
 	var data = new FormData();
@@ -156,8 +170,11 @@ div input{
 					</colgroup>
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;"> 力格</th>
-							<td><input type="text" id="title" style="width:400px;;"></td>
+							<th style="text-align: center;"> 力格</th>
+							<td>
+								<input type="text" id="title" style="width:300px;">
+								<span id="counter" style="vertical-align: middle; font-size:80%;"></span>/<span id="maxLength" style="vertical-align: middle;font-size:80%; "></span>
+							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 富赣府</th>

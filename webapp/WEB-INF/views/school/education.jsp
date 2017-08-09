@@ -9,12 +9,8 @@
 var curPage = "/School/education?";
 
 $(document).ready(function(){
-	var defaultParams={
-			userno:"${session.userno}",
-			username: "${session.username}",
-			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
-	};
+	defaultParams.mypage="${paramVO.mypage}";
+
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -61,7 +57,7 @@ function search(){
 	$(location).attr("href",url);
 }
 function viewEducation(brdid){
-	var url = "/School/educationView?brdid="+brdid;
+	var url = "/School/educationView?brdid="+brdid + "&mypage=" + defaultParams.mypage;
 	$(location).attr("href", url);
 }
 </script>

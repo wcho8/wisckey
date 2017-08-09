@@ -7,16 +7,14 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <!-- 취업공고 올리는 곳 -->
 <script type="text/javascript">
-
 var curPage = "/Career/?";
 $(document).ready(function(){
-	var defaultParams={
-			userno:"${session.userno}",
-			username: "${session.username}",
-			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}",
-			
-	};
+	defaultParams.mypage="${paramVO.mypage}";
+	
+	var authid = defaultParams.authid;
+	if(authid == 1 ){
+		$("#writeBtn").show();
+	}
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -53,9 +51,32 @@ $(document).ready(function(){
 			search();
 		}
 	});
-
+	
+	
+	//이 부분 고쳐야함
+	var length = ~-encodeURI($("#list_title").text()).split(/%..|./).length;
+	if(length>74){
+		var title = $("#list_title").text();
+		var title2 = cutInUTF8(title, 74);
+		title2 += "...";
+		$("#list_title").text(title2);
+		console.log(title2 + "   "+length);
+	}	
+	//이 부분 고쳐야함
 });
 
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
 function search(){
 	var keyword = $("#keyword").val();
 	var searchType = $("#searchType").val();
@@ -64,7 +85,7 @@ function search(){
 	$(location).attr("href",url);
 }
 function viewEmployer(brdid){
-	var url = "/Career/viewEmployer?brdid="+brdid;
+	var url = "/Career/viewEmployer?brdid=" + brdid + "&mypage=" + defaultParams.mypage;
 	$(location).attr("href", url);
 }
 </script>
@@ -108,15 +129,16 @@ border-right:2px solid #a80e34;
 	width: 35px;
 	float:left;
 }
+/*
 #list_title{
 	overflow:hidden;
 	text-overflow:ellipsis;
-	white-space: nowrap;
-	width: 320px;
+	white-space: nowrap; 
+	width: 300px;
 	display: inline-block;
 	float:left;
 	padding-left: 5px;
-}
+}*/
 #top_row>td{
 	font-size: 80%;
 }
@@ -175,24 +197,14 @@ input::placeholder{
 								<c:if test="${(list.dDate <= 10) && (list.dDate >2)}">
 									<span id="d-day" style="display:inline-block; background-color:hotpink; color:ivory; font-weight:bold;">D-${list.dDate}</span>
 								</c:if>
-								<c:if test="${(list.dDate <= 2) && (list.dDate >0)}">
+								<c:if test="${(list.dDate <= 2) && (list.dDate >=0)}">
 									<span id="d-day" style="display:inline-block; background-color:red; color:ivory; font-weight:bold;">D-${list.dDate}</span>
 								</c:if>
 								<c:if test="${list.dDate < 0}">
 									<span id="d-day" style="display:inline-block; text-align:center; background-color:lightgrey; color:black; font-weight:bold;">-</span>
 								</c:if>
-								 
 								
-								 <c:set var="title" value="${list.title }"/> 
-								 
-								 <c:if test="${fn:length(title) > 27 }">
-									<p id="list_title" style="font-weight: 100%;">${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
-								 </c:if>
-								 <c:if test="${fn:length(title) <=27 }">
-								 	<p id="list_title" style="font-weight: 100%;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
-								 </c:if>
-								 
-							
+								<span id="list_title" style="font-weight: 100%; padding-left: 5px;display:inline-block;">${list.title} </span><span style="margin-left:4px; color:#910019;">(${list.repcount })</span>
 							</td>
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
 							<td id="deadline" style="text-align: center;">&nbsp;${list.deadline }</td>
@@ -202,7 +214,7 @@ input::placeholder{
 					</c:forEach>
 					</tbody>
 				</table>
-				<div id="writeBtn" style=" float: right; padding-top: 5px;">
+				<div id="writeBtn" style=" float: right; padding-top: 5px; display:none;">
 					<button class="btn" id="addEmployer" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 						<span style="font-size: 80%;">글쓰기</span>
 					</button>

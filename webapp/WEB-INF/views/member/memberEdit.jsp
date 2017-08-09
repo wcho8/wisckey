@@ -5,13 +5,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 var chkId = false;
-var chkNickname = false;
+var chkNickname = true;
 var params;
 $(document).ready(function(){
 	var defaultParams={
 			userno: "${session.userno}",
 			userid: "${session.userid}"
 	}
+	
+	
 	$("#birthdate").datepicker({
 		dateFormat: "yy-mm-dd",
 		changeMonth: true,
@@ -36,8 +38,15 @@ $(document).ready(function(){
 			$('#korname').val(data.korname);
 			$('#userid').text(data.userid);
 			$('#nickname').val(data.nickname);
+			$('#passwd').val(data.passwd);
 			$('#email').val(data.email);
-			$('#birthdate').val(data.birthdate);
+			
+			if(data.birthdate.length>10){
+				$('#birthdate').val(data.birthdate.substring(0,10));
+			}else{
+				$('#birthdate').val(data.birthdate);
+			}
+			$('#telnum').val(data.telnum);
 			$('#major').val(data.major);
 			$('#minor').val(data.minor);
 		});
@@ -56,57 +65,73 @@ $(document).ready(function(){
 		var params = $.extend({}, $("#info").serialization(), {userid:defaultParams.userid});
 		var userno = defaultParams.userno;
 		var url = "/Member/modMemberData";
-		$.post(url, params,function(){
-			$(location).attr("href","/Member/memberView?userno="+userno);
-		});
-		//url = "/Member/memberView?";
-		//	var params = $.extend({}, $("#info").serialization(),{});
-		//	location = url+params;
-	});
-	
-	$("#nickname").change(function(){
-		if(chkNickname){
-			chkNickname = false;
+		if(chkValid()){
+			$.post(url, params, function(){
+				$(location).attr("href","/Member/memberView?userno="+userno);
+			});
+		}else{
+			return
 		}
+		
+	});
+	$("#nickname").change(function(){
+		chkNickname = false;
 	});
 	
 	$(function(){
 		$("#pwDialog").dialog({
 			autoOpen: false,
+			width: 600,
 			buttons:
 				[
 				 	{
 				 		text:"확인",
+				 		width: 50,
+				 		height: 30,
 				 		click: function(e){
-				 			var passwd = $("#passwd").val();
-				 			var passwdCheck = $("#passwdCheck").val();
-
-				 			if(passwd ===''||passwdCheck===''){
-				 				alert("비밀번호를 입력해 주시기 바랍니다.");
-								e.preventDefault();
-				 			}else if(passwd!==passwdCheck){
-				 				alert("비밀번호가 일치하지 않습니다.");
-				 				e.prevenDefault();
-				 			}else{
-				 				var url = "/Member/modPasswdEdit";
-				 				var params = $.extend({}, $("#info").serialization(),{passwd: passwd});
 				 			
-				 				$.post(url,params,function(data){
-				 					alert("비밀번호가 성공적으로 바뀌었습니다.");
-				 					$("#pwDialog").dialog('close');
-				 				
-				 				});
-				 			}
+				 			submit();
+				 		}
+				 	},
+				 	{
+				 		text:"취소",
+				 		click:function(e){
+				 			$("#pwDialog").dialog('close');
 				 		}
 				 	}
-				 
 				 ]
 		});
+		$(".ui-dialog-titlebar").hide();
 	});
+	
+	
+	$("#newPasswdCheck").keydown(function(key){
+			if(key.keyCode==13||key.which==13){
+				submit();
+			}
+		});
 	$("#updatePW").on("click", function(){
+		$("#newPasswd").val('');
+		$("#newPasswdCheck").val('');
+		$("#newPasswd").focus();
 		$("#pwDialog").dialog("open");
 	});
 });
+function submit(){
+	var passwd = $("#newPasswd").val();
+	var passwdCheck = $("#newPasswdCheck").val();
+
+	var url = "/Member/modPasswdEdit";
+	var params = $.extend({}, $("#info").serialization(),{passwd: passwd});
+		
+	if(chkPasswd()){
+		$.post(url,params,function(data){
+			alert("비밀번호가 성공적으로 바뀌었습니다.");
+			$("#pwDialog").dialog('close');
+			$("#passwd").val(passwd);
+		});
+	}
+}
 //이메일 정규식 체크
 function chkEmail(email){
 	var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -188,7 +213,38 @@ function chkExist(type){
 		break;
 	}
 }
+function chkPasswd(){
+	var paramsDialog = $("#pwDialog").serialization();
+	//비밀번호 체크
+	if(paramsDialog.newPasswd == null || paramsDialog.newPasswd == ""){
+		alert("비밀번호를 입력하여 주십시오.");
+		$("#newPasswd").val('');
+		$("#newPasswdCheck").val('');
+		$("#newPasswd").focus();
+		return false;
+	}else if(paramsDialog.newPasswd != null && paramsDialog.newPasswd != ""){
+		if(paramsDialog.newPasswd.length < 6 || paramsDialog.newPasswd.length > 20){
+			alert("비밀번호는 6~20자 이내여야 합니다.");
+			$("#newPasswd").val('');
+			$("#newPasswdCheck").val('');
+			$("#newPasswd").focus();
+			return false;
+		}else{
+			if(paramsDialog.newPasswd != paramsDialog.newPasswdCheck){
+				alert("비밀번호가 맞지 않습니다. 다시 확인하여 주십시오.");
+				$("#newPasswd").val('');
+				$("#newPasswdCheck").val('');
+				$("#newPasswd").focus();
+				return false;
+			}
+		}
+	} //비밀번호 통과
+	
+	return true;
+}
 function chkValid(){
+	var params = $("#info").serialization();
+	
 	//이름 체크
 	if(params.korname == null || params.korname == ""){
 		alert("이름을 입력하여 주십시오.");
@@ -219,7 +275,16 @@ function chkValid(){
 	
 
 </script>
-
+<style type="text/css">
+#pwDialog .ui-button-text{
+	font-size: 10px;
+}
+#info btnChk{
+	line-height: 20px;
+	vertical-align: middle;
+	
+}
+</style>
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
@@ -257,15 +322,19 @@ function chkValid(){
 							<tr>
 								<th>비밀번호<span class="important">*</span></th>
 								<td>
-									<span>비공개</span>
-									<button class="btn btnUpdatePW" id="updatePW" style="margin-left:75px;">비밀번호 변경</button>	
+									<input type="password" id="passwd" value="" readonly="readonly">	
+									<button class="btnChk" id="updatePW">
+										<span style="color:black; font-size: 80%;">비밀번호 변경</span>
+									</button>	
 								</td>
 							</tr>
 							<tr>
 								<th>닉네임<span class="important">*</span></th>
 								<td>
 									<input type="text" id="nickname">
-									<button class="btn btnDupCheck" id="nicknameCheck" onClick="javascript:chkExist('nickname')">중복확인</button>
+									<button class="btnChk" id="nicknameCheck" onClick="javascript:chkExist('nickname')">
+										<span style="color:black; font-size: 80%;">중복확인</span>	
+									</button>
 								</td>
 							</tr>
 							<tr>
@@ -295,12 +364,14 @@ function chkValid(){
 						<button class="btn btn-pwModify" id="confirmUpdate" style="float:right;">등록</button>
 					</div>
 					
-					//비밀번호 팝업창
+					<!-- 비밀번호 팝업창 -->
 					<div id="pwDialog">
 						<span>새 비밀번호: </span>
-						<input id="passwd" name="newPw" type="password"><br/>
+						<input id="newPasswd" name="newPw" type="password" style="font-size:90%;">
+						<span style="font-size: 70%; color: red; margin-left: 20px;">*비밀번호는 6~20자 이내여야 합니다.</span>
+						<br/>
 						<span>새 비밀번호 확인:</span>
-						<input id="passwdCheck" name="newPwCheck" type="password"><br/>	
+						<input id="newPasswdCheck" name="newPwCheck" type="password" style="font-size:90%;"><br/>	
 					</div>
 				</div>
 			</div>

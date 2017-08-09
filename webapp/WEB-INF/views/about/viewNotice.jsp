@@ -192,10 +192,10 @@ function viewNotice(nid){
 					</div>
 
 					<div style="clear:both;"></div>
-					<div id="notice_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
+					<div id="notice_reply" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
-						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; width: 50px;">등록</button>
+						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; margin-top:5px; padding-top:5px;"></textarea>
+						<button id="addReply" style="float: right;height:50px; margin-top:8px; width: 50px;">등록</button>
 					</div>
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 				</div>

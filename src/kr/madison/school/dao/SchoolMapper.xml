@@ -184,7 +184,8 @@
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			b.likes
+			b.likes,
+			b.dislikes
 		FROM brd_schoolwork b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		WHERE b.brdid = #{brdid}
@@ -248,6 +249,11 @@
 	<update id="modEducationLikes" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
 			likes = likes+1
+		WHERE brdid=#{brdid}
+	</update>
+	<update id="modEducationDislikes" parameterType="SchoolVO">
+		UPDATE brd_schoolwork SET
+			dislikes = dislikes+1
 		WHERE brdid=#{brdid}
 	</update>
 </mapper>

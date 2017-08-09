@@ -11,12 +11,8 @@
 
 var curPage="/Career/employBoard?";
 $(document).ready(function(){
-	var defaultParams={
-			userno:"${session.userno}",
-			username: "${session.username}",
-			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
-	};
+	defaultParams.mypage="${paramVO.mypage}";
+
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -66,7 +62,7 @@ function search(){
 }
 
 function viewBoard(brdid){
-	var url="/Career/employBoardView?brdid="+brdid;
+	var url="/Career/employBoardView?brdid="+brdid + "&mypage=" + defaultParams.mypage;
 	$(location).attr("href", url);
 }
 </script>
@@ -163,14 +159,7 @@ input::placeholder{
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
 								<td style="text-align: left; padding-left: 10px;cursor: pointer; font-size:100%; padding-top: 5px;" 
 									onClick="javascript:viewBoard(${list.brdid});">
-
-									<c:set var="title" value="${list.title }"/> 
-									<c:if test="${fn:length(title) > 27 }">
-										<p id="list_title" style="font-weight: 100%;">${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
-									</c:if>
-								 	<c:if test="${fn:length(title) <=27 }">
-								 		<p id="list_title" style="font-weight: 100%;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
-								 	</c:if>
+								 	<p id="list_title" style="font-weight: 100%;">${list.title} <span style="color: #910019; margin-left: 2px;">(${list.repcount})</span></p>
 								</td>
 								<td style="text-align:center;">&nbsp;${list.writer }</td>
 								<td style="text-align:center;">&nbsp;${list.regdate }</td>

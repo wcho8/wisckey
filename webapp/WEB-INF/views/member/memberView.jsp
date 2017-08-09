@@ -13,6 +13,18 @@ $(document).ready(function(){
 			userpw: "${session.passwd}"
 	};
 	
+	var url = "/Member/findMemberData";
+	$.post(url, defaultParams, function(data){
+		$('#korname').text(data.korname);
+		$('#userid').text(data.userid);
+		$('#nickname').text(data.nickname);
+		$('#email').text(data.email);
+		$('#birthdate').text(data.birthdate.substring(0,10));
+		$("#telnum").text(data.telnum);
+		$('#major').text(data.major); 
+		$('#minor').text(data.minor);
+	});
+	
 	$(function(){
 		$("#dialog").dialog({
 			autoOpen: false,
@@ -33,15 +45,7 @@ $(document).ready(function(){
 								alert("비밀번호가 일치하지 않습니다.");
 								e.preventDefault();
 							}else if(pw===pwCheck){
-								if(pw===memberPW){
-									$("#dialog").dialog('close');
-									var url = "/Member/memberEdit?";
-									var params= $.extend({}, $("#info").serialization(),{});
-									location = url+params;
-								}else{
-									alert("비밀번호가 일치하지 않습니다.");
-									e.preventDefault();
-								}
+								submit(pw, memberPW);
 							}
 						}
 					},	
@@ -53,31 +57,56 @@ $(document).ready(function(){
 				 	}
 				 ]
 		});
-
 		$(".ui-dialog-titlebar").hide();
 		
-		
 	});
+	
 	$("#memberUpdate").on("click", function(){
 		$("#dialog").dialog("open");
 	});
 	$("#memberPWUpdate").click(function(){
 		var url = "/Member/memberPWEdit?";
 		$(location).attr("href",url);
-		
 	});
 });
+
+function submit(pw, memberPW){
+	if(pw===memberPW){
+		$("#dialog").dialog('close');
+		var url = "/Member/memberEdit?";
+		var params= $.extend({}, $("#info").serialization(),{});
+		location = url+params;
+	}else{
+		alert("비밀번호가 일치하지 않습니다.");
+	}
+}
 </script>
 
 <style type="text/css">
-#info tbody>tr{
-	height: 30px;
+#info>tbody>tr{
+	height: 20px;
 }
-#memberPWUpdate, #memberUpdate{
-	line-height: 25px;
-	width: 100px;
+#info>tbody>th{
+	padding-left: 5px;
+}
+.btn_btn-modify{
+	width: 70%;
 	vertical-align:middle;
 	padding: 0px;
+	background: #910019;
+	margin-left:15px;
+	font-weight: bold;
+	color:white;
+	float:left;
+	border:0;
+}
+.btn_btn-cancel{
+	margin-left: 10px;
+	width:20%;
+	color:white;
+	background: #ccc;
+	border:0;
+	font-weight:bold;
 }
 </style>
 
@@ -85,76 +114,80 @@ $(document).ready(function(){
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
 	<div class="hr_dash" style="width:100%;"></div>
-	
 	<div class="row">
 		<div class="main_body">
-			<div id="leftMenu_x" style="float:left; width:170px;">
-				<div id="l_title"></div>
-				<ul>
-					<li></li>
-					<li></li>
-				</ul>
+			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
+				회원정보
 			</div>
-			<div class="memberDetail" style="float:left; width:700px; margin-left: 30px;">
-				<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
-					회원정보
-				</div>
 				<div class="hr_dash"></div>
-				
+			<div class="center_left" style="float:left;width:55%;">
+				<img src="/images/wicon.jpg">
+			</div>
+			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">
 				<div class="detailInfo">
-					<table id="info" style="width:700px;">
+					<table id="info" style="width:100%; height: 640px;">
 						<colgroup>
-							<col style="width: 100px; text-align:center;">
-							<col style="width: 400px; border: 1px solid #FF0000;">
+							<col style="width:30%; text-align: center; border: 1px solid #ff0000">
+							<col style="width:70%;">
 						</colgroup>
 						<tbody>
 							<tr>
-								<th>이름<span class="important">*</span></th>
-								<td>${memberInfo.korname}</td>
+								<th style="padding-left: 5px;">이름<span class="important">*</span></th>
+								<td id="korname"><td>
 							</tr>
 							<tr>
-								<th>아이디<span class="important">*</span></th>
-								<td>${memberInfo.userid}</td>
+								<th style="padding-left: 5px;">아이디<span class="important">*</span></th>
+								<td id="userid"></td>
 							</tr>
 							<tr style="display:none;">
-								<th>비밀번호</th>
-								<td id="memberPW" value="${memberInfo.passwd}">${memberInfo.passwd}</td>
+								<th style="padding-left: 5px;">비밀번호</th>
+								<td id="memberPW" value="${memberInfo.passwd}"></td>
 							</tr>
 							<tr>
-								<th>닉네임<span class="important">*</span></th>
-								<td>${memberInfo.nickname}</td>
+								<th style="padding-left: 5px;">닉네임<span class="important">*</span></th>
+								<td id="nickname"></td>
 							</tr>
 							<tr>
-								<th>이메일 주소<span class="important">*</span></th>
-								<td>${memberInfo.email}</td>
+								<th style="padding-left: 5px;">이메일 주소<span class="important">*</span></th>
+								<td id="email"></td>
 							</tr>
 							<tr>
-								<th>생일</th>
-								<td>${memberInfo.birthdate }</td>
+								<th style="padding-left: 5px;">생일</th>
+								<td id="birthdate"></td>
 							</tr>
 							<tr>
-								<th>휴대폰</th>
-								<td>${memberInfo.telnum }</td>
+								<th style="padding-left: 5px;">성별</th>
+								<td id="gender"></td>
 							</tr>
 							<tr>
-								<th>Major</th>
-								<td>${memberInfo.major }</td>
+								<th style="padding-left: 5px;">휴대폰</th>
+								<td id="telnum"></td>
 							</tr>
 							<tr>
-								<th>Minor</th>
-								<td>${memberInfo.minor }</td>
+								<th style="padding-left: 5px;">Major</th>
+								<td id="major"></td>
+							</tr>
+							<tr>
+								<th style="padding-left: 5px;">주 활동 동아리</th>
+								<td id="majorOrg"></td>
+							</tr>
+							<tr>
+								<th style="padding-left: 5px;">부 활동 동아리</th>
+								<td id="minorOrg"></td>
 							</tr>
 						</tbody>
 					</table>
-					<div style="width:600px; margin-top: 30px;">
-						<button class="btn btn-modify" id="memberUpdate" style="float:right;">개인정보 변경</button>
+					<div style="width:100%; margin-top: 8px; float:left;">
+						<button class="btn_btn-modify" id="memberUpdate" style="height: 50px;">개인정보 변경</button>
+						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">뒤로</button>
 					</div>
+					
 					<div id="dialog" title="" style="display:none;">
 						<form id="inner_form" action="" method="post" style="padding-top: 20px;">
 							<span>비밀번호: </span>
-							<input id="pw" name="pw" type="password"><br/>
+							<input id="pw" name="pw" type="password" class="chk_pw"><br/>
 							<span>비밀번호 확인:</span>
-							<input id="pwCheck" name="pwCheck" type="password"><br/>
+							<input id="pwCheck" name="pwCheck" type="password" class="chk_pw"><br/>
 						</form>
 					</div>
 				</div>
@@ -163,4 +196,3 @@ $(document).ready(function(){
 	</div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
-

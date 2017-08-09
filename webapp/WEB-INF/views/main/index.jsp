@@ -55,8 +55,8 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(title.length > 23){
-				title = title.substring(0, 23);
+			if(byteCheck(title)> 74){
+				title = cutInUTF8(title, 74);
 				title += " ...";
 			}
 			
@@ -70,11 +70,11 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(title.length > 23){
-				title = title.substring(0, 23);
+			if(byteCheck(title)> 74){
+				title = cutInUTF8(title, 74);
 				title += " ...";
 			}
-			
+						
 			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
@@ -99,7 +99,32 @@ function changeBest(ab){
 		$("#education_list").show();
 	}
 }
-
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
+function byteCheck(str){
+	var byteLen = 0;
+	for(var i = 0; i<str.length; i++){
+		var eachChar = escape(str.charAt(i));
+		if(eachChar.length == 1){
+			byteLen++;
+		}else if(eachChar.indexOf("%u") != -1){
+			byteLen+=3;
+		}else if(eachChar.indexOf("%") != -1){
+			byteLen ++;
+		}
+	}
+	return byteLen;
+}
 </script>
 <style>
 a:hover{
@@ -181,7 +206,7 @@ td{
 							<div style="padding:3px;width:100%;font-size:14px;">
 								<ul id="employer_list" style="padding-left:0px;">
 								</ul>								
-								<ul id="education_list" style="padding-left:0px; display: none; height: 216px;">
+								<ul id="education_list" style="padding-left:0px; display: none;">
 								</ul>
 							</div>
 						</div>
@@ -257,18 +282,18 @@ td{
 									안녕하세요 <span style="font-weight: bold;"> ${session.nickname}</span> 님
 								</div>
 								
-								<div class="detail" style=" width: 100%; height:40px; text-align:center;">
+								<div class="detail" style=" width: 100%; height:45px; text-align:center;">
 									<span style="font-size: 90%;"><a href="/Member/memberView">내 정보</a></span>
 								</div>
 								
-								<a href="/LogInOut/Logout"> <button type="button" class="btn btn-warning" style="color: white; height:50px; width:255px;
+								<a href="/LogInOut/Logout"> <button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;
 								   background-color:#910019; margin-top:20px; margin-left: 5px; border: #910019;">
 									<span style="letter-spacing: 5px;">LOGOUT</span></button>
 								</a>
 							</div>
 							
 							<div style="float:left; margin-top:13px;" id="login_button">
-								<button type="button" class="btn btn-warning" style="color: white; height:50px; width:255px;
+								<button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;
 									 background-color:#910019; margin-top:20px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
 									<span style="letter-spacing: 5px;">LOGIN</span>
 								</button>
@@ -283,7 +308,7 @@ td{
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="/images/truck.png" style="width:75%;margin-bottom:30px;padding-left:10px; margin-top: 50px;" />
+							<img src="/images/truck.png" style="width:75%;margin-bottom:20px;padding-left:10px; margin-top: 30px;" />
 							<img src="/images/truck.png" style="width:75%;padding-left:10px;" />
 						</div>
 					</div>
@@ -292,6 +317,6 @@ td{
 		</div>
 	</div>
 </div>
-		<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
+<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>		
 	
 <!-- e:container -->

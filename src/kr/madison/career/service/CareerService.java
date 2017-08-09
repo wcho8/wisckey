@@ -24,7 +24,19 @@ public class CareerService extends CommonService{
 		List<CareerVO> result = new ArrayList<CareerVO>();
 		
 		result = careerDAO.findEmployerList(paramVO);
+	/*	
+		String title="";
 		
+		for(int i=0; i<result.size(); i++){
+			if(result.get(i).title.getBytes().length>80){
+				System.out.println(result.get(i).getTitle() + " : " + result.get(i).title.getBytes().length);
+				title = result.get(i).title.substring(0, 30);
+				title +="...";
+			}else{
+				title = result.get(i).getTitle();
+			}
+			result.get(i).setTitle(title);
+		}*/
 		return result;
 	}
 
@@ -37,6 +49,8 @@ public class CareerService extends CommonService{
 
 	public CareerVO findEmployerContent(CareerVO paramVO) {
 		CareerVO result = careerDAO.findEmployerContent(paramVO);
+		
+		
 		return result;
 	}
 
@@ -95,6 +109,17 @@ public class CareerService extends CommonService{
 		List<CareerVO> result = new ArrayList<CareerVO>();
 		result = careerDAO.findEmployBoardList(paramVO);
 		
+		String title="";
+		
+		for(int i=0; i<result.size(); i++){
+			if(result.get(i).title.length()>25){
+				title = result.get(i).title.substring(0, 25);
+				title +="...";
+			}else{
+				title = result.get(i).getTitle();
+			}
+			result.get(i).setTitle(title);
+		}
 		return result;
 	}
 
