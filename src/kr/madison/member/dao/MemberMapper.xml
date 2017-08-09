@@ -15,7 +15,8 @@
 			minor,
 			regdate,
 			moddate,
-			authid
+			authid,
+			useyn
 		) VALUES(
 			#{userid},
 			#{passwd},
@@ -29,7 +30,8 @@
 			#{minor},
 			NOW(),
 			NOW(),
-			#{authid}
+			#{authid},
+			#{useyn}
 		)
 	</insert>
 	<select id="chkId" parameterType="MemberVO" resultType="MemberVO">
