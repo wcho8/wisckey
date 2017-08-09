@@ -17,7 +17,7 @@ $(document).ready(function(){
 		jsonReader:{repeatitems:false},
 		colNames:[
 		          "이름",
-		          "설명",
+		          "한줄 소개",
 		          "등록일",
 		          "회장",
 		          "부회장",
@@ -91,7 +91,11 @@ function editOrg(data){
 			}
 		},
 		close:function(){
-			
+			$("#orgtype").empty();
+			$("#orgname").val("");
+			$("#comment").val("");
+			$("#prname").val("");
+			$("#vprname").val("");
 		}
 	});
 }

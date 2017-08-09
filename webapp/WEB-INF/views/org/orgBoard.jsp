@@ -2,30 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
-var curPage = "/Org/orgBoard/";
+var curPage = "/Org/orgBoard?";
 $(document).ready(function(){
 	defaultParams.mypage="${paramVO.mypage}"
-	defaultParams.orgtype="${paramVO.orgtypeid}";
-	$(".current").removeClass('current');
-	console.log(defaultParams.orgtype);
-	switch(defaultParams.orgtype){
-	case 1:
-		curPage += "academic?";
-		$("#left_academic").addClass('current');
-		break;
-	case 2:
-		curPage += "hobby?";
-		$("#left_hobby").addClass('current');
-		break;
-	case 3:
-		curPage += "sports?";
-		$("#left_sports").addClass('current');
-		break;
-	case 4:
-		curPage += "religion?";
-		$("#left_religion").addClass('current');
-		break;
-	}
+	defaultParams.orgtypeid="${paramVO.orgtypeid}";
+	
 	var srchType = "${paramVO.srchType}";
 	if(srchType != null && srchType != ''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -37,12 +18,13 @@ $(document).ready(function(){
 		}
 	}
 	$("#addOrgBoard").click(function(){
-		var url = "/Org/BoardEdit";
+		var url = "/Org/BoardEdit?";
+		var params = $.param(defaultParams);
 		if(defaultParams.userno == "" || defaultParams.userno == null){
 			alert("로그인 하셔야 이용하실 수 있습니다.");
 			return;
 		}else{
-			$(location).attr("href", url);
+			$(location).attr("href", url+params);
 		}
 	});
 	$("#searchType").change(function(){
@@ -68,12 +50,13 @@ function search(){
 	var keyword = $("#keyword").val();
 	var searchType = $("#searchType").val();
 	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
-	var url="/Board/?" + $.param(params);
+	var url="/Org/orgBoard?" + $.param(params);
 	$(location).attr("href", url)
 }
 
 function viewBoard(brdid){
-	var url = "/Board/BoardView?brdid=" + brdid + "&mypage=" + defaultParams.mypage;
+	var params = $.extend({}, defaultParams, {brdid:brdid});
+	var url = "/Org/BoardView?" + $.param(params);
 	$(location).attr("href", url);
 }
 
@@ -140,7 +123,7 @@ input::placeholder{
 								<tr id="top_row" style="background-color:#d3d3d3; height:30px; text-align: center; border-bottom: 1px solid #ccc; padding: 10px;">
 									<td>번호</td>
 									<td><span>제</span><span style="padding-left: 40px;">목</span></td>
-									<td>닉네임</td>
+									<td>게시자</td>
 									<td>날짜</td>
 									<td>조회</td>
 									<td>추천</td>
@@ -150,7 +133,9 @@ input::placeholder{
 							<c:forEach items="${oblist}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}</td>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">
+										<b>[${list.orgname}]</b>&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.korname}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
@@ -160,7 +145,7 @@ input::placeholder{
 							</tbody>
 						</table>
 						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; ">
-								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
+								<button class="btn" id="addOrgBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 									<span style="font-size: 80%;">글쓰기</span>
 								</button>
 						</div>

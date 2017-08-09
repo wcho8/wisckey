@@ -42,18 +42,16 @@ $(document).ready(function(){
 		changeYear: true, 
 		yearRange: "+0:+2"
 	});
+	
 	$("#deadline").change(function(){
-		var duedate = $("#deadline").datepicker({dateFormat: 'yy-mm-dd'}).val();
-		var today = $.datepicker.formatDate('yy-mm-dd', new Date());
-		
-		if(duedate < today){
+		var duedate = new Date($("#deadline").val());
+		if(duedate < new Date()){
 			alert("유효한 날짜가 아닙니다.");
 			$("#deadline").val("");
 			$("#deadline").focus();
 		}
 	});
 	
-	//취업공고 올리기
 	$("#addEmployer").click(function(){ 
 		var url = "/Career/addEmployerData";
 		var content = $("#content").summernote('code');

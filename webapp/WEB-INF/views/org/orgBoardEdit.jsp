@@ -26,7 +26,7 @@ $(document).ready(function(){
 	var brdid = defaultParams.brdid;
 	var bEdit = false;
 	if(brdid != 0 && brdid != '' && brdid != null){
-		var url = "/Board/findBoardContent";
+		var url = "/Org/findBoardContent";
 		bEdit = true;
 		$.post(url, defaultParams, function(data){
 			$("#title").val(data.title);
@@ -35,9 +35,9 @@ $(document).ready(function(){
 	}
 
 	$("#addData").click(function(){
-		var url = "/Board/addBoardData";
+		var url = "/Org/addOrgBoardData";
 		var content = $("#content").summernote('code');
-		var frid = $("#frid").val();
+		var frid = $("#orgid").val();
 		var params = $.extend({}, $("#brdContent").serialization(), {frid:frid,content:content});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -50,14 +50,14 @@ $(document).ready(function(){
 			return;
 		}
 		if(bEdit){
-			url = "/Board/modBoardData";
+			url = "/Org/modBoardData";
 			params.brdid = brdid;
 			$.post(url, params, function(data){
-				$(location).attr("href", "/Board/BoardView?brdid="+data);
+				$(location).attr("href", "/Org/BoardView?brdid="+data);
 			});
 		}else{
 			$.post(url, params, function(data){
-				$(location).attr("href", "/Board/BoardView?brdid="+data);
+				$(location).attr("href", "/Org/BoardView?brdid="+data);
 			});
 		}
 	});
@@ -98,13 +98,7 @@ border:1px dashed red;
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body">
-			<div id="leftMenu_x" style="float:left; width:170px;">
-				<div class="left_title" style="background-color:#475055; text-align:center; color:white;">왼쪽 타이틀 </div>
-				<ul class="left_ul" style="list-style:none; padding-left:0px;">
-					<li><a href="#">메뉴1</a></li>
-					<li><a href="#">메뉴2</a></li>
-				</ul>
-			</div>
+			<jsp:include page="./leftmenu.jsp"></jsp:include>
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
 				<div>
 					<table style="width:100%;" id="brdContent">
@@ -116,9 +110,9 @@ border:1px dashed red;
 							<tr>
 								<th>말머리</th>
 								<td>
-									<select id="frid">
-										<c:forEach items="${frtypes}" var="frtype">
-											<option value="${frtype.frid}">${frtype.typename}</option>
+									<select id="orgid">
+										<c:forEach items="${orglist}" var="orgs">
+											<option value="${orgs.orgid}">${orgs.orgname}</option>
 										</c:forEach>
 									</select>
 								</td>

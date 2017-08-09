@@ -23,6 +23,7 @@
 <script type="text/javascript" src="/include/jQuery/jquery.cookie.js"></script>
 <link type="text/css" href="/include/jQuery/jquery.timepicker.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/include/jQuery/jquery.timepicker.min.js"></script>
+<script type="text/javascript" src="/include/jQuery/jquery.form.js"></script>
 
 <!-- jqgrid -->
 <link type="text/css" href="/include/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />

@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Admin">
-	<select id="findEmpBoardTypes" resultType="AdminVO" parameterType="AdminVO">
-		SELECT
-			empid as bid,
-			name,
-			comment,
-			regdate,
-			useyn
-		FROM cod_employment
-	</select>
-	<select id="findRestBoardTypes" resultType="AdminVO" parameterType="AdminVO">
-		SELECT
-			tid as bid,
-			name,
-			comment,
-			regdate,
-			useyn
-		FROM cod_employment
-	</select>
-	<select id="findSaleBoardTypes" resultType="AdminVO" parameterType="AdminVO">
-	
-	</select>
-	<select id="findFreeBoardTypes" resultType="AdminVO" parameterType="AdminVO">
-		SELECT
-			frid as bid,
-			name,
-			comment,
-			regdate,
-			useyn
-		FROM cod_freeboard
-	</select>
-	<select id="findSchoolBoardTypes" resultType="AdminVO" parameterType="AdminVO">
-		SELECT
-			swid as bid,
-			name,
-			comment,
-			regdate,
-			useyn
-		FROM cod_schoolwork
-	</select>
 	<select id="findBoardTypeList" resultType="AdminVO" parameterType="AdminVO">
 		SELECT
 			typeid,
@@ -48,13 +9,25 @@
 			regdate,
 			useyn
 		FROM cod_boardtypes
-		<choose>
-		<when test="ptypeid == null or ptypeid == ''">
-			WHERE ptypeid = 0
-		</when>
-		<otherwise>
-			WHERE ptypeid = #{ptypeid}
-		</otherwise>
-		</choose>
+		WHERE ptypeid = 0
+	</select>
+	<update id="addOrgFileData" parameterType="OrgVO">
+		UPDATE info_organization SET 
+			filecontent = #{fileContent}
+		WHERE orgid = #{orgid}
+	</update>
+	<delete id="delOrg" parameterType="OrgVO">
+		DELETE FROM info_organization
+		WHERE orgid = #{orgid}
+	</delete>
+	<select id="findBoardTypes" resultType="AdminVO" parameterType="AdminVO">
+		SELECT
+			${idname} as id,
+			name,
+			comment,
+			regdate,
+			useyn
+		FROM ${cod_table}
+		WHERE ptypeid = #{ptypeid}
 	</select>
 </mapper>

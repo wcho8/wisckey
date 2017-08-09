@@ -8,12 +8,95 @@
 			a.comment,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) as prname,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) as vprname,
-			b.name as orgtype,
-			a.filecontent
+			b.name as orgtype
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
 		WHERE a.orgtypeid = #{orgtypeid}
 	</select>
+	<select id="loadOrgImage" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			filecontent as fileContent
+		FROM info_organization
+		WHERE orgid = #{orgid}
+	</select>
+	<select id="findMyOrgList" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			b.name as orgtype
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
+		WHERE a.prno= #{userno}
+		ORDER BY a.orgtypeid ASC;
+	</select>
+	<select id="getMyOrgData" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.orgid,
+			a.name as orgname,
+			a.comment,
+			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			b.name as orgtype
+		FROM info_organization a
+		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
+		WHERE 
+	</select>
+	<select id="getMyOrgDetail" resultType="OrgVO" parameterType="OrgVO">
+		SELECT
+			a.detid,
+			a.orgid,
+			b.name AS orgname,
+			c.name AS orgtype
+			a.details,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d') AS regdate,
+			DATE_FORMAT(a.moddate, '%Y-%m-%d') AS moddate,
+			a.userno,
+			(SELECT korname FROM info_userinfo c WHERE a.userno = c.userno) AS writer,
+			(SELECT korname FROM info_userinfo c WHERE b.prno = c.userno) AS prname,
+			(SELECT korname FROM info_userinfo c WHERE b.vprno = c.userno) AS vprname,
+		FROM info_organization_detail a
+		LEFT JOIN info_organization b ON a.orgid = b.orgid
+		LEFT JOIN cod_orgtype c ON b.orgtypeid = c.orgtypeid
+		WHERE a.detid = #{detid}
+	</select>
+	<update id="modMyOrgData" parameterType="OrgVO">
+		UPDATE info_organization SET
+			name = #{orgname},
+			comment = #{comment},
+			moddate = NOW(),
+			prno = #{prno},
+			vprno = #{vprno}
+		WHERE orgid = #{orgid}
+	</update>
+	<insert id="addMyOrgDetail" parameterType="OrgVO" useGeneratedKeys="true" keyColumn="detid" keyProperty="detid">
+		INSERT INTO info_organization_detail(
+			orgid,
+			details,
+			regdate,
+			moddate,
+			userno
+		) VALUES(
+			#{orgid},
+			#{details},
+			NOW(),
+			NOW(),
+			#{userno}
+		)
+		<selectKey keyProperty="detid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="modMyOrgDetail" parameterType="OrgVO">
+		UPDATE info_organization_detail SET
+			orgid = #{orgid},
+			details = #{details},
+			moddate = NOW(),
+			userno = #{userno}
+		WHERE detid = #{detid}
+	</update>
 	<select id="findOrgList" resultType="OrgVO" parameterType="OrgVO">
 		SELECT
 			a.orgid,
@@ -22,9 +105,9 @@
 			DATE_FORMAT(a.regdate, '%Y-%m-%d') as regdate,
 			a.moddate,
 			a.prno,
-			(select korname from info_userinfo c where a.prno = c.userno) as prname,
+			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
 			a.vprno,
-			(select korname from info_userinfo c where a.vprno = c.userno) as vprname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
 			b.name as orgtype,
 			b.useyn
 		FROM info_organization a
@@ -44,16 +127,16 @@
 			DATE_FORMAT(a.regdate, '%Y-%m-%d') as regdate,
 			a.moddate,
 			a.prno,
-			(select korname from info_userinfo c where a.prno = c.userno) as prname,
+			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
 			a.vprno,
-			(select korname from info_userinfo c where a.vprno = c.userno) as vprname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
 			b.name as orgtype,
 			b.useyn
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
 		WHERE a.orgid = #{orgid}
 	</select>
-	<insert id="addOrgData" parameterType="OrgVO">
+	<insert id="addOrgData" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="orgid" keyColumn="orgid">
 		INSERT INTO info_organization(
 			name,
 			comment,
@@ -71,6 +154,9 @@
 			#{vprno},
 			#{orgtypeid}
 		)
+		<selectKey keyProperty="orgid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	<update id="editOrgData" parameterType="OrgVO">
 		UPDATE info_organization SET
@@ -105,7 +191,8 @@
 			END as regdate,
 			c.korname,
 			a.count,
-			a.likes
+			a.likes,
+			(SELECT COUNT(*) FROM brd_orgnization_reply d WHERE d.brdid = a.brdid) as repcount
 		FROM brd_orgnization a
 		LEFT JOIN info_organization b on a.orgid = b.orgid
 		LEFT JOIN info_userinfo c on a.userno = c.userno
@@ -126,6 +213,7 @@
 			a.brdid,
 			a.orgid,
 			b.name as orgname,
+			b.orgtypeid,
 			a.content,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			a.title,
@@ -135,8 +223,10 @@
 		FROM brd_orgnization a
 		LEFT JOIN info_organization b on a.orgid = b.orgid
 		LEFT JOIN info_userinfo c on a.userno = c.userno
-		WHERE a.orgid = #{orgid}
+		WHERE a.brdid = #{brdid}
+		<if test="orgtypeid != null and orgtypeid != ''">
 			AND b.orgtypeid = #{orgtypeid}
+		</if>
 	</select>
 	<insert id="addOrgBoardData" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
 		INSERT INTO brd_orgnization(
@@ -186,11 +276,6 @@
 			likes = likes + 1
 		WHERE brdid = #{brdid}
 	</update>
-	<update id="modOrgBoardDislikes" parameterType="OrgVO">
-		UPDATE brd_orgnization SET
-			dislikes = dislikes + 1
-		WHERE brdid = #{brdid}
-	</update>
 	<update id="modOrgRepLikes" parameterType="OrgVO">
 		UPDATE brd_orgnization_reply SET
 			likes = likes + 1
@@ -210,7 +295,7 @@
 	<select id="findOrgBoardReply" parameterType="OrgVO" resultType="OrgVO">
 		SELECT
 			a.repid,
-			b.nickname as replier,
+			b.korname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			a.likes as repLikes,

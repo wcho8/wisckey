@@ -7,8 +7,8 @@ var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams = {
 			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			mypage:"${paramVO.mypage}"
+			mypage:"${paramVO.mypage}",
+			ptypeid:"${paramVO.ptypeid}"
 	};
 	
 	$('#content').summernote({
@@ -33,12 +33,18 @@ $(document).ready(function(){
 			$("#content").summernote('code', data.content);
 		});
 	}
+	
+	$("#cancel").click(function(){
+		var url = "/Board/?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 
 	$("#addData").click(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');
 		var frid = $("#frid").val();
-		var params = $.extend({}, $("#brdContent").serialization(), {frid:frid,content:content});
+		var params = $.extend({}, $("#brdContent").serialization(), {frid:frid,content:content,userno:"${session.userno}"});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
@@ -98,13 +104,7 @@ border:1px dashed red;
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body">
-			<div id="leftMenu_x" style="float:left; width:170px;">
-				<div class="left_title" style="background-color:#475055; text-align:center; color:white;">왼쪽 타이틀 </div>
-				<ul class="left_ul" style="list-style:none; padding-left:0px;">
-					<li><a href="#">메뉴1</a></li>
-					<li><a href="#">메뉴2</a></li>
-				</ul>
-			</div>
+			<jsp:include page="./leftmenu.jsp"></jsp:include>
 			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
 				<div>
 					<table style="width:100%;" id="brdContent">
@@ -136,6 +136,7 @@ border:1px dashed red;
 					</table>
 				</div>
 				<div class="buttons">
+					<button class="fRight btn btn-danger" id="cancel">취소</button>
 					<button class="fRight btn btn-primary" id="addData">등록</button>
 				</div>
 			</div>

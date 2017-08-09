@@ -10,7 +10,7 @@ $(document).ready(function(){
 	var btype = $("#board_type").val();
 	var objGrid = $("#grid_list");
 	var caption = $("#board_type option:selected").text();
-	var url = "/Admin/findBoardTypeList"
+	var url = "/Admin/findBoardTypes"
 	
 	objGrid.jqGrid({
 		url: url,
@@ -28,8 +28,8 @@ $(document).ready(function(){
 		          "사용여부",
 		          ],
 		colModel:[
-		          {name:"typeid", width:50},
-		          {name:"typename", width:125},
+		          {name:"id", width:50},
+		          {name:"name", width:125},
 		          {name:"comment", width:470},
 		          {name:"regdate", width:120},
 		          {name:"useyn", width:50}
@@ -63,7 +63,7 @@ $(document).ready(function(){
 	
 	
 	function reloadGrid(btype){
-		var url = "/Admin/findBoardType";
+		var url = "/Admin/findBoardTypes";
 		var btype = $("#board_type").val();
 		var caption = $("#board_type option:selected").text();
 		objGrid.jqGrid("setCaption", caption);

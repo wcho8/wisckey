@@ -5,7 +5,9 @@
 var curPage = "/Board/?";
 $(document).ready(function(){
 	defaultParams.mypage="${paramVO.mypage}";
+	defaultParams.ptypeid="${paramVO.ptypeid}";
 	var srchType = "${paramVO.srchType}";
+	
 	if(srchType != null && srchType != ''){
 		$("#searchType").val("${paramVO.srchType}");
 		$("#keyword").val("${paramVO.keyword}");
@@ -16,12 +18,13 @@ $(document).ready(function(){
 		}
 	}
 	$("#addBoard").click(function(){
-		var url = "/Board/BoardEdit";
+		var url = "/Board/BoardEdit?";
+		var params = $.param(defaultParams);
 		if(defaultParams.userno == "" || defaultParams.userno == null){
 			alert("로그인 하셔야 이용하실 수 있습니다.");
 			return;
 		}else{
-			$(location).attr("href", url);
+			$(location).attr("href", url+params);
 		}
 	});
 	$("#searchType").change(function(){
@@ -41,6 +44,7 @@ $(document).ready(function(){
 			search();
 		}
 	});
+	
 });
 
 function search(){
@@ -129,7 +133,7 @@ input::placeholder{
 							<c:forEach items="${boardList}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">[${list.typename}]&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
@@ -139,12 +143,12 @@ input::placeholder{
 							</tbody>
 						</table>
 						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; ">
-								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
+								<button class="btn" id="addBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 									<span style="font-size: 80%;">글쓰기</span>
 								</button>
 						</div>
 					</div>
-					<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
+					<!-- <div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
 						<div id="searchValue" >
 							<select id="searchType" style="width:100px; height:20px; font-size: 60%;">
 						 		<option value="1">제목</option>
@@ -156,7 +160,7 @@ input::placeholder{
 								<span style="font-size:80%">검색</span>
 							</button>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-10">
 						<div class="fLeft text-center col-8" style="margin-left: 80px; padding-top:30px;">
 							   <jsp:include page="../common/paging.jsp" flush="false"></jsp:include>
