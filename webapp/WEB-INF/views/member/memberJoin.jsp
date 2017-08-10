@@ -26,6 +26,16 @@ $(document).ready(function(){
 			chkId = false;
 		}
 	});
+	$("#userid").keydown(function(key){
+		if(key.keyCode ==13){
+			chkExist('id');
+		}
+	});
+	$("#nickname").keydown(function(key){
+		if(key.keyCode ==13){
+			chkExist('nickname');
+		}
+	});
 	$("#nickname").change(function(){
 		if(chkNickname){
 			chkNickname = false;
@@ -70,11 +80,11 @@ function chkExist(type){
 			}
 			else{
 				if(!chkValidId(userid)){
-					alert(userid);
+					alert("아이디에는 특수문자가 들어갈 수 없습니다.");
 				}else{
 					var url = "/Member/chkId";
 					$.post(url, {userid: userid}, function(data){
-						if(data < 0){
+						if(data < 0 || data == null || data == ''){
 							alert("사용 가능한 아이디입니다.");
 							chkId = true;
 						}else{
@@ -102,7 +112,7 @@ function chkExist(type){
 			else{
 				var url = "/Member/chkNickname";
 				$.post(url, {nickname: nickname}, function(data){
-					if(data < 0){
+					if(data < 0 || data == null || data == ''){
 						alert("사용 가능한 닉네임입니다.");
 						chkNickname = true;
 					}else{
@@ -187,9 +197,15 @@ function addMember(){
 		alert("닉네임 중복확인 하여 주십시오.");
 		return;
 	}
-	
+	debugger;
 	if($("#birthdate").val() != null && $("#birthdate").val() != ""){
-		var today = new Date();
+		var today = new Date($("#deadline").val());
+		if(today < new Date()){
+			alert("유효한 날짜가 아닙니다.");
+			$("#birthdate").val('');
+		}
+	}else{
+		params.birthdate = null;
 	}
 	
 	var url = "/Member/addMember";

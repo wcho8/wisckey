@@ -20,7 +20,7 @@ public class MemberVO implements Serializable{
 	private String telnum;
 	private Integer authid;
 	private String gender;
-	private String birthdate;
+	private String birthdate = null;
 	private String major;
 	private String minor;
 	private char useyn;

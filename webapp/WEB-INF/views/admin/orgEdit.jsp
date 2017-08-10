@@ -57,12 +57,20 @@ $(document).ready(function(){
 					$("#prno").val("");
 					return;
 				}
-			case 'vpr':
+			case 'vpr1':
 				if(confirm(data.korname  + " 이(가) 맞습니까?")){
-					$("#vprno").val(data.userno);
+					$("#vprno1").val(data.userno);
 					break;
 				}else{
-					$("#vprno").val("");
+					$("#vprno1").val("");
+					return;
+				}
+			case 'vpr2':
+				if(confirm(data.korname  + " 이(가) 맞습니까?")){
+					$("#vprno2").val(data.userno);
+					break;
+				}else{
+					$("#vprno2").val("");
 					return;
 				}
 			}
@@ -178,8 +186,10 @@ $(document).ready(function(){
 		<tr>
 			<th>부회장</th>
 			<td>
-				<input type="text" id="vprid"><button id="searchVpr" style="margin-left:15px;">찾기</button>
-				<input type="text" id="vprno" style="display:none;">
+				<input type="text" id="vprid1"><button id="searchVpr" style="margin-left:15px;">찾기</button>
+				<input type="text" id="vprno1" style="display:none;">
+				/<input type="text" id="vprid2"><button id="searchVpr" style="margin-left:15px;">찾기</button>
+				<input type="text" id="vprno2" style="display:none;">
 			</td>
 		</tr>
 		<tr>

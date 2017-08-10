@@ -30,8 +30,8 @@ public class MemberService extends CommonService{
 		return result;
 	}
 
-	public int chkId(MemberVO paramVO) {
-		int result = 0;
+	public Integer chkId(MemberVO paramVO) {
+		Integer result = 0;
 		try{
 			result = memberDAO.chkId(paramVO);
 		} catch(Exception e){
@@ -40,8 +40,8 @@ public class MemberService extends CommonService{
 		return result;
 	}
 
-	public int chkNickname(MemberVO paramVO) {
-		int result = 0;
+	public Integer chkNickname(MemberVO paramVO) {
+		Integer result = 0;
 		try{
 			result = memberDAO.chkNickname(paramVO);
 		} catch(Exception e){

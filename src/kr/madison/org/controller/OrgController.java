@@ -1,5 +1,6 @@
 package kr.madison.org.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -78,6 +79,24 @@ public class OrgController extends CommonController{
 		
 		mav.setViewName("org/orgBoardEdit");
 		mav.addObject("orglist", orglist);
+		
+		return mav;
+	}
+
+	@RequestMapping("/EditMyOrg")
+	public ModelAndView EditMyOrg(OrgVO paramVO, HttpServletResponse res) throws IOException{
+		ModelAndView mav = new ModelAndView();
+		
+		OrgVO info = orgService.getMyOrgData(paramVO);
+		OrgVO details = orgService.getMyOrgDetails(paramVO);
+		
+		/*if(session.getUserno() != paramVO.getUserno()){
+			res.sendRedirect("/403");
+		}*/
+		
+		mav.setViewName("admin/editMyOrg");
+		mav.addObject("info", info);
+		mav.addObject("details", details);
 		
 		return mav;
 	}

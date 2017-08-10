@@ -19,10 +19,10 @@ public class MemberDAO extends CommonDAO{
 		return result;
 	}
 
-	public int chkId(MemberVO paramVO) {
-		int result = 0;
+	public Integer chkId(MemberVO paramVO) {
+		Integer result = 0;
 		try{
-			result = getSqlSession().insert("Member.chkId", paramVO);
+			result = getSqlSession().selectOne("Member.chkId", paramVO);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -30,10 +30,10 @@ public class MemberDAO extends CommonDAO{
 		return result;
 	}
 
-	public int chkNickname(MemberVO paramVO) {
-		int result = 0;
+	public Integer chkNickname(MemberVO paramVO) {
+		Integer result = 0;
 		try{
-			result = getSqlSession().insert("Member.chkNickname", paramVO);
+			result = getSqlSession().selectOne("Member.chkNickname", paramVO);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

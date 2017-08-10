@@ -30,8 +30,8 @@ public class MemberController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
-	public int addMember(MemberVO paramVO){
-		int result = 0;
+	public Integer addMember(MemberVO paramVO){
+		Integer result = 0;
 		try{
 			result = memberService.addNewMember(paramVO);
 		}catch(Exception e){
@@ -43,8 +43,8 @@ public class MemberController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
-	public int chkId(MemberVO paramVO){
-		int result = 0;
+	public Integer chkId(MemberVO paramVO){
+		Integer result = 0;
 		try{
 			result = memberService.chkId(paramVO);
 		}catch(Exception e){
@@ -56,8 +56,8 @@ public class MemberController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
-	public int chkNickname(MemberVO paramVO){
-		int result = 0;
+	public Integer chkNickname(MemberVO paramVO){
+		Integer result = 0;
 		try{
 			result = memberService.chkNickname(paramVO);
 		}catch(Exception e){

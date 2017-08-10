@@ -30,9 +30,9 @@
 		<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">관리자 <br/></div>
 		<div style="clear:both;"></div>
 		<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
-			<li><a id="menu" href="/Admin/ManageMenu">게시판 관리</a></li>
-			<li><a id="manOrg" href="/Admin/ManageOrg">동아리 관리</a></li>
-			<li><a id="manMyOrg" href="/Admin/MyOrg">내 동아리</a>
+			<li class='superadmin' ><a id="menu"href="/Admin/ManageMenu">게시판 관리</a></li>
+			<li class='superadmin'><a id="manOrg" href="/Admin/ManageOrg">동아리 관리</a></li>
+			<li class='orgadmin'><a id="manMyOrg"href="/Admin/MyOrg">내 동아리</a>
 		</ul>
 	</div>
 </div>

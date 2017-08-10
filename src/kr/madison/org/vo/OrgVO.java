@@ -12,9 +12,11 @@ public class OrgVO extends CommonVO{
 	private String regdate;
 	private String moddate;
 	private Integer prno;
-	private Integer vprno;
+	private Integer vprno1;
+	private Integer vprno2;
 	private String prname = "";
-	private String vprname = "";
+	private String vprname1 = "";
+	private String vprname2 = "";
 	private byte[] filecontent;
 	private Integer brdid;
 	private String writer;
@@ -85,11 +87,17 @@ public class OrgVO extends CommonVO{
 	public void setPrno(Integer prno) {
 		this.prno = prno;
 	}
-	public Integer getVprno() {
-		return vprno;
+	public Integer getVprno1() {
+		return vprno1;
 	}
-	public void setVprno(Integer vprno) {
-		this.vprno = vprno;
+	public void setVprno1(Integer vprno1) {
+		this.vprno1 = vprno1;
+	}
+	public Integer getVprno2() {
+		return vprno2;
+	}
+	public void setVprno2(Integer vprno2) {
+		this.vprno2 = vprno2;
 	}
 	public String getPrname() {
 		return prname;
@@ -97,11 +105,17 @@ public class OrgVO extends CommonVO{
 	public void setPrname(String prname) {
 		this.prname = prname;
 	}
-	public String getVprname() {
-		return vprname;
+	public String getVprname1() {
+		return vprname1;
 	}
-	public void setVprname(String vprname) {
-		this.vprname = vprname;
+	public void setVprname1(String vprname1) {
+		this.vprname1 = vprname1;
+	}
+	public String getVprname2() {
+		return vprname2;
+	}
+	public void setVprname2(String vprname2) {
+		this.vprname2 = vprname2;
 	}
 	public byte[] getFilecontent() {
 		return filecontent;

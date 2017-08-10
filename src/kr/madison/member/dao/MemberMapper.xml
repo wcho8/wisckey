@@ -34,13 +34,13 @@
 			#{useyn}
 		)
 	</insert>
-	<select id="chkId" parameterType="MemberVO" resultType="MemberVO">
+	<select id="chkId" parameterType="MemberVO" resultType="int">
 		SELECT
 			userno
 		FROM info_userinfo
 		WHERE userid = #{userid}
 	</select>
-	<select id="chkNickname" parameterType="MemberVO" resultType="MemberVO">
+	<select id="chkNickname" parameterType="MemberVO" resultType="int">
 		SELECT
 			userno
 		FROM info_userinfo

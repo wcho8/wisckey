@@ -7,7 +7,8 @@
 			a.name as orgname,
 			a.comment,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) as prname,
-			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) as vprname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
@@ -25,7 +26,8 @@
 			a.name as orgname,
 			a.comment,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
-			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
@@ -38,29 +40,30 @@
 			a.name as orgname,
 			a.comment,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
-			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
-		WHERE 
+		WHERE orgid = #{orgid}
 	</select>
-	<select id="getMyOrgDetail" resultType="OrgVO" parameterType="OrgVO">
+	<select id="getMyOrgDetails" resultType="OrgVO" parameterType="OrgVO">
 		SELECT
-			a.detid,
 			a.orgid,
 			b.name AS orgname,
-			c.name AS orgtype
+			c.name AS orgtype,
 			a.details,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d') AS regdate,
 			DATE_FORMAT(a.moddate, '%Y-%m-%d') AS moddate,
 			a.userno,
 			(SELECT korname FROM info_userinfo c WHERE a.userno = c.userno) AS writer,
 			(SELECT korname FROM info_userinfo c WHERE b.prno = c.userno) AS prname,
-			(SELECT korname FROM info_userinfo c WHERE b.vprno = c.userno) AS vprname,
+			(SELECT korname FROM info_userinfo c WHERE b.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE b.vprno2 = c.userno) as vprname2
 		FROM info_organization_detail a
 		LEFT JOIN info_organization b ON a.orgid = b.orgid
 		LEFT JOIN cod_orgtype c ON b.orgtypeid = c.orgtypeid
-		WHERE a.detid = #{detid}
+		WHERE a.orgid = #{orgid}
 	</select>
 	<update id="modMyOrgData" parameterType="OrgVO">
 		UPDATE info_organization SET
@@ -71,7 +74,7 @@
 			vprno = #{vprno}
 		WHERE orgid = #{orgid}
 	</update>
-	<insert id="addMyOrgDetail" parameterType="OrgVO" useGeneratedKeys="true" keyColumn="detid" keyProperty="detid">
+	<insert id="addMyOrgDetail" parameterType="OrgVO">
 		INSERT INTO info_organization_detail(
 			orgid,
 			details,
@@ -84,10 +87,10 @@
 			NOW(),
 			NOW(),
 			#{userno}
-		)
-		<selectKey keyProperty="detid" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+		) ON DUPLICATE KEY UPDATE
+			details = #{details},
+			moddate = NOW(),
+			userno = #{userno}
 	</insert>
 	<update id="modMyOrgDetail" parameterType="OrgVO">
 		UPDATE info_organization_detail SET
@@ -106,8 +109,10 @@
 			a.moddate,
 			a.prno,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
-			a.vprno,
-			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			a.vprno1,
+			a.vprno2,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype,
 			b.useyn
 		FROM info_organization a
@@ -128,8 +133,10 @@
 			a.moddate,
 			a.prno,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
-			a.vprno,
-			(SELECT korname FROM info_userinfo c WHERE a.vprno = c.userno) AS vprname,
+			a.vprno1,
+			a.vprno2,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
+			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype,
 			b.useyn
 		FROM info_organization a
@@ -143,7 +150,8 @@
 			regdate,
 			moddate,
 			prno,
-			vprno,
+			vprno1,
+			vprno2,
 			orgtypeid
 		) VALUES(
 			#{orgname},
@@ -151,7 +159,8 @@
 			NOW(),
 			NOW(),
 			#{prno},
-			#{vprno},
+			#{vprno1},
+			#{vprno2},
 			#{orgtypeid}
 		)
 		<selectKey keyProperty="orgid" resultType="int" order="AFTER">
@@ -164,7 +173,8 @@
 			comment = #{comment},
 			moddate = NOW(),
 			prno = #{prno},
-			vprno = #{vprno}
+			vprno1 = #{vprno1},
+			vprno2 = #{vprno2}
 		WHERE orgid = #{orgid}
 	</update>
 	<delete id="delOrgData" parameterType="OrgVO">

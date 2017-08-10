@@ -29,7 +29,7 @@ function reloadOrgs(){
 				div += "	<div style='float:left; width:20%;'>                                                           ";
 				div += "		<img src='/Org/loadOrgImage/" + item.orgid + "' style='width:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
 				div += "	</div>                                                                                         ";
-				div += "	<div style='float:left; width:80%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
+				div += "	<div style='float:left; width:70%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";
 				div += "			<b>정보</b>                                                                              ";
 				div += "			<ul style='padding:0px;'>                                                              ";
@@ -38,13 +38,19 @@ function reloadOrgs(){
 				div += "				<li> <b>부회장: " + vprname + "</b> </li>                                        ";
 				div += "			</ul>                                                                                  ";
 				div += "		</div>                                                                                     ";
-				div += "		<div style='min-height:80px; padding-right:20px'><b>한줄 소개</b><br/>" + item.comment + "<br/></div>";
-				div += "		<div style='float:right;padding-right:20px;'><a href='javascript:viewOrg(" + item.orgid + ")'>자세히 보기</a></div>";
-				div += "	</div>                                                                                         ";
-				div += "</div>                                                                                            ";
+				div += "		<div style='min-height:80px; width:70%;float:left;padding-right:20px'><b>한줄 소개</b><br/>" + item.comment + "<br/></div></div>";
+				div += "	<div style='float:left;width:10%;margin-top:10px;padding:10px 0px; font-size:12px;''>                   ";
+				div += "		<a href='javascript:editMyOrg(" + item.orgid + ")'><img src='/images/icon/edit.png' style='width:15px;'/></a>                                          ";
+				div += "	</div>                                                                                                 ";
+				div += "</div>                                                                                                    ";
 			$("#intro").append(div);
 		});
 	});
+}
+
+function editMyOrg(orgid){
+	var url = "/Org/EditMyOrg?orgid=";
+	$(location).attr('href', url + orgid);
 }
 
 function viewOrg(orgid){
@@ -126,6 +132,7 @@ div.tabcontent{
 			<jsp:include page="./leftmenu.jsp"></jsp:include>			
 			<div class="center_menu" id="center" style="width: 700px; float:left; margin-left:30px;">
 				<div id="intro" style="width:100%;margin-bottom:20px;border:1px solid #cacaca;background-color:white;">
+					
 				</div>
 			</div>
 			<div id="org_detail_dialog" style="display:none;">

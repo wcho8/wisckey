@@ -9,7 +9,8 @@ body{margin:0;padding:0;background-color:#f7f7f7;}
 .note-btn{
 	color:black;
 	background-color:white;
-	font-size:10px;
+	font-size:9px;
+	padding:0px 8px;
 }
 .top_nav{
 	/* background-image:url('/images/sample_carousel_3.jpg'); */

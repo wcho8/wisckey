@@ -17,27 +17,28 @@ a:hover{
 </style>
 
 <!-- footer -->
-<div id="otherSites" style="  width:1200px; line-height:30px; margin:auto; padding-left:0px; margin-top: 200px;">
-	<div><a href="http://my.wisc.edu">
-		<span class="links" style="border-right:1px solid #ccc">MY UW</span>
-	</a></div>
-	<div><a href="http://learnuw.wisc.edu">
-		<span class="links" style="border-right:1px solid #ccc">LEARN@UW</span>
-	</a></div>
-	<div><a href="http://wisc.edu">
-	 	<span class="links" style="border-right:1px solid #ccc">WISC EDU</span>
-	</a></div>
-	<div><a href="http://wiscmail.wisc.edu">
-		<span class="links" style="border-right:1px solid #ccc">WISC EMAIL</span>
-	</a></div>
-	<div><a href="http://uwkssa.org">
-		<span class="links" style="border-right:1px solid #ccc">UW KSSA</span>
-	</a></div>
-	<div><a href="http://library.wisc.edu">
-		<span class="links" style="border-right: 1px solid #ccc;">LIBRARY WISC</span>
-	</a></div>
-</div>
+
 <div id="footer" style="border-top: none;border-bottom: none;">
+	<div id="otherSites" style="  width:1200px; line-height:30px; margin:auto; padding-left:0px;">
+		<div><a href="http://my.wisc.edu">
+			<span class="links" style="border-right:1px solid #ccc">MY UW</span>
+		</a></div>
+		<div><a href="http://learnuw.wisc.edu">
+			<span class="links" style="border-right:1px solid #ccc">LEARN@UW</span>
+		</a></div>
+		<div><a href="http://wisc.edu">
+		 	<span class="links" style="border-right:1px solid #ccc">WISC EDU</span>
+		</a></div>
+		<div><a href="http://wiscmail.wisc.edu">
+			<span class="links" style="border-right:1px solid #ccc">WISC EMAIL</span>
+		</a></div>
+		<div><a href="http://uwkssa.org">
+			<span class="links" style="border-right:1px solid #ccc">UW KSSA</span>
+		</a></div>
+		<div><a href="http://library.wisc.edu">
+			<span class="links" style="border-right: 1px solid #ccc;">LIBRARY WISC</span>
+		</a></div>
+	</div>
 	<div class="txt" style="width:100%;padding-left:70px;">
 	    <div class="fLeft" style="padding-left:60px; width:30%;">
 	    	<a href="/"><img src="/images/common/wisckey_1.png" style="height:100px;"/></a>
