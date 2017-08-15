@@ -5,7 +5,6 @@
 <script type="text/javascript">
 var upImgIds = [];
 $(document).ready(function(){
-	console.log(defaultParams);
 	$(".current").removeClass("current");
 	$("#manMyOrg").addClass("current");
 	
@@ -21,25 +20,27 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#content").summernote('code', "${details.details}")
+	
 	$("#cancel").click(function(){
 		var url = "/Admin/MyOrg";
 		$(location).attr("href", url);
 	});
 
 	$("#editOrg").click(function(){
-		var url = "/Org/modMyOrgData";
-		var content = $("#content").summernote('code');
-		if(params.title == null || params.title == ""){
-			alert("이름을 입력하여 주십시오.");
-			$("#orgname").focus();
-			return;
-		}
-		if($("#content").summernote('isEmpty')){
-			alert("자세한 소개를 입력하여 주십시오.");
-			$("#content").summernote('focus');
-			return;
+		editOrgData();
+	});
+	
+	$("#search").click(function(){
+		searchId();
+	});
+	
+	$("#srchId").keydown(function(key){
+		if(key.keyCode == 13){
+			searchId();
 		}
 	});
+	
 });
 function sendFile(file, el){
 	var data = new FormData();
@@ -68,21 +69,92 @@ function searchById(id){
 		width:300,
 		height:150,
 		modal:true,
-		title:"아이디 찾기",
+		title:"찾기",
 		resizable:false,
 		draggable:false,
 		close:function(){
 			$("#srchId").val('');
+			$("#prOrVpr").text('');
+		},
+		open:function(){
+			$("#prOrVpr").text(id);
 		}
 	});
-	switch(id){
-	case 1:
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
+}
+
+function searchId(){
+	var url = "/Member/searchById";
+	var objDialog = $("#searchDialog");
+	$("#search").click(function(){
+		$.post(url, {userid:$("#srchId").val()}, function(data){
+			if(data != null && data != '' ){
+				var korname = data.korname;
+				if(confirm(korname + "이(가) 맞습니까?")){
+					switch($("#prOrVpr").text()){
+					case "1":
+						$("#prname").text(korname);
+						$("#prno").text(data.userno);
+						break;
+					case "2":
+						$("#vprname1").text(korname);
+						$("#vprno1").text(data.userno);
+						break;
+					case "3":
+						$("#vprname2").text(korname);
+						$("#vprno2").text(data.userno);
+						break;
+					}
+					objDialog.dialog('close');
+				};
+			}
+		});
+	});
+}
+
+function editOrgData(){
+	var url = "/Org/modMyOrgData";
+	var details = $("#content").summernote('code');
+	var params = $.extend({}, defaultParams, {
+		prno:$("#prno").text(),
+		vprno1:$("#vprno1").text(),
+		vprno2:$("#vprno2").text(),
+		details:$("#content").summernote('code'),
+		comment:$("#comment").text(),
+		orgname:$("#orgname").val(),
+		orgid:"${paramVO.orgid}"
+	});
+	
+	if(params.orgname == null || params.orgname == ""){
+		alert("이름을 입력하여 주십시오.");
+		$("#orgname").focus();
+		return;
 	}
+	/* if($("#content").summernote('isEmpty')){
+		alert("자세한 소개를 입력하여 주십시오.");
+		$("#content").summernote('focus');
+		return;
+	} */
+	if(params.prno == null || params.prno == ''){
+		alert("회장이 필요합니다.");
+		return;
+	}
+	if(params.comment == null || params.comment == ''){
+		alert("간단한 소개가 필요합니다.");
+		$("#comment").focus();
+		return;
+	}
+	
+	$.post(url, params, function(data){
+	}).error(function(){
+		alert("수정에 실패하였습니다. 다시 시도해 주십시오.");
+	}).success(function(){
+		$.post("/Org/addMyOrgDetail", params, function(data){
+			alert("수정하였습니다.");
+			$(location).reload();
+		}).error(function(){
+			alert("수정에 실패하였습니다. 다시 시도해 주십시오.");
+		});
+	});
 }
 
 </script>
@@ -95,6 +167,10 @@ border:1px dashed red;
 }
 th{
 padding-left:20px;
+}
+.btn{
+padding:0px 6px;
+font-size:12px;
 }
 </style>
 <!-- s:container -->
@@ -115,8 +191,15 @@ padding-left:20px;
 						<col width="20%">
 					</colgroup>
 					<tbody>
+						<tr style="display:none;">
+							<td id="prno">${info.prno}</td>
+							<td id="vprno1">${info.vprno1}</td>
+							<td id="vprno2">${info.vprno2}</td>
+							<td></td>
+							<td></td>
+						</tr>
 						<tr>
-							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img src="/images/orgs/kusa.jpg" style="width:100%"></td>
+							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="/images/orgs/kusa.jpg" style="width:100%"></td>
 							<th>이름</th>
 							<td colspan="4"><input type="text" style="width:100%" id="orgname" value="${info.orgname}"></td>
 						</tr>
@@ -143,7 +226,7 @@ padding-left:20px;
 							</td>
 						</tr>
 						<tr style="padding-top:15px;margin-top:15px;">
-							<td colspan="6"><b>한줄 소개</b><br/><textarea style="border:1px solid black;width:100%;margin-top:10px;">${info.comment}</textarea></td>
+							<td colspan="6"><b>한줄 소개</b><br/><textarea id="comment" style="border:1px solid black;width:100%;margin-top:10px;">${info.comment}</textarea></td>
 						</tr>
 						<tr style="padding-top:15px;">
 							<td colspan="6"><br/><b>상세 소개</b><br/><div style="margin-top:10px;"><textarea id="content"></textarea></div></td>
@@ -160,6 +243,7 @@ padding-left:20px;
 					아이디: <input type="text" id="srchId">
 					<button id="search" style="float:right">찾기</button>
 				</div>
+				<div id="prOrVpr" style="display:none;"></div>
 			</div>
 		</div>
 	</div>

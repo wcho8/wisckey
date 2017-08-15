@@ -84,7 +84,7 @@ public class OrgController extends CommonController{
 	}
 
 	@RequestMapping("/EditMyOrg")
-	public ModelAndView EditMyOrg(OrgVO paramVO, HttpServletResponse res) throws IOException{
+	public ModelAndView EditMyOrg(@ModelAttribute("paramVO")OrgVO paramVO, HttpServletResponse res) throws IOException{
 		ModelAndView mav = new ModelAndView();
 		
 		OrgVO info = orgService.getMyOrgData(paramVO);

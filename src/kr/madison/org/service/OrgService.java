@@ -146,8 +146,7 @@ public class OrgService extends CommonService{
 	}
 	
 	public int addMyOrgDetail(OrgVO paramVO){
-		orgDAO.addMyOrgDetail(paramVO);
-		return paramVO.getDetid();
+		return orgDAO.addMyOrgDetail(paramVO);
 	}
 	
 }

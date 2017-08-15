@@ -39,6 +39,9 @@
 			a.orgid,
 			a.name as orgname,
 			a.comment,
+			a.prno,
+			a.vprno1,
+			a.vprno2,
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
@@ -71,7 +74,8 @@
 			comment = #{comment},
 			moddate = NOW(),
 			prno = #{prno},
-			vprno = #{vprno}
+			vprno1 = #{vprno1},
+			vprno2 = #{vprno2}
 		WHERE orgid = #{orgid}
 	</update>
 	<insert id="addMyOrgDetail" parameterType="OrgVO">
