@@ -36,6 +36,8 @@ public class AuthCheckInterceptorController extends HandlerInterceptorAdapter {
 			return true;
 		} else if(servletPath.equals("/findEducationList")){
 			return true;
+		} else if(servletPath.equals("/findOrgBoardList")){
+			return true;
 		} else if(servletPath.equals("/NeedLogin")){
 			return true;
 		} else if(servletPath.indexOf("/Member/") == 0){

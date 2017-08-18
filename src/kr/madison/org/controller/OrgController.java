@@ -90,6 +90,8 @@ public class OrgController extends CommonController{
 		OrgVO info = orgService.getMyOrgData(paramVO);
 		OrgVO details = orgService.getMyOrgDetails(paramVO);
 		
+		
+		paramVO.setFilecontent(info.getFilecontent());
 		/*if(session.getUserno() != paramVO.getUserno()){
 			res.sendRedirect("/403");
 		}*/
@@ -262,7 +264,6 @@ public class OrgController extends CommonController{
 	@RequestMapping
 	@ResponseBody
 	public int addMyOrgDetail(OrgVO paramVO){
-		orgService.addMyOrgDetail(paramVO);
-		return paramVO.getDetid();
+		return orgService.addMyOrgDetail(paramVO);
 	}
 }

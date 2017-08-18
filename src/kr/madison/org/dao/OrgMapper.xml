@@ -9,7 +9,8 @@
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) as prname,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
-			b.name as orgtype
+			b.name as orgtype,
+			a.filecontent as fileContent
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
 		WHERE a.orgtypeid = #{orgtypeid}
@@ -28,7 +29,8 @@
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
-			b.name as orgtype
+			b.name as orgtype,
+			a.filecontent as fileContent
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
 		WHERE a.prno= #{userno}
@@ -45,7 +47,8 @@
 			(SELECT korname FROM info_userinfo c WHERE a.prno = c.userno) AS prname,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
-			b.name as orgtype
+			b.name as orgtype,
+			a.filecontent as fileContent
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
 		WHERE orgid = #{orgid}
@@ -142,9 +145,12 @@
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype,
-			b.useyn
+			b.useyn,
+			c.details,
+			a.filecontent
 		FROM info_organization a
-		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
+		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
+		LEFT JOIN info_organization_detail c ON a.orgid = c.orgid
 		WHERE a.orgid = #{orgid}
 	</select>
 	<insert id="addOrgData" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="orgid" keyColumn="orgid">

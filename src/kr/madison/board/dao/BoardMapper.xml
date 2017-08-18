@@ -6,7 +6,21 @@
 			count(*)
 		FROM brd_freeboard a
 		LEFT JOIN cod_freeboard b ON a.frid = b.frid
+		LEFT JOIN info_userinfo c ON a.userno = c.userno
 		WHERE b.ptypeid= #{ptypeid}
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND a.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND c.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		<if test="frid != null and frid != 0">
+			<if test="srchType == 3">
+				AND a.frid = #{frid}
+			</if>
+		</if>
 	</select>
  	<select id="findBoardList" parameterType="BoardVO" resultType="BoardVO">
 		SELECT
@@ -20,7 +34,7 @@
 			END as regdate,
 			a.nickname as writer,
 			b.count,
-			b.likes,
+			(SELECT COUNT(*) FROM brd_freeboard_likes f WHERE b.brdid = f.brdid and f.likes = 1) as likes,
 			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
@@ -35,6 +49,11 @@
 			</if>
 			<if test="srchType == 2">
 				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		<if test="frid != null and frid != 0">
+			<if test="srchType == 3">
+				AND b.frid = #{frid}
 			</if>
 		</if>
 		ORDER BY b.brdid DESC
@@ -53,9 +72,8 @@
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			b.likes,
-			b.dislikes
-			<!-- File 셀렉트 하는것 필요 -->
+			(SELECT COUNT(*) FROM brd_freeboard_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes,
+			(SELECT COUNT(*) FROM brd_freeboard_likes c WHERE b.brdid = c.brdid AND c.dislikes = 1) as dislikes
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_freeboard d on b.frid = d.frid
@@ -105,10 +123,33 @@
 			count = count + 1
 		WHERE brdid = #{brdid}
 	</update>
+	<select id="checkLikes" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			id as lid,
+			likes,
+			dislikes
+		FROM brd_freeboard_likes
+		WHERE userno = #{userno}
+			AND brdid = #{brdid}
+	</select>
+	<insert id="addBoardLikes" parameterType="BoardVO">
+		INSERT INTO brd_freeboard_likes(
+			brdid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{brdid},
+			#{userno},
+			#{likes},
+			#{dislikes}
+		)
+	</insert>
 	<update id="modBoardLikes" parameterType="BoardVO">
-		UPDATE brd_freeboard SET
+		UPDATE brd_freeboard_likes SET
 			likes = likes + 1
 		WHERE brdid = #{brdid}
+			AND userno = #{userno}
 	</update>
 	<update id="modBoardDislikes" parameterType="BoardVO">
 		UPDATE brd_freeboard SET

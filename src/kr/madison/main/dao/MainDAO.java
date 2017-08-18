@@ -8,6 +8,7 @@ import kr.madison.career.vo.CareerVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.main.vo.MainVO;
 import kr.madison.member.vo.MemberVO;
+import kr.madison.org.vo.OrgVO;
 import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,9 @@ public class MainDAO extends CommonDAO{
 
 	public List<SchoolVO> findEducationList(MainVO paramVO) {
 		return getSqlSession().selectList("Main.findEducationList", paramVO);
+	}
+
+	public List<OrgVO> findOrgBoardList(MainVO paramVO) {
+		return getSqlSession().selectList("Main.findOrgBoardList", paramVO);
 	}
 }

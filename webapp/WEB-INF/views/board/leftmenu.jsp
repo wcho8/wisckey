@@ -48,17 +48,4 @@ $(document).ready(function(){
 			<li><a id="left_newbie" href="/Board/?ptypeid=2">신입생 게시판</a></li>
 		</ul>
 	</div>
-	<div id="search_box" style="border-top:2px solid #910019;border-right:2px solid #910019;margin-top:15px;height:100px;padding:5px;">
-		<div id="searchValue">
-			<select id="searchType" style="height:20px;width:120px;">
-				<option value="1">제목</option>
-				<option value="2">닉네임</option>
-				<option value="3">게시물타입</option>
-			</select>
-			<input type="text" id="keyword" placeHolder = "제목" style="width: 120px; height:20px;">
-		</div>
-		<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
-				<span style="font-size:80%">검색</span>
-			</button>
-	</div>
 </div>

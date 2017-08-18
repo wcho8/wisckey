@@ -34,14 +34,19 @@ function changeIntro(oid){
 	$.post(url, {orgtypeid: oid}, function(data){
 		$.each(data, function(index, item){
 			var vprname = "";
-			if(item.vprname == '' || item.vprname == null){
-				vprname = "없음";
+			if(item.vprname1 == '' || item.vprname1 == null){
+				vprname1 = "없음";
 			}else{
-				vprname = item.vprname;
+				vprname1 = item.vprname1;
+			}
+			if(item.vprname2 == '' || item.vprname2 == null){
+				vprname2 = "없음";
+			}else{
+				vprname2 = item.vprname2;
 			}
 			var div = "<div id='" + item.orgid + "' style='height:140px;margin:0px 10px;margin-top:10px;border-bottom:1px dashed #cacaca'>";
 				div += "	<div style='float:left; width:20%;'>                                                           ";
-				div += "		<img src='/Org/loadOrgImage/" + item.orgid + "' style='width:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
+				div += "		<img src='data:image/jpg;base64,"+ item.filecontent +"' style='width:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
 				div += "	</div>                                                                                         ";
 				div += "	<div style='float:left; width:80%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";
@@ -49,7 +54,7 @@ function changeIntro(oid){
 				div += "			<ul style='padding:0px;'>                                                              ";
 				div += "				<li> <b>이름: " + item.orgname + "</b> </li>                                         ";
 				div += "				<li> <b>회장: " + item.prname + "</b> </li>                                          ";
-				div += "				<li> <b>부회장: " + vprname + "</b> </li>                                        ";
+				div += "				<li> <b>부회장: " + vprname1 + ", " + vprname2 + "</b> </li>                                        ";
 				div += "			</ul>                                                                                  ";
 				div += "		</div>                                                                                     ";
 				div += "		<div style='min-height:80px; padding-right:20px'><b>한줄 소개</b><br/>" + item.comment + "<br/></div>";
@@ -72,9 +77,41 @@ function viewOrg(orgid){
 		resizable:false,
 		draggable:false,
 		open:function(){
+			$.post("/Org/getOrgData", {orgid:orgid}, function(data){
+				if(data == null || data == ''){
+					alert("데이터가 없습니다.");
+					objDialog.dialog('close');
+					return;
+				}
+				else{
+					if(data.vprname1 == '' || data.vprname1 == null){
+						vprname1 = "없음";
+					}else{
+						vprname1 = data.vprname1;
+					}
+					if(data.vprname2 == '' || data.vprname2 == null){
+						vprname2 = "없음";
+					}else{
+						vprname2 = data.vprname2;
+					}
+					$("#org_img").attr('src', 'data:image/jpg;base64,'+ data.filecontent);
+					$("#orgname").text(data.orgname);
+					$("#prname").text(data.prname);
+					$("#vprname1").text(vprname1);
+					$("#vprname2").text(vprname2);
+					$("#comment").text(data.comment);
+					$("#org_details").html(data.details);
+				}
+			});
 		},
 		close:function(){
-			
+			$("#org_img").attr('src', '');
+			$("#orgname").text('');
+			$("#prname").text('');
+			$("#vprname1").text('');
+			$("#vprname2").text('');
+			$("#comment").text('');
+			$("#org_details").text('');
 		}
 	});
 }

@@ -21,14 +21,16 @@ $(document).ready(function(){
 		          "등록일",
 		          "회장",
 		          "부회장",
+		          "부회장",
 		          "동아리 타입"
 		          ],
 		colModel:[
 		          {name:"orgname", width:120, sortable:false},
 		          {name:"comment", width:475, sortable:false},
 		          {name:"regdate", width:80, sortable:false},
-		          {name:"prname", width:100, sortable:false},
-		          {name:"vprname", width:100, sortable:false},
+		          {name:"prname", width:70, sortable:false},
+		          {name:"vprname1", width:70, sortable:false},
+		          {name:"vprname2", width:70, sortable:false},
 		          {name:"orgtype", width:100, sortable:false}
 		          ],
 		caption:"동아리 관리",

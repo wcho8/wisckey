@@ -61,18 +61,6 @@ $(document).ready(function(){
 		editMenu();
 	})
 	
-	
-	function reloadGrid(btype){
-		var url = "/Admin/findBoardTypes";
-		var btype = $("#board_type").val();
-		var caption = $("#board_type option:selected").text();
-		objGrid.jqGrid("setCaption", caption);
-		objGrid.jqGrid("setGridParam", {
-			url:url,
-			postData:{ptypeid:btype},
-			page:1
-		}).trigger("reloadGrid");
-	}
 	function editMenu(data){
 		var title = '';
 		var objDialog = $("#menu_edit_dialog");
@@ -84,18 +72,40 @@ $(document).ready(function(){
 		objDialog.dialog({
 			title:title,
 			modal:true,
-			width:600,
-			height:400,
+			width:350,
+			height:300,
 			resizable:false,
 			draggable:false,
 			open:function(){
+				if(bEdit){
+					$("#id").text(data.id);
+					$("#typename").val(data.name);
+					$("#comment").val(data.comment);
+					$("#useyn").val(data.useyn).prop('selected', true);
+				}
 			},
 			close:function(){
-				
+				$("#id").text('');
+				$("#typename").val('');
+				$("#comment").val('');
+				$("#useyn").val('Y').prop('selected', true);
 			}
 		});
 	}
 });
+
+function reloadGrid(btype){
+	var url = "/Admin/findBoardTypes";
+	var btype = $("#board_type").val();
+	var objGrid = $("#grid_list");
+	var caption = $("#board_type option:selected").text();
+	objGrid.jqGrid("setCaption", caption);
+	objGrid.jqGrid("setGridParam", {
+		url:url,
+		postData:{ptypeid:btype},
+		page:1
+	}).trigger("reloadGrid");
+}
 
 </script>
 <!-- s:container -->

@@ -5,16 +5,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var defaultParams = {
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
-		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}",
 		ptypeid: "${paramVO.ptypeid}"
 	};
 	
 	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
 	
-	if(defaultParams.userno == writerno){
+	if(userno == writerno){
 		$("#update").show();
 		$("#boardDelete").show();
 	}else{
@@ -23,48 +21,45 @@ $(document).ready(function(){
 	}
 	
 	$("#update").click(function(){
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
 		var url = "/Board/BoardEdit?";
-		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});
 	
 	$("#boardDelete").click(function(){
 		var url = "/Board/delBoardData?";
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
 		if(confirm("정말로 삭제하시겠습니까?")){
-			$.post(url, defaultParams, function(data){
+			$.post(url, params, function(data){
 				alert("삭제되었습니다.");
-				$(location).attr("href", "/Board/?" + defaultParams);
+				$(location).attr("href", "/Board/?" + $.param(defaultParams));
 			});	
 		}
 	});
 	
-	$("#boardDelete").click(function(){
-		var url="/Board/deleteBoard?";
-		var params = $.param(defaultParams);
-		if(confirm("정말 삭제하시겠습니까?")){
-			$.post(url, params, function(data){
-				alert("게시글이 삭제되었습니다.");
-				$(location).attr("href", "/Board/?"+params);
-			});
-		}
-	});
-	
 	$("#boardList").click(function(){
-		var params = $.param(defaultParams);
-		$(location).attr("href", "/Board/?"+params);
+		$(location).attr("href", "/Board/?" + $.param(defaultParams));
 	});
 	
 	$("#likes").click(function(){
-		$.post("/Board/modBoardLikes", defaultParams, function(data){
-			if(data > 0){
-				alert("추천하였습니다.");
-				location.reload(true);
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		$.post("/Board/modBoardLikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "한번만 추천할 수 있습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
 			}
+			alert(msg);
+			location.reload(true);
 		});
 	});
 	
 	$("#dislike").click(function(){
-		$.post("/Board/modBoardDislikes", defaultParams, function(data){
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		$.post("/Board/modBoardDislikes", params, function(data){
 			if(data > 0){
 				alert("비추하였습니다.");
 				location.reload(true);
@@ -75,12 +70,12 @@ $(document).ready(function(){
 	$("#addReply").click(function(){
 		var url = "/Board/addBoardReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
 		if(params.repContent == "" || params.repContent == null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
 		}
-		if(params.userno == "" || params.userno == null){
+		if(userno == "" || userno == null){
 			alert("로그인하여 주십시오.");
 			return;
 		}else{
@@ -98,15 +93,14 @@ function likes(like, repid){
 	var msg = "";
 	if(like == 'Y'){
 		url = "/Board/modRepLikes";
-		msg = "추천하였습니다.";
 	}else if(like == 'N'){
 		url = "/Board/modRepDislikes";
-		msg = "비추하였습니다.";
 	}
-	var params = $.extend({}, defaultParams, {repid:repid});
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
 	
 	$.post(url, params, function(data){
-		alert(msg);
+		console.log(data);
+		alert(data);
 		location.reload(true);
 	});
 }

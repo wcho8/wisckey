@@ -3,8 +3,6 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	
 });
 </script>
 <style type="text/css">

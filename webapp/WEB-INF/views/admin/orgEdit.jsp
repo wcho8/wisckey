@@ -2,12 +2,17 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#searchPr").click(function(){
-		searchById('pr');
+	$("#search").click(function(){
+		searchId();
 	});
-	$("#searchVpr").click(function(){
-		searchById('vpr');
+	
+	$("#srchId").keydown(function(key){
+		if(key.keyCode == 13){
+			searchId();
+		}
 	});
+	
+	
 	$("#add").click(function(){
 		addOrg();
 	});
@@ -24,61 +29,6 @@ $(document).ready(function(){
 		bCheckPr = false;
 	});
 	
-	/* $("#vprid").change(function(){
-		bCheckVpr = false;
-	}); */
-	
-	function searchById(prtype){
-		var url = "/Member/searchById";
-		var params = {};
-		var id = "";
-		switch(prtype){
-		case 'pr':
-			params.userid = $("#prid").val();
-			break;
-		case 'vpr':
-			params.userid = $("#vprid").val();
-			break;
-		}
-		$.post(url, params, function(data){
-			if(data == null || data == ''){
-				alert("찾을 수 없습니다.");
-				return;
-			}
-			switch(prtype){
-			case 'pr':
-				if(confirm(data.korname  + " 이(가) 맞습니까?")){
-					$("#prno").val(data.userno);
-					$("#prname").text(data.korname);
-					$("#prname").show();
-					bCheckPr = true;
-					break;
-				}else{
-					$("#prno").val("");
-					return;
-				}
-			case 'vpr1':
-				if(confirm(data.korname  + " 이(가) 맞습니까?")){
-					$("#vprno1").val(data.userno);
-					break;
-				}else{
-					$("#vprno1").val("");
-					return;
-				}
-			case 'vpr2':
-				if(confirm(data.korname  + " 이(가) 맞습니까?")){
-					$("#vprno2").val(data.userno);
-					break;
-				}else{
-					$("#vprno2").val("");
-					return;
-				}
-			}
-		}).error(function(){
-			
-		});
-	}
-
 	function key_false(){
 		event.returnValue = false;
 	}
@@ -143,6 +93,54 @@ $(document).ready(function(){
 });
 
 
+function searchById(id){
+	var objDialog = $("#searchDialog");
+	objDialog.dialog({
+		width:300,
+		height:150,
+		modal:true,
+		title:"찾기",
+		resizable:false,
+		draggable:false,
+		close:function(){
+			$("#srchId").val('');
+			$("#prOrVpr").text('');
+		},
+		open:function(){
+			$("#prOrVpr").text(id);
+		}
+	});
+}
+
+
+function searchId(){
+	var url = "/Member/searchById";
+	var objDialog = $("#searchDialog");
+	$.post(url, {userid:$("#srchId").val()}, function(data){
+		if(data != null && data != '' ){
+			var korname = data.korname;
+			if(confirm(korname + "이(가) 맞습니까?")){
+				switch($("#prOrVpr").text()){
+				case "1":
+					$("#prname").text(korname);
+					$("#prno").text(data.userno);
+					break;
+				case "2":
+					$("#vprname1").text(korname);
+					$("#vprno1").text(data.userno);
+					break;
+				case "3":
+					$("#vprname2").text(korname);
+					$("#vprno2").text(data.userno);
+					break;
+				}
+				objDialog.dialog('close');
+			};
+		}
+	});
+}
+
+
 </script>
 <style type="text/css">
 </style>
@@ -178,17 +176,16 @@ $(document).ready(function(){
 		<tr>
 			<th>회장</th>
 			<td>
-				<input type="text" id="prid"><button id="searchPr" style="margin-left:15px;">찾기</button><br/>
-				<div id="prname" style="display:none;"></div>
+				<span id="prname"></span><button style="margin-left:15px;" onclick="javascript:searchById(1)">찾기</button><br/>
 				<input type="text" id="prno" style="display:none;">
 			</td>
 		</tr>
 		<tr>
 			<th>부회장</th>
 			<td>
-				<input type="text" id="vprid1"><button id="searchVpr" style="margin-left:15px;">찾기</button>
+				<span id="vprname1"></span><button style="margin-left:15px;" onclick="javascript:searchById(2)">찾기</button>
 				<input type="text" id="vprno1" style="display:none;">
-				/<input type="text" id="vprid2"><button id="searchVpr" style="margin-left:15px;">찾기</button>
+				/<span id="vprname2"></span><button style="margin-left:15px;" onclick="javascript:searchById(3)">찾기</button>
 				<input type="text" id="vprno2" style="display:none;">
 			</td>
 		</tr>
@@ -200,9 +197,9 @@ $(document).ready(function(){
 						<label class="fileContainer">
 							<div id="inputFile">
 				    		 	<input type="text" id="filename" style="text-align:left; padding-left:5px !important;" />
-           						<div style="cursor:pointer; border-color:#eee !important"><img alt="Search" width="16" height="16" src="/images/icon/attachment.png" /></div>
-          						</div>
-						    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()"/>
+       							<div style="cursor:pointer; border-color:#eee !important"><img alt="Search" width="16" height="16" src="/images/icon/attachment.png" /></div>
+       						</div>
+						    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()" style="display:none;"/>
 						</label>
 			    	</div>
 		    	</form>
@@ -213,5 +210,12 @@ $(document).ready(function(){
 		<button id="add">추가</button>
 		<button id="edit" style="display:none;">수정</button>
 		<button id="cancel">취소</button>
+	</div>
+	<div id="searchDialog" style="display:none; width:100%;">
+		<div style="padding:10px; width:100%;">
+			아이디: <input type="text" id="srchId">
+			<button id="search" style="float:right">찾기</button>
+		</div>
+		<div id="prOrVpr" style="display:none;"></div>
 	</div>
 </div>

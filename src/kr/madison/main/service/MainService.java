@@ -9,6 +9,7 @@ import kr.madison.common.service.CommonService;
 import kr.madison.main.dao.MainDAO;
 import kr.madison.main.vo.MainVO;
 import kr.madison.member.vo.MemberVO;
+import kr.madison.org.vo.OrgVO;
 import kr.madison.school.vo.SchoolVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public class MainService extends CommonService{
 
 	public List<SchoolVO> findEducationList(MainVO paramVO) {
 		return mainDAO.findEducationList(paramVO);
+	}
+
+	public List<OrgVO> findOrgBoardList(MainVO paramVO) {
+		return mainDAO.findOrgBoardList(paramVO);
 	}
 }

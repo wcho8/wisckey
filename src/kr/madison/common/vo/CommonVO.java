@@ -48,6 +48,7 @@ public class CommonVO {
 	private Integer typeid = 0;
 	private String typename;
 	private Integer ptypeid;
+	private Integer orgtypeid;
 	
 	public Integer getUserno() {
 		return userno;
@@ -234,6 +235,12 @@ public class CommonVO {
 	}
 	public void setPtypeid(Integer ptypeid) {
 		this.ptypeid = ptypeid;
+	}
+	public Integer getOrgtypeid() {
+		return orgtypeid;
+	}
+	public void setOrgtypeid(Integer orgtypeid) {
+		this.orgtypeid = orgtypeid;
 	}
 	
 }

@@ -5,14 +5,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var defaultParams = {
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
-		nickname: "${session.nickname}",
 		mypage: "${paramVO.mypage}",
 		orgtypeid: "${paramVO.orgtypeid}"
 	};
-	
-	console.log(defaultParams);
 	
 	var writerno = "${vo.userno}";
 	
@@ -22,7 +17,7 @@ $(document).ready(function(){
 	
 	$("#update").click(function(){
 		var url = "/Org/BoardEdit?";
-		var params = $.param(defaultParams);
+		var params = $.param($.extend({}, defaultParams, {brdid:"${paramVO.brdid}"}));
 		$(location).attr("href", url+params);
 	})
 	
@@ -52,7 +47,7 @@ $(document).ready(function(){
 	$("#addReply").click(function(){
 		var url = "/Org/addBoardReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
 		if(params.repContent == "" || params.repContent == null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;

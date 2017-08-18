@@ -36,9 +36,11 @@ public class BoardController {
 		
 		Util.setPaging(paramVO, totalcnt, pageRow);
 		List<BoardVO> vo = boardService.findBoardList(paramVO);
+		List<BoardVO> frtypes = boardService.getFrtypes(paramVO);
 		
 		mav.addObject("boardList", vo);
 		mav.addObject("totalCnt", totalcnt);
+		mav.addObject("frtypes", frtypes);
 		mav.setViewName("/board/board");
 		return mav;
 	}
@@ -126,10 +128,16 @@ public class BoardController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modBoardLikes(BoardVO paramVO){
+	public String modBoardLikes(BoardVO paramVO){
 		int result = boardService.modBoardLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
@@ -160,6 +168,14 @@ public class BoardController {
 	@ResponseBody
 	public List<BoardVO> findBoardReply(BoardVO paramVO){
 		List<BoardVO> result = boardService.findBoardReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<BoardVO> getFrTypes(BoardVO paramVO){
+		List<BoardVO> result = boardService.getFrtypes(paramVO);
 		
 		return result;
 	}

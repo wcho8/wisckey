@@ -85,29 +85,27 @@ function searchById(id){
 function searchId(){
 	var url = "/Member/searchById";
 	var objDialog = $("#searchDialog");
-	$("#search").click(function(){
-		$.post(url, {userid:$("#srchId").val()}, function(data){
-			if(data != null && data != '' ){
-				var korname = data.korname;
-				if(confirm(korname + "이(가) 맞습니까?")){
-					switch($("#prOrVpr").text()){
-					case "1":
-						$("#prname").text(korname);
-						$("#prno").text(data.userno);
-						break;
-					case "2":
-						$("#vprname1").text(korname);
-						$("#vprno1").text(data.userno);
-						break;
-					case "3":
-						$("#vprname2").text(korname);
-						$("#vprno2").text(data.userno);
-						break;
-					}
-					objDialog.dialog('close');
-				};
-			}
-		});
+	$.post(url, {userid:$("#srchId").val()}, function(data){
+		if(data != null && data != '' ){
+			var korname = data.korname;
+			if(confirm(korname + "이(가) 맞습니까?")){
+				switch($("#prOrVpr").text()){
+				case "1":
+					$("#prname").text(korname);
+					$("#prno").text(data.userno);
+					break;
+				case "2":
+					$("#vprname1").text(korname);
+					$("#vprno1").text(data.userno);
+					break;
+				case "3":
+					$("#vprname2").text(korname);
+					$("#vprno2").text(data.userno);
+					break;
+				}
+				objDialog.dialog('close');
+			};
+		}
 	});
 }
 
@@ -119,10 +117,11 @@ function editOrgData(){
 		vprno1:$("#vprno1").text(),
 		vprno2:$("#vprno2").text(),
 		details:$("#content").summernote('code'),
-		comment:$("#comment").text(),
+		comment:$("#comment").val(),
 		orgname:$("#orgname").val(),
 		orgid:"${paramVO.orgid}"
 	});
+	
 	
 	if(params.orgname == null || params.orgname == ""){
 		alert("이름을 입력하여 주십시오.");
@@ -150,7 +149,7 @@ function editOrgData(){
 	}).success(function(){
 		$.post("/Org/addMyOrgDetail", params, function(data){
 			alert("수정하였습니다.");
-			$(location).reload();
+			$(location).attr("href", "/Admin/MyOrg");
 		}).error(function(){
 			alert("수정에 실패하였습니다. 다시 시도해 주십시오.");
 		});
@@ -199,7 +198,7 @@ font-size:12px;
 							<td></td>
 						</tr>
 						<tr>
-							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="/images/orgs/kusa.jpg" style="width:100%"></td>
+							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="" alt="없음" style="width:100%"></td>
 							<th>이름</th>
 							<td colspan="4"><input type="text" style="width:100%" id="orgname" value="${info.orgname}"></td>
 						</tr>
@@ -218,7 +217,9 @@ font-size:12px;
 							<td><span id="vprname2">${info.vprname2}</span>&nbsp;<button style="float:right;" onClick="javascript:searchById(3)">찾기</button></td>
 						</tr>
 						<tr>
-							<td colspan="5"><input type="file"></td>
+							<td colspan="5">
+								<input type="file">
+							</td>
 						</tr>
 						<tr>
 							<td colspan="6">

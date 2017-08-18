@@ -67,7 +67,20 @@ public class BoardService extends CommonService{
 	}
 	
 	public int modBoardLikes(BoardVO paramVO){
-		int result = boardDAO.modBoardLikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		BoardVO test = boardDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setLikes(1);
+			result = boardDAO.addBoardLikes(paramVO);
+		}
+		else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getLikes() == 0){
+				result = boardDAO.modBoardLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}

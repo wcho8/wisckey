@@ -81,6 +81,21 @@ $(document).ready(function(){
 		})
 	});
 	
+	$.post("./findOrgBoardList", {}, function(data){
+		$.each(data, function(index,item){
+			var title = item.title;
+			
+			if(byteCheck(title)> 74){
+				title = cutInUTF8(title, 74);
+				title += " ...";
+			}
+						
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Org/BoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.orgname + "]</b> " + title 
+					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			$("#orgs_list").append(li);
+		})
+	});
+	
 	var userid=$("#userid").val();
 	$("#memberView").click(function(){
 		var url = "/Member/memberView";
@@ -173,8 +188,8 @@ td{
 					</div>
 				</div>
 			</div>
-			<div class="body_mid" style="width:100%; height:850px; margin-top:10px;">
-				<div class="mid_left" style="float:left; width:27.7%; height:800px;">
+			<div class="body_mid" style="width:100%; height:750px; margin-top:10px;">
+				<div class="mid_left" style="float:left; width:27.7%; height:100%;">
 					<div id="top_freeboard" class="body_div">
 						<div class="body_inside">
 							<a href="/Board/">Best 자유 게시판</a>
@@ -194,7 +209,7 @@ td{
 						</div>
 					</div>
 				</div>
-				<div class="mid_right" style="float:left;width:72.3%; height:800px;">
+				<div class="mid_right" style="float:left;width:72.3%; height:100%;">
 					<div class="right_left" style="float:left; width:61.68%; height:100%;">
 						<div id="top_etc" class="body_div">
 							<div class="body_inside">
@@ -246,22 +261,7 @@ td{
 								<a href="#">학생회 & 동아리 소식</a>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="" style="padding-left:0px;">
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=33">여기는 소식(23)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=34">여기는 소식((10)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 소식((2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">여기는 소식((2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
+								<ul id="orgs_list" style="padding-left:0px;">
 								</ul>
 							</div>
 						</div>

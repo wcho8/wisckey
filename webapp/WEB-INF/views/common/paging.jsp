@@ -6,9 +6,18 @@
 <script type="text/javascript">
 function page_change(pagenum) {
 	var url = curPage;
-	var params = $.extend({}, defaultParams, {
+	var ptypeid = "${paramVO.ptypeid}";
+	var orgtypeid = "${paramVO.orgtypeid}";
+	var params = {
 		mypage:pagenum
-	});
+	};
+	if(ptypeid != null && ptypeid != ''){
+		params.ptypeid = ptypeid;
+	}
+	if(orgtypeid != null && orgtypeid != ''){
+		params.orgtypeid = orgtypeid;
+	}
+	
 	url += $.param(params);
 	
 	$(location).attr("href", url);

@@ -54,5 +54,18 @@
 		ORDER BY brdid DESC
 		LIMIT 6
 	</select>
-	
+	<select id="findOrgBoardList" parameterType="MainVO" resultType="OrgVO">
+		SELECT
+			a.brdid,
+			a.title,
+			CASE WHEN a.regdate > CURDATE()
+				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
+				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
+			END as regdate,
+			b.name as orgname
+		FROM brd_orgnization a
+		LEFT JOIN info_organization b on a.orgid = b.orgid
+		ORDER BY brdid DESC
+		LIMIT 5
+	</select>
 </mapper>

@@ -74,4 +74,15 @@ public class BoardDAO extends CommonDAO{
 	public int delBoardReplyData(BoardVO paramVO){
 		return getSqlSession().delete("Board.delBoardReplyData", paramVO);
 	}
+	
+	public BoardVO checkLikes(BoardVO paramVO){
+		return getSqlSession().selectOne("Board.checkLikes", paramVO);
+	}
+	public int checkDisLikes(BoardVO paramVO){
+		return getSqlSession().selectOne("Board.checkDisLikes", paramVO);
+	}
+	
+	public int addBoardLikes(BoardVO paramVO){
+		return getSqlSession().insert("Board.addBoardLikes", paramVO);
+	}
 }

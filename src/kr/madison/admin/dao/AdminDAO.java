@@ -44,4 +44,12 @@ public class AdminDAO extends CommonDAO{
 	public List<AdminVO> findBoardTypes(AdminVO paramVO){
 		return getSqlSession().selectList("Admin.findBoardTypes", paramVO);
 	}
+	
+	public int addMenu(AdminVO paramVO){
+		return getSqlSession().insert("Admin.addMenu", paramVO);
+	}
+	
+	public int editMenu(AdminVO paramVO){
+		return getSqlSession().update("Admin.editMenu", paramVO);
+	}
 }

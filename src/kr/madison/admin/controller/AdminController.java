@@ -116,4 +116,10 @@ public class AdminController extends CommonController{
 	public void delOrg(OrgVO paramVO){
 		adminService.delOrg(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int editMenu(AdminVO paramVO){
+		return adminService.editMenu(paramVO);
+	}
 }

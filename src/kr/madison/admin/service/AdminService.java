@@ -94,4 +94,18 @@ public class AdminService extends CommonService{
 			e.printStackTrace();
 		}
 	}
+	
+	public int editMenu(AdminVO paramVO){
+		int result = 0;
+		
+		paramVO = checkTables(paramVO);
+		
+		if(paramVO.getId() != null && paramVO.getId() != 0){
+			result = adminDAO.editMenu(paramVO);
+		}else{
+			result = adminDAO.addMenu(paramVO);
+		}
+		
+		return result;
+	}
 }

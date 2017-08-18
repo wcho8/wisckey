@@ -30,4 +30,26 @@
 		FROM ${cod_table}
 		WHERE ptypeid = #{ptypeid}
 	</select>
+	<insert id="addMenu" parameterType="AdminVO">
+		INSERT INTO ${cod_table}(
+			name,
+			comment,
+			regdate,
+			useyn,
+			ptypeid
+		) VALUES(
+			#{name},
+			#{comment},
+			NOW(),
+			#{useyn},
+			#{ptypeid}
+		)
+	</insert>
+	<update id="editMenu" parameterType="AdminVO">
+		UPDATE ${cod_table} SET
+			name = #{name},
+			comment = #{comment},
+			useyn = #{useyn}
+		WHERE ${idname} = #{id}
+	</update>
 </mapper>

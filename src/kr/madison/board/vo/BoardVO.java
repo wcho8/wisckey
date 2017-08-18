@@ -31,6 +31,9 @@ public class BoardVO extends CommonVO{
 	public String type;
 	public String CKEditorFuncNum; 
 	
+	//likes
+	public Integer lid = 0;
+	
 	public int getBrdid() {
 		return brdid;
 	}
@@ -150,6 +153,12 @@ public class BoardVO extends CommonVO{
 	}
 	public void setCKEditorFuncNum(String cKEditorFuncNum) {
 		CKEditorFuncNum = cKEditorFuncNum;
+	}
+	public Integer getLid() {
+		return lid;
+	}
+	public void setLid(Integer lid) {
+		this.lid = lid;
 	}
 	
 }

@@ -6,7 +6,6 @@
 var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams = {
-			brdid: "${paramVO.brdid}",
 			mypage:"${paramVO.mypage}",
 			ptypeid:"${paramVO.ptypeid}"
 	};
@@ -23,14 +22,21 @@ $(document).ready(function(){
 		}
 	});
 	
-	var brdid = defaultParams.brdid;
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	if(brdid != 0 && brdid != '' && brdid != null){
 		var url = "/Board/findBoardContent";
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
-			$("#title").val(data.title);
-			$("#content").summernote('code', data.content);
+		var params = $.extend({}, defaultParams, {brdid:brdid});
+		$.post(url, params, function(data){
+			if("${session.userno}" != data.userno || "${session.userno}" == null){
+				alert("수정할 수 있는 권한이 없습니다.");
+				$(location).attr("href", "/Board/?"+$.param(defaultParams));
+				return;
+			}else{
+				$("#title").val(data.title);
+				$("#content").summernote('code', data.content);
+			}
 		});
 	}
 	
@@ -44,7 +50,7 @@ $(document).ready(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');
 		var frid = $("#frid").val();
-		var params = $.extend({}, $("#brdContent").serialization(), {frid:frid,content:content,userno:"${session.userno}"});
+		var params = $.extend({}, $("#brdContent").serialization(), {brdid:brdid, frid:frid,content:content,userno:"${session.userno}"});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
@@ -67,6 +73,8 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	
 });
 function sendFile(file, el){
 	var data = new FormData();
@@ -105,7 +113,7 @@ border:1px dashed red;
 	<div class="row">
 		<div class="main_body">
 			<jsp:include page="./leftmenu.jsp"></jsp:include>
-			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
+			<div id="right_menu" style="float:left; width:700px; margin-left:30px;">
 				<div>
 					<table style="width:100%;" id="brdContent">
 						<colgroup>
@@ -130,6 +138,12 @@ border:1px dashed red;
 								<th>내용</th>
 								<td style="min-height:400px;">
 									<div id="content"></div>
+								</td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td>
+									<input id="fileupload" type="file" multiple>
 								</td>
 							</tr>
 						</tbody>

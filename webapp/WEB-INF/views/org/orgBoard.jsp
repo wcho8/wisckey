@@ -4,8 +4,10 @@
 <script type="text/javascript">
 var curPage = "/Org/orgBoard?";
 $(document).ready(function(){
-	defaultParams.mypage="${paramVO.mypage}"
-	defaultParams.orgtypeid="${paramVO.orgtypeid}";
+	var defaultParams={
+		mypage:"${paramVO.mypage}",
+		orgtypeid:"${paramVO.orgtypeid}"
+	}
 	
 	var srchType = "${paramVO.srchType}";
 	if(srchType != null && srchType != ''){
@@ -20,7 +22,8 @@ $(document).ready(function(){
 	$("#addOrgBoard").click(function(){
 		var url = "/Org/BoardEdit?";
 		var params = $.param(defaultParams);
-		if(defaultParams.userno == "" || defaultParams.userno == null){
+		var userno = "${session.userno}";
+		if(userno == "" || userno == null){
 			alert("로그인 하셔야 이용하실 수 있습니다.");
 			return;
 		}else{
@@ -44,21 +47,21 @@ $(document).ready(function(){
 			search();
 		}
 	});
+	function search(){
+		var keyword = $("#keyword").val();
+		var searchType = $("#searchType").val();
+		var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
+		var url="/Org/orgBoard?" + $.param(params);
+		$(location).attr("href", url)
+	}
+	
 });
-
-function search(){
-	var keyword = $("#keyword").val();
-	var searchType = $("#searchType").val();
-	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
-	var url="/Org/orgBoard?" + $.param(params);
-	$(location).attr("href", url)
-}
-
 function viewBoard(brdid){
-	var params = $.extend({}, defaultParams, {brdid:brdid});
+	var params = $.extend({}, {brdid:brdid, mypage:"${paramVO.mypage}", orgtypeid:"${paramVO.orgtypeid}"});
 	var url = "/Org/BoardView?" + $.param(params);
 	$(location).attr("href", url);
 }
+
 
 </script>
 <style>

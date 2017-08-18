@@ -1,5 +1,14 @@
 package kr.madison.member.controller;
  
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.madison.common.controller.CommonController;
@@ -118,5 +127,66 @@ public class MemberController extends CommonController{
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void sendMail(MemberVO paramVO) throws AddressException, MessagingException{
+		String from = "no-reply@uwisckey.com";
+		String to = "wjcho@infrasoft.co.kr";
+		
+		String body= "This is the test mail from wisckey.";
+		String subject="Test Email";
+		
+		String SMTP_USERNAME="AKIAJMY2ALJAMTFR5MTA";
+		String SMTP_PASSWORD="AibEIGym7dmJU+KB7Ak2iQJEd7Nfu3NFBFn1AXceEY8q";
+		
+		String host = "email-smtp.us-west-2.amazonaws.com";
+		int port = 25;
+		
+		Properties props = System.getProperties();
+		props.put("mail.transport.protocol", "smtps");
+		props.put("mail.smtp.port", port);
+		// Set properties indicating that we want to use STARTTLS to encrypt the connection.
+    	// The SMTP session will begin on an unencrypted connection, and then the client
+        // will issue a STARTTLS command to upgrade to an encrypted connection.
+    	props.put("mail.smtp.auth", "true");
+    	props.put("mail.smtp.starttls.enable", "true");
+    	props.put("mail.smtp.starttls.required", "true");
+
+        // Create a Session object to represent a mail session with the specified properties. 
+    	Session session = Session.getDefaultInstance(props);
+
+        // Create a message with the specified information. 
+        MimeMessage msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(from));
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        msg.setSubject(subject);
+        msg.setContent(body,"text/plain");
+            
+        // Create a transport.        
+        Transport transport = session.getTransport();
+                    
+        // Send the message.
+        try
+        {
+            System.out.println("Attempting to send an email through the Amazon SES SMTP interface...");
+            
+            // Connect to Amazon SES using the SMTP username and password you specified above.
+            transport.connect(host, SMTP_USERNAME, SMTP_PASSWORD);
+        	
+            // Send the email.
+            transport.sendMessage(msg, msg.getAllRecipients());
+            System.out.println("Email sent!");
+        }
+        catch (Exception ex) {
+            System.out.println("The email was not sent.");
+            System.out.println("Error message: " + ex.getMessage());
+        }
+        finally
+        {
+            // Close and terminate the connection.
+            transport.close();        	
+        }
 	}
 }
