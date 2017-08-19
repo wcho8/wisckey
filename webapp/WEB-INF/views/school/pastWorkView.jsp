@@ -58,7 +58,30 @@ $(document).ready(function(){
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	})
-});
+	var title = new String($("#title").text());
+	var length = ~-encodeURI(title).split(/%..|./).length;
+	//76바이트가 넘으면 alt
+	if(length>76){
+		$('span#title').attr('title',title);
+		var title = cutInUTF8(title, 76);
+		title += "...";
+		$("#title").text(title);
+	}
+	console.log("title length: "+ length);
+})
+
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
 </script>
 
 <style type="text/css">
@@ -123,7 +146,7 @@ $(document).ready(function(){
 			<div class="center_menu" style="float: left; margin-left: 35px; width: 700px;">
 				<div id="pastWork_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="pastWork_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<b>${vo.title }</b><span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<span id="title" style="font-weight:bold;">${vo.title }</span><span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="pastWork_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">

@@ -127,14 +127,13 @@
 	</select>
 	<delete id="deleteEmployerReply" parameterType="CareerVO">
 		DELETE FROM
-		brd_employment_reply
+			brd_employment_reply
 		WHERE brdid=#{brdid}
 	</delete>
 	<delete id="deleteEmployer" parameterType="CareerVO">
 		DELETE FROM
-		brd_employment
+			brd_employment
 		WHERE brdid=#{brdid}
-
 	</delete>
 	<update id="modEmployerData" parameterType="CareerVO">
 		UPDATE brd_employment

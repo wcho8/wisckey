@@ -54,9 +54,10 @@ $(document).ready(function(){
 	
 	
 	//이 부분 고쳐야함
-	var length = ~-encodeURI($("#list_title").text()).split(/%..|./).length;
+	var length = ~-encodeURI($(".list_title").text()).split(/%..|./).length;
+	console.log("length: "+length);
 	if(length>74){
-		var title = $("#list_title").text();
+		var title = $(".list_title").text();
 		var title2 = cutInUTF8(title, 74);
 		title2 += "...";
 		$("#list_title").text(title2);
@@ -175,7 +176,7 @@ input::placeholder{
 						<col style="width:5%; ">
 					</colgroup>
 					<thead>
-						<tr id="top_row" style="width: 870px; height:30px; background-color:#d3d3d3; text-align:center; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
+						<tr id="top_row" style="width: 700px;height:30px; background-color:#d3d3d3; text-align:center; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
 							<td>번호</td>
 							<td><span>제</span><span style="padding-left: 40px;">목</span></td>
 							<td>닉네임</td>
@@ -204,8 +205,12 @@ input::placeholder{
 									<span id="d-day" style="display:inline-block; text-align:center; background-color:lightgrey; color:black; font-weight:bold;">-</span>
 								</c:if>
 								
-								<span id="list_title" style="font-weight: 100%; padding-left: 5px;display:inline-block;">${list.title} </span><span style="margin-left:4px; color:#910019;">(${list.repcount })</span>
+								<span class="list_title" style="font-weight: 100%; padding-left: 5px;display:inline-block;">${list.title} </span>
+								<span style="margin-left:4px; color:#910019;">(${list.repcount })</span>
+									
+									
 							</td>
+							
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
 							<td id="deadline" style="text-align: center;">&nbsp;${list.deadline }</td>
 							<td style="text-align: center;">&nbsp;${list.regdate}</td>

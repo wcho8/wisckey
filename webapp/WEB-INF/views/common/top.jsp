@@ -16,6 +16,13 @@ $(document).ready(function(){
 	if(defaultParams.authid == 1){
 		$("#admin_menu").show();
 	}
+	var userno = defaultParams.userno;
+	if(userno!=null&&userno!=""){
+		$("#logoutDiv").show();
+		$("#userName").text(defaultParams.nickname);
+	}else{
+		$("#logoutDiv").hide();
+	}
 });
 function login(){
 	var url = "/LogInOut/Login";
@@ -26,7 +33,7 @@ function login(){
 			$.cookie("saveid", params.userid, {
 				expires:7
 			});
-			location.reload();
+			$(location).attr("href","/");
 		} else if(data == "NotFound"){
 			alert("존재하지 않는 회원입니다.");
 			$.cookie("saveid", '', {expires:-1});
@@ -48,6 +55,10 @@ function login(){
 </script>
 
 <div class="row top_nav">
+		<div class="nav logInOut" id="logoutDiv" style="float:right; vertical-align: middle;padding-top:12px; display:hidden; padding-right: 110px;" >
+			<span id="userName" style="font-weight: bold; font-size:105%;"></span>님
+			<a href="/Member/memberView" style="margin-left: 20px; margin-right:10px; font-size:85%;">내 정보</a>|<a href="/LogInOut/Logout" style="margin-left:10px;font-size:85%;">LOGOUT</a>
+		</div>
 		<div style="width:100%; height:140px;">
 			<div class="logo" id="top_logo" style="width:35%; height:100%; margin-left:auto; margin-right:auto">
 				<a id="logoSrc" href="/"><img style="height:100%; width: 100%;"src="/images/common/LOGO.png" alt="logo" /></a>
@@ -126,6 +137,8 @@ function login(){
 								<li><a href="/Admin/ManageOrg">동아리 관리</a></li>
 							</ul></li>
 					</ul>
+					
+					
 				</div>
 			</div>
 		</nav>

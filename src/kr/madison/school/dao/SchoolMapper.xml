@@ -224,7 +224,9 @@
 			a.repid,
 			b.nickname as replier,
 			a.content as repContent,
-			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			a.likes as repLikes,
+			a.dislikes as repDislikes
 		FROM brd_schoolwork_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
@@ -255,5 +257,15 @@
 		UPDATE brd_schoolwork SET
 			dislikes = dislikes+1
 		WHERE brdid=#{brdid}
+	</update>
+	<update id="modRepLikes" parameterType="BoardVO">
+		UPDATE brd_schoolwork_reply SET
+			likes = likes + 1
+		WHERE repid = #{repid}
+	</update>
+	<update id="modRepDisLikes" parameterType="BoardVO">
+		UPDATE brd_schoolwork_reply SET
+			dislikes = dislikes+1
+		WHERE repid = #{repid}
 	</update>
 </mapper>

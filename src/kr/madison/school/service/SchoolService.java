@@ -162,6 +162,14 @@ public class SchoolService extends CommonService{
 		int result = schoolDAO.modEducationDislikes(paramVO);
 		return result;
 	}
+	public int modRepLikes(SchoolVO paramVO) {
+		int result = schoolDAO.modRepLikes(paramVO);
+		return result;
+	}
+	public int modRepDislikes(SchoolVO paramVO) {
+		int result = schoolDAO.modRepDislikes(paramVO);
+		return result;
+	}
 	
 
 }

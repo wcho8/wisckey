@@ -22,10 +22,23 @@ public class SchoolVO extends CommonVO{
 	public String repContent;
 	public String repRegdate;
 	public String replier;
+	public int repLikes;
+	public int repDislikes;
 	
 	
 	
-	
+	public int getRepLikes() {
+		return repLikes;
+	}
+	public void setRepLikes(int repLikes) {
+		this.repLikes = repLikes;
+	}
+	public int getRepDislikes() {
+		return repDislikes;
+	}
+	public void setRepDislikes(int repDislikes) {
+		this.repDislikes = repDislikes;
+	}
 	public int getDislikes() {
 		return dislikes;
 	}

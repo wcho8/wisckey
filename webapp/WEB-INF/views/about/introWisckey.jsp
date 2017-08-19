@@ -152,10 +152,10 @@ div.tabcontent{
 						<h3>여기는 위스키 소개</h3>
 					</div>
 					<div id = "introManager" class="tabcontent" style="display:none;" >
-						<h3>여기는 운영진 소개</h3>
+						<img src="/images/intro_manager.png" style="border: none; width:100%; height: 100%;"> 					
 					</div>
 					<div id = "serviceTerms" class="tabcontent" style="display:none;">
-							<iframe class="doc" src="/images/service_terms.jpg" 
+						<iframe class="doc" src="/images/service_terms.jpg" 
 							style=" border: none; width:100%; height: 500px;"> 
 						</iframe>
 					</div>

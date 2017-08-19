@@ -75,7 +75,49 @@ $(document).ready(function(){
 			}
 		});
 	});
-});
+	
+	var title = new String($("#title").text());
+	var length = ~-encodeURI(title).split(/%..|./).length;
+	//76바이트가 넘으면 alt
+	if(length>76){
+		$('span#title').attr('title',title);
+		var title = cutInUTF8(title, 76);
+		title += "...";
+		$("#title").text(title);
+	}
+	console.log("title length: "+ length);
+})
+
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
+//댓글 추천/비추
+function likes(like, repid){
+	var url = "";
+	var msg = "";
+	if(like == 'Y'){
+		url = "/School/modRepLikes";
+		msg = "추천하였습니다.";
+	}else if(like == 'N'){
+		url = "/School/modRepDislikes";
+		msg = "비추하였습니다.";
+	}
+	var params = $.extend({}, defaultParams, {repid:repid});
+	
+	$.post(url, params, function(data){
+		alert(msg);
+		location.reload(true);
+	});
+}
 </script>
 
 <style type="text/css">
@@ -140,7 +182,7 @@ $(document).ready(function(){
 				
 				<div id="education_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="education_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<b>${vo.title }</b><span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<span id="title" style="font-weight:bold;">${vo.title }</span><span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="education_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
@@ -170,8 +212,8 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 					
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="educationDelete" style="float: right; margin-top:5px;">삭제</button>
-						<button class="btn confirm" id="educationList" style="float: right; margin-top: 5px;">목록	</button>
+						<button class="btn delete" id="educationDelete" style="float: right; margin-top:5px; display:none;">삭제</button>
+						<button class="btn confirm" id="educationList" style="float: right; margin-top: 5px;">목록</button>
 						<button class="btn update" id="educationUpdate" style="float:right; margin-top:5px; display:none;">수정</button>	
 					</div>
 					
@@ -187,6 +229,10 @@ $(document).ready(function(){
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
+							<span style="float:right;font-size:12px;">
+								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
+								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
+							</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
 						</div>

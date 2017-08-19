@@ -13,6 +13,7 @@ import kr.madison.main.service.MainService;
 import kr.madison.main.vo.MainVO;
 import kr.madison.member.vo.MemberVO;
 import kr.madison.school.vo.SchoolVO;
+import kr.madison.util.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/*")
 public class MainController extends CommonController{
+	
+	final private int pageRow = 15;
 	
 	@Autowired
 	MainService mainService;
@@ -44,6 +47,98 @@ public class MainController extends CommonController{
 		mav.setViewName("/common/needLogin");
 		
 		return mav;
+	}
+	
+
+	//FAQ
+	@RequestMapping("/FAQ")
+	public ModelAndView FAQ(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main/FAQ");
+		
+		return mav;
+	}
+	
+	//Q&A
+	@RequestMapping("/Q&A")
+	public ModelAndView QnA(@ModelAttribute("paramVO") MainVO paramVO, HttpServletRequest res ){
+		ModelAndView mav = new ModelAndView();
+		
+		int totalcount = mainService.findQnABoardTotalCnt(paramVO);
+		
+		Util.setPaging(paramVO, totalcount, pageRow);
+		List<MainVO> vo = mainService.findQnABoardList(paramVO);
+		
+		mav.addObject("QnAList", vo);
+		mav.addObject("totalcount", totalcount);
+		
+		mav.setViewName("/main/Q&A");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/Q&AWrite")
+	public ModelAndView QnAWrite(@ModelAttribute("paramVO") MainVO paramVO, HttpServletRequest res ){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main/Q&AWrite"); 
+		
+		return mav;
+	}
+	
+	@RequestMapping("/Q&AView")
+	public ModelAndView QnAView(@ModelAttribute("paramVO") MainVO paramVO, HttpServletRequest res ){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main/Q&AView");
+		
+		MainVO vo = mainService.findQnABoardContent(paramVO);
+		
+		List<MainVO> replies = mainService.findQnABoardReply(paramVO);
+		
+		if(vo!=null){
+			mainService.modQnABoardCount(paramVO);
+		}
+		
+		mav.addObject("reps", replies);
+		mav.addObject("vo", vo);
+		return mav;
+	}
+	@RequestMapping
+	@ResponseBody
+	public int addQnABoardReply(MainVO paramVO){
+		int result = mainService.addQnABoardReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int addQnABoardData(MainVO paramVO){
+		int result = mainService.addQnABoardData(paramVO);
+		System.out.println("addQnABoardData in Controller");
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int deleteQnABoard(MainVO paramVO){
+		int result = mainService.deleteQnABoard(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modQnABoardData(MainVO paramVO){
+		int result = mainService.modQnABoardContent(paramVO);
+		
+		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public MainVO findQnABoardContent(MainVO paramVO){
+		MainVO result = mainService.findQnABoardContent(paramVO);
+		
+		return result;
 	}
 	
 	@RequestMapping("/findTopBoardList")
@@ -81,4 +176,5 @@ public class MainController extends CommonController{
 		result = mainService.findEducationList(paramVO);
 		return result;
 	}
+	
 }

@@ -80,13 +80,16 @@ $(document).ready(function(){
 	
 	$(function(){
 		$("#pwDialog").dialog({
+			maxWidth:550,
+			maxHeight:200,
+			width:550,
+			height:200,
 			autoOpen: false,
-			width: 600,
 			buttons:
 				[
 				 	{
 				 		text:"확인",
-				 		width: 50,
+				 		width: 60,
 				 		height: 30,
 				 		click: function(e){
 				 			
@@ -95,6 +98,8 @@ $(document).ready(function(){
 				 	},
 				 	{
 				 		text:"취소",
+				 		width: 60,
+				 		height: 30,
 				 		click:function(e){
 				 			$("#pwDialog").dialog('close');
 				 		}
@@ -102,6 +107,7 @@ $(document).ready(function(){
 				 ]
 		});
 		$(".ui-dialog-titlebar").hide();
+		$(".ui-button-text").css({"font-size": +10+"px"});
 	});
 	
 	
@@ -115,6 +121,12 @@ $(document).ready(function(){
 		$("#newPasswdCheck").val('');
 		$("#newPasswd").focus();
 		$("#pwDialog").dialog("open");
+	});
+	
+	$("#nickname").keydown(function(key){
+		if(key.keyCode==13||key.which==13){
+			chkExist("nickname");
+		}
 	});
 });
 function submit(){
@@ -163,7 +175,7 @@ function chkExist(type){
 		}else if(userid!= null && userid != ''){
 			if(userid.length > 20 || userid.length < 5){
 				alert("아이디는 5~20자 이내여야 합니다.");
-				$("#userid").focus();
+				$("#userid").focus();	
 				chkId = false;
 			}
 			else{
@@ -276,13 +288,32 @@ function chkValid(){
 
 </script>
 <style type="text/css">
-#pwDialog .ui-button-text{
-	font-size: 10px;
-}
-#info btnChk{
-	line-height: 20px;
+#info .btnChk{
+	line-height: 15px;
 	vertical-align: middle;
 	
+}
+#info>tbody>tr>td>input[type=text]{
+	width:160px;
+}
+.btn_btn-modify{
+	width: 70%;
+	vertical-align:middle;
+	padding: 0px;
+	background: #910019;
+	margin-left:15px;
+	font-weight: bold;
+	color:white;
+	float:left;
+	border:0;
+}
+.btn_btn-cancel{
+	margin-left: 10px;
+	width:20%;
+	color:white;
+	background: #ccc;
+	border:0;
+	font-weight:bold;
 }
 </style>
 <!-- s:container -->
@@ -291,36 +322,31 @@ function chkValid(){
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body">
-			<div id="leftMenu_x" style="float:left; width:170px;">
-				<div id="l_title"></div>
-				<ul>
-					<li></li>
-					<li></li>
-				</ul>
+			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
+				회원정보 변경
 			</div>
-			<div class="memberDetail" style="float:left; width:700px; margin-left: 30px;">
-				<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
-					회원정보
-				</div>
-				<div class="hr_dash"></div>
-				
+			<div class="hr_dash"></div>
+			<div class="center_left" style="float:left;width:55%;">
+				<img src="/images/wicon.jpg">
+			</div>
+			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">
 				<div class="detailInfo">
-					<table id="info" style="width:700px;">
+					<table id="info" style="width:100%; height: 640px;">
 						<colgroup>
-							<col style="width: 100px; text-align:center;">
-							<col style="width: 400px; border: 1px solid #FF0000;">
+							<col style="width:30%; text-align: center;">
+							<col style="width:70%;">
 						</colgroup>
 						<tbody>
 							<tr>
-								<th>이름<span class="important">*</span></th>
+								<th style="padding-left: 5px;">이름<span class="important">*</span></th>
 								<td><input type="text" id="korname"></td>
 							</tr>
 							<tr>
-								<th>아이디<span class="important">*</span></th>
+								<th style="padding-left: 5px;">아이디<span class="important">*</span></th>
 								<td id="userid"></td>
 							</tr>
 							<tr>
-								<th>비밀번호<span class="important">*</span></th>
+								<th style="padding-left: 5px;">비밀번호<span class="important">*</span></th>
 								<td>
 									<input type="password" id="passwd" value="" readonly="readonly">	
 									<button class="btnChk" id="updatePW">
@@ -329,7 +355,7 @@ function chkValid(){
 								</td>
 							</tr>
 							<tr>
-								<th>닉네임<span class="important">*</span></th>
+								<th style="padding-left: 5px;">닉네임<span class="important">*</span></th>
 								<td>
 									<input type="text" id="nickname">
 									<button class="btnChk" id="nicknameCheck" onClick="javascript:chkExist('nickname')">
@@ -338,34 +364,34 @@ function chkValid(){
 								</td>
 							</tr>
 							<tr>
-								<th>이메일 주소<span class="important">*</span></th>
+								<th style="padding-left: 5px;">이메일 주소<span class="important">*</span></th>
 								<td><input type="text" id="email"></td>
 							</tr>
 							<tr>
-								<th>생일</th>
+								<th style="padding-left: 5px;">생일</th>
 								<td><input type="text" id="birthdate"></td>
 							</tr>
 							<tr>
-								<th>휴대폰</th>
+								<th style="padding-left: 5px;">휴대폰</th>
 								<td><input type="text" id="telnum"></td>
 							</tr>
 							<tr>
-								<th>Major</th>
+								<th style="padding-left: 5px;">Major</th>
 								<td><input type="text" id="major"></td>
 							</tr>
 							<tr>
-								<th>Minor</th>
+								<th style="padding-left: 5px;">Minor</th>
 								<td><input type="text" id="minor"></td>
 							</tr>
 						</tbody>
 					</table>
-					<div style="width:600px; margin-top: 30px;">
-						<button class="btn btn-modify" id="cancelUpdate" onClick="javascript:history.back()" style="float:right;">취소</button>
-						<button class="btn btn-pwModify" id="confirmUpdate" style="float:right;">등록</button>
+					<div style="width:100%; margin-top: 0px;">
+						<button class="btn_btn-modify" id="confirmUpdate" style="height:50px;">등록</button>
+						<button class="btn_btn-cancel" id="cancelUpdate" onClick="javascript:history.back()" style="height:50px;">취소</button>
 					</div>
-					
+
 					<!-- 비밀번호 팝업창 -->
-					<div id="pwDialog">
+					<div id="pwDialog" style="padding-left: 60px;">
 						<span>새 비밀번호: </span>
 						<input id="newPasswd" name="newPw" type="password" style="font-size:90%;">
 						<span style="font-size: 70%; color: red; margin-left: 20px;">*비밀번호는 6~20자 이내여야 합니다.</span>
