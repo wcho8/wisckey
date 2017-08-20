@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +9,7 @@ $(document).ready(function(){
 	var defaultParams={
 		brdid: "${paramVO.brdid}",
 		userno: "${session.userno}",
-		mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
 	};
 	
 	//editor
@@ -40,17 +41,22 @@ $(document).ready(function(){
 	$("#addFoodBoard").click(function(){ 
 		var url = "/Tip/addFoodData";
 		var content = $("#content").summernote('code');
+		var tipid = $("#tipid").val();
 		console.log(content)
 		//table name : #
-		var params = $.extend({}, $("#foodBoardContent").serialization(), {tipid:1, content:content});	//°øÅëÄÚµåÅ×ÀÌºí ¾ÆÀÌ
+		
+		// TODO:
+		// two differnet meaning of tipid ???
+		// one tipid is for ë§ë¨¸ë¦¬ (cod_extratips) and the other is for brd_extratip's ì½”ë“œì„±í…Œì´ë¸” êµ¬ë¶„ ì•„ì´
+		var params = $.extend({}, $("#foodBoardContent").serialization(), { tipid:tipid, content:content});	//ê³µí†µì½”ë“œí…Œì´ë¸” ì•„ì´
 		
 		if(params.title == null || params.title == ""){
-			alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#title").focus();
 			return;
 		}
 		if($("#content").summernote('isEmpty')){
-			alert("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#content").summernote('focus');
 			return;
 		}
@@ -134,10 +140,10 @@ function sendFile(file, el){
 		<div class="main_body" style="overflow:hidden">
 				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">±ú¾ËÆÁ</span>
+					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">ê¹¨ì•ŒíŒ</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
-						<li><a id="current" href="/Career/">¸ÀÁı</a></li>
-						<li><a  href="/Career/foodBoard">º­·è½ÃÀå</a></li>
+						<li><a id="current" href="/Career/">ë§›ì§‘</a></li>
+						<li><a  href="/Career/foodBoard">ë²¼ë£©ì‹œì¥</a></li>
 					</ul>
 				</div>
 			</div>
@@ -150,14 +156,31 @@ function sendFile(file, el){
 						<col width="*">
 					</colgroup>
 					<tbody>
+					
+					
+						<!-- ë§ë¨¸ë¦¬ -->
+						<tr>
+								<th>ë§ë¨¸ë¦¬</th>
+								<td>
+									<select id="tipid">
+										<c:forEach items="${tiptypes}" var="tiptype">
+											<option value="${tiptype.tipid}">${tiptype.typename}</option>
+										</c:forEach>
+									</select>
+								</td>
+						</tr>
+						
+						
+						
+					
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;"> Á¦¸ñ</th>
+							<th  style="text-align: center;"> ì œëª©</th>
 							<td><input type="text" id="title" style="width:400px;;"></td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;">³»¿ë</th>
+							<th  style="text-align: center;">ë‚´ìš©</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
-								<textarea id="content" style="width:100%; height:400px; display:none;" valid="³»¿ë"></textarea>
+								<textarea id="content" style="width:100%; height:400px; display:none;" valid="ë‚´ìš©"></textarea>
 							</td>
 							
 						</tr>
@@ -166,7 +189,7 @@ function sendFile(file, el){
 				
 				
 			<div class="buttons">
-				<button class="btn newFoodBoard" id="addFoodBoard" style="float: right;">±Û¾²±â</button>
+				<button class="btn newFoodBoard" id="addFoodBoard" style="float: right;">ê¸€ì“°ê¸°</button>
 			</div>
 			
 			</div>

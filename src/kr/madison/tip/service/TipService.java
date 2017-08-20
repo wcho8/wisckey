@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.madison.board.vo.BoardVO;
+//import kr.madison.board.vo.BoardVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.common.vo.SessionVO;
 import kr.madison.tip.dao.TipDAO;
@@ -188,6 +188,19 @@ public class TipService extends CommonService{
 	public int modMarketData(TipVO paramVO){
 		tipDAO.modMarketData(paramVO);
 		return paramVO.getBrdid();
+	}
+	
+	// 8/17
+	public List<TipVO> getFrtypes(TipVO paramVO){
+		List<TipVO> result = tipDAO.getFrtypes(paramVO);
+		
+		return result;
+	}
+
+	public List<TipVO> getMarketFrtypes(TipVO paramVO) {
+		// TODO Auto-generated method stub
+		List<TipVO> result = tipDAO.getMarketFrtypes(paramVO);
+		return result;
 	}
 	
 	

@@ -35,9 +35,7 @@ public class TipController {
 		List<TipVO> vo = tipService.findFoodList(paramVO);
 		
 		mav.addObject("foodList", vo);
-		mav.addObject("totalCnt", totalcnt);
-		
-		
+		mav.addObject("totalCnt", totalcnt);	
 		mav.setViewName("/tip/food");	// directory to .jsp file
 		return mav;
 		
@@ -47,7 +45,19 @@ public class TipController {
 	public ModelAndView foodBoardWrite(@ModelAttribute("paramVO") TipVO paramVO, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
 		
+		// 8/17
+		paramVO.setTypeid(6);
+		List<TipVO> tiptypes = tipService.getFrtypes(paramVO);
+		try{
+		}catch(Exception e){
+			
+		}
+		
+		
 		mav.setViewName("/tip/foodBoardWrite");	// 글쓰기
+		
+		mav.addObject("tiptypes", tiptypes);
+
 		
 		return mav;
 	}
@@ -55,8 +65,13 @@ public class TipController {
 	@RequestMapping("/foodBoardView")
 	public ModelAndView foodBoardView(@ModelAttribute("paramVO") TipVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
-		
 		TipVO vo = tipService.findFoodContent(paramVO);
+		
+		// 8/17
+		//paramVO.setPtypeid(vo.getPtypeid());
+		//paramVO.setPtypeid(vo.getPtypeid());
+		
+		
 		List<TipVO> replies = tipService.findFoodReply(paramVO);
 		int repcount = tipService.getReplyCount(paramVO);
 		
@@ -65,11 +80,12 @@ public class TipController {
 		}
 		
 		
-		mav.setViewName("/tip/foodBoardView");	// 글쓰기 
 		
 		mav.addObject("vo", vo);
 		mav.addObject("repCnt", repcount);
 		mav.addObject("reps", replies);
+		mav.setViewName("/tip/foodBoardView");	// 글쓰기 
+
 		
 		return mav;
 	}
@@ -175,7 +191,8 @@ public class TipController {
 	@RequestMapping("/marketBoardWrite")
 	public ModelAndView marketBoardWrite(@ModelAttribute("paramVO") TipVO paramVO, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
-		
+		paramVO.setTypeid(7);
+		List<TipVO> markettypes = tipService.getMarketFrtypes(paramVO);
 		mav.setViewName("/tip/marketBoardWrite");	// 글쓰기
 		
 		return mav;
@@ -277,7 +294,7 @@ public class TipController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modMArketRepDislikes(TipVO paramVO){
+	public int modMarketRepDislikes(TipVO paramVO){
 		int result = tipService.modMarketRepDislikes(paramVO);
 		
 		return result;

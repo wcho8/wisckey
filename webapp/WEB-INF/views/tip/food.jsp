@@ -14,8 +14,9 @@ $(document).ready(function(){
 			userno:"${session.userno}",
 			username: "${session.username}",
 			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
+			mypage: "${paramVO.mypage}",
 	};
+	
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
@@ -174,10 +175,10 @@ input::placeholder{
 									<td onClick="javascript:viewFoodBoard(${list.brdid});" style="cursor:pointer; padding-top: 7px;padding-left:30px;">
 										<c:set var="title" value="${list.title }"/> 
 										<c:if test="${fn:length(title) > 38 }">
-											<p id="list_title" style="font-weight: 100%;">${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+											<p id="list_title" style="font-weight: 100%;">[${   list.typename }]&nbsp;${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
 										</c:if>
 								 		<c:if test="${fn:length(title) <=38 }">
-								 			<p id="list_title" style="font-weight: 100%;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
+								 			<p id="list_title" style="font-weight: 100%;">[${list.typename }]&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
 								 		</c:if>
 									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
