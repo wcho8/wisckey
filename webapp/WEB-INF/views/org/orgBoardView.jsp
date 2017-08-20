@@ -10,9 +10,14 @@ $(document).ready(function(){
 	};
 	
 	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
 	
-	if(defaultParams.userno == writerno){
+	$("#update").hide();
+	$("#boardDelete").hide();
+	
+	if(userno == writerno){
 		$("#update").show();
+		$("#boardDelete").show();
 	}
 	
 	$("#update").click(function(){
@@ -27,22 +32,24 @@ $(document).ready(function(){
 	});
 	
 	$("#likes").click(function(){
-		$.post("/Org/modBoardLikes", defaultParams, function(data){
-			if(data > 0){
-				alert("추천하였습니다.");
+		var params = $.extend({}, defaultParams, {userno:"${session.userno}", brdid:"${paramVO.brdid}"});
+		$.post("/Org/modBoardLikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+			alert(msg);
+			if(data == "Success"){
 				location.reload(true);
+			}else{
+				return;
 			}
 		});
 	});
-	
-	$("#dislike").click(function(){
-		$.post("/Org/modBoardDislikes", defaultParams, function(data){
-			if(data > 0){
-				alert("비추하였습니다.");
-				location.reload(true);
-			}
-		});
-	})
 	
 	$("#addReply").click(function(){
 		var url = "/Org/addBoardReply";
@@ -75,11 +82,33 @@ function likes(like, repid){
 		url = "/Org/modRepDislikes";
 		msg = "비추하였습니다.";
 	}
-	var params = $.extend({}, defaultParams, {repid:repid});
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
 	
 	$.post(url, params, function(data){
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
 		alert(msg);
-		location.reload(true);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
 	});
 }
 
@@ -90,6 +119,17 @@ border-bottom:1px solid black;
 }
 .right_menu>div{
 border:1px dashed red; 
+}
+.buttons .btn{
+padding:3px 9px;
+font-size:13px;
+}
+#boardDelete, #update,#boardList{
+	margin-left:5px; 
+	line-height: 20px; 
+	width:40px; 
+	vertical-align:middle; 
+	padding:0px;
 }
 </style>
 <!-- s:container -->
@@ -110,7 +150,7 @@ border:1px dashed red;
 							작성자: <b>${vo.korname}</b>
 						</span>
 						<span style="float:right;">
-							조회수: ${vo.count} 추천: ${vo.likes} 댓글: ${repCnt} <!-- 비추 + 댓글 필요 --> 
+							조회수: ${vo.count} 추천: ${vo.likes} 댓글: ${repCnt} 
 						</span>
 					</div>
 					<div style="clear:both;"></div>
@@ -123,7 +163,7 @@ border:1px dashed red;
 					</div>
 					<div class="hr_dash" style="background:grey;"></div>
 					<div style="clear:both;"></div>
-					<div style="float: left; width:100%;">
+					<div style="float: left; width:100%;" class="buttons">
 						<button class="btn delete" id="boardDelete" style="float: right; margin-top:5px;">삭제</button>
 						<button class="btn confirm" id="boardList" style="float: right; margin-top: 5px;">목록	</button>
 						<button class="btn update" id="update" style="float:right; margin-top:5px; display:none;">수정</button>	

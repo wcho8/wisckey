@@ -39,6 +39,9 @@ public class OrgVO extends CommonVO{
 	private String responseType;
 	private Integer repcount;
 	
+	private Integer lid = 0;
+	private Integer replid = 0;
+	
 	public Integer getOrgid() {
 		return orgid;
 	}
@@ -218,6 +221,18 @@ public class OrgVO extends CommonVO{
 	}
 	public void setRepcount(Integer repcount) {
 		this.repcount = repcount;
+	}
+	public Integer getLid() {
+		return lid;
+	}
+	public void setLid(Integer lid) {
+		this.lid = lid;
+	}
+	public Integer getReplid() {
+		return replid;
+	}
+	public void setReplid(Integer replid) {
+		this.replid = replid;
 	}
 	
 }

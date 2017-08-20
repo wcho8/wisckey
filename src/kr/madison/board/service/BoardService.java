@@ -86,20 +86,56 @@ public class BoardService extends CommonService{
 	}
 	
 	public int modBoardDislikes(BoardVO paramVO){
-		int result = boardDAO.modBoardDislikes(paramVO);
-		
+		paramVO.setUserno(session.getUserno());
+		BoardVO test = boardDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setDislikes(1);
+			result = boardDAO.addBoardLikes(paramVO);
+		}
+		else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getDislikes() == 0){
+				result = boardDAO.modBoardDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	
 	public int modRepLikes(BoardVO paramVO){
-		int result = boardDAO.modRepLikes(paramVO);
-		
+		paramVO.setUserno(session.getUserno());
+		BoardVO test = boardDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = boardDAO.addBoardRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = boardDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	
 	public int modRepDislikes(BoardVO paramVO){
-		int result = boardDAO.modRepDislikes(paramVO);
-		
+		paramVO.setUserno(session.getUserno());
+		BoardVO test = boardDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepDislikes(1);
+			result = boardDAO.addBoardRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepDislikes() == 0){
+				result = boardDAO.modRepDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	

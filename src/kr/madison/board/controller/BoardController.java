@@ -142,26 +142,45 @@ public class BoardController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modBoardDislikes(BoardVO paramVO){
+	public String modBoardDislikes(BoardVO paramVO){
 		int result = boardService.modBoardDislikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepLikes(BoardVO paramVO){
+	public String modRepLikes(BoardVO paramVO){
 		int result = boardService.modRepLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepDislikes(BoardVO paramVO){
+	public String modRepDislikes(BoardVO paramVO){
 		int result = boardService.modRepDislikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping

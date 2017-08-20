@@ -152,19 +152,44 @@
 			AND userno = #{userno}
 	</update>
 	<update id="modBoardDislikes" parameterType="BoardVO">
-		UPDATE brd_freeboard SET
+		UPDATE brd_freeboard_likes SET
 			dislikes = dislikes + 1
 		WHERE brdid = #{brdid}
+			AND userno = #{userno}
 	</update>
+	<select id="checkRepLikes" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			id as replid,
+			likes as repLikes,
+			dislikes as repDislikes
+		FROM brd_freeboard_reply_likes
+		WHERE userno = #{userno}
+			AND repid = #{repid}
+	</select>
+	<insert id="addBoardRepLikes" parameterType="BoardVO">
+		INSERT INTO brd_freeboard_reply_likes(
+			repid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{repid},
+			#{userno},
+			#{repLikes},
+			#{repDislikes}
+		)
+	</insert>
 	<update id="modRepLikes" parameterType="BoardVO">
-		UPDATE brd_freeboard_reply SET
+		UPDATE brd_freeboard_reply_likes SET
 			likes = likes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
-	<update id="modRepDisLikes" parameterType="BoardVO">
-		UPDATE brd_freeboard_reply SET
+	<update id="modRepDislikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply_likes SET
 			dislikes = dislikes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
 	<select id="getReplyCount" parameterType="BoardVO" resultType="int">
 		SELECT
@@ -178,8 +203,8 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			a.likes as repLikes,
-			a.dislikes as repDislikes
+			(SELECT c.likes FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT c.dislikes FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}

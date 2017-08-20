@@ -140,18 +140,12 @@ border:1px dashed red;
 									<div id="content"></div>
 								</td>
 							</tr>
-							<tr>
-								<th>첨부파일</th>
-								<td>
-									<input id="fileupload" type="file" multiple>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="buttons">
-					<button class="fRight btn btn-danger" id="cancel">취소</button>
-					<button class="fRight btn btn-primary" id="addData">등록</button>
+					<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+					<button class="fRight btn btn-default" id="addData" style="padding:3px 9px; font-size:13px;">등록</button>
 				</div>
 			</div>
 		</div>

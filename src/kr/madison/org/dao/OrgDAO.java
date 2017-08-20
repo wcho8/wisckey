@@ -71,7 +71,7 @@ public class OrgDAO extends CommonDAO{
 	}
 	
 	public int modRepDislikes(OrgVO paramVO){
-		return getSqlSession().update("Org.modRepDislikes", paramVO);
+		return getSqlSession().update("Org.modOrgRepDisLikes", paramVO);
 	}
 	
 	public List<OrgVO> findBoardReply(OrgVO paramVO){
@@ -112,5 +112,17 @@ public class OrgDAO extends CommonDAO{
 	}
 	public int addMyOrgDetail(OrgVO paramVO){
 		return getSqlSession().insert("Org.addMyOrgDetail", paramVO);
+	}
+	public OrgVO checkLikes(OrgVO paramVO){
+		return getSqlSession().selectOne("Org.checkLikes", paramVO);
+	}
+	public int addOrgBoardLikes(OrgVO paramVO){
+		return getSqlSession().insert("Org.addOrgBoardLikes", paramVO);
+	}
+	public OrgVO checkRepLikes(OrgVO paramVO){
+		return getSqlSession().selectOne("Org.checkRepLikes", paramVO);
+	}
+	public int addBoardRepLikes(OrgVO paramVO){
+		return getSqlSession().insert("Org.addBoardRepLikes", paramVO);
 	}
 }

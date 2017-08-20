@@ -77,20 +77,54 @@ public class OrgService extends CommonService{
 		return result;
 	}
 	public int modBoardLikes(OrgVO paramVO){
-		int result = orgDAO.modBoardLikes(paramVO);
+		OrgVO test = orgDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setLikes(1);
+			result = orgDAO.addOrgBoardLikes(paramVO);
+		}
+		else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getLikes() == 0){
+				result = orgDAO.modBoardLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}
 	
 	public int modRepLikes(OrgVO paramVO){
-		int result = orgDAO.modRepLikes(paramVO);
-		
+		OrgVO test = orgDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = orgDAO.addBoardRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = orgDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	
 	public int modRepDislikes(OrgVO paramVO){
-		int result = orgDAO.modRepDislikes(paramVO);
-		
+		OrgVO test = orgDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepDislikes(1);
+			result = orgDAO.addBoardRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepDislikes() == 0){
+				result = orgDAO.modRepDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	

@@ -173,26 +173,48 @@ public class OrgController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
-	public int modBoardLikes(OrgVO paramVO){
+	public String modBoardLikes(OrgVO paramVO){
+		paramVO.setUserno(session.getUserno());
 		int result = orgService.modBoardLikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepLikes(OrgVO paramVO){
+	public String modRepLikes(OrgVO paramVO){
+		paramVO.setUserno(session.getUserno());
 		int result = orgService.modRepLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepDislikes(OrgVO paramVO){
+	public String modRepDislikes(OrgVO paramVO){
+		paramVO.setUserno(session.getUserno());
 		int result = orgService.modRepDislikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping

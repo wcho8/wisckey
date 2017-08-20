@@ -46,26 +46,40 @@ $(document).ready(function(){
 		$.post("/Board/modBoardLikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "한번만 추천할 수 있습니다.";
+				msg = "이미 추천하였습니다.";
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
 			}
 			alert(msg);
-			location.reload(true);
+			if(data == "Success"){
+				location.reload(true);
+			}else{
+				return;
+			}
 		});
 	});
 	
 	$("#dislike").click(function(){
 		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
 		$.post("/Board/modBoardDislikes", params, function(data){
-			if(data > 0){
-				alert("비추하였습니다.");
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+			alert(msg);
+			if(data == "Success"){
 				location.reload(true);
+			}else{
+				return;
 			}
 		});
-	})
+	});
 	
 	$("#addReply").click(function(){
 		var url = "/Board/addBoardReply";
@@ -99,9 +113,31 @@ function likes(like, repid){
 	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
 	
 	$.post(url, params, function(data){
-		console.log(data);
-		alert(data);
-		location.reload(true);
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
+		alert(msg);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
+
 	});
 }
 
@@ -116,7 +152,7 @@ function likes(like, repid){
 #boardDelete, #update,#boardList{
 	margin-left:5px; 
 	line-height: 20px; 
-	width:45px; 
+	width:40px; 
 	vertical-align:middle; 
 	padding:0px;
 }

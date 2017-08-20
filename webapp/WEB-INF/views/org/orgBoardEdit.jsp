@@ -7,7 +7,6 @@ var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams = {
 			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
 			mypage:"${paramVO.mypage}"
 	};
 	
@@ -33,6 +32,12 @@ $(document).ready(function(){
 			$("#content").summernote('code', data.content);
 		});
 	}
+	
+	$("#cancel").click(function(){
+		var url = "/Org/orgBoard?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 
 	$("#addData").click(function(){
 		var url = "/Org/addOrgBoardData";
@@ -91,6 +96,10 @@ border-bottom:1px solid black;
 .right_menu>div{
 border:1px dashed red; 
 }
+.buttons .btn-default{
+padding:3px 9px;
+font-size:13px;
+}
 </style>
 <!-- s:container -->
 <div class="container">
@@ -99,7 +108,7 @@ border:1px dashed red;
 	<div class="row">
 		<div class="main_body">
 			<jsp:include page="./leftmenu.jsp"></jsp:include>
-			<div id="right_menu" style="float:left; width:870px; margin-left:30px;">
+			<div id="right_menu" style="float:left; width:700px; margin-left:30px;">
 				<div>
 					<table style="width:100%;" id="brdContent">
 						<colgroup>
@@ -130,7 +139,8 @@ border:1px dashed red;
 					</table>
 				</div>
 				<div class="buttons">
-					<button class="fRight btn btn-primary" id="addData">등록</button>
+					<button class="fRight btn btn-default" id="cancel">취소</button>
+					<button class="fRight btn btn-default" id="addData">등록</button>
 				</div>
 			</div>
 		</div>

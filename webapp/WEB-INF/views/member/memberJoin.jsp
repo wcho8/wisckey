@@ -214,7 +214,7 @@ function addMember(){
 		alert("닉네임 중복확인 하여 주십시오.");
 		return;
 	}
-	debugger;
+	
 	if($("#birthdate").val() != null && $("#birthdate").val() != ""){
 		var today = new Date($("#deadline").val());
 		if(today < new Date()){

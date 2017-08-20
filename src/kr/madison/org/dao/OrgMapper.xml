@@ -211,7 +211,7 @@
 			END as regdate,
 			c.korname,
 			a.count,
-			a.likes,
+			(SELECT COUNT(*) FROM brd_orgnization_likes f WHERE a.brdid = f.brdid and f.likes = 1) as likes,
 			(SELECT COUNT(*) FROM brd_orgnization_reply d WHERE d.brdid = a.brdid) as repcount
 		FROM brd_orgnization a
 		LEFT JOIN info_organization b on a.orgid = b.orgid
@@ -237,9 +237,10 @@
 			a.content,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			a.title,
+			a.userno,
 			c.korname,
 			a.count,
-			a.likes
+			(SELECT COUNT(*) FROM brd_orgnization_likes f WHERE a.brdid = f.brdid and f.likes = 1) as likes
 		FROM brd_orgnization a
 		LEFT JOIN info_organization b on a.orgid = b.orgid
 		LEFT JOIN info_userinfo c on a.userno = c.userno
@@ -291,20 +292,64 @@
 			count = count + 1
 		WHERE brdid = #{brdid}
 	</update>
+	<select id="checkLikes" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			id as lid,
+			likes
+		FROM brd_orgnization_likes
+		WHERE userno = #{userno}
+			AND brdid = #{brdid}
+	</select>
+	<insert id="addOrgBoardLikes" parameterType="OrgVO">
+		INSERT INTO brd_orgnization_likes(
+			brdid,
+			userno,
+			likes
+		)VALUES(
+			#{brdid},
+			#{userno},
+			#{likes}
+		)
+	</insert>
 	<update id="modOrgBoardLikes" parameterType="OrgVO">
-		UPDATE brd_orgnization SET
+		UPDATE brd_orgnization_likes SET
 			likes = likes + 1
 		WHERE brdid = #{brdid}
+			AND userno = #{userno}
 	</update>
+	<select id="checkRepLikes" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			id as replid,
+			likes as repLikes,
+			dislikes as repDislikes
+		FROM brd_orgnization_reply_likes
+		WHERE userno = #{userno}
+			AND repid = #{repid}
+	</select>
+	<insert id="addBoardRepLikes" parameterType="OrgVO">
+		INSERT INTO brd_orgnization_reply_likes(
+			repid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{repid},
+			#{userno},
+			#{repLikes},
+			#{repDislikes}
+		)
+	</insert>
 	<update id="modOrgRepLikes" parameterType="OrgVO">
-		UPDATE brd_orgnization_reply SET
+		UPDATE brd_orgnization_reply_likes SET
 			likes = likes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
 	<update id="modOrgRepDisLikes" parameterType="OrgVO">
-		UPDATE brd_orgnization_reply SET
+		UPDATE brd_orgnization_reply_likes SET
 			dislikes = dislikes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
 	<select id="getOrgReplyCount" parameterType="OrgVO" resultType="int">
 		SELECT
@@ -318,8 +363,8 @@
 			b.korname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			a.likes as repLikes,
-			a.dislikes as repDislikes
+			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_orgnization_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}

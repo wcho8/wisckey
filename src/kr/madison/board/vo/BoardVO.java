@@ -33,6 +33,7 @@ public class BoardVO extends CommonVO{
 	
 	//likes
 	public Integer lid = 0;
+	public Integer replid = 0;
 	
 	public int getBrdid() {
 		return brdid;
@@ -159,6 +160,12 @@ public class BoardVO extends CommonVO{
 	}
 	public void setLid(Integer lid) {
 		this.lid = lid;
+	}
+	public Integer getReplid() {
+		return replid;
+	}
+	public void setReplid(Integer replid) {
+		this.replid = replid;
 	}
 	
 }
