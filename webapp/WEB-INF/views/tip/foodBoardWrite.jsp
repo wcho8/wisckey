@@ -24,6 +24,13 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
+	$("#cancel").click(function(){
+		var url = "//PastWork?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
+	
 	//modify
 	var brdid = defaultParams.brdid;
 	var bEdit = false;
@@ -189,7 +196,8 @@ function sendFile(file, el){
 				
 				
 			<div class="buttons">
-				<button class="btn newFoodBoard" id="addFoodBoard" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addFoodBoard" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

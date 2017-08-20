@@ -61,28 +61,15 @@ $(document).ready(function(){
 	var title = new String($("#title").text());
 	var length = ~-encodeURI(title).split(/%..|./).length;
 	//76바이트가 넘으면 alt
-	console.log(length + " bytes");
+	
 	if(length>76){
 		$('span#title').attr('title',title);
 		var title = cutInUTF8(title, 76);
 		title += "...";
 		$("#title").text(title);
 	}
-	console.log("title length: "+ length);
 })
 
-function cutInUTF8(str, n) {
-    var len = Math.min(n, str.length);
-    var i, cs, c = 0, bytes = 0;
-    for (i = 0; i < len; i++) {
-        c = str.charCodeAt(i);
-        cs = 1;
-        if (c >= 128) cs++;
-        if (c >= 2048) cs++;
-        if (n < (bytes += cs)) break;
-    }
-    return str.substr(0, i);
-}
 </script>
 <style type="text/css">
 #title_list li>a:hover {
@@ -175,8 +162,6 @@ function cutInUTF8(str, n) {
 						<button class="btn confirm" id="employBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
 					</div>
 					
-				
-					
 					<div style="clear:both;"></div>
 					<div id="employBoard_reply" style="margin-top:20px; border: 1px solid #cacaca; border-left: 0; border-right: 0; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
@@ -201,9 +186,4 @@ function cutInUTF8(str, n) {
 		</div>
 	</div>
 </div>
-
-
-
-
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp" flush="false"></jsp:include>

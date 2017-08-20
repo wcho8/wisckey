@@ -3,17 +3,20 @@
 <mapper namespace="Main">
 	<select id="findTopBoardList" parameterType="MainVO" resultType="BoardVO">
 		SELECT
+			c.name as typename,
 			a.brdid,
 			a.title,
 			b.nickname,
-			a.likes,
+			(SELECT COUNT(*) FROM brd_freeboard_likes d WHERE a.brdid = d.brdid AND likes = 1) as likes,
 			CASE WHEN a.regdate > CURDATE()
 				THEN DATE_FORMAT(a.regdate, '%H:%i:%s')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate
 		FROM brd_freeboard a
 		LEFT JOIN info_userinfo b ON a.userno = b.userno
-		ORDER BY a.likes DESC, a.regdate desc
+		LEFT JOIN cod_freeboard c ON a.frid = c.frid
+		WHERE c.ptypeid = 1
+		ORDER BY likes DESC, a.regdate desc
 		LIMIT 15
 	</select>
 	<select id="findRecentNoticeList" parameterType="MainVO" resultType="AboutVO">

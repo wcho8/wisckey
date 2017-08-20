@@ -29,11 +29,11 @@ $(document).ready(function(){
 	$.post("./findTopBoardList", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
-			if(title.length > 13){
-				title = title.substring(0, 13);
+			if(byteCheck(title)> 20){
+				title = cutInUTF8(title, 20);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
 					+ "(" + item.likes + ")<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#topBoardList").append(li);
 		});

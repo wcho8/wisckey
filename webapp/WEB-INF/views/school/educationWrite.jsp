@@ -6,8 +6,6 @@
 var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams={
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
 		mypage: "${paramVO.mypage}"
 	};
 	$('#content').summernote({
@@ -22,7 +20,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	var brdid = defaultParams.brdid;
+	$("#cancel").click(function(){
+		var url = "/School/education?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
+	
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
@@ -164,10 +168,10 @@ function cutInUTF8(str, n) {
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
 			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> 
-				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
-					<div id="l_title" style="font-weight: bold; padding-left:5px; font-size: 110%;">학업<br/></div>
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
-					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
+					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a href="/School/pastWork">족보</a></li>
 						<li><a id="current" href="/School/education">학업게시판</a></li>
 					</ul>
@@ -195,7 +199,8 @@ function cutInUTF8(str, n) {
 				
 				
 			<div class="buttons">
-				<button class="btn neweducationBoard" id="addEducation" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addEducation" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

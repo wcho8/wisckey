@@ -117,7 +117,7 @@ input::placeholder{
 					<div style="clear:both;"></div>
 					<ul id="title_list_about" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a id="current" href="/School/pastWork">족보</a></li>
-						<li><a href="">학업게시판</a></li>
+						<li><a href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>
 				<!--  

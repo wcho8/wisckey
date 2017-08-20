@@ -197,6 +197,9 @@ public class MemberController extends CommonController{
             transport.close();        	
         }
 	}
+	
+	@RequestMapping
+	@ResponseBody
 	public int findPW(MemberVO paramVO){
 		int result = memberService.findPW(paramVO);
 		return result;

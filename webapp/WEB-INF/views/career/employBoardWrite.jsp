@@ -7,8 +7,6 @@ var upImgIds = [];
 $(document).ready(function(){
 	
 	var defaultParams={
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
 		mypage: "${paramVO.mypage}"
 	};
 	
@@ -24,7 +22,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	var brdid = defaultParams.brdid;
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
@@ -35,6 +33,12 @@ $(document).ready(function(){
 			$("#content").summernote('code', data.content);
 		});
 	}
+	
+	$("#cancel").click(function(){
+		var url = "/Career/employBoard?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 	
 	$("#addEmployBoard").click(function(){ 
 		var url = "/Career/addEmployBoardData";
@@ -243,7 +247,8 @@ div input{
 					</tbody>
 				</table>
 			<div class="buttons">
-				<button class="btn newEmployBoard" id="addEmployBoard" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addEmployBoard" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

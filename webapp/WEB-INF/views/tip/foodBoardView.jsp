@@ -7,12 +7,7 @@
 
 $(document).ready(function(){
 	
-	$("#userno_employBoard").hide();
-	
 	var defaultParams={
-			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			nickname: "${session.nickname}",
 			mypage: "${paramVO.mypage}",
 			ptypeid: "${paramVO.ptypeid}"
 	}
@@ -112,7 +107,7 @@ $(document).ready(function(){
 	<div class="hr_dash" style="width: 100%"></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_food" value="${vo.userno}">${vo.userno}</span>
+			<span id="userno_food" value="${vo.userno}" style="display:none;">${vo.userno}</span>
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">깨알팁</span>
@@ -150,13 +145,10 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="foodBoardDelete" style="float: right;"><span style="font-size:80%;">삭제</span></button>
+						<button class="btn delete" id="foodBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">삭제</span></button>
 						<button class="btn update" id="foodBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
-						<button class="btn confirm" id="foodBoardList" style="float: right; display:none;"><span style="font-size:80%;">목록</span></button>			
+						<button class="btn confirm" id="foodBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
 					</div>
-					
-				
-					
 					<div style="clear:both;"></div>
 					<div id="foodBoard_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>

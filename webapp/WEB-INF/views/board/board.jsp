@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var curPage = "/Board/?";
@@ -159,7 +160,15 @@ font-size:75%;
 							<c:forEach items="${boardList}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">[${list.typename}]&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">
+									<c:set var="title" value="${list.title }"/>
+									<c:if test="${fn:length(title) > 30 }">
+										[${list.typename}]&nbsp;${fn:substring(title, 0, 30)}...<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									</c:if>
+									<c:if test="${fn:length(title) <= 30 }">
+										[${list.typename}]&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									</c:if>
+									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>

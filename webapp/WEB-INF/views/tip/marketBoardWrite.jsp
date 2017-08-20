@@ -183,7 +183,8 @@ function sendFile(file, el){
 				
 				
 			<div class="buttons">
-				<button class="btn newMarketBoard" id="addMarketBoard" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addMarketBoard" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

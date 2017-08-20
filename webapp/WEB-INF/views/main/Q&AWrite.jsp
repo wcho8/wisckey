@@ -7,8 +7,6 @@ var upImgIds = [];
 $(document).ready(function(){
 	
 	var defaultParams={
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
 		mypage: "${paramVO.mypage}"
 	};
 	
@@ -24,7 +22,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	var brdid = defaultParams.brdid;
+	$("#cancel").click(function(){
+		var url = "/Q&A?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
+	
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
@@ -207,21 +211,6 @@ function cutInUTF8(str, n) {
 								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
 							</td>
 						</tr>
-						<!--  
-						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;"> 말머리</th>
-							<td>
-								<input type="checkbox" name="header" value="normal" checked>
-								<span style="font-weight: normal; font-size:90%; display:block;float:left;">일반</span>
-								
-								<input type="checkbox"style="margin-left: 30px;" name="header" value="question"/>
-								<span style="font-weight: normal; font-size:90%; display:block; float:left;">질문</span>
-								
-								<input type="checkbox" style="margin-left: 30px;" name="header" value="ssul"/>
-								<span style="font-weight: normal; font-size:90%; display:block;float:left;">후기</span>
-							</td>
-						</tr>
-						-->
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;">내용</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
@@ -232,7 +221,8 @@ function cutInUTF8(str, n) {
 					</tbody>
 				</table>
 			<div class="buttons">
-				<button class="btn newQnABoard" id="addQnABoard" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addQnABoard" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

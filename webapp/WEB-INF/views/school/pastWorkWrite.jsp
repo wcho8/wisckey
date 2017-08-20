@@ -22,7 +22,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	var brdid = defaultParams.brdid;
+	$("#cancel").click(function(){
+		var url = "/School/PastWork?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
+	
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
@@ -190,7 +196,8 @@ function cutInUTF8(str, n) {
 				
 				
 			<div class="buttons">
-				<button class="btn newPastWorkBoard" id="addPastWork" style="float: right;">글쓰기</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">취소</button>
+				<button class="fRight btn btn-default" id="addPastWork" style="padding:3px 9px; font-size:13px;">등록</button>
 			</div>
 			
 			</div>

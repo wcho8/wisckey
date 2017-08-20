@@ -6,7 +6,6 @@ $(document).ready(function() {
 	var upImgIds = [];
 	var defaultParams ={
 			nid: "${paramVO.nid}",
-			userno: "${session.userno}",
 			mypage: "${paramVO.mypage}"
 	}
 	$('#content').summernote({
@@ -32,6 +31,12 @@ $(document).ready(function() {
 			$("#content").summernote('code', data.content);
 		});
 	}
+	
+	$("#cancel").click(function(){
+		var url = "/About/?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 	
 	$("#addData").click(function() {
 		var url = "/About/addNewNotice";

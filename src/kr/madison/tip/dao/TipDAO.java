@@ -132,7 +132,7 @@ public class TipDAO extends CommonDAO {
 	}
 
 	public List<TipVO> getMarketFrtypes(TipVO paramVO) {
-		return getSqlSession().selectList("Board.getMarketFrtypes", paramVO);
+		return getSqlSession().selectList("Tip.getMarketFrtypes", paramVO);
 	}
 	
 }

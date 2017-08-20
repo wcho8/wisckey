@@ -99,6 +99,17 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	var title = new String($("#title").text());
+	var length = ~-encodeURI(title).split(/%..|./).length;
+	//76바이트가 넘으면 alt
+	if(length>50){
+		$('span#title').attr('title',title);
+		var title = cutInUTF8(title, 50);
+		title += "...";
+		$("#title").text(title);
+	}
+	
 });
 
 //댓글 추천/비추
@@ -168,7 +179,7 @@ function likes(like, repid){
 				<div style="clear:both;"></div>
 				<div id="main_board" style="width:100%;border:1px solid #cacaca;margin-top:5px;padding:10px;background-color:white;">
 					<div id="boardTitle" style="width:100%; background-color:lightgrey;font-size:20px;padding:5px;border-top:2px solid grey;">
-						<b>[${vo.typename}] ${vo.title}</b> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
+						<span id="title" style="font-weight: bold;">[${vo.typename}] ${vo.title}</span> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
 					</div>
 					<div id="other_infos" style="width:100%;padding:5px;background-color:white;font-size:12px;">
 						<span style="float:left;">
