@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.madison.board.vo.BoardVO;
 import kr.madison.school.service.SchoolService;
 import kr.madison.school.vo.SchoolVO;
 import kr.madison.util.Util;
@@ -202,6 +203,21 @@ public class SchoolController {
 	@ResponseBody
 	public int modEducationDislikes(SchoolVO paramVO){
 		int result = schoolService.modEducationDislikes(paramVO);
+		
+		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public int modRepLikes(SchoolVO paramVO){
+		int result = schoolService.modRepLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modRepDislikes(SchoolVO paramVO){
+		int result = schoolService.modRepDislikes(paramVO);
 		
 		return result;
 	}

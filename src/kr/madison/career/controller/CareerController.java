@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/Career/*")
-public class CareerController {
+public class CareerController { 
 
 	final private int pageRow =15;
 	
@@ -35,7 +35,6 @@ public class CareerController {
 		ModelAndView mav = new ModelAndView();
 		
 		int totalcount = careerService.findEmployerTotalCnt(paramVO);
-		
 		Util.setPaging(paramVO, totalcount, pageRow);
 		List<CareerVO> vo = careerService.findCareerList(paramVO);
 	
@@ -141,6 +140,7 @@ public class CareerController {
 		mav.setViewName("/career/employBoardWrite");
 		return mav;
 	}
+	
 	@RequestMapping("/employBoardView")
 	public ModelAndView employBoardView(@ModelAttribute("paramVO") CareerVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
@@ -181,6 +181,7 @@ public class CareerController {
 		
 		return result;
 	}
+	
 	@RequestMapping
 	@ResponseBody
 	public int modEmployBoardData(CareerVO paramVO){

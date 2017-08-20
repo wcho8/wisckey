@@ -48,7 +48,7 @@ a:hover{
 	    	<a href="#">개인정보활용계획</a> | 
 	    	<a href="#">관리자 연락처</a> | 
 	    	<a href="#">게시판 이용규칙</a> | 
-	    	<a href="#">FAQ</a>
+	    	<a href="/FAQ">FAQ</a>
 	    </div>
 	</div><!-- end : txt -->
 </div><!-- end : Footer -->

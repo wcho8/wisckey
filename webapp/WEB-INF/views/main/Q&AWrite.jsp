@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    
 <script type="text/javascript">
 var upImgIds = [];
 $(document).ready(function(){
@@ -28,7 +28,7 @@ $(document).ready(function(){
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
-		var url="/Career/findEmployBoardContent";
+		var url="/findQnABoardContent";
 		bEdit = true;
 		$.post(url, defaultParams, function(data){
 			$("#title").val(data.title);
@@ -36,11 +36,11 @@ $(document).ready(function(){
 		});
 	}
 	
-	$("#addEmployBoard").click(function(){ 
-		var url = "/Career/addEmployBoardData";
+	$("#addQnABoard").click(function(){ 
+		var url = "/addQnABoardData";
 		var content = $("#content").summernote('code');
 		
-		var params = $.extend({}, $("#emplyBoardContent").serialization(), {empid:2, content:content});
+		var params = $.extend({}, $("#QnABoardContent").serialization(), {content:content});
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -53,15 +53,15 @@ $(document).ready(function(){
 			return;
 		}
 		if(bEdit){
-			url = "/Career/modEmployBoardData";
+			url = "/modQnABoardData";
 			params.brdid = brdid;
 			$.post(url, params, function(data){
-				$(location).attr("href", "/Career/employBoardView?brdid="+data);
+				$(location).attr("href", "/Q&AView?brdid="+data);
 			});
 		}else{
 			if(byteCheck(params.title)<=82){
 				$.post(url, params, function(data){
-					$(location).attr("href", "/Career/employBoardView?brdid="+data);
+					$(location).attr("href", "/Q&AView?brdid="+data);
 				});
 			}else{
 				alert("제목 길이가 제한을 초과하였습니다.");
@@ -69,11 +69,12 @@ $(document).ready(function(){
 			}
 		}
 	});
-	
+	/*
 	//말머리
 	$('input[type=checkbox]').on('change',function(){
 		$(this).siblings('input[type=checkbox]').not(this).attr('checked', false);
 	});
+	*/
 	
 	//제목 글자수 제한
 	var maxChars = $("#title");
@@ -152,7 +153,7 @@ function cutInUTF8(str, n) {
 
 
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -165,30 +166,15 @@ function cutInUTF8(str, n) {
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_list li>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
 }
 
-#l_title{
-/*
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-*/
-	border-right:2px solid #a80e34;
-}
 #title_list>li{
-	list-style-type: disc;
-	list-style-position: none ;
-}
-div input{
-	float:left;
-}
-.checkBox{
-	display:table-cell;
+	list-style-type: disc; 
+	list-style-position: inside;	
 }
 
 </style>
@@ -198,17 +184,18 @@ div input{
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
-				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
-					<ul id="title_list" style="list-style:none; text-decoration: none;">
-						<li><a href="/Career/">취업공고</a></li>
-						<li><a id="current" href="/Career/employBoard">취업게시판</a></li>
+			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> <!-- -20px -->
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">FAQ<br/></div>
+					<div style="clear:both;"></div>
+					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
+						<li><a href="/FAQ">FAQ</a></li>
+						<li><a id="current" href="/Q&A">Q&A</a></li>
 					</ul>
 				</div>
 			</div>
 			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
-				<table style="width:100%;" id="emplyBoardContent">
+				<table style="width:100%;" id="QnABoardContent">
 					<colgroup>
 						<col width="15%" >
 						<col width="*">
@@ -220,6 +207,7 @@ div input{
 								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
 							</td>
 						</tr>
+						<!--  
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 말머리</th>
 							<td>
@@ -233,6 +221,7 @@ div input{
 								<span style="font-weight: normal; font-size:90%; display:block;float:left;">후기</span>
 							</td>
 						</tr>
+						-->
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;">내용</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
@@ -243,7 +232,7 @@ div input{
 					</tbody>
 				</table>
 			<div class="buttons">
-				<button class="btn newEmployBoard" id="addEmployBoard" style="float: right;">글쓰기</button>
+				<button class="btn newQnABoard" id="addQnABoard" style="float: right;">글쓰기</button>
 			</div>
 			
 			</div>

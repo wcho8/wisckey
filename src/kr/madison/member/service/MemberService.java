@@ -65,6 +65,11 @@ public class MemberService extends CommonService{
 
 	public int modPasswdEdit(MemberVO paramVO) {
 		paramVO.setUserno(session.getUserno());
+		try{
+			paramVO.setPasswd(Util.encryptSHA256(paramVO.getPasswd()));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		int result = memberDAO.modPasswdEdit(paramVO);
 		
 		return result;
@@ -78,5 +83,34 @@ public class MemberService extends CommonService{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public int findPW(MemberVO paramVO) {
+		int result = 0;
+		
+		try{
+			paramVO.setPasswd(Util.encryptSHA256(paramVO.getPasswd()));
+
+			String pw = paramVO.getPasswd();
+			MemberVO vo = memberDAO.findPW(paramVO);
+			
+			if(pw.equals(vo.getPasswd()) || Util.encryptSHA256(vo.getPasswd()).equals(pw)){
+				result = 1;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public MemberVO findID(MemberVO paramVO) {
+		paramVO.setKorname(paramVO.getKorname());
+		MemberVO vo = memberDAO.findID(paramVO);
+		if(vo == null){
+			return null;
+		}
+		
+		return vo;
 	}
 }

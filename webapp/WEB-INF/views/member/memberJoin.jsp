@@ -41,6 +41,12 @@ $(document).ready(function(){
 			chkNickname = false;
 		}
 	});
+	$("#nickname").keydown(function(key){
+		if(key.keyCode==13||key.which==13){
+			chkExist("nickname");
+		}
+	});
+	
 });
 
 //이메일 정규식 체크
@@ -62,7 +68,15 @@ function chkValidId(userid){
 		return true;
 	}
 };
-
+//이용약관 동의 체크
+function chkAgree(){
+	if($("#service").is(':checked')&&$("#policy").is(':checked')){
+		return true;
+	}else{
+		alert("이용약관에 동의 해주십시오.");
+		return false;
+	}
+}
 //중복확인 (type은 아이디인지 닉네임인지 구분)
 function chkExist(type){
 	switch (type){
@@ -179,6 +193,9 @@ function chkValid(){
 		}
 	} //이메일 통과
 	
+	if(!chkAgree()){
+		return false;
+	}
 	return true;
 }
 
@@ -290,6 +307,22 @@ function addMember(){
 	border:0;
 	font-weight:bold;
 }
+.agree{
+	line-height:15px;
+	vertical-align: middle;
+	background: #f2f2f2;
+	width:100%;
+	float:right;
+	font-size:80%;
+}
+.agree label{
+	line-height:15px;
+	vertical-align: middle;
+	display:block;
+	float:right;
+	margin-left:4px;
+	padding-top:3px;
+}
 </style>
 <!-- s:container -->
 <div class="container">
@@ -312,22 +345,31 @@ function addMember(){
 			<div class="hr_dash" style="width: 100%;"></div>
 			
 			<div class="center_left" style="float:left;width:55%;">
-				<div style="float:right; font-weight:bold; letter-spacing: 5px; margin-bottom: 5px;"><span>이용약관</span></div>
+				<div style="float:left; font-weight:bold; letter-spacing: 5px; margin-bottom: 5px;"><span>이용약관</span></div>
 				<div style="clear:both;"></div>
-				<div id = "serviceTerms" class="tabcontent" style="height: 330px;">
+				<div id = "serviceTerms" class="tabcontent" style="height: 300px;">
 						<iframe class="doc" src="/images/service_terms.jpg" 
 						style=" border: none; width:100%; height: 100%;"> 
 						</iframe>
+						<div class="agree" >
+							<label for="agreement" style="">약관을 모두 읽었으며 동의합니다.</label>
+							<input type="checkbox" name="agreement" id="service" style="float:right;">&nbsp;
+							
+						</div>
 				</div>
-
+				
 				<div style="clear:both;"></div>
 
-				<div style="float:right; font-weight:bold; letter-spacing: 5px; padding-top:18px; margin-bottom: 5px;"><span>개인정보 보호정책</span></div>
+				<div style="float:left; font-weight:bold; letter-spacing: 5px; padding-top:18px; margin-bottom: 5px;"><span>개인정보 보호정책</span></div>
 				<div style="clear:both;"></div>
-				<div id = "privacyPolicy" class="tabcontent" style="height: 330px;">
+				<div id = "privacyPolicy" class="tabcontent" style="height: 300px;">
 					<iframe class="doc" src="/images/privacy_policy.jpg" 
 						style=" border: none; width:100%; height: 100%;"> 
 					</iframe>
+					<div class="agree">
+						<label for="agreement" style="">약관을 모두 읽었으며 동의합니다.</label>
+						<input type="checkbox" name="agreement" id="policy" style="float:right;">&nbsp;
+					</div>
 				</div>
 			</div>
 			
@@ -394,7 +436,7 @@ function addMember(){
 									<th>성별</th>
 									<td>
 										<input type="radio" name="gender" value="M">&nbsp;<label style="vertical-align: middle; padding-top:3px;">남자</label> &nbsp;&nbsp;
-										<input type="radio" name="gender" value="F">&nbsp;<label style="vertical-align: middle; adding-top:3px;">여자</label>
+										<input type="radio" name="gender" value="F">&nbsp;<label style="vertical-align: middle; padding-top:3px;">여자</label>
 									</td>
 								</tr>
 								<tr>

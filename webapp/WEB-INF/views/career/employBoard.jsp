@@ -103,14 +103,9 @@ border-right:2px solid #a80e34;
 #top_row>td{
 	font-size:80%;
 }
-#list_title{
-	overflow:hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
-	width: 320px;
-	display: inline-block;
-	float:left;
-	padding-left: 5px;
+
+#top_row>td{
+	font-size: 80%;
 }
 input::placeholder{
 	font-size: 12px;
@@ -159,7 +154,7 @@ input::placeholder{
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
 								<td style="text-align: left; padding-left: 10px;cursor: pointer; font-size:100%; padding-top: 5px;" 
 									onClick="javascript:viewBoard(${list.brdid});">
-								 	<p id="list_title" style="font-weight: 100%;">${list.title} <span style="color: #910019; margin-left: 2px;">(${list.repcount})</span></p>
+								 	<span id="list_title" style="font-weight: 100%;">${list.title} </span><span style="color: #910019; margin-left: 2px;">(${list.repcount})</span>
 								</td>
 								<td style="text-align:center;">&nbsp;${list.writer }</td>
 								<td style="text-align:center;">&nbsp;${list.regdate }</td>

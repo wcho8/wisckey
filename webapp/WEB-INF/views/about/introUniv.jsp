@@ -84,14 +84,6 @@ function viewNotice(nid){
 	list-style-position: inside;	
 }
 
-
-#center{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-	margin-left: 30px;
-}
 </style>
 
 <!-- s:container -->
@@ -111,35 +103,10 @@ function viewNotice(nid){
 						<li><a href="/About/otherSites">주요사이트</a></li>
 					</ul>
 				</div>
-				<!--  
-				<div style="clear: both;"></div>
-				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">공지사항 <br/></span>
-					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
-						<li id="notice_left" ></li>
-					</ul>
-				</div>
-				-->
 			</div>
-				<div class="center_menu" id="center" style=" width: 700px; float:left;">
-					<div id="center_s_menu" style="text-align:center; margin-top: 30px;">
-						<img src="../images/uwMadison.jpg" style="width:70%;">
-				</div>
-				
-				<div style="clear: both;"></div>
-				
-				<div id="center_s_menu2" style="padding-left: 30px; margin-top: 50px; margin-bottom: 50px;">
-					<p>여기는 학교소개</p>
-					
-					<p>끝.</p>
-				</div>
-				
-				</div>
+			<div class="center_menu" id="center" style=" width: 700px; float:left; margin-left: 20px;">
+				<img src="/images/intro_univ.png" style="width:100%; height: 100%;">				
 	
-			<div class="right_menu">
-				<div id="r_title">
-					
-				</div>
 			</div>
 		</div>
 	</div>

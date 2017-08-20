@@ -131,6 +131,7 @@ function byteCheck(str){
 function titleByte(){
 	var title = $("#title").val();
 	var length = byteCheck(title);
+	console.log(length+" bytes");
 	if(length>82){
 		var tmp = cutInUTF8(title,76);
 		alert("제목 길이가 제한을 초과하였습니다.");

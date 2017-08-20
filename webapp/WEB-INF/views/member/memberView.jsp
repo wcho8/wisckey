@@ -13,6 +13,7 @@ $(document).ready(function(){
 			userpw: "${session.passwd}"
 	};
 	
+	//FIND member info
 	var url = "/Member/findMemberData";
 	$.post(url, defaultParams, function(data){
 		$('#korname').text(data.korname);
@@ -21,12 +22,18 @@ $(document).ready(function(){
 		$('#email').text(data.email);
 		$('#birthdate').text(data.birthdate.substring(0,10));
 		$("#telnum").text(data.telnum);
+		$("#gender").text(data.gender);
 		$('#major').text(data.major); 
 		$('#minor').text(data.minor);
 	});
 	
+	var equal = 0;
 	$(function(){
 		$("#dialog").dialog({
+			maxWidth:400,
+			maxHeight:230,
+			width:400,
+			height:230,
 			autoOpen: false,
 			buttons:
 				[
@@ -35,18 +42,25 @@ $(document).ready(function(){
 						click: function(e){
 							var pw = $("#pw").val();
 							var pwCheck = $("#pwCheck").val();
-						
-							var memberPW = defaultParams.userpw;
-								
+							
 							if(pw ==='' || pwCheck ===''){
 								alert("비밀번호를 입력해 주시기 바랍니다.");
 								e.preventDefault();
 							}else if(pw!==pwCheck){
 								alert("비밀번호가 일치하지 않습니다.");
 								e.preventDefault();
-							}else if(pw===pwCheck){
-								submit(pw, memberPW);
 							}
+						
+							var url ="/Member/findPW";
+							var params=$.extend({},$("#dialog").serialization(), {passwd:pw, userno: defaultParams.userno});
+							
+							$.post(url, params, function(data){
+								equal = data;
+							
+								if(pw===pwCheck){
+									submit(equal);
+								}
+							});
 						}
 					},	
 				 	{
@@ -68,10 +82,18 @@ $(document).ready(function(){
 		var url = "/Member/memberPWEdit?";
 		$(location).attr("href",url);
 	});
+	
+	$("#pwCheck").keydown(function(key){
+		var pw = $("#pw").val();
+		var memberPW = defaultParams.userpw;
+		if(key.keyCode==13||key.which==13){
+			submit(pw, memberPW);
+		}
+	});
 });
 
-function submit(pw, memberPW){
-	if(pw===memberPW){
+function submit(equal){
+	if(equal == 1){
 		$("#dialog").dialog('close');
 		var url = "/Member/memberEdit?";
 		var params= $.extend({}, $("#info").serialization(),{});
@@ -85,9 +107,6 @@ function submit(pw, memberPW){
 <style type="text/css">
 #info>tbody>tr{
 	height: 20px;
-}
-#info>tbody>th{
-	padding-left: 5px;
 }
 .btn_btn-modify{
 	width: 70%;
@@ -119,7 +138,7 @@ function submit(pw, memberPW){
 			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
 				회원정보
 			</div>
-				<div class="hr_dash"></div>
+			<div class="hr_dash"></div>
 			<div class="center_left" style="float:left;width:55%;">
 				<img src="/images/wicon.jpg">
 			</div>
@@ -127,7 +146,7 @@ function submit(pw, memberPW){
 				<div class="detailInfo">
 					<table id="info" style="width:100%; height: 640px;">
 						<colgroup>
-							<col style="width:30%; text-align: center; border: 1px solid #ff0000">
+							<col style="width:30%; text-align: center;">
 							<col style="width:70%;">
 						</colgroup>
 						<tbody>
@@ -182,8 +201,8 @@ function submit(pw, memberPW){
 						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">뒤로</button>
 					</div>
 					
-					<div id="dialog" title="" style="display:none;">
-						<form id="inner_form" action="" method="post" style="padding-top: 20px;">
+					<div id="dialog" title="" style="display:none; line-height:60px; ">
+						<form id="inner_form" action="" method="post" style="text-align:center; margin:0; vertical-align: middle;">
 							<span>비밀번호: </span>
 							<input id="pw" name="pw" type="password" class="chk_pw"><br/>
 							<span>비밀번호 확인:</span>

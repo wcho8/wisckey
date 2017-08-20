@@ -84,6 +84,48 @@ function sendFile(file, el){
 		}
 	});
 }
+
+
+//제목 글자제한
+function byteCheck(str){
+	var byteLen = 0;
+	for(var i = 0; i<str.length; i++){
+		var eachChar = escape(str.charAt(i));
+		if(eachChar.length == 1){
+			byteLen++;
+		}else if(eachChar.indexOf("%u") != -1){
+			byteLen+=3;
+		}else if(eachChar.indexOf("%") != -1){
+			byteLen ++;
+		}
+	}
+	
+	return byteLen;
+}
+function titleByte(){
+	var title = $("#title").val();
+	var length = byteCheck(title);
+	console.log(length+" bytes");
+	if(length>82){
+		var tmp = cutInUTF8(title,76);
+		alert("제목 길이가 제한을 초과하였습니다.");
+		$("#title").text(tmp);
+		$("#title").focus();
+		
+	}
+}
+function cutInUTF8(str, n) {
+  var len = Math.min(n, str.length);
+  var i, cs, c = 0, bytes = 0;
+  for (i = 0; i < len; i++) {
+      c = str.charCodeAt(i);
+      cs = 1;
+      if (c >= 128) cs++;
+      if (c >= 2048) cs++;
+      if (n < (bytes += cs)) break;
+  }
+  return str.substr(0, i);
+}
 </script>
 <style type="text/css">
 #title_list_about li>a:hover {
@@ -135,7 +177,7 @@ function sendFile(file, el){
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
-							<td><input type="text" id="title" style="width:400px;;"></td>
+							<td><input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()"></td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;">내용</th>

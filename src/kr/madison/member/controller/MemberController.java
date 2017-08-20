@@ -37,6 +37,13 @@ public class MemberController extends CommonController{
 		return mav;
 	}
 	
+	@RequestMapping("/findID&PW")
+	public ModelAndView findIDandPW(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/findID&PW");
+		
+		return mav;
+	}
 	@RequestMapping
 	@ResponseBody
 	public Integer addMember(MemberVO paramVO){
@@ -91,6 +98,7 @@ public class MemberController extends CommonController{
 	@RequestMapping("/memberEdit")
 	public ModelAndView memberEdit(@ModelAttribute("paramVO") MemberVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("/member/memberEdit");
 	//	int result = memberService.memberEdit(paramVO);
 		return mav;
@@ -189,4 +197,17 @@ public class MemberController extends CommonController{
             transport.close();        	
         }
 	}
+	public int findPW(MemberVO paramVO){
+		int result = memberService.findPW(paramVO);
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public MemberVO findID(MemberVO paramVO){
+		MemberVO vo = memberService.findID(paramVO);
+		return vo;
+	}
 }
+	
+	

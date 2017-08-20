@@ -277,12 +277,12 @@ td{
 									<td><input type="password" placeholder="패스워드" style="width:95%;" id="passwd"></td>
 								</tr>
 							</table>
-							<div id="userinfo" style="padding-top:20px; width:285px;">
-								<div style="line-height: 60px; text-align:center;">
-									안녕하세요 <span style="font-weight: bold;"> ${session.nickname}</span> 님
+							<div id="userinfo" style="padding-top:20px; width:285px; margin">
+								<div style="line-height: 60px; text-align:center;padding-right: 25px;">
+									안녕하세요 <span style="font-weight: bold; "> ${session.nickname}</span> 님
 								</div>
 								
-								<div class="detail" style=" width: 100%; height:45px; text-align:center;">
+								<div class="detail" style=" width: 100%; height:45px; text-align:center; padding-right:25px;">
 									<span style="font-size: 90%;"><a href="/Member/memberView">내 정보</a></span>
 								</div>
 								
@@ -303,7 +303,7 @@ td{
 							<div class="hr_dash" style="width: 255px; margin-left:5px;"></div>
 							<div style="float:left;" id="login_function">
 								<div style="float:left; margin-left:5px;display: inline-block; width: 60px;"><a href="/Member/">Sign Up</a></div>
-							    <div style="float:left; display: inline-block; width:120px; margin-left: 85px;"><a href="#">Forgot Password?</a></div> 
+							    <div style="float:left; display: inline-block; width:120px; margin-left: 85px;"><a href="/Member/findID&PW">Forgot Password?</a></div> 
 							</div>
 						</div>
 						

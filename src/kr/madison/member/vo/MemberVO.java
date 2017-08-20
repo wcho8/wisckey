@@ -25,6 +25,7 @@ public class MemberVO implements Serializable{
 	private String minor;
 	private char useyn;
 	private String comment;
+	
 	public Integer getUserno() {
 		return userno;
 	}
