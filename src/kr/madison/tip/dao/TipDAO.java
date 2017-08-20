@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import kr.madison.board.vo.BoardVO;
+//import kr.madison.tip.vo.TipVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.tip.vo.TipVO;
 
@@ -126,4 +126,13 @@ public class TipDAO extends CommonDAO {
 	public int modMarketData(TipVO paramVO){
 		return getSqlSession().update("Tip.modMarketData", paramVO);
 	}
+	
+	public List<TipVO> getFrtypes(TipVO paramVO){
+		return getSqlSession().selectList("Tip.getFrtypes", paramVO);
+	}
+
+	public List<TipVO> getMarketFrtypes(TipVO paramVO) {
+		return getSqlSession().selectList("Board.getMarketFrtypes", paramVO);
+	}
+	
 }

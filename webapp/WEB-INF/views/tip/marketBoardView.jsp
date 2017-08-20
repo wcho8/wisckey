@@ -125,7 +125,7 @@ $(document).ready(function(){
 				
 				<div id="marketBoard_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="marketBoard_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<b>${vo.title }</b> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<b>[${vo.typename}] ${vo.title }</b> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="marketBoard_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">

@@ -6,7 +6,9 @@
 	<select id="findFoodTotalCnt" parameterType="TipVO" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM brd_extratips
+		FROM brd_extratips a
+		LEFT JOIN cod_extratips b ON a.tipid = b.tipid
+		WHERE b.ptypeid = 6
 	</select>
 	<select id="getFoodCount" parameterType="TipVO" resultType="int">
 		SELECT
@@ -17,6 +19,7 @@
 		SELECT
 			b.brdid,
 			b.tipid,
+			d.name as typename,
 			b.title,
 			CASE WHEN b.regdate > CURDATE()
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
@@ -28,7 +31,9 @@
 			(SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
-		WHERE tipid=1
+		LEFT JOIN cod_extratips d on b.tipid = d.tipid	
+		WHERE  d.ptypeid = 6
+		
 		<if test="keyword != null and keyword != ''">
 			<if test="srchType == 1">
 				AND b.title LIKE CONCAT('%',#{keyword},'%')
@@ -46,6 +51,7 @@
 		SELECT
 			b.brdid,
 			b.tipid,
+			d.name as typename,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
@@ -57,6 +63,8 @@
 			<!-- File 셀렉트 하는것 필요 -->
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_extratips d on b.tipid = d.tipid
+		
 		WHERE b.brdid = #{brdid}
 	</select>
 
@@ -158,7 +166,9 @@
 	<select id="findMarketTotalCnt" parameterType="TipVO" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM brd_extratips
+		FROM brd_extratips a
+		LEFT JOIN cod_extratips b ON a.tipid = b.tipid
+		WHERE b.tipid = 2
 		
 		
 	</select>
@@ -172,6 +182,7 @@
 		SELECT
 			b.brdid,
 			b.tipid,
+			d.name as typename,
 			b.title,
 			CASE WHEN b.regdate > CURDATE()
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
@@ -183,7 +194,8 @@
 			(SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
-		WHERE tipid=2
+		LEFT JOIN cod_extratips d on b.tipid = d.tipid
+		WHERE d.ptypeid=7
 		<if test="keyword != null and keyword != ''">
 			<if test="srchType == 1">
 				AND b.title LIKE CONCAT('%',#{keyword},'%')
@@ -201,6 +213,7 @@
 		SELECT
 			b.brdid,
 			b.tipid,
+			d.name as typename,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
@@ -212,6 +225,7 @@
 			<!-- File 셀렉트 하는것 필요 -->
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_extratips d on b.tipid = d.tipid
 		WHERE b.brdid = #{brdid}
 	</select>
 
@@ -305,6 +319,24 @@
 			moddate = NOW()
 		WHERE brdid = #{brdid}
 	</update>
+	
+	<select id="getFrtypes" parameterType="TipVO" resultType="TipVO">
+		SELECT
+			tipid,
+			name as typename
+		FROM cod_extratips
+		WHERE ptypeid = 6
+		
+	</select>
+	
+	<select id="getMarketFrtypes" parameterType="TipVO" resultType="TipVO">
+		SELECT
+			tipid,
+			name as typename
+		FROM cod_extratips
+		WHERE ptypeid = 7
+		
+	</select>
 	
 
 

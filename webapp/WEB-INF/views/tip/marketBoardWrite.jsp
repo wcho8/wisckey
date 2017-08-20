@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,9 +41,11 @@ $(document).ready(function(){
 	$("#addMarketBoard").click(function(){ 
 		var url = "/Tip/addMarketData";
 		var content = $("#content").summernote('code');
+		var frid = $("#frid").val();
+
 		console.log(content)
 		//table name : #
-		var params = $.extend({}, $("#marketBoardContent").serialization(), {tipid:2, content:content});	//공통코드테이블 아이
+		var params = $.extend({}, $("#marketBoardContent").serialization(), {frid:frid, tipid:2, content:content});	//공통코드테이블 아이
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -150,6 +153,20 @@ function sendFile(file, el){
 						<col width="*">
 					</colgroup>
 					<tbody>
+					
+						<!-- 말머리 -->
+						<tr>
+								<th>말머리</th>
+								<td>
+									<select id="frid">
+										<c:forEach items="${markettypes}" var="frtype">
+											<option value="${markettype.tipid}">${markettype.typename}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						
+					
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
 							<td><input type="text" id="title" style="width:400px;;"></td>
