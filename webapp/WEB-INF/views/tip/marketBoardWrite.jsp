@@ -41,11 +41,11 @@ $(document).ready(function(){
 	$("#addMarketBoard").click(function(){ 
 		var url = "/Tip/addMarketData";
 		var content = $("#content").summernote('code');
-		var frid = $("#frid").val();
+		var tipid = $("#tipid").val();
 
 		console.log(content)
 		//table name : #
-		var params = $.extend({}, $("#marketBoardContent").serialization(), {frid:frid, tipid:2, content:content});	//공통코드테이블 아이
+		var params = $.extend({}, $("#marketBoardContent").serialization(), {tipid:tipid, tipid:2, content:content});	//공통코드테이블 아이
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -158,8 +158,8 @@ function sendFile(file, el){
 						<tr>
 								<th>말머리</th>
 								<td>
-									<select id="frid">
-										<c:forEach items="${markettypes}" var="frtype">
+									<select id="tipid">
+										<c:forEach items="${markettypes}" var="markettype">
 											<option value="${markettype.tipid}">${markettype.typename}</option>
 										</c:forEach>
 									</select>

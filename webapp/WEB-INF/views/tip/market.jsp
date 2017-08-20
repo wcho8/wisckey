@@ -29,6 +29,7 @@ $(document).ready(function(){
 	//글쓰기 버튼 id
 	$("#addMarketBoard").click(function(){	
 		var url = "/Tip/marketBoardWrite";	//mapping url
+		var params = $.param(defaultParams);
 		if(defaultParams.userno==""||defaultParams.userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
 			return;
@@ -36,7 +37,7 @@ $(document).ready(function(){
 			$(location).attr("href", url);
 		}
 	});
-	
+	//
 	$("#searchType").change(function(){
 		$("#keyword").val("");
 		if($(this).val() == 1){
