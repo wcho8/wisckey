@@ -193,8 +193,13 @@ public class TipController {
 		ModelAndView mav = new ModelAndView();
 		paramVO.setTypeid(7);
 		List<TipVO> markettypes = tipService.getMarketFrtypes(paramVO);
+		try{
+			
+		}catch(Exception e) {
+			
+		}
 		mav.setViewName("/tip/marketBoardWrite");	// 글쓰기
-		
+		mav.addObject("markettypes", markettypes);
 		return mav;
 	}
 	
@@ -203,6 +208,9 @@ public class TipController {
 		ModelAndView mav = new ModelAndView();
 		
 		TipVO vo = tipService.findMarketContent(paramVO);
+		
+		paramVO.setPtypeid(vo.getPtypeid());
+		
 		List<TipVO> replies = tipService.findMarketReply(paramVO);
 		int repcount = tipService.getMarketReplyCount(paramVO);
 		

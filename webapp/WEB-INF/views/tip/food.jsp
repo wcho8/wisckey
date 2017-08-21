@@ -141,7 +141,7 @@ input::placeholder{
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a id="current" href="/Tip/food">맛집</a></li>
-						<li><a href="/Tip/food">벼룩시장</a></li>
+						<li><a href="/Tip/market">벼룩시장</a></li>
 					</ul>
 				</div>
 			</div>
