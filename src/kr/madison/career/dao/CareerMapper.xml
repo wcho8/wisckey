@@ -287,16 +287,8 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
-	<delete id="deleteEmployBoardReply" parameterType="CareerVO">
-		DELETE FROM
-			brd_employment_reply
-		WHERE brdid = #{brdid}
-	</delete>
-	<delete id="deleteEmployBoard" parameterType="CareerVO">
-		DELETE FROM
-			brd_employment
-		WHERE brdid=#{brdid}
-	</delete>
+	
+	
 	<update id="modEmployBoardData" parameterType="CareerVO">
 		UPDATE brd_employment SET
 			content = #{content},
@@ -370,6 +362,19 @@
 		FROM cod_employment
 		WHERE ptypeid = 3
 	</select>
+	<delete id="deleteEmployBoard" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment
+		WHERE brdid=#{brdid}
+	</delete>
+	<delete id="deleteEmployBoardReply" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_reply
+		WHERE brdid = #{brdid}
+		<if test="repid != null and repid != ''">
+			AND repid = #{repid}
+		</if>
+	</delete>
 	<delete id="deleteEmployBoardLikes" parameterType="CareerVO">
 		DELETE FROM
 			brd_employment_likes
@@ -378,7 +383,7 @@
 	<delete id="deleteEmployBoardRepLikes" parameterType="CareerVO">
 		DELETE FROM
 			brd_employment_reply_likes
-		WHERE repid=#{repid}
+		WHERE repid in (SELECT a.repid FROM brd_employment_reply a WHERE brdid = #{brdid})
 	</delete>
 	
 </mapper>

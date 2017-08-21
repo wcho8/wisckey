@@ -88,7 +88,9 @@ public class SchoolDAO extends CommonDAO {
 	}
 
 	public int deleteEducation(SchoolVO paramVO) {
-		getSqlSession().delete("School.deleteEducation", paramVO);
+		getSqlSession().delete("School.deleteEducationReplyLikes", paramVO);
+		getSqlSession().delete("School.deleteEducationReply", paramVO);
+		getSqlSession().delete("School.deleteEducationLikes", paramVO);
 		return getSqlSession().delete("School.deleteEducation", paramVO);
 	}
 
