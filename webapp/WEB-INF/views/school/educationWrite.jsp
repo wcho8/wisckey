@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 var upImgIds = [];
 $(document).ready(function(){
-	var defaultParams={
-		mypage: "${paramVO.mypage}"
+	var defaultParams = {
+			mypage:"${paramVO.mypage}",
+			ptypeid:"${paramVO.ptypeid}"
 	};
 	$('#content').summernote({
 		lang:'ko-KR',
@@ -19,31 +22,41 @@ $(document).ready(function(){
 			}
 		}
 	});
-	
+
 	$("#cancel").click(function(){
 		var url = "/School/education?";
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});
-	
+
 	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
 		var url="/School/findEducationContent";
 		bEdit = true;
+		var params = $.extend({}, defaultParams, {brdid:brdid});
 		$.post(url, defaultParams, function(data){
-			$("#title").val(data.title);
-			$("#content").summernote('code', data.content);
+			if("${session.userno}" != data.userno || "${session.userno}" == null){
+				alert("수정할 수 있는 권한이 없습니다.");
+				$(location).attr("href", "/School/education?"+$.param(defaultParams));
+				return;
+			}else{
+				$("#title").val(data.title);
+				$("#content").summernote('code', data.content);
+			}
 		});
 	}
-	
+	$("#cancel").click(function(){
+		var url = "/School/education?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 	$("#addEducation").click(function(){ 
 		var url = "/School/addEducationData";
 		var content = $("#content").summernote('code');
-		
-		var params = $.extend({}, $("#educationContent").serialization(), {swid:2, content:content});
-		
+		var swid = $("#swid").val();
+		var params = $.extend({}, $("#educationContent").serialization(), {brdid:brdid,swid:swid, content:content,userno:"${session.userno}"});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
@@ -171,8 +184,8 @@ function cutInUTF8(str, n) {
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
-					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<!-- <li><a href="/School/pastWork">족보</a></li> -->
+					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
+						<!--  <li style="display:hidden;"><a href="/School/pastWork">족보</a></li>-->
 						<li><a id="current" href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>
@@ -185,7 +198,17 @@ function cutInUTF8(str, n) {
 					</colgroup>
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;"> 제목</th>
+							<th style="text-align: center;">말머리</th>
+							<td >
+								<select id="swid">
+									<c:forEach items="${swtypes}" var="swtype">
+										<option value="${swtype.swid}">${swtype.typename}</option>
+									</c:forEach>
+								</select>
+							</td>
+						<tr>
+						<tr style="border: 1px solid #ccc;">
+							<th style="text-align: center;"> 제목</th>
 							<td><input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()"></td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">

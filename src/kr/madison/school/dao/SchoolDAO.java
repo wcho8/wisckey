@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import kr.madison.board.vo.BoardVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.school.vo.SchoolVO;
 
@@ -110,7 +111,26 @@ public class SchoolDAO extends CommonDAO {
 	public int modRepDislikes(SchoolVO paramVO) {
 		return getSqlSession().update("School.modRepDisLikes", paramVO);
 	}
+
+	public List<SchoolVO> getSwtypes(SchoolVO paramVO) {
+		return getSqlSession().selectList("School.getSwtypes", paramVO);
+	}
+
+	public SchoolVO checkLikes(SchoolVO paramVO) {
+		return getSqlSession().selectOne("School.checkLikes", paramVO);
+	}
+
+	public int addEducationLikes(SchoolVO paramVO) {
+		return getSqlSession().insert("School.addEducationLikes", paramVO);
+	}
+	public SchoolVO checkRepLikes(SchoolVO paramVO) {
+		return getSqlSession().selectOne("School.checkRepLikes", paramVO);
+	}
 	
+	public int addEducationRepLikes(SchoolVO paramVO){
+		return getSqlSession().insert("School.addEducationRepLikes", paramVO);
+	}
+
 	
 
 }

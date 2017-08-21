@@ -6,12 +6,17 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	var defaultParams={
-			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
+		ptypeid: "${paramVO.ptypeid}"
+	}
+	
+	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
+
+	if(userno == writerno){
+		$("#educationUpdate").show();
+		$("#educationDelete").show();
 	}
 	
 	$("#educationList").click(function(){
@@ -21,12 +26,12 @@ $(document).ready(function(){
 	$("#addReply").click(function(){
 		var url = "/School/addEducationReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent,brdid:"${paramVO.brdid}"});
 		if(params.repContent==""||params.repContent==null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
 		}
-		if(params.userno==""||params.userno==null){
+		if(userno==""||userno==null){
 			alert("로그인하여 주십시오.");
 			return;
 		}else{
@@ -39,39 +44,38 @@ $(document).ready(function(){
 	
 	$("#educationDelete").click(function(){
 		var url = "/School/deleteEducation";
-		var params =$.extend({},defaultParams, {});
-		$.post(url, params, function(data){
-			alert("게시글이 삭제되었습니다.");
-			$(location).attr("href","/School/education");
-		})
+		var params =$.extend({},defaultParams, {brdid:"${paramVO.brdid}"});
+		if(confirm("정말로 삭제하시겠습니까?")){
+			$.post(url, params, function(data){
+				alert("게시글이 삭제되었습니다.");
+				$(location).attr("href","/School/education?"+$.param(defaultParams));
+			});
+		}
 	});
 	
-	var writerno = "${vo.userno}";
-	
-	if(defaultParams.userno == writerno){
-		$("#educationUpdate").show();
-		$("#educationDelete").show();
-	}
 	
 	$("#educationUpdate").click(function(){
 		var url = "/School/educationWrite?";
-		var params = $.param(defaultParams);
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
 		$(location).attr("href", url+params);
 	})
 	
 	$("#likes").click(function(){
-		$.post("/School/modEducationLikes", defaultParams, function(data){
-			if(data > 0){
-				alert("추천하였습니다.");
-				location.reload(true);
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		$.post("/School/modEducationLikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
 			}
-		});
-	});
-	$("#dislikes").click(function(){
-		$.post("/School/modEducationDislikes", defaultParams, function(data){
-			if(data > 0){
-				alert("비추천하였습니다.");
+			alert(msg);
+			if(data == "Success"){
 				location.reload(true);
+			}else{
+				return;
 			}
 		});
 	});
@@ -106,16 +110,37 @@ function likes(like, repid){
 	var msg = "";
 	if(like == 'Y'){
 		url = "/School/modRepLikes";
-		msg = "추천하였습니다.";
 	}else if(like == 'N'){
 		url = "/School/modRepDislikes";
-		msg = "비추하였습니다.";
 	}
-	var params = $.extend({}, defaultParams, {repid:repid});
+	
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
 	
 	$.post(url, params, function(data){
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
 		alert(msg);
-		location.reload(true);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
 	});
 }
 </script>
@@ -173,7 +198,7 @@ function likes(like, repid){
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<!-- <li><a href="/School/pastWork">족보</a></li> -->
+						<!--  <li style="display:hidden;"><a href="/School/pastWork">족보</a></li>-->
 						<li><a id="current"  href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>
@@ -189,7 +214,7 @@ function likes(like, repid){
 							작성자: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							조회수: ${vo.count} 추천: ${vo.likes} 비추천: ${vo.dislikes}
+							조회수: ${vo.count} 추천: ${vo.likes} 
 						</span>
 					</div>
 					
@@ -206,7 +231,6 @@ function likes(like, repid){
 					
 					<div style="margin-top: 25px; text-align: center; margin-bottom: 20px;">
 						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
-						<button id="dislikes" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> 비추 ${vo.dislikes}</button>
 					</div>
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.madison.board.vo.BoardVO;
 import kr.madison.career.service.CareerService;
 import kr.madison.career.vo.CareerVO;
 import kr.madison.util.Util;
@@ -127,7 +128,10 @@ public class CareerController {
 		Util.setPaging(paramVO, totalcount, pageRow);
 		List<CareerVO> vo = careerService.findEmployBoardList(paramVO);
 		
+		List<CareerVO> emptypes = careerService.getEmptypes(paramVO);
+		
 		mav.addObject("boardList", vo);
+		mav.addObject("emptypes", emptypes);
 		mav.addObject("totalcount", totalcount);
 		mav.setViewName("/career/employBoard");
 		
@@ -137,6 +141,15 @@ public class CareerController {
 	@RequestMapping("/employBoardWrite")
 	public ModelAndView employBoardWrite(@ModelAttribute("paramVO") CareerVO paramVO, HttpServletRequest res) {
 		ModelAndView mav = new ModelAndView();
+		paramVO.setPtypeid(3);
+		List<CareerVO> emptypes = careerService.getEmptypes(paramVO);
+		
+		for(int i= 0; i<emptypes.size(); i++){
+			System.out.println("HAHAHA: "+emptypes.get(i).toString());
+			
+		}
+		
+		mav.addObject("emptypes", emptypes);
 		mav.setViewName("/career/employBoardWrite");
 		return mav;
 	}
@@ -145,6 +158,8 @@ public class CareerController {
 	public ModelAndView employBoardView(@ModelAttribute("paramVO") CareerVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
 		CareerVO vo = careerService.findEmployBoardContent(paramVO);
+		
+		paramVO.setPtypeid(vo.getPtypeid());
 		
 		List<CareerVO> replies = careerService.findBoardReply(paramVO);
 		
@@ -197,4 +212,47 @@ public class CareerController {
 		
 		return result;
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public String modEmployBoardLikes(CareerVO paramVO){
+		int result = careerService.modEmployBoardLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public String modRepLikes(CareerVO paramVO){
+		int result = careerService.modRepLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	@RequestMapping
+	@ResponseBody
+	public String modRepDislikes(CareerVO paramVO){
+		int result = careerService.modRepDislikes(paramVO);
+		
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	
 }

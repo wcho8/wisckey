@@ -85,6 +85,8 @@ public class CareerDAO extends CommonDAO{
 	}
 
 	public int deleteEmployBoard(CareerVO paramVO) {
+		getSqlSession().delete("Career.deleteEmployBoardRepLikes", paramVO);
+		getSqlSession().delete("Career.deleteEmployBoardLikes", paramVO);
 		getSqlSession().delete("Career.deleteEmployBoardReply", paramVO);
 		return getSqlSession().delete("Career.deleteEmployBoard", paramVO);
 	}
@@ -92,6 +94,38 @@ public class CareerDAO extends CommonDAO{
 
 	public int modEmployBoardData(CareerVO paramVO) {
 		return getSqlSession().update("Career.modEmployBoardData", paramVO);
+	}
+
+	public List<CareerVO> getEmptypes(CareerVO paramVO) {
+		return getSqlSession().selectList("Career.getEmptypes", paramVO);
+	}
+	
+	public CareerVO checkLikes(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.checkLikes", paramVO);
+	}
+
+	public int addEmployLikes(CareerVO paramVO) {
+		return getSqlSession().insert("Career.addEmployLikes", paramVO);
+	}
+
+	public int modEmployLikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.modEmployLikes", paramVO);
+	}
+
+	public CareerVO checkRepLikes(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.checkRepLikes", paramVO);
+	}
+
+	public int addEmployRepLikes(CareerVO paramVO) {
+		return getSqlSession().insert("Career.addEmployRepLikes", paramVO);
+	}
+
+	public int modRepLikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.modRepLikes", paramVO);
+	}
+
+	public int modRepDislikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.modRepDislikes", paramVO);
 	}
 	
 	

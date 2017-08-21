@@ -3,6 +3,7 @@ package kr.madison.career.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.madison.board.vo.BoardVO;
 import kr.madison.career.dao.CareerDAO;
 import kr.madison.career.vo.CareerVO;
 import kr.madison.common.service.CommonService;
@@ -132,6 +133,67 @@ public class CareerService extends CommonService{
 	public int modEmployBoardData(CareerVO paramVO) {
 		careerDAO.modEmployBoardData(paramVO);
 		return paramVO.getBrdid();
+	}
+
+	public List<CareerVO> getEmptypes(CareerVO paramVO) {
+		List<CareerVO> result = careerDAO.getEmptypes(paramVO);
+		
+		return result;
+	}
+
+	public int modEmployBoardLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		CareerVO test = careerDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setLikes(1);
+			result = careerDAO.addEmployLikes(paramVO);
+		}
+		else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getLikes() == 0){
+				result = careerDAO.modEmployLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		
+		return result;
+	}
+
+	public int modRepLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		CareerVO test = careerDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = careerDAO.addEmployRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = careerDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		return result;
+	}
+
+	public int modRepDislikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		CareerVO test = careerDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepDislikes(1);
+			result = careerDAO.addEmployRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepDislikes() == 0){
+				result = careerDAO.modRepDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		return result;
 	}
 
 

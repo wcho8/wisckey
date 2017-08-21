@@ -9,34 +9,53 @@
 var curPage = "/School/education?";
 
 $(document).ready(function(){
-	defaultParams.mypage="${paramVO.mypage}";
-
+	var defaultParams = {
+			mypage:"${paramVO.mypage}",
+			ptypeid:"${paramVO.ptypeid}"
+	}
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
 		$("#keyword").val("${paramVO.keyword}");
 		if(srchType ==1){
-			$("#keyword").attr("placeholder","제목");
+			$("#swid").hide();
+			$("#keyword").show();
+			$("#keyword").attr("placeholder", "제목");
 		}else if(srchType == 2){
-			$("keyword").attr("placeholder", "닉네임");
+			$("#swid").hide();
+			$("#keyword").show();
+			$("#keyword").attr("placeholder", "닉네임");
+		}else if(srchType == 3){
+			$("#swid").val("${paramVO.swid}").prop("selected", true);
+			$("#swid").show();
+			$("#keyword").hide();
 		}
 	}	
 	$("#addEducation").click(function(){
-		var url = "/School/educationWrite";
-		if(defaultParams.userno==""||defaultParams.userno==null){
+		var userno = "${session.userno}";
+		var url = "/School/educationWrite?";
+		var params = $.param(defaultParams);
+		if(userno==""||userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
 			return;
 		}else{
-			$(location).attr("href", url);
+			$(location).attr("href", url+params);
 		}
 	});
 	
 	$("#searchType").change(function(){
 		$("#keyword").val("");
 		if($(this).val() == 1){
+			$("#keyword").show();
+			$("#swid").hide();
 			$("#keyword").attr("placeholder", "제목");
 		}else if($(this).val() == 2){
+			$("#keyword").show();
+			$("#swid").hide();
 			$("#keyword").attr("placeholder", "닉네임");
+		}else if($(this).val() == 3){
+			$("#keyword").hide();
+			$("#swid").show();
 		}
 	});
 	$("#search").click(function(){
@@ -51,13 +70,15 @@ $(document).ready(function(){
 
 function search(){
 	var keyword = $("#keyword").val();
+	var swid = $("#swid").val(); 
 	var searchType = $("#searchType").val();
-	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
+	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType, swid:swid});
 	var url ="/School/education?" +$.param(params);
 	$(location).attr("href",url);
 }
 function viewEducation(brdid){
-	var url = "/School/educationView?brdid="+brdid + "&mypage=" + defaultParams.mypage;
+	var mypage = "${paramVO.mypage}";
+	var url = "/School/educationView?brdid="+brdid + "&mypage=" + mypage;
 	$(location).attr("href", url);
 }
 </script>
@@ -116,21 +137,11 @@ input::placeholder{
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<!-- <li><a href="/School/pastWork">족보</a></li> -->
+						<!--  <li style="display:hidden;"><a href="/School/pastWork">족보</a></li>-->
 						<li><a id="current" href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>
-				<!--  
-				<div style="clear: both;"></div>
-				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">공지사항 <br/></span>
-					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
-						<li id="notice_left" ></li>
-					</ul>
-				</div>
-				-->
 			</div>
-
 			<div class="center_menu"
 				style="float: left; width: 700px;  margin-left:30px;">
 					<div id="notice" style="width: 700px; ">
@@ -163,7 +174,7 @@ input::placeholder{
 											<p id="list_title" style="font-weight: 100%;">${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
 										</c:if>
 								 		<c:if test="${fn:length(title) <=33 }">
-								 			<p id="list_title" style="font-weight: 100%;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
+								 			<p id="list_title" style="font-weight: 100%;">[${list.typename}]&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;" >(${list.repcount})</span></p>
 								 		</c:if>
 									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
@@ -188,6 +199,12 @@ input::placeholder{
 								<option value="3">게시물 타입</option>
 							</select>
 							<input type="text" id="keyword" placeHolder = "제목" style="width: 120px; height:20px;">
+							<select id="swid" style="display:none;">
+								<option value="0">전체</option>
+								<c:forEach items="${swtypes}" var="swtype">
+									<option value="${swtype.swid}">${swtype.typename}</option>
+								</c:forEach>
+							</select>
 							<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
 								<span style="font-size:80%">검색</span>
 							</button>

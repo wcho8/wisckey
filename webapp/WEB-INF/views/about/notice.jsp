@@ -141,6 +141,8 @@ function viewNotice(nid){
 input::placeholder{
 	font-size:65%;
 }
+
+
 </style>
 <!-- s:container -->
 <div class="container" >
@@ -169,7 +171,7 @@ input::placeholder{
 				</div>
 				-->
 			</div>
-
+			
 			<div class="center_menu"
 				style="float: left; width: 700px;  margin-left:30px;">
 					<div id="notice" style="width: 700px; ">

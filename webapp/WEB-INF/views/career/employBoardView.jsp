@@ -8,20 +8,21 @@
 $(document).ready(function(){
 	
 	var defaultParams={
-			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			nickname: "${session.nickname}",
-			mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
+		ptypeid: "${paramVO.ptypeid}"
 	}
-	$("#employBoardList").click(function(){
-		var params = $.param(defaultParams);
-		$(location).attr("href", "/Career/employBoard?"+params);
-	});
-	
+	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
+
+	if(userno == writerno){
+		$("#employBoardUpdate").show();
+		$("#employBoardDelete").show();
+	}
+		
 	$("#addReply").click(function(){
 		var url = "/Career/addEmployBoardReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
 		if(params.repContent==""||params.repContent==null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
@@ -37,27 +38,66 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#employBoardDelete").click(function(){
-		var url = "/Career/deleteEmployBoard";
-		var params = $.extend({}, defaultParams, {});
-		$.post(url, params, function(data){
-			alert("게시글이 삭제되었습니다.");
-			$(location).attr("href","/Career/employBoard");
-		});
+	$("#employBoardList").click(function(){
+		var params = $.param(defaultParams);
+		$(location).attr("href", "/Career/employBoard?"+params);
 	});
 	
-	var writerno = "${vo.userno}";
+	$("#employBoardDelete").click(function(){
+		var url = "/Career/deleteEmployBoard";
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		if(confirm("정말로 삭제하시겠습니까?")){
+			$.post(url, params, function(data){
+				alert("게시글이 삭제되었습니다.");
+				$(location).attr("href","/Career/employBoard?" + $.param(defaultParams));
+			});
+		}
+	});
 	
-	if(defaultParams.userno == writerno){
-		$("#employBoardUpdate").show();
-		$("#employBoardDelete").show();
-	}
 	$("#employBoardUpdate").click(function(){
 		var url = "/Career/employBoardWrite?";
-		var params = $.param(defaultParams);
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
 		$(location).attr("href", url+params);
 	});
 	
+	$("#addReply").click(function(){
+		var url = "/Career/addEmployBoardReply";
+		var replyContent = $("#reply").val();
+		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
+		if(params.repContent == "" || params.repContent == null){
+			alert("댓글은 공백일 수 없습니다.");
+			return;
+		}
+		if(userno == "" || userno == null){
+			alert("로그인하여 주십시오.");
+			return;
+		}else{
+			$.post(url, params, function(data){
+				alert("댓글이 등록되었습니다.");
+				location.reload(true);
+			});
+		}
+	});
+	
+	$("#likes").click(function(){
+		var params = $.param($.extend({}, defaultParams, {brdid: "${paramVO.brdid}"}));
+		$.post("/Career/modEmployBoardLikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+			alert(msg);
+			if(data == "Success"){
+				location.reload(true);
+			}else{
+				return;
+			}
+		});
+	});
 	var title = new String($("#title").text());
 	var length = ~-encodeURI(title).split(/%..|./).length;
 	//76바이트가 넘으면 alt
@@ -70,6 +110,57 @@ $(document).ready(function(){
 	}
 })
 
+function cutInUTF8(str, n) {
+    var len = Math.min(n, str.length);
+    var i, cs, c = 0, bytes = 0;
+    for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        cs = 1;
+        if (c >= 128) cs++;
+        if (c >= 2048) cs++;
+        if (n < (bytes += cs)) break;
+    }
+    return str.substr(0, i);
+}
+//댓글 추천/비추
+function likes(like, repid){
+	var url = "";
+	var msg = "";
+	if(like == 'Y'){
+		url = "/Career/modRepLikes";
+	}else if(like == 'N'){
+		url = "/Career/modRepDislikes";
+	}
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
+	
+	$.post(url, params, function(data){
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
+		alert(msg);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
+
+	});
+}
 </script>
 <style type="text/css">
 #title_list li>a:hover {
@@ -133,7 +224,7 @@ $(document).ready(function(){
 				
 				<div id="employBoard_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="employBoard_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<span id="title" style="font-weight: bold;">${vo.title }</span> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<span id="title" style="font-weight: bold;">[${vo.typename}]${vo.title }</span> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="employBoard_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
@@ -152,6 +243,12 @@ $(document).ready(function(){
 						${vo.content }
 					</div>
 					
+					<div style="clear:both;"></div>
+					<div class="hr_dash" style="background:inherit;"></div>
+					
+					<div style="margin-top: 25px; text-align: center; margin-bottom: 20px;">
+						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
+					</div>
 						
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>
@@ -173,6 +270,10 @@ $(document).ready(function(){
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 13px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
+							<span style="float:right;font-size:12px;">
+								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
+								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
+							</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
 						</div>

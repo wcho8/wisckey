@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <script type="text/javascript">
 var upImgIds = [];
 $(document).ready(function(){
-	
 	var defaultParams={
-		mypage: "${paramVO.mypage}"
+		mypage:"${paramVO.mypage}",
+		ptypeid:"${paramVO.ptypeid}"
 	};
 	
 	$('#content').summernote({
@@ -28,10 +29,18 @@ $(document).ready(function(){
 	if(brdid!=0 && brdid!="" && brdid!=null){
 		var url="/Career/findEmployBoardContent";
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
-			$("#title").val(data.title);
-			$("#content").summernote('code', data.content);
-		});
+		var params = $.extend({}, defaultParams, {brdid:brdid});
+		if("${session.userno}" != data.userno || "${session.userno}" == null){
+			alert("수정할 수 있는 권한이 없습니다.");
+			$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
+			return;
+		}else{
+			$.post(url, params, function(data){
+				$("#title").val(data.title);
+				$("#content").summernote('code', data.content);
+			});
+			
+		}
 	}
 	
 	$("#cancel").click(function(){
@@ -43,8 +52,9 @@ $(document).ready(function(){
 	$("#addEmployBoard").click(function(){ 
 		var url = "/Career/addEmployBoardData";
 		var content = $("#content").summernote('code');
-		
-		var params = $.extend({}, $("#emplyBoardContent").serialization(), {empid:2, content:content});
+		var empid = $("empid").val();
+		console.log("empid: "+ empid)
+		var params = $.extend({}, $("#emplyBoardContent").serialization(), {brdid:brdid, empid:empid, content:content,userno:"${session.userno}"});
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -74,9 +84,10 @@ $(document).ready(function(){
 		}
 	});
 	
-	//말머리
-	$('input[type=checkbox]').on('change',function(){
-		$(this).siblings('input[type=checkbox]').not(this).attr('checked', false);
+	$("#cancel").click(function(){
+		var url = "/Career/employBoard?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
 	});
 	
 	//제목 글자수 제한
@@ -156,7 +167,7 @@ function cutInUTF8(str, n) {
 
 
 <style type="text/css">
-#title_list_about li>a:hover {
+#title_list li>a:hover {
 	text-decoration: none;
 	font-size: 105%;
 	font-weight: bold;
@@ -169,7 +180,7 @@ function cutInUTF8(str, n) {
 	opacity:1;
 	color: black;
 }
-#title_list_about li>a {
+#title_list li>a {
 	opacity: 0.7;
 	text-decoration: none;
 	
@@ -219,22 +230,19 @@ div input{
 					</colgroup>
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
+							<th style="text-align: center;">말머리</th>
+							<td>
+								<select id="empid">
+									<c:forEach items="${emptypes}" var="emptype">
+										<option value="${emptype.empid}">${emptype.typename}</option>
+									</c:forEach>
+								</select>
+							</td>
+							<tr>
+						<tr style="border: 1px solid #ccc;">
 							<th style="text-align: center;"> 제목</th>
 							<td>
 								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
-							</td>
-						</tr>
-						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;"> 말머리</th>
-							<td>
-								<input type="checkbox" name="header" value="normal" checked>
-								<span style="font-weight: normal; font-size:90%; display:block;float:left;">일반</span>
-								
-								<input type="checkbox"style="margin-left: 30px;" name="header" value="question"/>
-								<span style="font-weight: normal; font-size:90%; display:block; float:left;">질문</span>
-								
-								<input type="checkbox" style="margin-left: 30px;" name="header" value="ssul"/>
-								<span style="font-weight: normal; font-size:90%; display:block;float:left;">후기</span>
 							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">

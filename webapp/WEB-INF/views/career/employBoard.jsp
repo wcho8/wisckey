@@ -5,40 +5,58 @@
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- 취업게시판 -->
 <script type="text/javascript">
-
 var curPage="/Career/employBoard?";
 $(document).ready(function(){
-	defaultParams.mypage="${paramVO.mypage}";
+	var defaultParams = {
+			mypage:"${paramVO.mypage}",
+			ptypeid:"${paramVO.ptypeid}"
+	}
 
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
 		$("#searchType").val("${paramVO.srchType}");
 		$("#keyword").val("${paramVO.keyword}");
 		if(srchType ==1){
-			$("#keyword").attr("placeholder","제목");
+			$("#empid").hide();
+			$("#keyword").show();
+			$("#keyword").attr("placeholder", "제목");
 		}else if(srchType == 2){
-			$("keyword").attr("placeholder", "닉네임");
+			$("#empid").hide();
+			$("#keyword").show();
+			$("#keyword").attr("placeholder", "닉네임");
+		}else if(srchType == 3){
+			$("#empid").val("${paramVO.empid}").prop("selected", true);
+			$("#empid").show();
+			$("#keyword").hide();
 		}
 	}	
 	$("#addEmploymentBoard").click(function(){
-		var url = "/Career/employBoardWrite";
-		if(defaultParams.userno==""||defaultParams.userno==null){
+		var params = $.param(defaultParams);
+		var userno = "${session.userno}";
+		var url = "/Career/employBoardWrite?";
+		if(userno==""||userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
 			return;
 		}else{
-			$(location).attr("href", url);
+			$(location).attr("href", url+params);
 		}
 	});
 	
 	$("#searchType").change(function(){
 		$("#keyword").val("");
 		if($(this).val() == 1){
+			$("#keyword").show();
+			$("#empid").hide();
 			$("#keyword").attr("placeholder", "제목");
 		}else if($(this).val() == 2){
+			$("#keyword").show();
+			$("#empid").hide();
 			$("#keyword").attr("placeholder", "닉네임");
+		}else if($(this).val() == 3){
+			$("#keyword").hide();
+			$("#empid").show();
 		}
 	});
 	$("#search").click(function(){
@@ -55,14 +73,16 @@ $(document).ready(function(){
 
 function search(){
 	var keyword = $("#keyword").val();
+	var empid = $("#empid").val(); 
 	var searchType = $("#searchType").val();
-	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType});
+	var params = $.extend({}, defaultParams, {keyword:keyword, srchType:searchType, empid:empid});
 	var url ="/Career/employBoard?" +$.param(params);
 	$(location).attr("href",url);
 }
 
 function viewBoard(brdid){
-	var url="/Career/employBoardView?brdid="+brdid + "&mypage=" + defaultParams.mypage;
+	var mypage = "${paramVO.mypage}";
+	var url="/Career/employBoardView?brdid="+brdid + "&mypage=" + mypage;
 	$(location).attr("href", url);
 }
 </script>
@@ -154,7 +174,7 @@ input::placeholder{
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
 								<td style="text-align: left; padding-left: 10px;cursor: pointer; font-size:100%; padding-top: 5px;" 
 									onClick="javascript:viewBoard(${list.brdid});">
-								 	<span id="list_title" style="font-weight: 100%;">${list.title} </span><span style="color: #910019; margin-left: 2px;">(${list.repcount})</span>
+								 	<span id="list_title" style="font-weight: 100%;">[${list.typename}]&nbsp;${list.title} </span><span style="color: #910019; margin-left: 2px;">(${list.repcount})</span>
 								</td>
 								<td style="text-align:center;">&nbsp;${list.writer }</td>
 								<td style="text-align:center;">&nbsp;${list.regdate }</td>
@@ -176,6 +196,12 @@ input::placeholder{
 							<option value="3">게시물 타입</option>
 						</select>
 						<input type="text" id="keyword" placeHolder = "제목" style="width: 120px; height:20px;">
+						<select id="empid" style="display:none;">
+							<option value="0">전체</option>
+							<c:forEach items="${emptypes}" var="emptype">
+								<option value="${emptype.empid}">${emptype.typename}</option>
+							</c:forEach>
+						</select>
 						<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
 							<span style="font-size:80%">검색</span>
 						</button>

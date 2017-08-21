@@ -116,8 +116,8 @@ function viewEmployer(brdid){
 	border-radius: 25px;
 	padding-left: 10px;
 	box-shadow: 2px 2px #778899;
-*/
 border-right:2px solid #a80e34;
+*/
 }
 #title_list>li{
 	list-style-type: disc;
@@ -130,16 +130,6 @@ border-right:2px solid #a80e34;
 	width: 35px;
 	float:left;
 }
-/*
-#list_title{
-	overflow:hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap; 
-	width: 300px;
-	display: inline-block;
-	float:left;
-	padding-left: 5px;
-}*/
 #top_row>td{
 	font-size: 80%;
 }
@@ -148,6 +138,9 @@ border-right:2px solid #a80e34;
 }
 input::placeholder{
 	font-size: 12px;
+}
+#center_top>ul>li{
+	list-style-type: disc;
 }
 </style>
 <!-- s:container -->
@@ -165,7 +158,22 @@ input::placeholder{
 					</ul>
 				</div>
 			</div>
-			<div class="center_menu" style="width: 700px; float:left; margin-left:30px;">
+			<div id="center_top" style="float:left; width:350px;  height: 80px; border-left: 2px solid #910019; margin-left: 10px; padding-left:-10px;" >
+				<span style="font-weight: bold; font-size: 110%; margin-left: 30px;">취업공고</span>
+				<ul>
+					<li>
+						<span>WISCKEY 취업공고 게시판입니다.</span>
+					</li>
+					<li>	
+						<span>외부로의 게시물 무단인용을 금지합니다.</span>
+					</li>
+					<li>
+						<span>채용정보를 주기적으로 공유하는 공간입니다.</span>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="center_menu" style="width: 700px; float:left; margin-left:220px;">
 				<table id="primary_table" style="background-color: #f7f7f7; width:700px; border-top: 2px solid #910019; ">
 					<colgroup>
 						<col style="width:5%; ">
