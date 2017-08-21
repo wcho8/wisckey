@@ -21,20 +21,37 @@ $(document).ready(function(){
 		$('#nickname').text(data.nickname);
 		$('#email').text(data.email);
 		$('#birthdate').text(data.birthdate.substring(0,10));
-		$("#telnum").text(data.telnum);
-		$("#gender").text(data.gender);
-		$('#major').text(data.major); 
-		$('#minor').text(data.minor);
+		if(data.telnum == null || data.telnum == ''){
+			$("#telnum").text('¾øÀ½');
+		}else{
+			$("#telnum").text(data.telnum);
+		}
+		if(data.gender == null || data.gender == ''){
+			$("#gender").text('');
+		}else{
+			$("#gender").text(data.gender);
+		}
+		if(data.major == null || data.major == ''){
+			$('#major').text('');
+		}else{
+			$('#major').text(data.major); 
+		}
+		if(data.minor == null || data.minor == ''){
+			$('#minor').text('');
+		}else{
+			$('#minor').text(data.minor);
+		}
 	});
 	
 	var equal = 0;
 	$(function(){
 		$("#dialog").dialog({
-			maxWidth:400,
-			maxHeight:230,
 			width:400,
 			height:230,
 			autoOpen: false,
+			resizable:false,
+			draggable:false,
+			position:'top',
 			buttons:
 				[
 				 	{
@@ -69,7 +86,11 @@ $(document).ready(function(){
 				 			$("#dialog").dialog('close');
 				 		}
 				 	}
-				 ]
+				 ],
+			close:function(){
+				$("#pw").val('');
+				$("#pwCheck").val('');
+			}
 		});
 		$(".ui-dialog-titlebar").hide();
 		

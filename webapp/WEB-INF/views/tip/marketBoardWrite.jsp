@@ -8,8 +8,8 @@
 $(document).ready(function(){
 	var defaultParams={
 		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
-		mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
+		ptypeid: "${paramVO.ptypeid}"
 	};
 	
 	//editor
@@ -37,6 +37,12 @@ $(document).ready(function(){
 			$("#content").summernote('code', data.content);
 		});
 	}
+	
+	$("#cancel").click(function(){
+		var url = "/Tip/market?";
+		var params = $.param(defaultParams);
+		$(location).attr("href", url+params);
+	});
 	
 	// upload to DB
 	$("#addMarketBoard").click(function(){ 

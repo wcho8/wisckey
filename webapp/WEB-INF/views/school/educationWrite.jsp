@@ -36,7 +36,7 @@ $(document).ready(function(){
 		var url="/School/findEducationContent";
 		bEdit = true;
 		var params = $.extend({}, defaultParams, {brdid:brdid});
-		$.post(url, defaultParams, function(data){
+		$.post(url, params, function(data){
 			if("${session.userno}" != data.userno || "${session.userno}" == null){
 				alert("수정할 수 있는 권한이 없습니다.");
 				$(location).attr("href", "/School/education?"+$.param(defaultParams));

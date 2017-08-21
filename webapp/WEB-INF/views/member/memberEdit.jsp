@@ -13,7 +13,6 @@ $(document).ready(function(){
 			userid: "${session.userid}"
 	}
 	
-	
 	$("#birthdate").datepicker({
 		dateFormat: "yy-mm-dd",
 		changeMonth: true,
@@ -67,7 +66,10 @@ $(document).ready(function(){
 		var url = "/Member/modMemberData";
 		if(chkValid()){
 			$.post(url, params, function(){
+				alert("수정하였습니다.");
 				$(location).attr("href","/Member/memberView?userno="+userno);
+			}).error(function(){
+				alert("오류가 발생하였습니다. 나중에 다시 시도해 주세요.");
 			});
 		}else{
 			return
@@ -212,7 +214,7 @@ function chkExist(type){
 			else{
 				var url = "/Member/chkNickname";
 				$.post(url, {nickname: nickname}, function(data){
-					if(data < 0){
+					if(data == null || data == ''){
 						alert("사용 가능한 닉네임입니다.");
 						chkNickname = true;
 					}else{

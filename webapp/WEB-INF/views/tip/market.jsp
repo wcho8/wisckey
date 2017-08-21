@@ -22,7 +22,7 @@ $(document).ready(function(){
 	var userno = "${session.userno}";
 	//글쓰기 버튼 id
 	$("#addMarketBoard").click(function(){	
-		var url = "/Tip/marketBoardWrite";	//mapping url
+		var url = "/Tip/marketBoardWrite?";	//mapping url
 		var params = $.param(defaultParams);
 		if(userno==""||userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
@@ -61,7 +61,7 @@ function search(){
 }
 
 function viewMarketBoard(brdid){	//글제목 클릭했을때 id
-	var params = $.param($.extend({}, defaultParams, {brdid:brdid}));
+	var params = $.param({brdid:brdid, mypage:"${paramVO.mypage}", ptypeid:"${paramVO.ptypeid}"});
 	var url="/Tip/marketBoardView?" + params;
 	$(location).attr("href", url);
 }
