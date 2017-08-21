@@ -146,64 +146,74 @@
 
 
 
-	<!-- 취업게시판 -->
+
+
+
+
+
+
+
+
+													<!-- 취업게시판 -->
 	<insert id="addEmployBoardData" parameterType="CareerVO"
 		useGeneratedKeys="true" keyProperty="brdid" keyColumn="brdid">
 		INSERT INTO brd_employment(
-		empid,
-		title,
-		content,
-		regdate,
-		moddate,
-		userno
+			empid,
+			title,
+			content,
+			regdate,
+			moddate,
+			userno
 		) VALUES(
-		#{empid},
-		#{title},
-		#{content},
-		NOW(),
-		NOW(),
-		#{userno}
+			#{empid},
+			#{title},
+			#{content},
+			NOW(),
+			NOW(),
+			#{userno}
 		)
 		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	<select id="findEmployBoardContent" parameterType="CareerVO"
-		resultType="CareerVO">
+	<select id="findEmployBoardContent" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
-		b.brdid,
-		b.empid,
-		b.title,
-		DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
-		b.content,
-		a.nickname as writer,
-		b.userno,
-		b.count,
-		b.likes
+			b.brdid,
+			b.empid,
+			d.name as typename,
+			b.title,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			b.content,
+			a.nickname as writer,
+			b.userno,
+			b.count,
+			(SELECT COUNT(*) FROM brd_employment_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes
 		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_employment d on b.empid = d.empid
 		WHERE b.brdid = #{brdid}
 	</select>
-	<select id="findEmployBoardList" parameterType="CareerVO"
-		resultType="CareerVO">
+	<select id="findEmployBoardList" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
-		b.brdid,
-		b.empid,
-		b.title,
-		CASE WHEN b.regdate > CURDATE()
-		THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
-		ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
-		END as regdate,
-		a.nickname as writer,
-		b.userno,
-		b.count,
-		b.likes,
-		(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as
-		repcount
+			b.brdid,
+			b.empid,
+			d.name as typename,
+			b.title,
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
+			END as regdate,
+			a.nickname as writer,
+			b.userno,
+			b.count,
+			(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_employment b
-		LEFT JOIN info_userinfo a on b.userno =
-		a.userno
-		WHERE empid=2
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_employment d on b.empid = d.empid
+		WHERE 1=1
+		<if test="ptypeid != null and ptypeid != ''">
+			AND d.ptypeid = #{ptypeid}
+		</if>
 		<if test="keyword !=null and keyword != ''">
 			<if test="srchType ==1">
 				AND b.title LIKE CONCAT('%',#{keyword},'%')
@@ -212,36 +222,54 @@
 				AND a.nickname LIKE CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
-		ORDER bY b.brdid DESC
+		<if test="empid != null and empid != 0">
+			<if test="srchType == 3">
+				AND b.empid = #{empid}
+			</if>
+		</if>
+		ORDER BY b.brdid DESC
 		LIMIT #{skiprow}, #{pagerow}
 	</select>
-	<select id="findEmployBoardTotalCnt" parameterType="CareerVO"
-		resultType="int">
+	<select id="findEmployBoardTotalCnt" parameterType="CareerVO" resultType="int">
 		SELECT
-		COUNT(*)
-		FROM brd_employment
-		WHERE empid=2
+			COUNT(*)
+		FROM brd_employment a
+		LEFT JOIN cod_employment b on a.empid = b.empid
+		LEFT JOIN info_userinfo c ON a.userno = c.userno
+		WHERE b.ptypeid=#{ptypeid}
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND a.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND c.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		<if test="empid != null and empid != 0">
+			<if test="srchType == 3">
+				AND a.empid = #{empid}
+			</if>
+		</if>
 	</select>
 	<update id="modBoardCount" parameterType="CareerVO">
-		UPDATE brd_employment
-		SET
-		count = count + 1
+		UPDATE brd_employment SET
+			count = count + 1
 		WHERE brdid = #{brdid}
 	</update>
 	<insert id="addEmployBoardReply" parameterType="CareerVO"
 		useGeneratedKeys=" true" keyProperty="repid" keyColumn="repid">
 		INSERT INTO brd_employment_reply(
-		brdid,
-		content,
-		regdate,
-		moddate,
-		userno
+			brdid,
+			content,
+			regdate,
+			moddate,
+			userno
 		)VALUES(
-		#{brdid},
-		#{repContent},
-		NOW(),
-		NOW(),
-		#{userno}
+			#{brdid},
+			#{repContent},
+			NOW(),
+			NOW(),
+			#{userno}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -249,31 +277,108 @@
 	</insert>
 	<select id="findBoardReply" parameterType="CareerVO" resultType="CareerVO">
 		SELECT
-		a.repid,
-		b.nickname as replier,
-		a.content as repContent,
-		DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
+			a.repid,
+			b.nickname as replier,
+			a.content as repContent,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT c.likes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT c.dislikes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_employment_reply a
-		LEFT
-		JOIN info_userinfo b on a.userno = b.userno
+		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
 	<delete id="deleteEmployBoardReply" parameterType="CareerVO">
 		DELETE FROM
-		brd_employment_reply
+			brd_employment_reply
 		WHERE brdid = #{brdid}
 	</delete>
 	<delete id="deleteEmployBoard" parameterType="CareerVO">
 		DELETE FROM
-		brd_employment
+			brd_employment
 		WHERE brdid=#{brdid}
 	</delete>
 	<update id="modEmployBoardData" parameterType="CareerVO">
-		UPDATE
-		brd_employment SET
-		content = #{content},
-		title = #{title},
-		moddate = NOW()
+		UPDATE brd_employment SET
+			content = #{content},
+			title = #{title},
+			moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
+	<select id="checkLikes" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			id as lid,
+			likes
+		FROM brd_employment_likes
+		WHERE userno = #{userno}
+			AND brdid = #{brdid}
+	</select>
+	<insert id="addEmployLikes" parameterType="CareerVO">
+		INSERT INTO brd_employment_likes(
+			brdid,
+			userno,
+			likes
+		)VALUES(
+			#{brdid},
+			#{userno},
+			#{likes}
+		)
+	</insert>
+	<update id="modEmployLikes" parameterType="CareerVO">
+		UPDATE brd_employment_likes SET
+			likes = likes + 1
+		WHERE brdid = #{brdid}
+			AND userno = #{userno}
+	</update>
+	<select id="checkRepLikes" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			id as replid,
+			likes as repLikes,
+			dislikes as repDislikes
+		FROM brd_employment_reply_likes
+		WHERE userno = #{userno}
+			AND repid = #{repid}
+	</select>
+	<insert id="addEmployRepLikes" parameterType="CareerVO">
+		INSERT INTO brd_employment_reply_likes(
+			repid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{repid},
+			#{userno},
+			#{repLikes},
+			#{repDislikes}
+		)
+	</insert>
+	<update id="modRepLikes" parameterType="CareerVO">
+		UPDATE brd_employment_reply_likes SET
+			likes = likes + 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<update id="modRepDislikes" parameterType="BoardVO">
+		UPDATE brd_employment_reply_likes SET
+			dislikes = dislikes + 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<select id="getEmptypes" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			empid,
+			name as typename
+		FROM cod_employment
+		WHERE ptypeid = 3
+	</select>
+	<delete id="deleteEmployBoardLikes" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_likes
+		WHERE brdid=#{brdid}
+	</delete>
+	<delete id="deleteEmployBoardRepLikes" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_reply_likes
+		WHERE repid=#{repid}
+	</delete>
+	
 </mapper>

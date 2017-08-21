@@ -87,8 +87,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">취업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Career/">취업공고</a></li>
-								<li><a href="/Career/employBoard">취업 게시판</a></li>
+								<li><a href="/Career/?ptypeid=8">취업공고</a></li>
+								<li><a href="/Career/employBoard?ptypeid=3">취업 게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -96,8 +96,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">학업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/School/pastWork">족보</a></li>
-								<li><a href="/School/education">학업게시판</a></li>
+							<!-- 	<li style="display: hidden"><a href="/School/pastWork?ptypeid=4">족보</a></li>-->
+								<li><a href="/School/education?ptypeid=5">학업게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">

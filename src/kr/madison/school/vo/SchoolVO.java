@@ -15,7 +15,6 @@ public class SchoolVO extends CommonVO{
 	public String writer;
 	public int count;
 	public int likes;
-	public int dislikes;
 	public int repcount;
 	
 	public int repid;
@@ -25,8 +24,22 @@ public class SchoolVO extends CommonVO{
 	public int repLikes;
 	public int repDislikes;
 	
+	public Integer lid = 0;
+	public Integer replid = 0;
 	
 	
+	public Integer getLid() {
+		return lid;
+	}
+	public void setLid(Integer lid) {
+		this.lid = lid;
+	}
+	public Integer getReplid() {
+		return replid;
+	}
+	public void setReplid(Integer replid) {
+		this.replid = replid;
+	}
 	public int getRepLikes() {
 		return repLikes;
 	}
@@ -38,12 +51,6 @@ public class SchoolVO extends CommonVO{
 	}
 	public void setRepDislikes(int repDislikes) {
 		this.repDislikes = repDislikes;
-	}
-	public int getDislikes() {
-		return dislikes;
-	}
-	public void setDislikes(int dislikes) {
-		this.dislikes = dislikes;
 	}
 	public String getWriter() {
 		return writer;

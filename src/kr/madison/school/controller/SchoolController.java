@@ -112,7 +112,14 @@ public class SchoolController {
 	}
 	
 	
-	//학업게시판
+						
+	
+	
+	
+	
+	
+	
+									//학업게시판
 	@RequestMapping("/education")
 	public ModelAndView education(@ModelAttribute("paramVO") SchoolVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
@@ -122,24 +129,34 @@ public class SchoolController {
 		Util.setPaging(paramVO, totalcount, pageRow);
 		
 		List<SchoolVO> vo = schoolService.findEducationList(paramVO);
+		List<SchoolVO> swtypes = schoolService.getSwtypes(paramVO);
 		
 		mav.addObject("educationList", vo);
 		mav.addObject("totalCnt",totalcount);
+		mav.addObject("swtypes", swtypes);
 		mav.setViewName("/school/education");
+		
 		
 		return mav;
 	}
 	@RequestMapping("/educationWrite")
 	public ModelAndView educationWrite(@ModelAttribute("paramVO") SchoolVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView(); 
-		mav.setViewName("/school/educationWrite");
 		
+		paramVO.setTypeid(5);
+		List<SchoolVO> swtypes = schoolService.getSwtypes(paramVO);
+		
+		mav.setViewName("/school/educationWrite");
+		mav.addObject("swtypes", swtypes);
 		return mav;
 	}
 	@RequestMapping("/educationView")
 	public ModelAndView educationView(@ModelAttribute("paramVO") SchoolVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
 		SchoolVO vo = schoolService.findEducationContent(paramVO);
+		
+
+		paramVO.setPtypeid(vo.getPtypeid());
 		
 		List<SchoolVO> replies = schoolService.findEducationReply(paramVO);
 		
@@ -193,10 +210,16 @@ public class SchoolController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modEducationLikes(SchoolVO paramVO){
+	public String modEducationLikes(SchoolVO paramVO){
 		int result = schoolService.modEducationLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
@@ -208,16 +231,35 @@ public class SchoolController {
 	}
 	@RequestMapping
 	@ResponseBody
-	public int modRepLikes(SchoolVO paramVO){
+	public String modRepLikes(SchoolVO paramVO){
 		int result = schoolService.modRepLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepDislikes(SchoolVO paramVO){
+	public String modRepDislikes(SchoolVO paramVO){
 		int result = schoolService.modRepDislikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	@RequestMapping
+	@ResponseBody
+	public List<SchoolVO> getFrTypes(SchoolVO paramVO){
+		List<SchoolVO> result = schoolService.getSwtypes(paramVO);
 		
 		return result;
 	}

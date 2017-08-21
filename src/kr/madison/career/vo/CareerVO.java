@@ -16,16 +16,47 @@ public class CareerVO extends CommonVO{
 	public String moddate;
 	public int count;
 	public int likes;
-	public int tipid;
 	public int repcount;
 	
 	public int repid;
 	public String repContent;
 	public String repRegdate;
 	public String replier;
+	public int repLikes;
+	public int repDislikes;
+	
+	
+	public Integer lid = 0;
+	public Integer replid = 0;
 	
 	public int dDate;
 	
+	
+	
+	public int getRepLikes() {
+		return repLikes;
+	}
+	public void setRepLikes(int repLikes) {
+		this.repLikes = repLikes;
+	}
+	public int getRepDislikes() {
+		return repDislikes;
+	}
+	public void setRepDislikes(int repDislikes) {
+		this.repDislikes = repDislikes;
+	}
+	public Integer getLid() {
+		return lid;
+	}
+	public void setLid(Integer lid) {
+		this.lid = lid;
+	}
+	public Integer getReplid() {
+		return replid;
+	}
+	public void setReplid(Integer replid) {
+		this.replid = replid;
+	}
 	public int getdDate() {
 		return dDate;
 	}
@@ -61,12 +92,6 @@ public class CareerVO extends CommonVO{
 	}
 	public void setReplier(String replier) {
 		this.replier = replier;
-	}
-	public int getTipid() {
-		return tipid;
-	}
-	public void setTipid(int tipid) {
-		this.tipid = tipid;
 	}
 	public String getDeadline() {
 		return deadline;

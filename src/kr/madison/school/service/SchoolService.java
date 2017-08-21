@@ -3,6 +3,7 @@ package kr.madison.school.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.madison.board.vo.BoardVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.common.vo.SessionVO;
 import kr.madison.school.dao.SchoolDAO;
@@ -155,19 +156,62 @@ public class SchoolService extends CommonService{
 		return paramVO.getBrdid();
 	}
 	public int modEducationLikes(SchoolVO paramVO) {
-		int result = schoolDAO.modEducationLikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		SchoolVO test = schoolDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test==null||test.getLid()==null){
+			paramVO.setLikes(1);
+			result = schoolDAO.addEducationLikes(paramVO);
+		}else if(test.getLid()!=0 && test.getLid() != null){
+			if(test.getLikes()==0){
+				result = schoolDAO.modEducationLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	public int modEducationDislikes(SchoolVO paramVO) {
 		int result = schoolDAO.modEducationDislikes(paramVO);
 		return result;
 	}
+	
 	public int modRepLikes(SchoolVO paramVO) {
-		int result = schoolDAO.modRepLikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		SchoolVO test = schoolDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = schoolDAO.addEducationRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = schoolDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		return result;
 	}
 	public int modRepDislikes(SchoolVO paramVO) {
-		int result = schoolDAO.modRepDislikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		SchoolVO test = schoolDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepDislikes(1);
+			result = schoolDAO.addEducationRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepDislikes() == 0){
+				result = schoolDAO.modRepDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		return result;
+	}
+	public List<SchoolVO> getSwtypes(SchoolVO paramVO) {
+		List<SchoolVO> result = schoolDAO.getSwtypes(paramVO);
 		return result;
 	}
 	

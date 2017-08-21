@@ -126,11 +126,18 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	<!-- 학업게시판 -->
 	<select id="findEducationList" parameterType="SchoolVO" resultType="SchoolVO">
 		SELECT
 			b.brdid,
 			b.swid,
+			d.name as typename,
 			b.title,
 			CASE WHEN b.regdate > CURDATE()
 				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
@@ -138,17 +145,26 @@
 			END as regdate,
 			a.nickname as writer,
 			b.count,
-			b.likes,
+			(SELECT COUNT(*) FROM brd_schoolwork_likes f WHERE b.brdid = f.brdid and f.likes = 1) as likes,
 			(SELECT COUNT(*) FROM brd_schoolwork_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_schoolwork b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
-		WHERE swid=2
+		LEFT JOIN cod_schoolwork d on b.swid = d.swid
+		WHERE 1=1
+		<if test="ptypeid != null and ptypeid != ''">
+			AND d.ptypeid = #{ptypeid}
+		</if>
 		<if test = "keyword != null and keyword !=''">
 			<if test = "srchType ==1">
 				AND b.title LIKE CONCAT('%',#{keyword},'%')
 			</if>
 			<if test = "srchType ==2">
 				AND a.nickname LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+		<if test="swid != null and swid != 0">
+			<if test="srchType == 3">
+				AND b.swid = #{swid}
 			</if>
 		</if>
 		ORDER BY b.brdid DESC
@@ -178,16 +194,18 @@
 		SELECT
 			b.brdid,
 			b.swid,
+			d.name as typename,
+			d.ptypeid,
 			b.title,
 			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
 			b.content,
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			b.likes,
-			b.dislikes
+			(SELECT COUNT(*) FROM brd_schoolwork_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes
 		FROM brd_schoolwork b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_schoolwork d on b.swid = d.swid
 		WHERE b.brdid = #{brdid}
 	</select>
 	<update id="modEducationCount" parameterType="SchoolVO">
@@ -198,8 +216,23 @@
 	<select id="findEducationTotalCnt" parameterType="SchoolVO" resultType="int">
 		SELECT 
 			COUNT(*)
-		FROM brd_schoolwork
-		WHERE swid=2
+		FROM brd_schoolwork a
+		LEFT JOIN cod_schoolwork b ON a.swid = b.swid
+		LEFT JOIN info_userinfo c ON a.userno = c.userno
+		WHERE b.ptypeid= #{ptypeid}
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND a.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND c.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		<if test="swid != null and swid != 0">
+			<if test="srchType == 3">
+				AND a.swid = #{swid}
+			</if>
+		</if>
 	</select>
 	<insert id="addEducationReply" parameterType="SchoolVO" useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
 		INSERT INTO brd_schoolwork_reply(
@@ -225,8 +258,8 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			a.likes as repLikes,
-			a.dislikes as repDislikes
+			(SELECT c.likes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT c.dislikes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_schoolwork_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
@@ -248,24 +281,77 @@
 			moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
+	<select id="checkLikes" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT
+			id as lid,
+			likes
+		FROM brd_schoolwork_likes
+		WHERE userno = #{userno}
+			AND brdid = #{brdid}
+	</select>
+	<insert id="addEducationLikes" parameterType="SchoolVO">
+		INSERT INTO brd_schoolwork_likes(
+			brdid,
+			userno,
+			likes
+		)VALUES(
+			#{brdid},
+			#{userno},
+			#{likes}
+		)
+	</insert>
 	<update id="modEducationLikes" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
 			likes = likes+1
 		WHERE brdid=#{brdid}
+			AND userno = #{userno}
 	</update>
+	<!-- 
 	<update id="modEducationDislikes" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
 			dislikes = dislikes+1
 		WHERE brdid=#{brdid}
-	</update>
-	<update id="modRepLikes" parameterType="BoardVO">
+	</update> -->
+	<select id="checkRepLikes" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT
+			id as replid,
+			likes as repLikes,
+			dislikes as repDislikes
+		FROM brd_schoolwork_reply_likes
+		WHERE userno = #{userno}
+			AND repid = #{repid}
+	</select>
+	<insert id="addEducationRepLikes" parameterType="SchoolVO">
+		INSERT INTO brd_schoolwork_reply_likes(
+			repid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{repid},
+			#{userno},
+			#{repLikes},
+			#{repDislikes}
+		)
+	</insert>
+	<update id="modRepLikes" parameterType="SchoolVO">
 		UPDATE brd_schoolwork_reply SET
 			likes = likes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
-	<update id="modRepDisLikes" parameterType="BoardVO">
+	<update id="modRepDisLikes" parameterType="SchoolVO">
 		UPDATE brd_schoolwork_reply SET
 			dislikes = dislikes+1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
+
+	<select id="getSwtypes" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT
+			swid,
+			name as typename
+		FROM cod_schoolwork
+		WHERE ptypeid = #{ptypeid}
+	</select>
 </mapper>

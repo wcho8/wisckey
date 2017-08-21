@@ -167,12 +167,12 @@ td{
 
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
-								<img src="../images/kohl_center.jpg" />
-							</div>
-							<!-- <div class="item">
-								<img src="../images/sample_carousel_2.jpg" />
+								<img src="../images/banner1.png" />
 							</div>
 							<div class="item">
+								<img src="../images/banner2.png" />
+							</div>
+							<!-- <div class="item">
 								<img src="../images/sample_carousel_3.jpg" />
 							</div> -->
 						</div>
