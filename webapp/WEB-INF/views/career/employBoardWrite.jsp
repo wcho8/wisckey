@@ -30,17 +30,18 @@ $(document).ready(function(){
 		var url="/Career/findEmployBoardContent";
 		bEdit = true;
 		var params = $.extend({}, defaultParams, {brdid:brdid});
-		if("${session.userno}" != data.userno || "${session.userno}" == null){
-			alert("수정할 수 있는 권한이 없습니다.");
-			$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
-			return;
-		}else{
-			$.post(url, params, function(data){
-				$("#title").val(data.title);
-				$("#content").summernote('code', data.content);
-			});
-			
-		}
+		$.post(url, params, function(data){
+			if("${session.userno}" != data.userno || "${session.userno}" == null){
+				alert("수정할 수 있는 권한이 없습니다.");
+				$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
+				return;
+			}else{
+				$.post(url, params, function(data){
+					$("#title").val(data.title);
+					$("#content").summernote('code', data.content);
+				});
+			}
+		});
 	}
 	
 	$("#cancel").click(function(){
@@ -82,12 +83,6 @@ $(document).ready(function(){
 				$("#title").focus();
 			}
 		}
-	});
-	
-	$("#cancel").click(function(){
-		var url = "/Career/employBoard?";
-		var params = $.param(defaultParams);
-		$(location).attr("href", url+params);
 	});
 	
 	//제목 글자수 제한
@@ -218,7 +213,7 @@ div input{
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
 						<li><a href="/Career/">취업공고</a></li>
-						<li><a id="current" href="/Career/employBoard">취업게시판</a></li>
+						<li><a id="current" href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
 					</ul>
 				</div>
 			</div>

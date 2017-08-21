@@ -264,16 +264,7 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
 	</select>
-	<delete id="deleteEducationReply" parameterType="SchoolVO">
-		DELETE FROM
-			brd_schoolwork_reply
-		WHERE brdid = #{brdid}
-	</delete>
-	<delete id="deleteEducation" parameterType="SchoolVO">
-		DELETE FROM
-			brd_schoolwork
-		WHERE brdid=#{brdid}
-	</delete>
+	
 	<update id="modEducationData" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
 			content = #{content},
@@ -354,4 +345,25 @@
 		FROM cod_schoolwork
 		WHERE ptypeid = #{ptypeid}
 	</select>
+	<delete id="deleteEducation" parameterType="SchoolVO">
+		DELETE FROM
+			brd_schoolwork
+		WHERE brdid=#{brdid}
+	</delete>
+	<delete id="deleteEducationReply" parameterType="SchoolVO">
+		DELETE FROM
+			brd_schoolwork_reply
+		WHERE brdid = #{brdid}
+		<if test="repid != null and repid != ''">
+			AND repid = #{repid}
+		</if>
+	</delete>
+		<delete id="deleteEducationLikes" parameterType="SchoolVO">
+		DELETE FROM brd_schoolwork_likes
+			WHERE brdid = #{brdid}
+	</delete>
+	<delete id="deleteEducationReplyLikes" parameterType="SchoolVO">
+		DELETE FROM brd_schoolwork_reply_likes
+			WHERE repid in (SELECT a.repid FROM brd_schoolwork_reply a WHERE brdid = #{brdid})
+	</delete>
 </mapper>

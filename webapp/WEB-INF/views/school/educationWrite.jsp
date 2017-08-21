@@ -47,11 +47,6 @@ $(document).ready(function(){
 			}
 		});
 	}
-	$("#cancel").click(function(){
-		var url = "/School/education?";
-		var params = $.param(defaultParams);
-		$(location).attr("href", url+params);
-	});
 	$("#addEducation").click(function(){ 
 		var url = "/School/addEducationData";
 		var content = $("#content").summernote('code');
@@ -186,7 +181,7 @@ function cutInUTF8(str, n) {
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
 						<!--  <li style="display:hidden;"><a href="/School/pastWork">족보</a></li>-->
-						<li><a id="current" href="/School/education">학업게시판</a></li>
+						<li><a id="current" href="/School/education?ptypeid=5">학업게시판</a></li>
 					</ul>
 				</div>
 			</div>

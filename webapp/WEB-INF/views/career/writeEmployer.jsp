@@ -205,7 +205,7 @@ function cutInUTF8(str, n) {
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
-						<li><a id="current" href="/Career/">취업공고</a></li>
+						<li><a id="current" href="/Career/?ptypeid=3">취업공고</a></li>
 						<li><a href="/Career/employBoard">취업게시판</a></li>
 					</ul>
 				</div>
