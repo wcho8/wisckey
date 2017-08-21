@@ -121,8 +121,8 @@ border:1px dashed red;
 							<col width="*">
 						</colgroup>
 						<tbody>
-							<tr>
-								<th>말머리</th>
+							<tr style="border: 1px solid #ccc;">
+								<th style="text-align: center;">말머리</th>
 								<td>
 									<select id="frid">
 										<c:forEach items="${frtypes}" var="frtype">
@@ -130,12 +130,12 @@ border:1px dashed red;
 										</c:forEach>
 									</select>
 								</td>
-							<tr>
-								<th>제목</th>
+							<tr style="border: 1px solid #ccc;">
+								<th style="text-align: center;">제목</th>
 								<td><input type="text" id="title" style="width:100%;"></td>
 							</tr>
-							<tr>
-								<th>내용</th>
+							<tr style="border: 1px solid #ccc;">
+								<th style="text-align: center;">내용</th>
 								<td style="min-height:400px;">
 									<div id="content"></div>
 								</td>

@@ -26,7 +26,7 @@ $(document).ready(function(){
 	$("#prid").change(function(){
 		$("#prname").hide();
 		$("#prname").text("");
-		bCheckPr = false;
+		$("#bCheckPr").val('');
 	});
 	
 	function key_false(){
@@ -46,11 +46,11 @@ $(document).ready(function(){
 			$("#comment").focus();
 			return;
 		}
-		if(!bCheckPr){
+		/* if(bCheckPr == null || bCheckPr == ''){
 			alert("회장이 필요합니다.");
 			$("#prid").focus();
 			return;
-		}
+		} */
 		
 		$('input[name="attach_file"]').each(function() {
 			if ($(this).val() != "") {
@@ -124,6 +124,7 @@ function searchId(){
 				case "1":
 					$("#prname").text(korname);
 					$("#prno").text(data.userno);
+					$("#bCheckPr").text("1");
 					break;
 				case "2":
 					$("#vprname1").text(korname);
@@ -145,6 +146,7 @@ function searchId(){
 <style type="text/css">
 </style>
 <div class="dialog">
+	<div id="bCheckPr" style="display:none;"></div>
 	<table id="dialog_contents" style="padding:5px; width:100%;">
 		<colgroup>
 			<col width="20%" />
@@ -194,13 +196,7 @@ function searchId(){
 			<td>
 				<form method="post" id="form_upload" name="form_upload" enctype="multipart/form-data">
 					<div class="mt5">
-						<label class="fileContainer">
-							<div id="inputFile">
-				    		 	<input type="text" id="filename" style="text-align:left; padding-left:5px !important;" />
-       							<div style="cursor:pointer; border-color:#eee !important"><img alt="Search" width="16" height="16" src="/images/icon/attachment.png" /></div>
-       						</div>
-						    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()" style="display:none;"/>
-						</label>
+					    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()"/>
 			    	</div>
 		    	</form>
 			</td>

@@ -158,15 +158,15 @@ function sendFile(file, el){
 					</colgroup>
 					<tbody>
 						<!-- 말머리 -->
-						<tr>
-								<th>말머리</th>
-								<td>
-									<select id="tipid">
-										<c:forEach items="${tiptypes}" var="tiptype">
-											<option value="${tiptype.tipid}">${tiptype.typename}</option>
-										</c:forEach>
-									</select>
-								</td>
+						<tr style="border: 1px solid #ccc;">
+							<th style="text-align: center;">말머리</th>
+							<td>
+								<select id="tipid">
+									<c:forEach items="${tiptypes}" var="tiptype">
+										<option value="${tiptype.tipid}">${tiptype.typename}</option>
+									</c:forEach>
+								</select>
+							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>

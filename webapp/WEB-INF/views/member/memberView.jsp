@@ -207,14 +207,14 @@ function submit(equal){
 								<th style="padding-left: 5px;">Major</th>
 								<td id="major"></td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<th style="padding-left: 5px;">주 활동 동아리</th>
 								<td id="majorOrg"></td>
 							</tr>
 							<tr>
 								<th style="padding-left: 5px;">부 활동 동아리</th>
 								<td id="minorOrg"></td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 					<div style="width:100%; margin-top: 8px; float:left;">

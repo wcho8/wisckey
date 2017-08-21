@@ -27,7 +27,8 @@ $(document).ready(function(){
 	//새 공지 등록
 	$("#addNotice").click(function(){
 		var url = "/About/writeForm";
-		if(defaultParams.userno==""||defaultParams.userno == null){
+		var userno = "${session.userno}";
+		if(userno=="" || userno == null){
 			alert("로그인 후에 이용하실 수 있습니다.");
 			return;
 		}else{
@@ -86,7 +87,7 @@ function search(){
 }
 //공지보기
 function viewNotice(nid){
-	var url = "/About/viewNotice?nid=" + nid+ "&mypage=" + defaultParams.mypage;
+	var url = "/About/viewNotice?nid=" + nid+ "&mypage=" + "${paramVO.mypage}";
 	$(location).attr("href", url);
 }
 </script>

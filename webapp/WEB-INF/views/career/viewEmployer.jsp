@@ -156,7 +156,7 @@ function cutInUTF8(str, n) {
 				
 				<div id="notice_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="notice_title" style="width: 100%; background-color: lightgrey; font-size: 19px; padding:5px; border-top: 2px solid grey; ">
-						<span id="title" style="font-weight:bold;" title="" val="${vo.title}">${vo.title }</span>  <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<span id="title" style="font-weight:bold;" title="" value="${vo.title}">${vo.title }</span>  <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="notice_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">

@@ -158,8 +158,8 @@ function sendFile(file, el){
 					</colgroup>
 					<tbody>
 						<!-- 富赣府 -->
-						<tr>
-							<th>富赣府</th>
+						<tr style="border: 1px solid #ccc;">
+							<th style="text-align: center;">富赣府</th>
 							<td>
 								<select id="tipid">
 									<c:forEach items="${markettypes}" var="markettype">

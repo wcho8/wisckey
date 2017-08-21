@@ -8,9 +8,8 @@
 <script type="text/javascript">
 
 var curPage="/Tip/food?";
-var defaultParams = {};
 $(document).ready(function(){
-	defaultParams={
+	var defaultParams={
 			mypage: "${paramVO.mypage}",
 	};
 	
@@ -27,7 +26,8 @@ $(document).ready(function(){
 	//글쓰기 버튼 id
 	$("#addFoodBoard").click(function(){	
 		var url = "/Tip/foodBoardWrite";	//mapping url
-		if(defaultParams.userno==""||defaultParams.userno==null){
+		var userno = "${session.userno}";
+		if(userno==""||userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
 			return;
 		}else{

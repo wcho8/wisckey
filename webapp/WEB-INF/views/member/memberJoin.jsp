@@ -439,7 +439,7 @@ function addMember(){
 										<input type="radio" name="gender" value="F">&nbsp;<label style="vertical-align: middle; padding-top:3px;">여자</label>
 									</td>
 								</tr>
-								<tr>
+								<tr class="bot_line">
 									<th>휴대폰</th>
 									<td>
 										<input type="text" name="telnum">
@@ -451,11 +451,11 @@ function addMember(){
 										<input type="text" id="birthdate">
 									</td>
 								</tr>
-								<tr class="bot_line">
+								<tr>
 									<th>Major </th>
 									<td><input type="text" id="major"></td>
 								</tr>
-								<tr class="bot_line">
+								<!-- <tr class="bot_line">
 									<th>주 활동 동아리</th>
 									<td>
 										<select id="main_org">
@@ -470,7 +470,7 @@ function addMember(){
 											<option value="">없음</option>
 										</select>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 						<div style="float:left; width:100%; padding-top: 8px;">
