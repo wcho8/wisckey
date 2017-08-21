@@ -6,11 +6,13 @@
 <script type="text/javascript">
 var curPage = "/About/?";
 $(document).ready(function(){
-	defaultParams.mypage="${paramVO.mypage}";
+	var defaultParams = {
+			mypage:"${paramVO.mypage}"
+	}
 
-	var authid = defaultParams.authid;
+	var authid = "${session.authid}";
 	if( authid ==1 ){
-		$("writeBtn").show();
+		$("#writeBtn").show();
 	}
 	var srchType = "${paramVO.srchType}";
 	if(srchType !=null && srchType !=''){
@@ -19,7 +21,7 @@ $(document).ready(function(){
 		if(srchType ==1){
 			$("#keyword").attr("placeholder","제목");
 		}else if(srchType == 2){
-			$("keyword").attr("placeholder", "닉네임");
+			$("#keyword").attr("placeholder", "닉네임");
 		}
 	}	
 	//새 공지 등록

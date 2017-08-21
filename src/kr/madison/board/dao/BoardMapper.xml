@@ -98,7 +98,6 @@
 		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		<!-- File 추가 -->
 	</insert>
 	<insert id="addBoardReply" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
 		INSERT INTO brd_freeboard_reply(
@@ -203,8 +202,8 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			(SELECT c.likes FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT c.dislikes FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
@@ -233,5 +232,13 @@
 		<if test="repid != null and repid != ''">
 			AND repid = #{repid}
 		</if>
+	</delete>
+	<delete id="delBoardLikes" parameterType="BoardVO">
+		DELETE FROM brd_freeboard_likes
+			WHERE brdid = #{brdid}
+	</delete>
+	<delete id="delBoardReplyLikes" parameterType="BoardVO">
+		DELETE FROM brd_freeboard_reply_likes
+			WHERE repid in (SELECT a.repid FROM brd_freeboard_reply a WHERE brdid = #{brdid})
 	</delete>
 </mapper>

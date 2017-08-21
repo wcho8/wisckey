@@ -19,7 +19,7 @@ a:hover{
 <!-- footer -->
 
 <div id="footer" style="border-top: none;border-bottom: none;">
-	<div id="otherSites" style="  width:1200px; line-height:30px; margin:auto; padding-left:0px;">
+	<div id="otherSites" style="width:1200px; line-height:30px; margin:auto; padding-left:0px;">
 		<div><a href="http://my.wisc.edu">
 			<span class="links" style="border-right:1px solid #ccc">MY UW</span>
 		</a></div>
@@ -40,8 +40,8 @@ a:hover{
 		</a></div>
 	</div>
 	<div class="txt" style="width:100%;padding-left:70px;">
-	    <div class="fLeft" style="padding-left:60px; width:30%;">
-	    	<a href="/"><img src="/images/common/wisckey_1.png" style="height:100px;"/></a>
+	    <div class="fLeft" style="padding-left:60px; width:28%;">
+	    	<a href="/"><img src="/images/common/wisckey_1.png" style="height:110px;"/></a>
 	    </div>    
 	    <div class="fLeft" style="padding-top:40px;padding-bottom:30px; font-size:15px; color:black;">
 	    	<a href="#">이용약관</a> | 

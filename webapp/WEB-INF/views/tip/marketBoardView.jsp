@@ -6,13 +6,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
-	$("#userno_employBoard").hide();
-	
 	var defaultParams={
-			brdid: "${paramVO.brdid}",
-			userno: "${session.userno}",
-			nickname: "${session.nickname}",
 			mypage: "${paramVO.mypage}"
 	}
 	$("#marketBoardList").click(function(){
@@ -21,9 +15,9 @@ $(document).ready(function(){
 	});
 	
 	$("#addReply").click(function(){
-		var url = "/Career/addMarketBoardReply";
+		var url = "/Tip/addMarketReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent, userno:"${session.userno}", brdid:"${paramVO.brdid}"});
 		if(params.repContent==""||params.repContent==null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
@@ -40,27 +34,70 @@ $(document).ready(function(){
 	});
 	
 	$("#marketBoardDelete").click(function(){
-		var url = "/Tip/deleteMarketBoard";
-		var params = $.extend({}, defaultParams, {});
+		var url = "/Tip/delBoardData";
+		var params = $.extend({}, defaultParams, {userno:"${session.userno}", brdid:"${paramVO.brdid}"});
 		$.post(url, params, function(data){
 			alert("게시글이 삭제되었습니다.");
-			$(location).attr("href","/Tip/market");
+			$(location).attr("href","/Tip/market?"+$.param(defaultParams));
+		}).error(function(){
+			alert("데이터를 삭제하는데 실패하였습니다. 다시 시도해 주세요.");
+			$(location).reload(true);
 		});
 	});
 	
 	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
 	
-	if(defaultParams.userno == writerno){
+	if(userno == writerno){
 		$("#marketBoardUpdate").show();
 		$("#marketBoardDelete").show();
 	}
-	$("#marketUpdate").click(function(){
+	$("#marketBoardUpdate").click(function(){
 		var url = "/Tip/marketBoardWrite?";
-		var params = $.param(defaultParams);
+		var params = $.param($.extend({}, defaultParams, {brdid:"${paramVO.brdid}"}));
 		$(location).attr("href", url+params);
 	});
 });
 
+//댓글 추천/비추
+function likes(like, repid){
+	var url = "";
+	var msg = "";
+	if(like == 'Y'){
+		url = "/Tip/modRepLikes";
+	}else if(like == 'N'){
+		url = "/Tip/modRepDislikes";
+	}
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
+	
+	$.post(url, params, function(data){
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
+		alert(msg);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
+
+	});
+}
 </script>
 <style type="text/css">
 #title_list li>a:hover {
@@ -149,9 +186,9 @@ $(document).ready(function(){
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="marketBoardDelete" style="float: right;"><span style="font-size:80%;">삭제</span></button>
+						<button class="btn delete" id="marketBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">삭제</span></button>
+						<button class="btn confirm" id="marketBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
 						<button class="btn update" id="marketBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
-						<button class="btn confirm" id="marketBoardList" style="float: right; display:none;"><span style="font-size:80%;">목록</span></button>			
 					</div>
 					
 				
@@ -167,8 +204,12 @@ $(document).ready(function(){
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
+							<span style="float:right;font-size:12px;">
+								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
+								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
+							</span>
 							<br/>
-						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
+							<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
 						</div>
 						
 					</c:forEach>

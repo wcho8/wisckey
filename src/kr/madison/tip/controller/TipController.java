@@ -67,11 +67,6 @@ public class TipController {
 		ModelAndView mav = new ModelAndView();
 		TipVO vo = tipService.findFoodContent(paramVO);
 		
-		// 8/17
-		//paramVO.setPtypeid(vo.getPtypeid());
-		//paramVO.setPtypeid(vo.getPtypeid());
-		
-		
 		List<TipVO> replies = tipService.findFoodReply(paramVO);
 		int repcount = tipService.getReplyCount(paramVO);
 		
@@ -124,34 +119,60 @@ public class TipController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modFoodLikes(TipVO paramVO){
+	public String modFoodLikes(TipVO paramVO){
 		int result = tipService.modFoodLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modFoodDislikes(TipVO paramVO){
+	public String modFoodDislikes(TipVO paramVO){
 		int result = tipService.modFoodDislikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepLikes(TipVO paramVO){
+	public String modRepLikes(TipVO paramVO){
 		int result = tipService.modRepLikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modRepDislikes(TipVO paramVO){
+	public String modRepDislikes(TipVO paramVO){
 		int result = tipService.modRepDislikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
@@ -306,5 +327,11 @@ public class TipController {
 		int result = tipService.modMarketRepDislikes(paramVO);
 		
 		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delBoardData(TipVO paramVO){
+		tipService.delBoardData(paramVO);
 	}
 }

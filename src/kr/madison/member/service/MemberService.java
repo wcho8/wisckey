@@ -20,6 +20,9 @@ public class MemberService extends CommonService{
 	
 	public int addNewMember(MemberVO paramVO){
 		int result = 0;
+		if(paramVO.getBirthdate() == null || paramVO.getBirthdate().equals("")){
+			paramVO.setBirthdate(null);
+		}
 		try{
 			paramVO.setPasswd(Util.encryptSHA256(paramVO.getPasswd()));
 			

@@ -43,7 +43,6 @@ public class TipService extends CommonService{
 	}
 
 	public int addFoodData(TipVO paramVO) {
-		// TODO Auto-generated method stub
 		paramVO.setUserno(session.getUserno());
 		int result = tipDAO.addFoodData(paramVO);
 		return result;
@@ -64,25 +63,73 @@ public class TipService extends CommonService{
 	}
 	
 	public int modFoodLikes(TipVO paramVO){
-		int result = tipDAO.modFoodLikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		TipVO test = tipDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setLikes(1);
+			result = tipDAO.addFoodLikes(paramVO);
+		}else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getLikes() == 0){
+				result = tipDAO.modFoodLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}
 	
 	public int modFoodDislikes(TipVO paramVO){
-		int result = tipDAO.modFoodDislikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		TipVO test = tipDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setDislikes(1);
+			result = tipDAO.addFoodLikes(paramVO);
+		}else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getDislikes() == 0){
+				result = tipDAO.modFoodDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}
 	
 	public int modRepLikes(TipVO paramVO){
-		int result = tipDAO.modRepLikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		TipVO test = tipDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = tipDAO.addFoodRepLikes(paramVO);
+		}else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = tipDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}
 	
 	public int modRepDislikes(TipVO paramVO){
-		int result = tipDAO.modRepDislikes(paramVO);
+		paramVO.setUserno(session.getUserno());
+		TipVO test = tipDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepDislikes(1);
+			result = tipDAO.addFoodRepLikes(paramVO);
+		}else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepDislikes() == 0){
+				result = tipDAO.modRepDislikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
 		
 		return result;
 	}
@@ -203,6 +250,11 @@ public class TipService extends CommonService{
 		return result;
 	}
 	
-	
+	public void delBoardData(TipVO paramVO){
+		tipDAO.delBoardReplyLikes(paramVO);
+		tipDAO.delBoardReplyData(paramVO);
+		tipDAO.delBoardLikes(paramVO);
+		tipDAO.delBoardData(paramVO);
+	}
 
 }

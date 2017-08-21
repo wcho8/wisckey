@@ -31,6 +31,9 @@ public class TipVO extends CommonVO{
 	public String type;
 	public String CKEditorFuncNum; 
 	
+	public Integer lid = 0;
+	public Integer replid = 0;
+	
 	public int getBrdid() {
 		return brdid;
 	}
@@ -152,8 +155,16 @@ public class TipVO extends CommonVO{
 	public void setCKEditorFuncNum(String cKEditorFuncNum) {
 		CKEditorFuncNum = cKEditorFuncNum;
 	}
-
-	
-	
-	
+	public Integer getLid() {
+		return lid;
+	}
+	public void setLid(Integer lid) {
+		this.lid = lid;
+	}
+	public Integer getReplid() {
+		return replid;
+	}
+	public void setReplid(Integer replid) {
+		this.replid = replid;
+	}
 }

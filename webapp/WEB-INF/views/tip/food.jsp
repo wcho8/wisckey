@@ -11,9 +11,6 @@ var curPage="/Tip/food?";
 var defaultParams = {};
 $(document).ready(function(){
 	defaultParams={
-			userno:"${session.userno}",
-			username: "${session.username}",
-			nickname: "${session.nickname}",
 			mypage: "${paramVO.mypage}",
 	};
 	
@@ -67,7 +64,8 @@ function search(){
 }
 
 function viewFoodBoard(brdid){	//글제목 클릭했을때 id
-	var url="/Tip/foodBoardView?brdid="+brdid;
+	var params = $.param($.extend({}, defaultParams, {brdid:brdid}));
+	var url="/Tip/foodBoardView?" + params;
 	$(location).attr("href", url);
 }
 </script>
@@ -104,7 +102,9 @@ border-right:2px solid #a80e34;
 	list-style-type: disc;
 	list-style-position: none ;
 }
-
+#row>td{
+	font-size: 11.5px;
+}
 #top_row>td{
 	font-size:80%;
 }

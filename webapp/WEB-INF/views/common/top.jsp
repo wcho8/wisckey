@@ -96,7 +96,7 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">학업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/School/pastWork">족보</a></li>
+								<!-- <li><a href="/School/pastWork">족보</a></li> -->
 								<li><a href="/School/education">학업게시판</a></li>
 							</ul></li>
 					</ul>
@@ -127,7 +127,7 @@ function login(){
 							aria-expanded="false" style="color:white; margin-left:20px;">자유 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Board/?ptypeid=1">게시판</a></li>
-								<li><a href="/Board/?ptypeid=2">신입생 게시판</a></li>
+								<!-- <li><a href="/Board/?ptypeid=2">신입생 게시판</a></li> -->
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav" style="display:none;" id="admin_menu">
@@ -141,8 +141,6 @@ function login(){
 							</ul>
 						</li>
 					</ul>
-					
-					
 				</div>
 			</div>
 		</nav>

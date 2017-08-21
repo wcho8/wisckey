@@ -10,9 +10,9 @@ import kr.madison.common.service.CommonService;
 import kr.madison.common.vo.SessionVO;
 import kr.madison.main.dao.MainDAO;
 import kr.madison.main.vo.MainVO;
-import kr.madison.member.vo.MemberVO;
 import kr.madison.org.vo.OrgVO;
 import kr.madison.school.vo.SchoolVO;
+import kr.madison.tip.vo.TipVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,15 @@ public class MainService extends CommonService{
 	public List<OrgVO> findOrgBoardList(MainVO paramVO) {
 		return mainDAO.findOrgBoardList(paramVO);
 	}
+	
+	public List<TipVO> findFoodList(MainVO paramVO){
+		return mainDAO.findFoodList(paramVO);
+	}
+	
+	public List<TipVO> findMarketList(MainVO paramVO){
+		return mainDAO.findMarketList(paramVO);
+	}
+	
 	public int addQnABoardData(MainVO paramVO) {
 		paramVO.setUserno(session.getUserno());
 		int result = mainDAO.addQnABoardData(paramVO);

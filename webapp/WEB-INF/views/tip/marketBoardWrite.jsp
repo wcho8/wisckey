@@ -25,13 +25,14 @@ $(document).ready(function(){
 		}
 	});
 	//modify
-	var brdid = defaultParams.brdid;
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
-		var url="/Career/findMarketBoardContent";	//TODO mapper
+		var url="/Tip/findMarketContent";	//TODO mapper
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
+		var params = $.extend({}, defaultParams, {brdid:brdid});
+		$.post(url, params, function(data){
 			$("#title").val(data.title);
 			$("#content").summernote('code', data.content);
 		});
@@ -43,9 +44,8 @@ $(document).ready(function(){
 		var content = $("#content").summernote('code');
 		var tipid = $("#tipid").val();
 
-		console.log(content)
 		//table name : #
-		var params = $.extend({}, $("#marketBoardContent").serialization(), {tipid:tipid, tipid:2, content:content});	//공통코드테이블 아이
+		var params = $.extend({}, $("#marketBoardContent").serialization(), {tipid:tipid, content:content});	//공통코드테이블 아이
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
@@ -58,7 +58,7 @@ $(document).ready(function(){
 			return;
 		}
 		if(bEdit){	//edit
-			url = "/Tip/modMarketBoardData";
+			url = "/Tip/modMarketData";
 			params.brdid = brdid;
 			$.post(url, params, function(data){
 				$(location).attr("href", "/Tip/marketBoardView?brdid="+data);
@@ -145,28 +145,23 @@ function sendFile(file, el){
 				</div>
 			</div>
 			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
-				
-				
 				<table style="width:100%;" id="marketBoardContent">
 					<colgroup>
 						<col width="15%" >
 						<col width="*">
 					</colgroup>
 					<tbody>
-					
 						<!-- 말머리 -->
 						<tr>
-								<th>말머리</th>
-								<td>
-									<select id="tipid">
-										<c:forEach items="${markettypes}" var="markettype">
-											<option value="${markettype.tipid}">${markettype.typename}</option>
-										</c:forEach>
-									</select>
-								</td>
-							</tr>
-						
-					
+							<th>말머리</th>
+							<td>
+								<select id="tipid">
+									<c:forEach items="${markettypes}" var="markettype">
+										<option value="${markettype.tipid}">${markettype.typename}</option>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
 							<td><input type="text" id="title" style="width:400px;;"></td>

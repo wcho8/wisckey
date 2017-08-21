@@ -7,8 +7,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var defaultParams={
-		brdid: "${paramVO.brdid}",
-		userno: "${session.userno}",
 		mypage: "${paramVO.mypage}",
 	};
 	
@@ -26,19 +24,20 @@ $(document).ready(function(){
 	});
 	
 	$("#cancel").click(function(){
-		var url = "//PastWork?";
+		var url = "/food?";
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});
 	
 	//modify
-	var brdid = defaultParams.brdid;
+	var brdid = "${paramVO.brdid}";
 	var bEdit = false;
 	
 	if(brdid!=0 && brdid!="" && brdid!=null){
-		var url="/Career/findFoodBoardContent";	//TODO mapper
+		var url="/Tip/findFoodContent";	//TODO mapper
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
+		var params = $.extend({}, defaultParams, {brdid:brdid});
+		$.post(url, params, function(data){
 			$("#title").val(data.title);
 			$("#content").summernote('code', data.content);
 		});
@@ -49,8 +48,6 @@ $(document).ready(function(){
 		var url = "/Tip/addFoodData";
 		var content = $("#content").summernote('code');
 		var tipid = $("#tipid").val();
-		console.log(content)
-		//table name : #
 		
 		// TODO:
 		// two differnet meaning of tipid ???
@@ -68,13 +65,12 @@ $(document).ready(function(){
 			return;
 		}
 		if(bEdit){	//edit
-			url = "/Tip/modFoodBoardData";
+			url = "/Tip/modFoodData";
 			params.brdid = brdid;
 			$.post(url, params, function(data){
 				$(location).attr("href", "/Tip/foodBoardView?brdid="+data);
 			});
 		}else{
-			console.log("aaaaaaaa")
 			$.post(url, params, function(data){
 				$(location).attr("href", "/Tip/foodBoardView?brdid="+data);
 			});
@@ -149,22 +145,18 @@ function sendFile(file, el){
 				<div id="l_title" style="font-weight: bold;">
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">깨알팁</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
-						<li><a id="current" href="/Career/">맛집</a></li>
-						<li><a  href="/Career/foodBoard">벼룩시장</a></li>
+						<li><a id="current" href="/Tip/food">맛집</a></li>
+						<li><a  href="/Tip/market">벼룩시장</a></li>
 					</ul>
 				</div>
 			</div>
 			<div id="right_menu" style="float:left; width:700px; margin-left:35px;">
-				
-				
 				<table style="width:100%;" id="foodBoardContent">
 					<colgroup>
 						<col width="15%" >
 						<col width="*">
 					</colgroup>
 					<tbody>
-					
-					
 						<!-- 말머리 -->
 						<tr>
 								<th>말머리</th>
@@ -176,10 +168,6 @@ function sendFile(file, el){
 									</select>
 								</td>
 						</tr>
-						
-						
-						
-					
 						<tr style="border: 1px solid #ccc;">
 							<th  style="text-align: center;"> 제목</th>
 							<td><input type="text" id="title" style="width:400px;;"></td>

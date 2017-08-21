@@ -172,7 +172,7 @@ function cutInUTF8(str, n) {
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">학업 <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/School/pastWork">족보</a></li>
+						<!-- <li><a href="/School/pastWork">족보</a></li> -->
 						<li><a id="current" href="/School/education">학업게시판</a></li>
 					</ul>
 				</div>

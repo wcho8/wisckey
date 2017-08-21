@@ -45,7 +45,7 @@ $(document).ready(function(){
 		<div style="clear:both;"></div>
 		<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
 			<li><a class="current" id="left_board" href="/Board/?ptypeid=1">자유게시판</a></li>
-			<li><a id="left_newbie" href="/Board/?ptypeid=2">신입생 게시판</a></li>
+			<!-- <li><a id="left_newbie" href="/Board/?ptypeid=2">신입생 게시판</a></li> -->
 		</ul>
 	</div>
 </div>

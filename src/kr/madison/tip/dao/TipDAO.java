@@ -52,7 +52,7 @@ public class TipDAO extends CommonDAO {
 	}
 	
 	public int modRepDislikes(TipVO paramVO){
-		return getSqlSession().update("Tip.modRepDislikes", paramVO);
+		return getSqlSession().update("Tip.modRepDisLikes", paramVO);
 	}
 	
 	public List<TipVO> findFoodReply(TipVO paramVO){
@@ -66,11 +66,6 @@ public class TipDAO extends CommonDAO {
 	public int modFoodData(TipVO paramVO){
 		return getSqlSession().update("Tip.modFoodData", paramVO);
 	}
-
-	
-	
-	
-	
 	public int findMarketTotalCnt(TipVO paramVO){
 		return getSqlSession().selectOne("Tip.findMarketTotalCnt", paramVO);
 	}
@@ -135,4 +130,35 @@ public class TipDAO extends CommonDAO {
 		return getSqlSession().selectList("Tip.getMarketFrtypes", paramVO);
 	}
 	
+	public TipVO checkLikes(TipVO paramVO){
+		return getSqlSession().selectOne("Tip.checkLikes", paramVO);
+	}
+	
+	public TipVO checkRepLikes(TipVO paramVO){
+		return getSqlSession().selectOne("Tip.checkRepLikes", paramVO);
+	}
+	
+	public int addFoodLikes(TipVO paramVO){
+		return getSqlSession().insert("Tip.addFoodLikes", paramVO);
+	}
+	
+	public int addFoodRepLikes(TipVO paramVO){
+		return getSqlSession().insert("Tip.addFoodRepLikes", paramVO);
+	}
+	
+	public void delBoardData(TipVO paramVO){
+		getSqlSession().delete("Tip.delBoardData", paramVO);
+	}
+	
+	public void delBoardReplyData(TipVO paramVO){
+		getSqlSession().delete("Tip.delBoardReplyData", paramVO);
+	}
+	
+	public void delBoardLikes(TipVO paramVO){
+		getSqlSession().delete("Tip.delBoardLikes", paramVO);
+	}
+	
+	public void delBoardReplyLikes(TipVO paramVO){
+		getSqlSession().delete("Tip.delBoardReplyLikes", paramVO);
+	}
 }

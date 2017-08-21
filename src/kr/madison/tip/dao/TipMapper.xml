@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="Tip">
-
 	<select id="findFoodTotalCnt" parameterType="TipVO" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM brd_extratips a
 		LEFT JOIN cod_extratips b ON a.tipid = b.tipid
+		LEFT JOIN info_userinfo c ON a.userno = c.userno
 		WHERE b.ptypeid = 6
+		<if test="keyword != null and keyword != ''">
+			<if test="srchType == 1">
+				AND a.title LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="srchType == 2">
+				AND c.nickname LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		<if test="tipid != null and tipid != 0">
+			<if test="srchType == 3">
+				AND a.tipid = #{tipid}
+			</if>
+		</if>
 	</select>
 	<select id="getFoodCount" parameterType="TipVO" resultType="int">
 		SELECT
@@ -27,7 +39,7 @@
 			END as regdate,
 			a.nickname as writer,
 			b.count,
-			b.likes,
+			(SELECT COUNT(*) FROM brd_extratips_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes,
 			(SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = b.brdid) as repcount
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
@@ -58,13 +70,11 @@
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			b.likes,
-			b.dislikes
-			<!-- File 셀렉트 하는것 필요 -->
+			(SELECT COUNT(*) FROM brd_extratips_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes,
+			(SELECT COUNT(*) FROM brd_extratips_likes c WHERE b.brdid = c.brdid AND c.dislikes = 1) as dislikes
 		FROM brd_extratips b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_extratips d on b.tipid = d.tipid
-		
 		WHERE b.brdid = #{brdid}
 	</select>
 
@@ -87,9 +97,7 @@
 		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
          	SELECT LAST_INSERT_ID()
       	</selectKey>
-		
 	</insert>
-	
 	<insert id="addFoodReply" parameterType="TipVO" useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
 		INSERT INTO brd_extratips_reply(
 			brdid,
@@ -113,25 +121,73 @@
 			count = count + 1
 		WHERE brdid = #{brdid}
 	</update>
+	<select id="checkLikes" parameterType="TipVO" resultType="TipVO">
+		SELECT
+			id as lid,
+			likes,
+			dislikes
+		FROM brd_extratips_likes
+		WHERE userno = #{userno}
+			AND brdid = #{brdid}
+	</select>
+	<insert id="addFoodLikes" parameterType="TipVO">
+		INSERT INTO brd_extratips_likes(
+			brdid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{brdid},
+			#{userno},
+			#{likes},
+			#{dislikes}
+		)
+	</insert>
 	<update id="modFoodLikes" parameterType="TipVO">
-		UPDATE brd_extratips SET
+		UPDATE brd_extratips_likes SET
 			likes = likes + 1
 		WHERE brdid = #{brdid}
+			AND userno = #{userno}
 	</update>
 	<update id="modFoodDislikes" parameterType="TipVO">
-		UPDATE brd_extratips SET
+		UPDATE brd_extratips_likes SET
 			dislikes = dislikes + 1
 		WHERE brdid = #{brdid}
+			AND userno = #{userno}
 	</update>
+	<select id="checkRepLikes" parameterType="TipVO" resultType="TipVO">
+		SELECT
+			id as replid,
+			likes as repLikes,
+			dislikes as repDislikes
+		FROM brd_extratips_reply_likes
+		WHERE userno = #{userno}
+			AND repid = #{repid}
+	</select>
+	<insert id="addFoodRepLikes" parameterType="TipVO">
+		INSERT INTO brd_extratips_reply_likes(
+			repid,
+			userno,
+			likes,
+			dislikes
+		)VALUES(
+			#{repid},
+			#{userno},
+			#{repLikes},
+			#{repDislikes}
+		)
+	</insert>
 	<update id="modRepLikes" parameterType="TipVO">
-		UPDATE brd_extratips_reply SET
+		UPDATE brd_extratips_reply_likes SET
 			likes = likes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
 	<update id="modRepDisLikes" parameterType="TipVO">
-		UPDATE brd_extratips_reply SET
+		UPDATE brd_extratips_reply_likes SET
 			dislikes = dislikes + 1
 		WHERE repid = #{repid}
+			AND userno = #{userno}
 	</update>
 	<select id="getReplyCount" parameterType="TipVO" resultType="int">
 		SELECT
@@ -145,8 +201,8 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			a.likes as repLikes,
-			a.dislikes as repDislikes
+			(SELECT COUNT(*) FROM brd_extratips_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_extratips_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_extratips_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
@@ -155,13 +211,10 @@
 		UPDATE brd_extratips SET
 			content = #{content},
 			title = #{title},
-			moddate = NOW()
+			moddate = NOW(),
+			tipid = #{tipid}
 		WHERE brdid = #{brdid}
 	</update>
-
-
-
-
 
 	<select id="findMarketTotalCnt" parameterType="TipVO" resultType="int">
 		SELECT
@@ -169,8 +222,6 @@
 		FROM brd_extratips a
 		LEFT JOIN cod_extratips b ON a.tipid = b.tipid
 		WHERE b.tipid = 2
-		
-		
 	</select>
 	<select id="getMarketCount" parameterType="TipVO" resultType="int">
 		SELECT
@@ -306,8 +357,8 @@
 			b.nickname as replier,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			a.likes as repLikes,
-			a.dislikes as repDislikes
+			(SELECT COUNT(*) FROM brd_extratips_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_extratips_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_extratips_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
@@ -316,7 +367,8 @@
 		UPDATE brd_extratips SET
 			content = #{content},
 			title = #{title},
-			moddate = NOW()
+			moddate = NOW(),
+			tipid = #{tipid}
 		WHERE brdid = #{brdid}
 	</update>
 	
@@ -337,8 +389,23 @@
 		WHERE ptypeid = 7
 		
 	</select>
-	
-
-
-
+	<delete id="delBoardData" parameterType="TipVO">
+		DELETE FROM brd_extratips
+			WHERE brdid = #{brdid}
+	</delete>
+	<delete id="delBoardReplyData" parameterType="TipVO">
+		DELETE FROM brd_extratips_reply
+			WHERE brdid = #{brdid}
+		<if test="repid != null and repid != ''">
+			AND repid = #{repid}
+		</if>
+	</delete>
+	<delete id="delBoardLikes" parameterType="TipVO">
+		DELETE FROM brd_extratips_likes
+			WHERE brdid = #{brdid}
+	</delete>
+	<delete id="delBoardReplyLikes" parameterType="TipVO">
+		DELETE FROM brd_extratips_reply_likes
+			WHERE repid in (SELECT a.repid FROM brd_extratips_reply a WHERE a.brdid = #{brdid})
+	</delete>
 </mapper>

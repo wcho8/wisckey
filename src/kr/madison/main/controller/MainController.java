@@ -14,6 +14,7 @@ import kr.madison.main.service.MainService;
 import kr.madison.main.vo.MainVO;
 import kr.madison.org.vo.OrgVO;
 import kr.madison.school.vo.SchoolVO;
+import kr.madison.tip.vo.TipVO;
 import kr.madison.util.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,6 +185,26 @@ public class MainController extends CommonController{
 		List<OrgVO> result = new ArrayList<OrgVO>();
 		
 		result = mainService.findOrgBoardList(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping("/findFoodList")
+	@ResponseBody
+	public List<TipVO> findFoodList(MainVO paramVO){
+		List<TipVO> result = new ArrayList<TipVO>();
+		
+		result = mainService.findFoodList(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping("/findMarketList")
+	@ResponseBody
+	public List<TipVO> findMarketList(MainVO paramVO){
+		List<TipVO> result = new ArrayList<TipVO>();
+		
+		result = mainService.findMarketList(paramVO);
 		
 		return result;
 	}

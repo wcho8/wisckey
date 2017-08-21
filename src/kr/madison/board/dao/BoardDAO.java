@@ -68,11 +68,11 @@ public class BoardDAO extends CommonDAO{
 	public List<BoardVO> getFrtypes(BoardVO paramVO){
 		return getSqlSession().selectList("Board.getFrtypes", paramVO);
 	}
-	public int delBoardData(BoardVO paramVO){
-		return getSqlSession().delete("Board.delBoardData", paramVO);
+	public void delBoardData(BoardVO paramVO){
+		getSqlSession().delete("Board.delBoardData", paramVO);
 	}
-	public int delBoardReplyData(BoardVO paramVO){
-		return getSqlSession().delete("Board.delBoardReplyData", paramVO);
+	public void delBoardReplyData(BoardVO paramVO){
+		getSqlSession().delete("Board.delBoardReplyData", paramVO);
 	}
 	
 	public BoardVO checkLikes(BoardVO paramVO){
@@ -86,5 +86,11 @@ public class BoardDAO extends CommonDAO{
 	}
 	public int addBoardRepLikes(BoardVO paramVO){
 		return getSqlSession().insert("Board.addBoardRepLikes", paramVO);
+	}
+	public void delBoardLikes(BoardVO paramVO){
+		getSqlSession().delete("Board.delBoardLikes", paramVO);
+	}
+	public void delBoardReplyLikes(BoardVO paramVO){
+		getSqlSession().delete("Board.delBoardReplyLikes", paramVO);
 	}
 }

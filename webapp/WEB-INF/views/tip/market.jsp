@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-    
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
-
 <script type="text/javascript">
 
 var curPage="/Tip/market?";
-var defaultParams = {};
 $(document).ready(function(){
-	defaultParams={
-			userno:"${session.userno}",
-			username: "${session.username}",
-			nickname: "${session.nickname}",
+	var defaultParams={
 			mypage: "${paramVO.mypage}"
 	};
 	var srchType = "${paramVO.srchType}";
@@ -26,15 +19,16 @@ $(document).ready(function(){
 			$("keyword").attr("placeholder", "닉네임");
 		}
 	}	
+	var userno = "${session.userno}";
 	//글쓰기 버튼 id
 	$("#addMarketBoard").click(function(){	
 		var url = "/Tip/marketBoardWrite";	//mapping url
 		var params = $.param(defaultParams);
-		if(defaultParams.userno==""||defaultParams.userno==null){
+		if(userno==""||userno==null){
 			alert("로그인 후에 이용하실 수 있습니다");
 			return;
 		}else{
-			$(location).attr("href", url);
+			$(location).attr("href", url + params);
 		}
 	});
 	//
@@ -67,7 +61,8 @@ function search(){
 }
 
 function viewMarketBoard(brdid){	//글제목 클릭했을때 id
-	var url="/Tip/marketBoardView?brdid="+brdid;
+	var params = $.param($.extend({}, defaultParams, {brdid:brdid}));
+	var url="/Tip/marketBoardView?" + params;
 	$(location).attr("href", url);
 }
 </script>
@@ -104,7 +99,9 @@ border-right:2px solid #a80e34;
 	list-style-type: disc;
 	list-style-position: none ;
 }
-
+#row>td{
+	font-size: 11.5px;
+}
 #top_row>td{
 	font-size:80%;
 }
@@ -120,14 +117,7 @@ border-right:2px solid #a80e34;
 input::placeholder{
 	font-size: 12px;
 }
-
-
 </style>
-
-
-
-
-
 
 <!-- s:container -->
 <div class="container">
@@ -156,7 +146,6 @@ input::placeholder{
 								<col style="width:10%;">
 								<col style="width:10%;">
 								<col style="width:5%;">
-								<col style="width:5%;">
 							</colgroup>
 							<thead>	
 								<tr id="top_row" style="background-color:#d3d3d3; height:30px; text-align: center; border-bottom: 1px solid #ccc; padding: 10px;">
@@ -165,7 +154,6 @@ input::placeholder{
 									<td>닉네임</td>
 									<td>날짜</td>
 									<td>조회</td>
-									<td>추천</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -184,7 +172,6 @@ input::placeholder{
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
-									<td style="text-align: center; font-size: 80%;">&nbsp;${list.likes}</td>
 								</tr>
 							</c:forEach>
 							</tbody>

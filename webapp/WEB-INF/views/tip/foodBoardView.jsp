@@ -6,7 +6,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
 	var defaultParams={
 			mypage: "${paramVO.mypage}",
 			ptypeid: "${paramVO.ptypeid}"
@@ -17,9 +16,9 @@ $(document).ready(function(){
 	});
 	
 	$("#addReply").click(function(){
-		var url = "/Career/addFoodBoardReply";
+		var url = "/Tip/addFoodReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent});
+		var params = $.extend({}, defaultParams, {repContent:replyContent, userno:"${session.userno}", brdid:"${paramVO.brdid}"});
 		if(params.repContent==""||params.repContent==null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
@@ -36,26 +35,107 @@ $(document).ready(function(){
 	});
 	
 	$("#foodBoardDelete").click(function(){
-		var url = "/Tip/deleteFoodBoard";
-		var params = $.extend({}, defaultParams, {});
+		var url = "/Tip/delBoardData";
+		var params = $.extend({}, defaultParams, {brdid:"${paramVO.brdid}"});
 		$.post(url, params, function(data){
 			alert("게시글이 삭제되었습니다.");
-			$(location).attr("href","/Tip/food");
+			$(location).attr("href","/Tip/food?"+$.param(defaultParams));
 		});
 	});
 	
 	var writerno = "${vo.userno}";
+	var userno = "${session.userno}";
 	
-	if(defaultParams.userno == writerno){
+	if(userno == writerno){
 		$("#foodBoardUpdate").show();
 		$("#foodBoardDelete").show();
 	}
-	$("#foodUpdate").click(function(){
+	$("#foodBoardUpdate").click(function(){
 		var url = "/Tip/foodBoardWrite?";
-		var params = $.param(defaultParams);
+		var params = $.param($.extend({}, defaultParams, {brdid:"${paramVO.brdid}"}));
 		$(location).attr("href", url+params);
 	});
+	
+	$("#likes").click(function(){
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		$.post("/Tip/modFoodLikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+			alert(msg);
+			if(data == "Success"){
+				location.reload(true);
+			}else{
+				return;
+			}
+		});
+	});
+	
+	$("#dislike").click(function(){
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		$.post("/Tip/modFoodDislikes", params, function(data){
+			var msg = "";
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+			alert(msg);
+			if(data == "Success"){
+				location.reload(true);
+			}else{
+				return;
+			}
+		});
+	});
 });
+
+//댓글 추천/비추
+function likes(like, repid){
+	var url = "";
+	var msg = "";
+	if(like == 'Y'){
+		url = "/Tip/modRepLikes";
+	}else if(like == 'N'){
+		url = "/Tip/modRepDislikes";
+	}
+	var params = $.extend({}, defaultParams, {repid:repid, userno:"${session.userno}"});
+	
+	$.post(url, params, function(data){
+		var msg = "";
+		if(like == 'Y'){
+			if(data == "Fail"){
+				msg = "이미 추천하였습니다.";
+			}else if(data == "Success"){
+				msg = "추천하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}else if(like == "N"){
+			if(data == "Fail"){
+				msg = "이미 비추하였습니다.";
+			}else if(data == "Success"){
+				msg = "비추하였습니다.";
+			}else{
+				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+			}
+		}
+		alert(msg);
+		if(data == "Success"){
+			location.reload(true);
+		}else{
+			return;
+		}
+
+	});
+}
 
 </script>
 <style type="text/css">
@@ -113,7 +193,7 @@ $(document).ready(function(){
 					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">깨알팁</span>
 					<ul id="title_list" style="list-style:none; text-decoration: none;">
 						<li><a id="current" href="/Tip/food">맛집</a></li>
-						<li><a  href="Tip/employBoard">벼룩시장</a></li>
+						<li><a  href="/Tip/market">벼룩시장</a></li>
 					</ul>
 				</div>
 			</div>
@@ -139,15 +219,17 @@ $(document).ready(function(){
 					<div id="foodBoard_content" style="width:100%; min-height: 300px; margin-top:10px;">
 						${vo.content }
 					</div>
-					
-						
+					<div style="margin-top:25px; text-align:center; margin-bottom:20px;">
+						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> 추천 ${vo.likes}</button>
+						<button id="dislike" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> 비추 ${vo.dislikes}</button>
+					</div>
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
 						<button class="btn delete" id="foodBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">삭제</span></button>
-						<button class="btn update" id="foodBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
 						<button class="btn confirm" id="foodBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
+						<button class="btn update" id="foodBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
 					</div>
 					<div style="clear:both;"></div>
 					<div id="foodBoard_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
@@ -160,6 +242,10 @@ $(document).ready(function(){
 					<c:forEach items="${reps }" var="rep">
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
+							<span style="float:right;font-size:12px;">
+								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
+								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
+							</span>
 							<br/>
 						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
 						</div>

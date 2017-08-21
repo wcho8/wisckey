@@ -29,13 +29,39 @@ $(document).ready(function(){
 	$.post("./findTopBoardList", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
-			if(byteCheck(title)> 20){
-				title = cutInUTF8(title, 20);
+			if(byteCheck(title)> 19){
+				title = cutInUTF8(title, 19);
 				title += "...";
 			}
 			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
 					+ "(" + item.likes + ")<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#topBoardList").append(li);
+		});
+	});
+	
+	$.post("./findFoodList", {}, function(data){
+		$.each(data, function(index, item){
+			var title = item.title
+			if(byteCheck(title)> 56){
+				title = cutInUTF8(title, 56);
+				title += "...";
+			}
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Tip/foodBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+					+ "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			$("#food_list").append(li);
+		});
+	});
+	
+	$.post("./findMarketList", {}, function(data){
+		$.each(data, function(index, item){
+			var title = item.title
+			if(byteCheck(title)> 56){
+				title = cutInUTF8(title, 56);
+				title += "...";
+			}
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Tip/marketBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+					+ "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			$("#market_list").append(li);
 		});
 	});
 	
@@ -114,6 +140,17 @@ function changeBest(ab){
 		$("#education_list").show();
 	}
 }
+function changeTips(ab){
+	$("#food_list").show();
+	$("#market_list").hide();
+	if(ab == 1){
+		$("#food_list").show();
+		$("#market_list").hide();
+	} else if(ab == 2){
+		$("#market_list").show();
+		$("#food_list").hide();
+	}
+}
 function cutInUTF8(str, n) {
     var len = Math.min(n, str.length);
     var i, cs, c = 0, bytes = 0;
@@ -190,7 +227,7 @@ td{
 			</div>
 			<div class="body_mid" style="width:100%; height:750px; margin-top:10px;">
 				<div class="mid_left" style="float:left; width:27.7%; height:100%;">
-					<div id="top_freeboard" class="body_div">
+					<div id="top_freeboard" class="body_div" style="height:484px;">
 						<div class="body_inside">
 							<a href="/Board/">Best 자유 게시판</a>
 						</div>
@@ -199,7 +236,7 @@ td{
 							</ol>
 						</div>
 					</div>
-					<div id="notice" class="body_div mt15">
+					<div id="notice" class="body_div mt15" style="height:208px;">
 						<div class="body_inside">
 							<a href="/About/">공지사항</a>
 						</div>
@@ -211,7 +248,7 @@ td{
 				</div>
 				<div class="mid_right" style="float:left;width:72.3%; height:100%;">
 					<div class="right_left" style="float:left; width:61.68%; height:100%;">
-						<div id="top_etc" class="body_div">
+						<div id="top_etc" class="body_div" style="height:234px;">
 							<div class="body_inside">
 								Best 게시물 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
@@ -225,38 +262,21 @@ td{
 								</ul>
 							</div>
 						</div>
-						<div id="top_tips" class="body_div mt15" style="margin-top:17px;">
+						<div id="top_tips" class="body_div mt15" style="margin-top:18px; height:232px;">
 							<div class="body_inside">
 								깨알팁 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
-								<a href="#" style="color:white;">맛집</a> | <a href="#" style="color:white;">벼룩시장</a>
+								<a href="javascript:changeTips(1)" style="color:white;">맛집</a> | <a href="javascript:changeTips(2)" style="color:white;">벼룩시장</a>
 								</span>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="" style="padding-left:0px;">
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=33">여기는 팁(23)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px; height: 23px"><a
-										href="/Board/BoardView?brdid=34">여기는 팁(10)<span
-											style="float: right; font-size: 12px;">2017-07-11</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=31">여기는 팁(2)<span
-											style="float: right; font-size: 12px;">2017-07-06</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=13">여기는 팁(2)<span
-											style="float: right; font-size: 12px;">2017-06-28</span></a></li>
-									<li style="margin-top: 8px; margin-left: 0px; font-size: 14px;"><a
-										href="/Board/BoardView?brdid=19">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ...(5)<span
-											style="float: right; font-size: 12px;">2017-06-30</span></a></li>
-									
+								<ul id="food_list" style="padding-left:0px;">
+								</ul>
+								<ul id="market_list" style="padding-left:0px; display:none;">
 								</ul>
 							</div>
 						</div>
-						<div id="orgs" class="body_div mt15">
+						<div id="orgs" class="body_div mt15" style="height:208px;">
 							<div class="body_inside">
 								<a href="#">학생회 & 동아리 소식</a>
 							</div>
