@@ -31,6 +31,8 @@ $(document).ready(function(){
 		bEdit = true;
 		var params = $.extend({}, defaultParams, {brdid:brdid});
 		$.post(url, params, function(data){
+			var empid = data.empid;
+			console.log(empid);
 			if("${session.userno}" != data.userno || "${session.userno}" == null){
 				alert("수정할 수 있는 권한이 없습니다.");
 				$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
@@ -39,13 +41,14 @@ $(document).ready(function(){
 				$.post(url, params, function(data){
 					$("#title").val(data.title);
 					$("#content").summernote('code', data.content);
+					$("#empid").val(empid);
 				});
 			}
 		});
 	}
 	
 	$("#cancel").click(function(){
-		var url = "/Career/employBoard?";
+		var url = "/Career/employBoard?p";
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});

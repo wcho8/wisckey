@@ -293,7 +293,8 @@
 		UPDATE brd_employment SET
 			content = #{content},
 			title = #{title},
-			moddate = NOW()
+			moddate = NOW(),
+			empid= #{empid}
 		WHERE brdid=#{brdid}
 	</update>
 	<select id="checkLikes" parameterType="CareerVO" resultType="CareerVO">
@@ -360,7 +361,7 @@
 			empid,
 			name as typename
 		FROM cod_employment
-		WHERE ptypeid = 3
+		WHERE ptypeid = #{ptypeid}
 	</select>
 	<delete id="deleteEmployBoard" parameterType="CareerVO">
 		DELETE FROM

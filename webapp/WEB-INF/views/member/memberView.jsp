@@ -126,8 +126,9 @@ function submit(equal){
 </script>
 
 <style type="text/css">
-#info>tbody>tr{
-	height: 20px;
+#info>tbody>tr>th{
+	font-size:  90%;
+	padding-left: 5px;
 }
 .btn_btn-modify{
 	width: 70%;
@@ -165,46 +166,46 @@ function submit(equal){
 			</div>
 			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">
 				<div class="detailInfo">
-					<table id="info" style="width:100%; height: 640px;">
+					<table id="info" style="width:100%; height: 400px;">
 						<colgroup>
-							<col style="width:30%; text-align: center;">
+							<col style="width:25%; text-align: center;">
 							<col style="width:70%;">
 						</colgroup>
 						<tbody>
 							<tr>
-								<th style="padding-left: 5px;">이름<span class="important">*</span></th>
+								<th>이름<span class="important">*</span></th>
 								<td id="korname"><td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">아이디<span class="important">*</span></th>
+								<th>아이디<span class="important">*</span></th>
 								<td id="userid"></td>
 							</tr>
 							<tr style="display:none;">
-								<th style="padding-left: 5px;">비밀번호</th>
+								<th>비밀번호</th>
 								<td id="memberPW" value="${memberInfo.passwd}"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">닉네임<span class="important">*</span></th>
+								<th>닉네임<span class="important">*</span></th>
 								<td id="nickname"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">이메일 주소<span class="important">*</span></th>
+								<th>이메일 주소<span class="important">*</span></th>
 								<td id="email"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">생일</th>
+								<th>생일</th>
 								<td id="birthdate"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">성별</th>
+								<th>성별</th>
 								<td id="gender"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">휴대폰</th>
+								<th>휴대폰</th>
 								<td id="telnum"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">Major</th>
+								<th>Major</th>
 								<td id="major"></td>
 							</tr>
 							<!-- <tr>

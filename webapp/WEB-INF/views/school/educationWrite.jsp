@@ -37,6 +37,7 @@ $(document).ready(function(){
 		bEdit = true;
 		var params = $.extend({}, defaultParams, {brdid:brdid});
 		$.post(url, params, function(data){
+			var swid = data.swid;
 			if("${session.userno}" != data.userno || "${session.userno}" == null){
 				alert("수정할 수 있는 권한이 없습니다.");
 				$(location).attr("href", "/School/education?"+$.param(defaultParams));
@@ -44,6 +45,8 @@ $(document).ready(function(){
 			}else{
 				$("#title").val(data.title);
 				$("#content").summernote('code', data.content);
+				$("#swid").val(swid);
+				
 			}
 		});
 	}

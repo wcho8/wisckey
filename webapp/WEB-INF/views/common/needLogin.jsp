@@ -3,6 +3,12 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$("#passwd").keydown(function(key){
+		if(key.keyCode==13||key.which==13){
+			login();
+		}
+	});
 });
 </script>
 <style type="text/css">

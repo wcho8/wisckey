@@ -212,7 +212,8 @@
 		UPDATE brd_freeboard SET
 			content = #{content},
 			title = #{title},
-			moddate = NOW()
+			moddate = NOW(),
+			frid = #{frid}
 		WHERE brdid = #{brdid}
 	</update>
 	<select id="getFrtypes" parameterType="BoardVO" resultType="BoardVO">

@@ -39,12 +39,7 @@ $(document).ready(function(){
 			$('#nickname').val(data.nickname);
 			$('#passwd').val(data.passwd);
 			$('#email').val(data.email);
-			
-			if(data.birthdate.length>10){
-				$('#birthdate').val(data.birthdate.substring(0,10));
-			}else{
-				$('#birthdate').val(data.birthdate);
-			}
+			$('#birthdate').val(data.birthdate.substring(0,10));
 			$('#telnum').val(data.telnum);
 			$('#major').val(data.major);
 			$('#minor').val(data.minor);
@@ -114,10 +109,10 @@ $(document).ready(function(){
 	
 	
 	$("#newPasswdCheck").keydown(function(key){
-			if(key.keyCode==13||key.which==13){
-				submit();
-			}
-		});
+		if(key.keyCode==13||key.which==13){
+			submit();
+		}
+	});
 	$("#updatePW").on("click", function(){
 		$("#newPasswd").val('');
 		$("#newPasswdCheck").val('');
