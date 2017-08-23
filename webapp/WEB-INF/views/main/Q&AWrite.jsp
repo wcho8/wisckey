@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
 <script type="text/javascript">
@@ -47,12 +47,12 @@ $(document).ready(function(){
 		var params = $.extend({}, $("#QnABoardContent").serialization(), {content:content});
 		
 		if(params.title == null || params.title == ""){
-			alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#title").focus();
 			return;
 		}
 		if($("#content").summernote('isEmpty')){
-			alert("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#content").summernote('focus');
 			return;
 		}
@@ -68,19 +68,19 @@ $(document).ready(function(){
 					$(location).attr("href", "/Q&AView?brdid="+data);
 				});
 			}else{
-				alert("Á¦¸ñ ±æÀÌ°¡ Á¦ÇÑÀ» ÃÊ°úÇÏ¿´½À´Ï´Ù.");
+				alert("ì œëª© ê¸¸ì´ê°€ ì œí•œì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤.");
 				$("#title").focus();
 			}
 		}
 	});
 	/*
-	//¸»¸Ó¸®
+	//ë§ë¨¸ë¦¬
 	$('input[type=checkbox]').on('change',function(){
 		$(this).siblings('input[type=checkbox]').not(this).attr('checked', false);
 	});
 	*/
 	
-	//Á¦¸ñ ±ÛÀÚ¼ö Á¦ÇÑ
+	//ì œëª© ê¸€ììˆ˜ ì œí•œ
 	var maxChars = $("#title");
 	var maxLength = maxChars.attr('maxlength');
 	$("#maxLength").text(maxLength);
@@ -113,7 +113,7 @@ function sendFile(file, el){
 		}
 	});
 }
-//Á¦¸ñ ±ÛÀÚÁ¦ÇÑ
+//ì œëª© ê¸€ìì œí•œ
 function byteCheck(str){
 	var byteLen = 0;
 	for(var i = 0; i<str.length; i++){
@@ -135,7 +135,7 @@ function titleByte(){
 	console.log(length+" bytes");
 	if(length>82){
 		var tmp = cutInUTF8(title,76);
-		alert("Á¦¸ñ ±æÀÌ°¡ Á¦ÇÑÀ» ÃÊ°úÇÏ¿´½À´Ï´Ù.");
+		alert("ì œëª© ê¸¸ì´ê°€ ì œí•œì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤.");
 		$("#title").text(tmp);
 		$("#title").focus();
 		
@@ -206,23 +206,23 @@ function cutInUTF8(str, n) {
 					</colgroup>
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
-							<th style="text-align: center;"> Á¦¸ñ</th>
+							<th style="text-align: center;"> ì œëª©</th>
 							<td>
 								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
 							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;">³»¿ë</th>
+							<th  style="text-align: center;">ë‚´ìš©</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
-								<textarea id="content" style="width:100%; height:400px; display:none;" valid="³»¿ë"></textarea>
+								<textarea id="content" style="width:100%; height:400px; display:none;" valid="ë‚´ìš©"></textarea>
 							</td>
 							
 						</tr>
 					</tbody>
 				</table>
 			<div class="buttons">
-				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">Ãë¼Ò</button>
-				<button class="fRight btn btn-default" id="addQnABoard" style="padding:3px 9px; font-size:13px;">µî·Ï</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">ì·¨ì†Œ</button>
+				<button class="fRight btn btn-default" id="addQnABoard" style="padding:3px 9px; font-size:13px;">ë“±ë¡</button>
 			</div>
 			
 			</div>

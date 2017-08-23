@@ -75,5 +75,16 @@ public class AboutService extends CommonService{
 		list = aboutDAO.searchNotice(paramVO);
 		return list;
 	}
+
+	public List<AboutVO> findNoticeReply(AboutVO paramVO) {
+		List<AboutVO> list = new ArrayList<AboutVO>();
+		list = aboutDAO.findNoticeReply(paramVO);
+		return list;
+	}
+
+	public int addNoticeReply(AboutVO paramVO) {
+		int result = aboutDAO.addNoticeReply(paramVO);
+		return result;
+	}
 }
 	

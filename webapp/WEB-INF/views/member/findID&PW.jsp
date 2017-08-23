@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
@@ -38,7 +38,7 @@ $(document).ready(function(){
 					$("#foundID").text(id);
 					
 				}else{
-					alert("Á¸ÀçÇÏ´Â ¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.");
+					alert("ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.");
 				}
 			}).fail(function(){
 				$("#searchID").show();
@@ -63,12 +63,12 @@ function idCheck(name, emailID){
 	console.log("emailID: " + emailID);
 	
 	if(name == null|| name==""){
-		alert("ÀÌ¸§À» ÀÛ¼ºÇÏ½Ê½Ã¿À.");
+		alert("ì´ë¦„ì„ ì‘ì„±í•˜ì‹­ì‹œì˜¤.");
 		$("#name").focus();
 		return false;
 	}
 	if(emailID==null||emailID==""){
-		alert("ÀÌ¸ŞÀÏÀ» ÀÛ¼ºÇÏ½Ê½Ã¿À.");
+		alert("ì´ë©”ì¼ì„ ì‘ì„±í•˜ì‹­ì‹œì˜¤.");
 		$("#email").focus();
 		return false;
 	}
@@ -83,12 +83,12 @@ function pwCheck(id, email){
 	var emailPW = $("#emailPW").text();
 	
 	if(name == null|| name==""){
-		alert("¾ÆÀÌµğ¸¦ ÀÛ¼ºÇÏ½Ê½Ã¿À.");
+		alert("ì•„ì´ë””ë¥¼ ì‘ì„±í•˜ì‹­ì‹œì˜¤.");
 		$("#name").focus();
 		return false;
 	}
 	if(emailPW==null||emailPW==""){
-		alert("ÀÌ¸ŞÀÏÀ» ÀÛ¼ºÇÏ½Ê½Ã¿À.");
+		alert("ì´ë©”ì¼ì„ ì‘ì„±í•˜ì‹­ì‹œì˜¤.");
 		$("#email").focus();
 		return false;
 	}
@@ -134,18 +134,18 @@ function pwCheck(id, email){
 		<div class="main_body" style="width:100%;">
 			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> <!-- -20px -->
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">¹¹¶ó°í ÇÏÁö2 <br/></div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ë­ë¼ê³  í•˜ì§€2 <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
-						<li><a href="/NeedLogin">·Î±×ÀÎ</a></li>
-						<li><a href="/Member/">È¸¿ø°¡ÀÔ</a></li>
-						<li><a id="current" href="/Member/findID&PW">¾ÆÀÌµğ/ <br/> <span style="margin-left:20px;">ºñ¹Ğ¹øÈ£ Ã£±â</span></a></li>
+						<li><a href="/NeedLogin">ë¡œê·¸ì¸</a></li>
+						<li><a href="/Member/">íšŒì›ê°€ì…</a></li>
+						<li><a id="current" href="/Member/findID&PW">ì•„ì´ë””/ <br/> <span style="margin-left:20px;">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</span></a></li>
 					</ul>
 				</div>
 			</div>
    			<div class="center_menu" style="width: 700px; float:left; margin-left: 30px;">
  				<div id="top_row" style="width: 100%; padding-left: 10px; padding-top: 5px; font-weight: bold;">
-					<span style="border-bottom: 1px solid black; font-size: 120%;">¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£ Ã£±â</span>
+					<span style="border-bottom: 1px solid black; font-size: 120%;">ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</span>
    				</div>
    				<div class="findID" style="width:100%;height: 200px;">
    					<table id="tableID" style="width: 100%;padding-left: 20px; margin-left: 10px; margin-top:20px;">
@@ -156,7 +156,7 @@ function pwCheck(id, email){
    						<tbody>
    							<tr>
    								<td>
-   									<span>ÀÌ¸§</span>
+   									<span>ì´ë¦„</span>
    								</td>
    								<td>
    									<input type="text" id="korname">
@@ -164,7 +164,7 @@ function pwCheck(id, email){
    							</tr>
    							<tr>
    								<td>
-   									<span>ÀÌ¸ŞÀÏ ÁÖ¼Ò</span>
+   									<span>ì´ë©”ì¼ ì£¼ì†Œ</span>
    								</td>
    								<td>
    									<input type="text" id="emailID" style="width: 250px;">
@@ -178,12 +178,12 @@ function pwCheck(id, email){
    					<div class="hr_dash" style="width:690px; margin-left: 10px; background: grey;"></div>
    					<div style="line-height:50px; vertical-align: middle;">
    						<div id="result" style="float: left; width: 200px; margin-left: 10px;  display:none;">
-   							<span>ÀÌ¸§:</span>
+   							<span>ì´ë¦„:</span>
    							<span id="foundID"></span>
-   							<button id="hideID" style="margin-left: 20px;line-height: 25px; vertical-align: middle; padding: 0px;"> È®ÀÎ</button>
+   							<button id="hideID" style="margin-left: 20px;line-height: 25px; vertical-align: middle; padding: 0px;"> í™•ì¸</button>
    						</div>
    						<div style="float: right; width: 100px; border:0; margin:0;" >
-   							<button id="searchID" style="line-height: 25px; vertical-align: middle; padding: 0px;">¾ÆÀÌµğ Ã£±â</button>
+   							<button id="searchID" style="line-height: 25px; vertical-align: middle; padding: 0px;">ì•„ì´ë”” ì°¾ê¸°</button>
    						</div>
    					</div>
    					<div style="clear:both;"></div>
@@ -202,7 +202,7 @@ function pwCheck(id, email){
    							<tbody>
    								<tr>
    									<td>
-   										<span>¾ÆÀÌµğ</span>
+   										<span>ì•„ì´ë””</span>
    									</td>
    									<td>
    										<input type="text" id="id">
@@ -210,7 +210,7 @@ function pwCheck(id, email){
    								</tr>
    								<tr>
    									<td>
-   										<span>ÀÌ¸ŞÀÏ ÁÖ¼Ò</span>
+   										<span>ì´ë©”ì¼ ì£¼ì†Œ</span>
    									</td>
    									<td>
    										<input type="text" id="emailPW" style="width: 250px;">
@@ -222,7 +222,7 @@ function pwCheck(id, email){
    						</table>
    						<div class="hr_dash" style="width:690px; margin-left: 10px; background: grey;"></div>
    						<div style="float: right; border:0; margin:0;">
-   							<button id="searchPW">ºñ¹Ğ¹øÈ£ Ã£±â</button>
+   							<button id="searchPW">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</button>
    						</div>
    						<div style="clear:both;"></div>
    						<div class="hr_dash" style="width:690px; margin-left: 10px; background: grey;"></div>

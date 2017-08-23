@@ -97,9 +97,12 @@ public class AboutController {
 		ModelAndView mav = new ModelAndView();
 		AboutVO vo = aboutService.findAboutContent(paramVO);
 		
+		List<AboutVO> replies = aboutService.findNoticeReply(paramVO); 
+		
 		if(vo!=null){
 			aboutService.modNoticeCount(paramVO);
 		}
+		mav.addObject("reps", replies);
 		mav.addObject("vo", vo);
 		mav.setViewName("/about/viewNotice");
 		return mav;
@@ -159,5 +162,13 @@ public class AboutController {
 		list = aboutService.searchNotice(paramVO);
 		
 		return list;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int addNoticeReply(AboutVO paramVO){
+		int result = aboutService.addNoticeReply(paramVO);
+		
+		return result;
 	}
 }

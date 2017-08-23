@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     
-<!-- Ãë¾÷°Ô½ÃÆÇ -->
+<!-- ì·¨ì—…ê²Œì‹œíŒ -->
 <script type="text/javascript">
 var curPage="/Career/employBoard?";
 $(document).ready(function(){
@@ -21,11 +21,11 @@ $(document).ready(function(){
 		if(srchType ==1){
 			$("#empid").hide();
 			$("#keyword").show();
-			$("#keyword").attr("placeholder", "Á¦¸ñ");
+			$("#keyword").attr("placeholder", "ì œëª©");
 		}else if(srchType == 2){
 			$("#empid").hide();
 			$("#keyword").show();
-			$("#keyword").attr("placeholder", "´Ğ³×ÀÓ");
+			$("#keyword").attr("placeholder", "ë‹‰ë„¤ì„");
 		}else if(srchType == 3){
 			$("#empid").val("${paramVO.empid}").prop("selected", true);
 			$("#empid").show();
@@ -37,7 +37,7 @@ $(document).ready(function(){
 		var userno = "${session.userno}";
 		var url = "/Career/employBoardWrite?";
 		if(userno==""||userno==null){
-			alert("·Î±×ÀÎ ÈÄ¿¡ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù");
+			alert("ë¡œê·¸ì¸ í›„ì— ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤");
 			return;
 		}else{
 			$(location).attr("href", url+params);
@@ -49,11 +49,11 @@ $(document).ready(function(){
 		if($(this).val() == 1){
 			$("#keyword").show();
 			$("#empid").hide();
-			$("#keyword").attr("placeholder", "Á¦¸ñ");
+			$("#keyword").attr("placeholder", "ì œëª©");
 		}else if($(this).val() == 2){
 			$("#keyword").show();
 			$("#empid").hide();
-			$("#keyword").attr("placeholder", "´Ğ³×ÀÓ");
+			$("#keyword").attr("placeholder", "ë‹‰ë„¤ì„");
 		}else if($(this).val() == 3){
 			$("#keyword").hide();
 			$("#empid").show();
@@ -152,11 +152,11 @@ input::placeholder{
 		<div class="main_body" style="overflow:hidden">
 			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">Ãë¾÷</div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ì·¨ì—…</div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/Career/">Ãë¾÷°ø°í</a></li>
-						<li><a id="current"href="/Career/employBoard?ptypeid=3">Ãë¾÷°Ô½ÃÆÇ</a></li>
+						<li><a href="/Career/">ì·¨ì—…ê³µê³ </a></li>
+						<li><a id="current"href="/Career/employBoard?ptypeid=3">ì·¨ì—…ê²Œì‹œíŒ</a></li>
 					</ul>
 				</div>
 			</div>
@@ -172,11 +172,11 @@ input::placeholder{
 					</colgroup>
 					<thead>
 						<tr id="top_row" style="width: 700px; height:30px; text-align:center; background-color:#d3d3d3;  padding: 10px;">
-							<td>¹øÈ£</td>
-							<td><span>Á¦</span><span style="padding-left: 40px;">¸ñ</span></td>
-							<td>´Ğ³×ÀÓ</td>
-							<td>ÀÛ¼ºÀÏ</td>
-							<td>Á¶È¸¼ö</td>
+							<td>ë²ˆí˜¸</td>
+							<td><span>ì œ</span><span style="padding-left: 40px;">ëª©</span></td>
+							<td>ë‹‰ë„¤ì„</td>
+							<td>ì‘ì„±ì¼</td>
+							<td>ì¡°íšŒìˆ˜</td>
 						</tr>
 					</thead>
 					<tbody style="text-align: center; padding: 10px;">
@@ -196,26 +196,26 @@ input::placeholder{
 				</table>
 				<div id="writeBtn" style=" float: right; padding-top: 5px;">
 					<button class="btn" id="addEmploymentBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
-						<span style="font-size: 80%;">±Û¾²±â</span>
+						<span style="font-size: 80%;">ê¸€ì“°ê¸°</span>
 					</button>
 				</div>
 				</div>
 				<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
 					<div id="searchValue" >
 						<select id="searchType" style="width:100px; height:20px; font-size: 60%;">
-					 		<option value="1">Á¦¸ñ</option>
-							<option value="2">´Ğ³×ÀÓ</option>
-							<option value="3">°Ô½Ã¹° Å¸ÀÔ</option>
+					 		<option value="1">ì œëª©</option>
+							<option value="2">ë‹‰ë„¤ì„</option>
+							<option value="3">ê²Œì‹œë¬¼ íƒ€ì…</option>
 						</select>
-						<input type="text" id="keyword" placeHolder = "Á¦¸ñ" style="width: 120px; height:20px;">
+						<input type="text" id="keyword" placeHolder = "ì œëª©" style="width: 120px; height:20px;">
 						<select id="empid" style="display:none;">
-							<option value="0">ÀüÃ¼</option>
+							<option value="0">ì „ì²´</option>
 							<c:forEach items="${emptypes}" var="emptype">
 								<option value="${emptype.empid}">${emptype.typename}</option>
 							</c:forEach>
 						</select>
 						<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
-							<span style="font-size:80%">°Ë»ö</span>
+							<span style="font-size:80%">ê²€ìƒ‰</span>
 						</button>
 					</div>
 				</div>

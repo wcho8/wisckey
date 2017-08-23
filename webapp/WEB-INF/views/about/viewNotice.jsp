@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,53 +11,48 @@
 $(document).ready(function(){
 	$("#userno_notice").hide();
 	var defaultParams = {
-			nid: "${paramVO.nid}",
-			userno: "${session.userno}",
 			nickname: "${session.nickname}",
 			mypage:"${paramVO.mypage}"
 	};
-	console.log(defaultParams);
 	
-	if($("#userno_notice").text().localeCompare(defaultParams.userno)==0){
+	var userno = "${session.userno}";
+	var nid = "${paramVO.nid}";
+	
+
+	var writerno = "${vo.userno}";
+	if(userno == writerno){
+		$("#noticeUpdate").show();
 		$("#noticeDelete").show();
-	}else{
-		$("#noticeDelete").hide();
 	}
 
 	$("#noticeDelete").click(function(){
 		var url = "/About/deleteNotice";
 		var params = $.extend({}, defaultParams, {});
 		$.post(url, params, function(data){
-			alert("°Ô½Ã±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+			alert("ê²Œì‹œê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			$(location).attr("href","/About/");
 		});
 	});
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-		
-			var title = item.title;
-			
-			if(title.length>11){
-				title = title.substring(0, 11);
-				title += "...";
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
+
+	$("#addReply").click(function(){
+		var url = "/About/addNoticeReply";
+		var replyContent = $("#reply").val();
+		var params = $.extend({}, defaultParams, {repContent:replyContent, nid:"${paramVO.nid}", userno:"${session.userno}"});
+		if(params.repContent == "" || params.repContent == null){
+			alert("ëŒ“ê¸€ì€ ê³µë°±ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+			return;
+		}
+		if(userno == "" || userno == null){
+			alert("ë¡œê·¸ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
+			return;
+		}else{
+			$.post(url, params, function(data){
+				alert("ëŒ“ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
+				location.reload(true);
+			});
+		}
 	});
 	
-	var writerno = "${vo.userno}";
-	if(defaultParams.userno == writerno){
-		$("#noticeUpdate").show();
-	}
 	$("#noticeUpdate").click(function(){
 		var url = "/About/writeForm?";
 		var params = $.param(defaultParams);
@@ -142,16 +137,16 @@ function viewNotice(nid){
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
-						<li><a href="/About/introWisckey">À§½ºÅ° ¼Ò°³</a></li>
-						<li><a href="/About/introUniv">ÇĞ±³¼Ò°³</a></li>
-						<li><a id="current" href="/About/">°øÁö»çÇ×</a></li>
-						<li><a href="/About/otherSites">ÁÖ¿ä»çÀÌÆ®</a></li>
+						<li><a href="/About/introWisckey">ìœ„ìŠ¤í‚¤ ì†Œê°œ</a></li>
+						<li><a href="/About/introUniv">í•™êµì†Œê°œ</a></li>
+						<li><a id="current" href="/About/">ê³µì§€ì‚¬í•­</a></li>
+						<li><a href="/About/otherSites">ì£¼ìš”ì‚¬ì´íŠ¸</a></li>
 					</ul>
 				</div>
 				<!-- 
 				<div style="clear: both;"></div>
 				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">°øÁö»çÇ× <br/></span>
+					<span style="font-weight: bold;">ê³µì§€ì‚¬í•­ <br/></span>
 					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
 						<li id="notice_left" ></li>
 					</ul>
@@ -167,10 +162,10 @@ function viewNotice(nid){
 					</div>
 					<div id="notice_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
-							ÀÛ¼ºÀÚ: <b>${vo.writer }</b>
+							ì‘ì„±ì: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							Á¶È¸¼ö: ${vo.count} ÃßÃµ: ${vo.likes} 
+							ì¡°íšŒìˆ˜: ${vo.count} ì¶”ì²œ: ${vo.likes} 
 						</span>
 					</div>
 
@@ -186,18 +181,28 @@ function viewNotice(nid){
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="noticeDelete" style="float: right;"><span style="font-size:80%;">»èÁ¦</span></button>
-						<button class="btn update" id="noticeUpdate" style="float:right; display:none;"><span style="font-size:80%;">¼öÁ¤</span></button>	
-						<button class="btn confirm" id="noticeList" style="float: right;"><span style="font-size:80%;">¸ñ·Ï</span></button>			
+						<button class="btn delete" id="noticeDelete" style="float: right; display:none;"><span style="font-size:80%;">ì‚­ì œ</span></button>
+						<button class="btn update" id="noticeUpdate" style="float:right; display:none;"><span style="font-size:80%;">ìˆ˜ì •</span></button>	
+						<button class="btn confirm" id="noticeList" style="float: right;"><span style="font-size:80%;">ëª©ë¡</span></button>			
 					</div>
 
 					<div style="clear:both;"></div>
 					<div id="notice_reply" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
-						´ñ±Û¾²±â<br/>
+						ëŒ“ê¸€ì“°ê¸°<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; margin-top:8px; width: 50px;">µî·Ï</button>
+						<button id="addReply" style="float: right;height:50px; margin-top:8px; width: 50px;">ë“±ë¡</button>
 					</div>
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
+					
+					<c:forEach items="${reps }" var="rep">
+						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 13px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
+							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
+							<br/>
+						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
+						</div>
+					</c:forEach>
+					
+					<div style="clear:both;"></div>
 				</div>
 			</div>
 		</div>

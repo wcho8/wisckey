@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
@@ -22,7 +22,7 @@ $(document).ready(function(){
 		$('#email').text(data.email);
 		$('#birthdate').text(data.birthdate.substring(0,10));
 		if(data.telnum == null || data.telnum == ''){
-			$("#telnum").text('¾øÀ½');
+			$("#telnum").text('ì—†ìŒ');
 		}else{
 			$("#telnum").text(data.telnum);
 		}
@@ -55,16 +55,16 @@ $(document).ready(function(){
 			buttons:
 				[
 				 	{
-				 		text:"È®ÀÎ",
+				 		text:"í™•ì¸",
 						click: function(e){
 							var pw = $("#pw").val();
 							var pwCheck = $("#pwCheck").val();
 							
 							if(pw ==='' || pwCheck ===''){
-								alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
+								alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 								e.preventDefault();
 							}else if(pw!==pwCheck){
-								alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+								alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 								e.preventDefault();
 							}
 						
@@ -81,7 +81,7 @@ $(document).ready(function(){
 						}
 					},	
 				 	{
-				 		text:"Ãë¼Ò",
+				 		text:"ì·¨ì†Œ",
 				 		click:function(e){
 				 			$("#dialog").dialog('close');
 				 		}
@@ -120,7 +120,7 @@ function submit(equal){
 		var params= $.extend({}, $("#info").serialization(),{});
 		location = url+params;
 	}else{
-		alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+		alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	}
 }
 </script>
@@ -158,7 +158,7 @@ function submit(equal){
 	<div class="row">
 		<div class="main_body">
 			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
-				È¸¿øÁ¤º¸
+				íšŒì›ì •ë³´
 			</div>
 			<div class="hr_dash"></div>
 			<div class="center_left" style="float:left;width:55%;">
@@ -173,35 +173,35 @@ function submit(equal){
 						</colgroup>
 						<tbody>
 							<tr>
-								<th>ÀÌ¸§<span class="important">*</span></th>
+								<th>ì´ë¦„<span class="important">*</span></th>
 								<td id="korname"><td>
 							</tr>
 							<tr>
-								<th>¾ÆÀÌµğ<span class="important">*</span></th>
+								<th>ì•„ì´ë””<span class="important">*</span></th>
 								<td id="userid"></td>
 							</tr>
 							<tr style="display:none;">
-								<th>ºñ¹Ğ¹øÈ£</th>
+								<th>ë¹„ë°€ë²ˆí˜¸</th>
 								<td id="memberPW" value="${memberInfo.passwd}"></td>
 							</tr>
 							<tr>
-								<th>´Ğ³×ÀÓ<span class="important">*</span></th>
+								<th>ë‹‰ë„¤ì„<span class="important">*</span></th>
 								<td id="nickname"></td>
 							</tr>
 							<tr>
-								<th>ÀÌ¸ŞÀÏ ÁÖ¼Ò<span class="important">*</span></th>
+								<th>ì´ë©”ì¼ ì£¼ì†Œ<span class="important">*</span></th>
 								<td id="email"></td>
 							</tr>
 							<tr>
-								<th>»ıÀÏ</th>
+								<th>ìƒì¼</th>
 								<td id="birthdate"></td>
 							</tr>
 							<tr>
-								<th>¼ºº°</th>
+								<th>ì„±ë³„</th>
 								<td id="gender"></td>
 							</tr>
 							<tr>
-								<th>ÈŞ´ëÆù</th>
+								<th>íœ´ëŒ€í°</th>
 								<td id="telnum"></td>
 							</tr>
 							<tr>
@@ -209,25 +209,25 @@ function submit(equal){
 								<td id="major"></td>
 							</tr>
 							<!-- <tr>
-								<th style="padding-left: 5px;">ÁÖ È°µ¿ µ¿¾Æ¸®</th>
+								<th style="padding-left: 5px;">ì£¼ í™œë™ ë™ì•„ë¦¬</th>
 								<td id="majorOrg"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">ºÎ È°µ¿ µ¿¾Æ¸®</th>
+								<th style="padding-left: 5px;">ë¶€ í™œë™ ë™ì•„ë¦¬</th>
 								<td id="minorOrg"></td>
 							</tr> -->
 						</tbody>
 					</table>
 					<div style="width:100%; margin-top: 8px; float:left;">
-						<button class="btn_btn-modify" id="memberUpdate" style="height: 50px;">°³ÀÎÁ¤º¸ º¯°æ</button>
-						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">µÚ·Î</button>
+						<button class="btn_btn-modify" id="memberUpdate" style="height: 50px;">ê°œì¸ì •ë³´ ë³€ê²½</button>
+						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">ë’¤ë¡œ</button>
 					</div>
 					
 					<div id="dialog" title="" style="display:none; line-height:60px; ">
 						<form id="inner_form" action="" method="post" style="text-align:center; margin:0; vertical-align: middle;">
-							<span>ºñ¹Ğ¹øÈ£: </span>
+							<span>ë¹„ë°€ë²ˆí˜¸: </span>
 							<input id="pw" name="pw" type="password" class="chk_pw"><br/>
-							<span>ºñ¹Ğ¹øÈ£ È®ÀÎ:</span>
+							<span>ë¹„ë°€ë²ˆí˜¸ í™•ì¸:</span>
 							<input id="pwCheck" name="pwCheck" type="password" class="chk_pw"><br/>
 						</form>
 					</div>

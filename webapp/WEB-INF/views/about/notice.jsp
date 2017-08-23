@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 
@@ -19,17 +19,17 @@ $(document).ready(function(){
 		$("#searchType").val("${paramVO.srchType}");
 		$("#keyword").val("${paramVO.keyword}");
 		if(srchType ==1){
-			$("#keyword").attr("placeholder","Á¦¸ñ");
+			$("#keyword").attr("placeholder","ì œëª©");
 		}else if(srchType == 2){
-			$("#keyword").attr("placeholder", "´Ğ³×ÀÓ");
+			$("#keyword").attr("placeholder", "ë‹‰ë„¤ì„");
 		}
 	}	
-	//»õ °øÁö µî·Ï
+	//ìƒˆ ê³µì§€ ë“±ë¡
 	$("#addNotice").click(function(){
 		var url = "/About/writeForm";
 		var userno = "${session.userno}";
 		if(userno=="" || userno == null){
-			alert("·Î±×ÀÎ ÈÄ¿¡ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+			alert("ë¡œê·¸ì¸ í›„ì— ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 			return;
 		}else{
 			$(location).attr("href",url);
@@ -39,9 +39,9 @@ $(document).ready(function(){
 	$("#searchType").change(function(){
 		$("#keyword").val("");
 		if($(this).val() == 1){
-			$("#keyword").attr("placeholder", "Á¦¸ñ");
+			$("#keyword").attr("placeholder", "ì œëª©");
 		}else if($(this).val() == 2){
-			$("#keyword").attr("placeholder", "´Ğ³×ÀÓ");
+			$("#keyword").attr("placeholder", "ë‹‰ë„¤ì„");
 		}
 	});
 	$("#search").click(function(){
@@ -54,7 +54,7 @@ $(document).ready(function(){
 	});
 
 	
-	//¿ŞÂÊ °øÁö»çÇ× ÅÇ ¸ñ·Ï
+	//ì™¼ìª½ ê³µì§€ì‚¬í•­ íƒ­ ëª©ë¡
 	$.post("/About/listFourNotice", {}, function(data){
 		$.each(data, function(index, item){
 		
@@ -85,7 +85,7 @@ function search(){
 	var url ="/About/?" +$.param(params);
 	$(location).attr("href",url);
 }
-//°øÁöº¸±â
+//ê³µì§€ë³´ê¸°
 function viewNotice(nid){
 	var url = "/About/viewNotice?nid=" + nid+ "&mypage=" + "${paramVO.mypage}";
 	$(location).attr("href", url);
@@ -156,16 +156,16 @@ input::placeholder{
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list_about" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/About/introWisckey">À§½ºÅ° ¼Ò°³</a></li>
-						<li><a href="/About/introUniv">ÇĞ±³¼Ò°³</a></li>
-						<li><a id="current" href="/About/">°øÁö»çÇ×</a></li>
-						<li><a href="/About/otherSites">ÁÖ¿ä»çÀÌÆ®</a></li>
+						<li><a href="/About/introWisckey">ìœ„ìŠ¤í‚¤ ì†Œê°œ</a></li>
+						<li><a href="/About/introUniv">í•™êµì†Œê°œ</a></li>
+						<li><a id="current" href="/About/">ê³µì§€ì‚¬í•­</a></li>
+						<li><a href="/About/otherSites">ì£¼ìš”ì‚¬ì´íŠ¸</a></li>
 					</ul>
 				</div>
 				<!--  
 				<div style="clear: both;"></div>
 				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">°øÁö»çÇ× <br/></span>
+					<span style="font-weight: bold;">ê³µì§€ì‚¬í•­ <br/></span>
 					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
 						<li id="notice_left" ></li>
 					</ul>
@@ -187,12 +187,12 @@ input::placeholder{
 							</colgroup>
 							<thead>	
 								<tr id="top_row" style="background-color:#d3d3d3; height:30px; text-align: center; border-bottom: 1px solid #ccc; padding: 10px;">
-									<td>¹øÈ£</td>
-									<td><span>Á¦</span><span style="padding-left: 40px;">¸ñ</span></td>
-									<td>´Ğ³×ÀÓ</td>
-									<td>³¯Â¥</td>
-									<td>Á¶È¸</td>
-									<td>ÃßÃµ</td>
+									<td>ë²ˆí˜¸</td>
+									<td><span>ì œ</span><span style="padding-left: 40px;">ëª©</span></td>
+									<td>ë‹‰ë„¤ì„</td>
+									<td>ë‚ ì§œ</td>
+									<td>ì¡°íšŒ</td>
+									<td>ì¶”ì²œ</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -210,20 +210,20 @@ input::placeholder{
 						</table>
 						<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right: 30px; display:none; ">
 								<button class="btn" id="addNotice" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
-									<span style="font-size: 80%;">±Û¾²±â</span>
+									<span style="font-size: 80%;">ê¸€ì“°ê¸°</span>
 								</button>
 						</div>
 					</div>
 					<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
 						<div id="searchValue" >
 							<select id="searchType" style="width:100px; height:20px; font-size: 60%;">
-						 		<option value="1">Á¦¸ñ</option>
-								<option value="2">´Ğ³×ÀÓ</option>
-								<option value="3">°Ô½Ã¹° Å¸ÀÔ</option>
+						 		<option value="1">ì œëª©</option>
+								<option value="2">ë‹‰ë„¤ì„</option>
+								<option value="3">ê²Œì‹œë¬¼ íƒ€ì…</option>
 							</select>
-							<input type="text" id="keyword" placeHolder = "Á¦¸ñ" style="width: 120px; height:20px;">
+							<input type="text" id="keyword" placeHolder = "ì œëª©" style="width: 120px; height:20px;">
 							<button class="btn default" id="search" style="margin-left:5px; line-height: 17px; width:45px; vertical-align:middle; padding:0px;">
-								<span style="font-size:80%">°Ë»ö</span>
+								<span style="font-size:80%">ê²€ìƒ‰</span>
 							</button>
 						</div>
 					</div>

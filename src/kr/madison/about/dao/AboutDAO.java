@@ -54,4 +54,14 @@ public class AboutDAO extends CommonDAO{
 		return list;
 	}
 
+	public List<AboutVO> findNoticeReply(AboutVO paramVO) {
+		List<AboutVO> list = getSqlSession().selectList("About.findNoticeReply", paramVO);
+		return list;
+	}
+
+	public int addNoticeReply(AboutVO paramVO) {
+		getSqlSession().insert("About.addNoticeReply",paramVO);
+		return paramVO.getNid();
+	}
+
 }

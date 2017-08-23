@@ -29,7 +29,7 @@
 			END as regdate
 		FROM info_notice
 		ORDER BY regdate DESC
-		LIMIT 5z
+		LIMIT 5
 	</select>
 	<select id="findEmployerList" parameterType="MainVO" resultType="CareerVO">
 		SELECT
