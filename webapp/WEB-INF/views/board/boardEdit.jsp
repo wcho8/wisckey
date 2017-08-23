@@ -36,6 +36,7 @@ $(document).ready(function(){
 			}else{
 				$("#title").val(data.title);
 				$("#content").summernote('code', data.content);
+				$("#frid").val(data.frid).prop("selected", true);
 			}
 		});
 	}
@@ -90,7 +91,9 @@ function sendFile(file, el){
 		success: function(fid){
 			var url = "/Image/loadImage/" + fid;
 			$(el).summernote('insertImage', url, function($image){
+				debugger;
 				$image.attr('id', fid);
+				$image.css('width', "80%");
 			});
 			upImgIds.push(fid);
 		}

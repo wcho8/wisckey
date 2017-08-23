@@ -229,7 +229,7 @@ td{
 				<div class="mid_left" style="float:left; width:27.7%; height:100%;">
 					<div id="top_freeboard" class="body_div" style="height:484px;">
 						<div class="body_inside">
-							<a href="/Board/">Best 자유 게시판</a>
+							<a href="/Board/?ptypeid=1">Best 자유 게시판</a>
 						</div>
 						<div style="padding:3px; width:100%;font-size:14px;">
 							<ol id="topBoardList" style="padding-left:0px;">
