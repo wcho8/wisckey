@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -32,7 +32,7 @@ $(document).ready(function(){
 		var params = $.extend({}, defaultParams, {brdid:brdid});
 		$.post(url, params, function(data){
 			if("${session.userno}" != data.userno || "${session.userno}" == null){
-				alert("¼öÁ¤ÇÒ ¼ö ÀÖ´Â ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");
+				alert("ìˆ˜ì •í•  ìˆ˜ ìˆëŠ” ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
 				$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
 				return;
 			}else{
@@ -59,12 +59,12 @@ $(document).ready(function(){
 		var params = $.extend({}, $("#emplyBoardContent").serialization(), {brdid:brdid, empid:empid, content:content,userno:"${session.userno}"});
 		
 		if(params.title == null || params.title == ""){
-			alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#title").focus();
 			return;
 		}
 		if($("#content").summernote('isEmpty')){
-			alert("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#content").summernote('focus');
 			return;
 		}
@@ -80,13 +80,13 @@ $(document).ready(function(){
 					$(location).attr("href", "/Career/employBoardView?brdid="+data);
 				});
 			}else{
-				alert("Á¦¸ñ ±æÀÌ°¡ Á¦ÇÑÀ» ÃÊ°úÇÏ¿´½À´Ï´Ù.");
+				alert("ì œëª© ê¸¸ì´ê°€ ì œí•œì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤.");
 				$("#title").focus();
 			}
 		}
 	});
 	
-	//Á¦¸ñ ±ÛÀÚ¼ö Á¦ÇÑ
+	//ì œëª© ê¸€ììˆ˜ ì œí•œ
 	var maxChars = $("#title");
 	var maxLength = maxChars.attr('maxlength');
 	$("#maxLength").text(maxLength);
@@ -119,7 +119,7 @@ function sendFile(file, el){
 		}
 	});
 }
-//Á¦¸ñ ±ÛÀÚÁ¦ÇÑ
+//ì œëª© ê¸€ìì œí•œ
 function byteCheck(str){
 	var byteLen = 0;
 	for(var i = 0; i<str.length; i++){
@@ -141,7 +141,7 @@ function titleByte(){
 	console.log(length+" bytes");
 	if(length>82){
 		var tmp = cutInUTF8(title,76);
-		alert("Á¦¸ñ ±æÀÌ°¡ Á¦ÇÑÀ» ÃÊ°úÇÏ¿´½À´Ï´Ù.");
+		alert("ì œëª© ê¸¸ì´ê°€ ì œí•œì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤.");
 		$("#title").text(tmp);
 		$("#title").focus();
 		
@@ -211,11 +211,11 @@ div input{
 		<div class="main_body" style="overflow:hidden">
 				<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">Ãë¾÷</div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ì·¨ì—…</div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/Career/">Ãë¾÷°ø°í</a></li>
-						<li><a id="current"href="/Career/employBoard?ptypeid=3">Ãë¾÷°Ô½ÃÆÇ</a></li>
+						<li><a href="/Career/">ì·¨ì—…ê³µê³ </a></li>
+						<li><a id="current"href="/Career/employBoard?ptypeid=3">ì·¨ì—…ê²Œì‹œíŒ</a></li>
 					</ul>
 				</div>
 			</div>
@@ -227,7 +227,7 @@ div input{
 					</colgroup>
 					<tbody>
 						<tr style="border: 1px solid #ccc;">
-							<th style="text-align: center;">¸»¸Ó¸®</th>
+							<th style="text-align: center;">ë§ë¨¸ë¦¬</th>
 							<td>
 								<select id="empid">
 									<c:forEach items="${emptypes}" var="emptype">
@@ -237,23 +237,23 @@ div input{
 							</td>
 							<tr>
 						<tr style="border: 1px solid #ccc;">
-							<th style="text-align: center;"> Á¦¸ñ</th>
+							<th style="text-align: center;"> ì œëª©</th>
 							<td>
 								<input type="text" id="title" style="width:400px;" onKeyDown="javascript:titleByte()">
 							</td>
 						</tr>
 						<tr style="border: 1px solid #ccc;">
-							<th  style="text-align: center;">³»¿ë</th>
+							<th  style="text-align: center;">ë‚´ìš©</th>
 							<td style="padding-top: 8px; padding-bottom: 8px;">
-								<textarea id="content" style="width:100%; height:400px; display:none;" valid="³»¿ë"></textarea>
+								<textarea id="content" style="width:100%; height:400px; display:none;" valid="ë‚´ìš©"></textarea>
 							</td>
 							
 						</tr>
 					</tbody>
 				</table>
 			<div class="buttons">
-				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">Ãë¼Ò</button>
-				<button class="fRight btn btn-default" id="addEmployBoard" style="padding:3px 9px; font-size:13px;">µî·Ï</button>
+				<button class="fRight btn btn-default" id="cancel" style="padding:3px 9px; font-size:13px;">ì·¨ì†Œ</button>
+				<button class="fRight btn btn-default" id="addEmployBoard" style="padding:3px 9px; font-size:13px;">ë“±ë¡</button>
 			</div>
 			
 			</div>

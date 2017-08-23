@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -44,12 +44,12 @@ $(document).ready(function() {
 		var params = $.extend({}, $("#notice_info").serialization(), {content:content});
 			
 		if(params.title == null||params.title==""){
-			alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#title").focus();
 			return;
 		}
 		if($("#content").summernote('isEmpty')){
-			alert("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			$("#content").summernote('focus');
 			return;
 		}
@@ -182,16 +182,16 @@ function sendFile(file, el){
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list_about" style="list-style: none; padding-top: 5px;padding-left: 10px; text-decoration: none;">
-						<li><a href="/About/introWisckey">À§½ºÅ° ¼Ò°³</a></li>
-						<li><a href="/About/introUniv">ÇĞ±³¼Ò°³</a></li>
-						<li><a id="current" href="/About/">°øÁö»çÇ×</a></li>
-						<li><a href="/About/otherSites">ÁÖ¿ä»çÀÌÆ®</a></li>
+						<li><a href="/About/introWisckey">ìœ„ìŠ¤í‚¤ ì†Œê°œ</a></li>
+						<li><a href="/About/introUniv">í•™êµì†Œê°œ</a></li>
+						<li><a id="current" href="/About/">ê³µì§€ì‚¬í•­</a></li>
+						<li><a href="/About/otherSites">ì£¼ìš”ì‚¬ì´íŠ¸</a></li>
 					</ul>
 				</div>
 				<!-- 
 				<div style="clear: both;"></div>
 				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">°øÁö»çÇ× <br/></span>
+					<span style="font-weight: bold;">ê³µì§€ì‚¬í•­ <br/></span>
 					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
 						<li id="notice_left" ></li>
 					</ul>
@@ -207,22 +207,22 @@ function sendFile(file, el){
 						<col width="*">
 					</colgroup>
 					<tr style="border: 1px solid #ccc">
-						<td style="text-align: center; width: 150px;">Á¦¸ñ</td>
+						<td style="text-align: center; width: 150px;">ì œëª©</td>
 						<td><input type="text" id="title" style="width: 300px"></input>
 					</tr>
 					<tr style="border: 1px solid #ccc">
-						<td style="text-align: center; width: 150px;">³»¿ë</td>
+						<td style="text-align: center; width: 150px;">ë‚´ìš©</td>
 						<td><textarea id="content" style="width: 100%; height: 200px; text-align: left;"></textarea></td>
 					</tr>
 				</table>	
 				<div style="float: right;">
 					<button class="btn confirm" id="NoticeList" style="width: 50px; margin-top: 5px; line-height: 20px; vertical-align:middle; padding:0px;"
 						 onClick="javascript:toNoticeList()">
-						<span style="font-size:80%;">¸ñ·Ï</span>	
+						<span style="font-size:80%;">ëª©ë¡</span>	
 					</button>			
 					<button type="button" class="btn confirm" id="addData" style="width: 50px; margin-top: 5px; line-height: 20px; 
 						vertical-align:middle; padding:0px;">
-						<span style="font-size:80%;">µî·Ï</span> 	
+						<span style="font-size:80%;">ë“±ë¡</span> 	
 					</button>
 				</div>
 			

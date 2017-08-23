@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -20,15 +20,15 @@ $(document).ready(function(){
 		var replyContent = $("#reply").val();
 		var params = $.extend({}, defaultParams, {repContent:replyContent, userno:"${session.userno}", brdid:"${paramVO.brdid}"});
 		if(params.repContent==""||params.repContent==null){
-			alert("´ñ±ÛÀº °ø¹éÀÏ ¼ö ¾ø½À´Ï´Ù.");
+			alert("ëŒ“ê¸€ì€ ê³µë°±ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		if(params.userno==""||params.userno==null){
-			alert("·Î±×ÀÎÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë¡œê·¸ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			return;
 		}else{
 			$.post(url, params, function(data){
-				alert("´ñ±ÛÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.");
+				alert("ëŒ“ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				location.reload(true);
 			});
 		}
@@ -38,7 +38,7 @@ $(document).ready(function(){
 		var url = "/Tip/delBoardData";
 		var params = $.extend({}, defaultParams, {brdid:"${paramVO.brdid}"});
 		$.post(url, params, function(data){
-			alert("°Ô½Ã±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+			alert("ê²Œì‹œê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			$(location).attr("href","/Tip/food?"+$.param(defaultParams));
 		});
 	});
@@ -61,11 +61,11 @@ $(document).ready(function(){
 		$.post("/Tip/modFoodLikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "ÀÌ¹Ì ÃßÃµÇÏ¿´½À´Ï´Ù.";
+				msg = "ì´ë¯¸ ì¶”ì²œí•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else if(data == "Success"){
-				msg = "ÃßÃµÇÏ¿´½À´Ï´Ù.";
+				msg = "ì¶”ì²œí•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else{
-				msg = "¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À.";
+				msg = "ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì‹­ì‹œì˜¤.";
 			}
 			alert(msg);
 			if(data == "Success"){
@@ -81,11 +81,11 @@ $(document).ready(function(){
 		$.post("/Tip/modFoodDislikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "ÀÌ¹Ì ºñÃßÇÏ¿´½À´Ï´Ù.";
+				msg = "ì´ë¯¸ ë¹„ì¶”í•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else if(data == "Success"){
-				msg = "ºñÃßÇÏ¿´½À´Ï´Ù.";
+				msg = "ë¹„ì¶”í•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else{
-				msg = "¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À.";
+				msg = "ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì‹­ì‹œì˜¤.";
 			}
 			alert(msg);
 			if(data == "Success"){
@@ -97,7 +97,7 @@ $(document).ready(function(){
 	});
 });
 
-//´ñ±Û ÃßÃµ/ºñÃß
+//ëŒ“ê¸€ ì¶”ì²œ/ë¹„ì¶”
 function likes(like, repid){
 	var url = "";
 	var msg = "";
@@ -112,19 +112,19 @@ function likes(like, repid){
 		var msg = "";
 		if(like == 'Y'){
 			if(data == "Fail"){
-				msg = "ÀÌ¹Ì ÃßÃµÇÏ¿´½À´Ï´Ù.";
+				msg = "ì´ë¯¸ ì¶”ì²œí•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else if(data == "Success"){
-				msg = "ÃßÃµÇÏ¿´½À´Ï´Ù.";
+				msg = "ì¶”ì²œí•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else{
-				msg = "¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À.";
+				msg = "ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì‹­ì‹œì˜¤.";
 			}
 		}else if(like == "N"){
 			if(data == "Fail"){
-				msg = "ÀÌ¹Ì ºñÃßÇÏ¿´½À´Ï´Ù.";
+				msg = "ì´ë¯¸ ë¹„ì¶”í•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else if(data == "Success"){
-				msg = "ºñÃßÇÏ¿´½À´Ï´Ù.";
+				msg = "ë¹„ì¶”í•˜ì˜€ìŠµë‹ˆë‹¤.";
 			}else{
-				msg = "¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ½Ê½Ã¿À.";
+				msg = "ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì‹­ì‹œì˜¤.";
 			}
 		}
 		alert(msg);
@@ -190,11 +190,11 @@ function likes(like, repid){
 			<!--  <span id="userno_food" value="${vo.userno}" style="display:none;">${vo.userno}</span> -->
 			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">±ú¾ËÆÁ <br/></div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ê¹¨ì•ŒíŒ <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a id="current" href="/Tip/food">¸ÀÁı</a></li>
-						<li><a href="/Tip/market">º­·è½ÃÀå</a></li>
+						<li><a id="current" href="/Tip/food">ë§›ì§‘</a></li>
+						<li><a href="/Tip/market">ë²¼ë£©ì‹œì¥</a></li>
 					</ul>
 				</div>
 			</div>
@@ -206,10 +206,10 @@ function likes(like, repid){
 					</div>
 					<div id="foodBoard_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
-							ÀÛ¼ºÀÚ: <b>${vo.writer }</b>
+							ì‘ì„±ì: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							Á¶È¸¼ö: ${vo.count} 
+							ì¡°íšŒìˆ˜: ${vo.count} 
 						</span>
 					</div>
 					
@@ -221,22 +221,22 @@ function likes(like, repid){
 						${vo.content }
 					</div>
 					<div style="margin-top:25px; text-align:center; margin-bottom:20px;">
-						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> ÃßÃµ ${vo.likes}</button>
-						<button id="dislike" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> ºñÃß ${vo.dislikes}</button>
+						<button id="likes" class="btn"><img src="/images/icon/thumbs-up.png" style="width:14px;"> ì¶”ì²œ ${vo.likes}</button>
+						<button id="dislike" class="btn"><img src="/images/icon/thumb-down.png" style="width:14px;"> ë¹„ì¶” ${vo.dislikes}</button>
 					</div>
 					<div class="hr_dash" style="background: grey;"></div>
 					<div style="clear:both;"></div>
 
 					<div style="float: left; width:100%;">
-						<button class="btn delete" id="foodBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">»èÁ¦</span></button>
-						<button class="btn confirm" id="foodBoardList" style="float: right;"><span style="font-size:80%;">¸ñ·Ï</span></button>			
-						<button class="btn update" id="foodBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">¼öÁ¤</span></button>	
+						<button class="btn delete" id="foodBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">ì‚­ì œ</span></button>
+						<button class="btn confirm" id="foodBoardList" style="float: right;"><span style="font-size:80%;">ëª©ë¡</span></button>			
+						<button class="btn update" id="foodBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">ìˆ˜ì •</span></button>	
 					</div>
 					<div style="clear:both;"></div>
 					<div id="foodBoard_reply" style="margin-top:20px; border-radius:2em; border: 1px solid #cacaca; padding: 10px; font-size: 12px;">
-						´ñ±Û¾²±â<br/>
+						ëŒ“ê¸€ì“°ê¸°<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; border-radius: 1em; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right;height:50px; width: 50px;">µî·Ï</button>
+						<button id="addReply" style="float: right;height:50px; width: 50px;">ë“±ë¡</button>
 					</div>
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 					

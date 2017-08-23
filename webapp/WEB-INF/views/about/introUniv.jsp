@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -97,10 +97,10 @@ function viewNotice(nid){
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
-						<li><a href="/About/introWisckey">����Ű �Ұ�</a></li>
-						<li><a id="current" href="/About/introUniv">�б��Ұ�</a></li>
-						<li><a href="/About/">��������</a></li>
-						<li><a href="/About/otherSites">�ֿ����Ʈ</a></li>
+						<li><a href="/About/introWisckey">위스키 소개</a></li>
+						<li><a id="current" href="/About/introUniv">학교소개</a></li>
+						<li><a href="/About/">공지사항</a></li>
+						<li><a href="/About/otherSites">주요사이트</a></li>
 					</ul>
 				</div>
 			</div>

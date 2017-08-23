@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -23,15 +23,15 @@ $(document).ready(function(){
 		var replyContent = $("#reply").val();
 		var params = $.extend({}, defaultParams, {repContent:replyContent});
 		if(params.repContent==""||params.repContent==null){
-			alert("´ñ±ÛÀº °ø¹éÀÏ ¼ö ¾ø½À´Ï´Ù.");
+			alert("ëŒ“ê¸€ì€ ê³µë°±ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		if(params.userno==""||params.userno==null){
-			alert("·Î±×ÀÎÇÏ¿© ÁÖ½Ê½Ã¿À.");
+			alert("ë¡œê·¸ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			return;
 		}else{
 			$.post(url, params, function(data){
-				alert("´ñ±ÛÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.");
+				alert("ëŒ“ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				location.reload(true);
 			});
 		}
@@ -41,7 +41,7 @@ $(document).ready(function(){
 		var url = "/School/deletePastWork";
 		var params =$.extend({},defaultParams, {});
 		$.post(url, params, function(data){
-			alert("°Ô½Ã±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+			alert("ê²Œì‹œê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			$(location).attr("href","/School/pastWork");
 		})
 	});
@@ -60,7 +60,7 @@ $(document).ready(function(){
 	})
 	var title = new String($("#title").text());
 	var length = ~-encodeURI(title).split(/%..|./).length;
-	//76¹ÙÀÌÆ®°¡ ³ÑÀ¸¸é alt
+	//76ë°”ì´íŠ¸ê°€ ë„˜ìœ¼ë©´ alt
 	if(length>76){
 		$('span#title').attr('title',title);
 		var title = cutInUTF8(title, 76);
@@ -135,11 +135,11 @@ function cutInUTF8(str, n) {
 		<div class="main_body" style="overflow: hidden;">
 			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ÇĞ¾÷ <br/></div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">í•™ì—… <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a id="current" href="/School/pastWork">Á·º¸</a></li>
-						<li><a href="">ÇĞ¾÷°Ô½ÃÆÇ</a></li>
+						<li><a id="current" href="/School/pastWork">ì¡±ë³´</a></li>
+						<li><a href="">í•™ì—…ê²Œì‹œíŒ</a></li>
 					</ul>
 				</div>
 			</div>
@@ -150,10 +150,10 @@ function cutInUTF8(str, n) {
 					</div>
 					<div id="pastWork_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
-							ÀÛ¼ºÀÚ: <b>${vo.writer }</b>
+							ì‘ì„±ì: <b>${vo.writer }</b>
 						</span>
 						<span style="float: right;">
-							Á¶È¸¼ö: ${vo.count}
+							ì¡°íšŒìˆ˜: ${vo.count}
 						</span>
 					</div>
 					
@@ -170,17 +170,17 @@ function cutInUTF8(str, n) {
 					<div style="clear:both;"></div>
 					
 					<div style="float:hidden; margin-top: 10px; width:100%;">
-						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;display:none;">»èÁ¦</button>
-						<button class="btn confirm" id="pastWorkList" style="float: right; margin-top: 5px;">¸ñ·Ï	</button>
-						<button class="btn update" id="pastWorkUpdate" style="float:right; margin-top:5px; display:none;">¼öÁ¤</button>	
+						<button class="btn delete" id="pastWorkDelete" style="float: right; margin-top:5px;display:none;">ì‚­ì œ</button>
+						<button class="btn confirm" id="pastWorkList" style="float: right; margin-top: 5px;">ëª©ë¡	</button>
+						<button class="btn update" id="pastWorkUpdate" style="float:right; margin-top:5px; display:none;">ìˆ˜ì •</button>	
 					</div>
 		
 					<div style="clear:both;"></div>
 					
 					<div id="pastWork_reply" style="margin-top:20px; border: 1px solid #cacaca; border-left:0px; border-right:0px;padding: 10px; font-size: 12px;">
-						´ñ±Û¾²±â<br/>
+						ëŒ“ê¸€ì“°ê¸°<br/>
 						<textarea id="reply" style="width:600px; height: 60px; text-align: left; overflow:auto; margin-top:5px; padding-top:5px;"></textarea>
-						<button id="addReply" style="float: right; height:50px; margin-top: 8px;width: 50px;">µî·Ï</button>
+						<button id="addReply" style="float: right; height:50px; margin-top: 8px;width: 50px;">ë“±ë¡</button>
 					</div>
 					
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>

@@ -111,6 +111,35 @@
 			SELECT * from info_notice WHERE content LIKE CONCAT('%',#{keyWords},'%')
 		END IF
 	</select>
+	<insert id="addNoticeReply" parameterType="AboutVO"
+		useGeneratedKeys="true" keyProperty="repid" keyColumn="repid">
+		INSERT INTO info_notice_reply(
+			nid,
+			content,
+			regdate,
+			moddate,
+			userno
+		)VALUES(
+			#{nid},
+			#{repContent},
+			NOW(),
+			NOW(),
+			#{userno}
+		)
+		<selectKey keyProperty="repid" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<select id="findNoticeReply" parameterType="AboutVO" resultType="AboutVO">
+		SELECT
+			a.repid,
+			b.nickname as replier,
+			a.content as repContent,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
+		FROM info_notice_reply a
+		LEFT JOIN info_userinfo b on a.userno = b.userno
+		WHERE a.nid=#{nid}	
+	</select>
 	 
 </mapper>
 

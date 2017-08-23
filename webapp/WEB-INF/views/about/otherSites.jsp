@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -82,16 +82,16 @@ function viewNotice(nid){
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list_about" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
-						<li><a href="/About/introWisckey">À§½ºÅ° ¼Ò°³</a></li>
-						<li><a href="/About/introUniv">ÇÐ±³¼Ò°³</a></li>
-						<li><a href="/About/">°øÁö»çÇ×</a></li>
-						<li><a id="current"  href="/About/otherSites">ÁÖ¿ä»çÀÌÆ®</a></li>
+						<li><a href="/About/introWisckey">ìœ„ìŠ¤í‚¤ ì†Œê°œ</a></li>
+						<li><a href="/About/introUniv">í•™êµì†Œê°œ</a></li>
+						<li><a href="/About/">ê³µì§€ì‚¬í•­</a></li>
+						<li><a id="current"  href="/About/otherSites">ì£¼ìš”ì‚¬ì´íŠ¸</a></li>
 					</ul>
 				</div>
 					<!--  
 					<div style="clear: both;"></div>
 					<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-						<span style="font-weight: bold;">°øÁö»çÇ× <br/></span>
+						<span style="font-weight: bold;">ê³µì§€ì‚¬í•­ <br/></span>
 						<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
 							<li id="notice_left" ></li>
 						</ul>
@@ -101,7 +101,7 @@ function viewNotice(nid){
 
 			<div class="center_menu" style="float: left; margin-left: 30px; width: 700px;">
 				<div style="width: 100%; margin-top:10px; float:left;">
-					<b style="font-size: 30px;">ÁÖ¿ä»çÀÌÆ®</b>
+					<b style="font-size: 30px;">ì£¼ìš”ì‚¬ì´íŠ¸</b>
 				</div>
 				<div>
 					

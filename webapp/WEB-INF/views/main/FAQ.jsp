@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <style type="text/css">
@@ -36,7 +36,7 @@
 		<div class="main_body" style="width:100%;">
 			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> <!-- -20px -->
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
-					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">¹¹¶ó°í ÇÏÁö <br/></div>
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ë­ë¼ê³  í•˜ì§€ <br/></div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-left: 10px; text-decoration: none; padding-top: 5px;">
 						<li><a id="current" href="/FAQ">FAQ</a></li>

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <jsp:include page="../common/header.jsp"></jsp:include>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
+ <jsp:include page="../common/header.jsp"></jsp:include>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
@@ -23,7 +23,7 @@ $(document).ready(function(){
 	$("#birthdate").change(function(){
 		var birthday = new Date($("#birthdate").val());
 		if(birthday > new Date()){
-			alert("��ȿ�� ������ �ƴմϴ�.");
+			alert("유효한 생일이 아닙니다.");
 			$("#birthdate").val("");
 		}
 	});
@@ -48,7 +48,7 @@ $(document).ready(function(){
 	
 	$("#confirmUpdate").click(function(){
 		if(!chkNickname){
-			alert("�г��� �ߺ�Ȯ�� �Ͽ� �ֽʽÿ�.");
+			alert("닉네임 중복확인 하여 주십시오.");
 			return;
 		}
 		
@@ -61,10 +61,10 @@ $(document).ready(function(){
 		var url = "/Member/modMemberData";
 		if(chkValid()){
 			$.post(url, params, function(){
-				alert("�����Ͽ����ϴ�.");
+				alert("수정하였습니다.");
 				$(location).attr("href","/Member/memberView?userno="+userno);
 			}).error(function(){
-				alert("������ �߻��Ͽ����ϴ�. ���߿� �ٽ� �õ��� �ּ���.");
+				alert("오류가 발생하였습니다. 나중에 다시 시도해 주세요.");
 			});
 		}else{
 			return
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			buttons:
 				[
 				 	{
-				 		text:"Ȯ��",
+				 		text:"확인",
 				 		width: 60,
 				 		height: 30,
 				 		click: function(e){
@@ -94,7 +94,7 @@ $(document).ready(function(){
 				 		}
 				 	},
 				 	{
-				 		text:"���",
+				 		text:"취소",
 				 		width: 60,
 				 		height: 30,
 				 		click:function(e){
@@ -135,13 +135,13 @@ function submit(){
 		
 	if(chkPasswd()){
 		$.post(url,params,function(data){
-			alert("��й�ȣ�� ���������� �ٲ�����ϴ�.");
+			alert("비밀번호가 성공적으로 바뀌었습니다.");
 			$("#pwDialog").dialog('close');
 			$("#passwd").val(passwd);
 		});
 	}
 }
-//�̸��� ���Խ� üũ
+//이메일 정규식 체크
 function chkEmail(email){
 	var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	if(regEmail.test(email)){
@@ -151,7 +151,7 @@ function chkEmail(email){
 	}
 };
 
-//���̵� ���Խ� üũ
+//아이디 정규식 체크
 function chkValidId(userid){
 	var regId = /[^a-z0-9]/;
 	if(regId.test(userid)){
@@ -160,18 +160,18 @@ function chkValidId(userid){
 		return true;
 	}
 };
-//�ߺ�Ȯ�� (type�� ���̵����� �г������� ����)
+//중복확인 (type은 아이디인지 닉네임인지 구분)
 function chkExist(type){
 	switch (type){
 	case "id":
 		var userid = $("#userid").val();
 		if(userid == null || userid == ""){
-			alert("���̵� �Է��Ͽ� �ֽʽÿ�.");
+			alert("아이디를 입력하여 주십시오.");
 			$("#userid").focus();
 			chkId = false;
 		}else if(userid!= null && userid != ''){
 			if(userid.length > 20 || userid.length < 5){
-				alert("���̵�� 5~20�� �̳����� �մϴ�.");
+				alert("아이디는 5~20자 이내여야 합니다.");
 				$("#userid").focus();	
 				chkId = false;
 			}
@@ -182,10 +182,10 @@ function chkExist(type){
 					var url = "/Member/chkId";
 					$.post(url, {userid: userid}, function(data){
 						if(data < 0){
-							alert("��� ������ ���̵��Դϴ�.");
+							alert("사용 가능한 아이디입니다.");
 							chkId = true;
 						}else{
-							alert("�̹� �����ϴ� ���̵��Դϴ�.");
+							alert("이미 존재하는 아이디입니다.");
 							chkId = false;
 						}
 					});
@@ -195,14 +195,14 @@ function chkExist(type){
 		break;
 	case "nickname":
 		var nickname = $("#nickname").val();
-		//�г��� üũ
+		//닉네임 체크
 		if(nickname== null || nickname == ""){
-			alert("�г����� �Է��Ͽ� �ֽʽÿ�.");
+			alert("닉네임을 입력하여 주십시오.");
 			$("#nickname").focus();
 			chkNickname = false;
 		}else if(nickname != null && nickname != ''){
 			if(nickname.length > 20 || nickname.length < 2){
-				alert("�г����� 2~20�� �̳����� �մϴ�.");
+				alert("닉네임은 2~20자 이내여야 합니다.");
 				$("#nickname").focus();
 				chkNickname = false;
 			}
@@ -210,10 +210,10 @@ function chkExist(type){
 				var url = "/Member/chkNickname";
 				$.post(url, {nickname: nickname}, function(data){
 					if(data == null || data == ''){
-						alert("��� ������ �г����Դϴ�.");
+						alert("사용 가능한 닉네임입니다.");
 						chkNickname = true;
 					}else{
-						alert("�̹� �����ϴ� �г����Դϴ�.");
+						alert("이미 존재하는 닉네임입니다.");
 						chkNickname = false;
 					}
 				});
@@ -224,60 +224,60 @@ function chkExist(type){
 }
 function chkPasswd(){
 	var paramsDialog = $("#pwDialog").serialization();
-	//��й�ȣ üũ
+	//비밀번호 체크
 	if(paramsDialog.newPasswd == null || paramsDialog.newPasswd == ""){
-		alert("��й�ȣ�� �Է��Ͽ� �ֽʽÿ�.");
+		alert("비밀번호를 입력하여 주십시오.");
 		$("#newPasswd").val('');
 		$("#newPasswdCheck").val('');
 		$("#newPasswd").focus();
 		return false;
 	}else if(paramsDialog.newPasswd != null && paramsDialog.newPasswd != ""){
 		if(paramsDialog.newPasswd.length < 6 || paramsDialog.newPasswd.length > 20){
-			alert("��й�ȣ�� 6~20�� �̳����� �մϴ�.");
+			alert("비밀번호는 6~20자 이내여야 합니다.");
 			$("#newPasswd").val('');
 			$("#newPasswdCheck").val('');
 			$("#newPasswd").focus();
 			return false;
 		}else{
 			if(paramsDialog.newPasswd != paramsDialog.newPasswdCheck){
-				alert("��й�ȣ�� ���� �ʽ��ϴ�. �ٽ� Ȯ���Ͽ� �ֽʽÿ�.");
+				alert("비밀번호가 맞지 않습니다. 다시 확인하여 주십시오.");
 				$("#newPasswd").val('');
 				$("#newPasswdCheck").val('');
 				$("#newPasswd").focus();
 				return false;
 			}
 		}
-	} //��й�ȣ ���
+	} //비밀번호 통과
 	
 	return true;
 }
 function chkValid(){
 	var params = $("#info").serialization();
 	
-	//�̸� üũ
+	//이름 체크
 	if(params.korname == null || params.korname == ""){
-		alert("�̸��� �Է��Ͽ� �ֽʽÿ�.");
+		alert("이름을 입력하여 주십시오.");
 		$("#korname").focus();
 		return false;
 	}else if(params.korname != null && params.korname != ''){
 		if(params.korname.length > 20 || params.korname.length < 2){
-			alert("�̸��� 2~20�� �̳����� �մϴ�.");
+			alert("이름은 2~20자 이내여야 합니다.");
 			$("#korname").focus();
 			return false;
 		}
-	} //�̸� ���
+	} //이름 통과
 	
-	//�̸��� üũ
+	//이메일 체크
 	if(params.email == null || params.email == ""){
-		alert("�̸����� �Է��Ͽ� �ֽʽÿ�.");
+		alert("이메일을 입력하여 주십시오.");
 		$("#email").focus();
 		return false;
 	}else{
 		if(!chkEmail(params.email)){
-			alert("�̸��� �ּҰ� ��ȿ���� �ʽ��ϴ�. �ٽ� �õ��Ͽ� �ֽʽÿ�.");
+			alert("이메일 주소가 유효하지 않습니다. 다시 시도하여 주십시오.");
 			return false;
 		}
-	} //�̸��� ���
+	} //이메일 통과
 	
 	return true;
 }
@@ -320,7 +320,7 @@ function chkValid(){
 	<div class="row">
 		<div class="main_body">
 			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
-				ȸ������ ����
+				회원정보 변경
 			</div>
 			<div class="hr_dash"></div>
 			<div class="center_left" style="float:left;width:55%;">
@@ -335,41 +335,41 @@ function chkValid(){
 						</colgroup>
 						<tbody>
 							<tr>
-								<th style="padding-left: 5px;">�̸�<span class="important">*</span></th>
+								<th style="padding-left: 5px;">이름<span class="important">*</span></th>
 								<td><input type="text" id="korname"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">���̵�<span class="important">*</span></th>
+								<th style="padding-left: 5px;">아이디<span class="important">*</span></th>
 								<td id="userid"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">��й�ȣ<span class="important">*</span></th>
+								<th style="padding-left: 5px;">비밀번호<span class="important">*</span></th>
 								<td>
 									<input type="password" id="passwd" value="" readonly="readonly">	
 									<button class="btnChk" id="updatePW">
-										<span style="color:black; font-size: 80%;">��й�ȣ ����</span>
+										<span style="color:black; font-size: 80%;">비밀번호 변경</span>
 									</button>	
 								</td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">�г���<span class="important">*</span></th>
+								<th style="padding-left: 5px;">닉네임<span class="important">*</span></th>
 								<td>
 									<input type="text" id="nickname">
 									<button class="btnChk" id="nicknameCheck" onClick="javascript:chkExist('nickname')">
-										<span style="color:black; font-size: 80%;">�ߺ�Ȯ��</span>	
+										<span style="color:black; font-size: 80%;">중복확인</span>	
 									</button>
 								</td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">�̸��� �ּ�<span class="important">*</span></th>
+								<th style="padding-left: 5px;">이메일 주소<span class="important">*</span></th>
 								<td><input type="text" id="email"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">����</th>
+								<th style="padding-left: 5px;">생일</th>
 								<td><input type="text" id="birthdate"></td>
 							</tr>
 							<tr>
-								<th style="padding-left: 5px;">�޴���</th>
+								<th style="padding-left: 5px;">휴대폰</th>
 								<td><input type="text" id="telnum"></td>
 							</tr>
 							<tr>
@@ -383,17 +383,17 @@ function chkValid(){
 						</tbody>
 					</table>
 					<div style="width:100%; margin-top: 0px;">
-						<button class="btn_btn-modify" id="confirmUpdate" style="height:50px;">���</button>
-						<button class="btn_btn-cancel" id="cancelUpdate" onClick="javascript:history.back()" style="height:50px;">���</button>
+						<button class="btn_btn-modify" id="confirmUpdate" style="height:50px;">등록</button>
+						<button class="btn_btn-cancel" id="cancelUpdate" onClick="javascript:history.back()" style="height:50px;">취소</button>
 					</div>
 
-					<!-- ��й�ȣ �˾�â -->
+					<!-- 비밀번호 팝업창 -->
 					<div id="pwDialog" style="padding-left: 60px;">
-						<span>�� ��й�ȣ: </span>
+						<span>새 비밀번호: </span>
 						<input id="newPasswd" name="newPw" type="password" style="font-size:90%;">
-						<span style="font-size: 70%; color: red; margin-left: 20px;">*��й�ȣ�� 6~20�� �̳����� �մϴ�.</span>
+						<span style="font-size: 70%; color: red; margin-left: 20px;">*비밀번호는 6~20자 이내여야 합니다.</span>
 						<br/>
-						<span>�� ��й�ȣ Ȯ��:</span>
+						<span>새 비밀번호 확인:</span>
 						<input id="newPasswdCheck" name="newPwCheck" type="password" style="font-size:90%;"><br/>	
 					</div>
 				</div>

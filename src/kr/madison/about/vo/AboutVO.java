@@ -16,7 +16,37 @@ public class AboutVO extends CommonVO {
 	private int count;
 	private int likes;
 	
+	public int repid;
+	public String repContent;
+	public String repRegdate;
+	public String replier;
 	
+	
+	
+	public int getRepid() {
+		return repid;
+	}
+	public void setRepid(int repid) {
+		this.repid = repid;
+	}
+	public String getRepContent() {
+		return repContent;
+	}
+	public void setRepContent(String repContent) {
+		this.repContent = repContent;
+	}
+	public String getRepRegdate() {
+		return repRegdate;
+	}
+	public void setRepRegdate(String repRegdate) {
+		this.repRegdate = repRegdate;
+	}
+	public String getReplier() {
+		return replier;
+	}
+	public void setReplier(String replier) {
+		this.replier = replier;
+	}
 	public String getWriter() {
 		return writer;
 	}

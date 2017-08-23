@@ -116,13 +116,12 @@
 	<select id="findEmployerReply" parameterType="CareerVO"
 		resultType="CareerVO">
 		SELECT
-		a.repid,
-		b.nickname as replier,
-		a.content as repContent,
-		DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
+			a.repid,
+			b.nickname as replier,
+			a.content as repContent,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
 		FROM brd_employment_reply a
-		LEFT
-		JOIN info_userinfo b on a.userno = b.userno
+		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
 	<delete id="deleteEmployerReply" parameterType="CareerVO">
