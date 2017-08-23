@@ -29,31 +29,35 @@
 			END as regdate
 		FROM info_notice
 		ORDER BY regdate DESC
-		LIMIT 5
+		LIMIT 5z
 	</select>
 	<select id="findEmployerList" parameterType="MainVO" resultType="CareerVO">
 		SELECT
-			brdid,
-			title,
-			CASE WHEN regdate > CURDATE()
-				THEN DATE_FORMAT(regdate, '%Y-%m-%d')
-				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
-			END as regdate
-		FROM brd_employment
-		WHERE empid = 1
+			a.brdid,
+			a.title,
+			CASE WHEN a.regdate > CURDATE()
+				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
+				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
+			END as regdate,
+			b.name as typename
+		FROM brd_employment a
+		LEFT JOIN cod_employment b on a.empid = b.empid
+		WHERE b.ptypeid = 3
 		ORDER BY brdid DESC
 		LIMIT 6
 	</select>
 	<select id="findEducationList" parameterType="MainVO" resultType="SchoolVO">
 		SELECT
-			brdid,
-			title,
-			CASE WHEN regdate > CURDATE()
-				THEN DATE_FORMAT(regdate, '%Y-%m-%d')
-				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
-			END as regdate
-		FROM brd_schoolwork
-		WHERE swid = 2
+			a.brdid,
+			a.title,
+			CASE WHEN a.regdate > CURDATE()
+				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
+				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
+			END as regdate,
+			b.name as typename
+		FROM brd_schoolwork a
+		LEFT JOIN cod_schoolwork b ON a.swid = b.swid
+		WHERE b.ptypeid = 5
 		ORDER BY brdid DESC
 		LIMIT 6
 	</select>

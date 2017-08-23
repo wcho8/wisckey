@@ -269,7 +269,8 @@
 		UPDATE brd_schoolwork SET
 			content = #{content},
 			title = #{title},
-			moddate = NOW()
+			moddate = NOW(),
+			swid=#{swid}
 		WHERE brdid=#{brdid}
 	</update>
 	<select id="checkLikes" parameterType="SchoolVO" resultType="SchoolVO">

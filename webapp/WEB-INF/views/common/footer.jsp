@@ -20,22 +20,22 @@ a:hover{
 
 <div id="footer" style="border-top: none;border-bottom: none;">
 	<div id="otherSites" style="width:1200px; line-height:30px; margin:auto; padding-left:0px;">
-		<div><a href="http://my.wisc.edu">
-			<span class="links" style="border-right:1px solid #ccc">MY UW</span>
+		<div><a href="http://my.wisc.edu" target="_blank">
+			<span class="links" style="border-right:1px solid #ccc" >MY UW</span>
 		</a></div>
-		<div><a href="http://learnuw.wisc.edu">
+		<div><a href="http://learnuw.wisc.edu" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc">LEARN@UW</span>
 		</a></div>
-		<div><a href="http://wisc.edu">
+		<div><a href="http://wisc.edu" target="_blank">
 		 	<span class="links" style="border-right:1px solid #ccc">WISC EDU</span>
 		</a></div>
-		<div><a href="http://wiscmail.wisc.edu">
+		<div><a href="http://wiscmail.wisc.edu" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc">WISC EMAIL</span>
 		</a></div>
-		<div><a href="http://uwkssa.org">
+		<div><a href="http://uwkssa.org" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc">UW KSSA</span>
 		</a></div>
-		<div><a href="http://library.wisc.edu">
+		<div><a href="http://library.wisc.edu" target="_blank">
 			<span class="links" style="border-right: 1px solid #ccc;">LIBRARY WISC</span>
 		</a></div>
 	</div>

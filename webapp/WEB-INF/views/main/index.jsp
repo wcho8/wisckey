@@ -77,6 +77,7 @@ $(document).ready(function(){
 			$("#recentNotice").append(li);
 		});
 	});
+	
 	$.post("./findEmployerList", {}, function(data){
 		$.each(data, function(index,item){
 			var title = item.title;
@@ -86,7 +87,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 			
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#employer_list").append(li);
 
@@ -101,7 +102,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
 		})
@@ -328,7 +329,7 @@ td{
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="/images/truck.png" style="width:75%;margin-bottom:20px;padding-left:10px; margin-top: 30px;" />
+							<img src="/images/truck.png" style="width:75%;margin-bottom:21px;padding-left:10px; margin-top: 30px;" />
 							<img src="/images/truck.png" style="width:75%;padding-left:10px;" />
 						</div>
 					</div>
