@@ -94,13 +94,13 @@ function viewEmployer(brdid){
 <style type="text/css">
 #title_list li>a:hover {
 	text-decoration: none;
-	font-size: 110%;
+	font-size: 105%;
 	font-weight: bold;
 	opacity: 1;
 	color: black;
 }
 #current{
-	font-size: 105%;
+	font-size: 110%;
 	font-weight: bold;
 	opacity:1;
 	color: black;
@@ -116,12 +116,16 @@ function viewEmployer(brdid){
 	border-radius: 25px;
 	padding-left: 10px;
 	box-shadow: 2px 2px #778899;*/
-	border-right:2px solid #a80e34;
+	/*border-right:2px solid #a80e34;*/
 }
 #title_list>li{
 	list-style-type: disc;
-	list-style-position: none ;
+	list-style-position: inside ;
 }
+#row>td{
+	font-size:11.5px;
+}
+
 
 #d-day{
 	text-align: center;
@@ -136,7 +140,7 @@ function viewEmployer(brdid){
 	font-size: 80%;
 }
 input::placeholder{
-	font-size: 12px;
+	font-size: 65%;
 }
 #center_top>ul>li{
 	list-style-type: disc;
@@ -148,17 +152,18 @@ input::placeholder{
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
-				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
-					<ul id="title_list" style="list-style:none; text-decoration: none;">
+			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">취업</div>
+					<div style="clear:both;"></div>
+					<ul id="title_list" style="list-style:none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a id="current" href="/Career/?ptypeid=8">취업공고</a></li>
 						<li><a href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="center_menu" style="width: 700px; float:left; margin-left:35px;">
-				<table id="primary_table" style="background-color: #f7f7f7; width:700px; border-top: 2px solid #910019; ">
+			<div class="center_menu" style="width: 700px; float:left; margin-left:30px;">
+				<table id=top_table" style="background-color: #f7f7f7; width:670px; border-top: 2px solid #910019; ">
 					<colgroup>
 						<col style="width:5%; ">
 						<col style="width:50%;">

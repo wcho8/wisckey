@@ -31,8 +31,6 @@ $(document).ready(function(){
 		bEdit = true;
 		var params = $.extend({}, defaultParams, {brdid:brdid});
 		$.post(url, params, function(data){
-			var empid = data.empid;
-			console.log(empid);
 			if("${session.userno}" != data.userno || "${session.userno}" == null){
 				alert("수정할 수 있는 권한이 없습니다.");
 				$(location).attr("href", "/Career/employBoard?"+$.param(defaultParams));
@@ -41,14 +39,14 @@ $(document).ready(function(){
 				$.post(url, params, function(data){
 					$("#title").val(data.title);
 					$("#content").summernote('code', data.content);
-					$("#empid").val(empid);
+					$("#empid").val(data.empid).prop("selected", true);
 				});
 			}
 		});
 	}
 	
 	$("#cancel").click(function(){
-		var url = "/Career/employBoard?p";
+		var url = "/Career/employBoard?";
 		var params = $.param(defaultParams);
 		$(location).attr("href", url+params);
 	});
@@ -195,7 +193,7 @@ function cutInUTF8(str, n) {
 }
 #title_list>li{
 	list-style-type: disc;
-	list-style-position: none ;
+	list-style-position: inside ;
 }
 div input{
 	float:left;
@@ -211,12 +209,13 @@ div input{
 	<div class="hr_dash" style="width:100%;"></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
-				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
-					<ul id="title_list" style="list-style:none; text-decoration: none;">
+				<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">취업</div>
+					<div style="clear:both;"></div>
+					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a href="/Career/">취업공고</a></li>
-						<li><a id="current" href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
+						<li><a id="current"href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
 					</ul>
 				</div>
 			</div>

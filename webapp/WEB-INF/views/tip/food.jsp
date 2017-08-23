@@ -100,7 +100,7 @@ border-right:2px solid #a80e34;
 }
 #title_list>li{
 	list-style-type: disc;
-	list-style-position: none ;
+	list-style-position: inside ;
 }
 #row>td{
 	font-size: 11.5px;
@@ -135,7 +135,7 @@ input::placeholder{
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
+			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">깨알팁 <br/></div>
 					<div style="clear:both;"></div>

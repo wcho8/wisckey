@@ -131,20 +131,21 @@ function sendFile(file, el){
 }
 #title_list>li{
 	list-style-type: disc;
-	list-style-position: none ;
+	list-style-position: inside ;
 }
 
 </style>
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:100%;"></div>
+	<div class="hr_dash" style="width: 84.3%;  margin-left: 100px;"></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-				<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
-				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">±ú¾ËÆÁ</span>
-					<ul id="title_list" style="list-style:none; text-decoration: none;">
+				<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019; ">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">±ú¾ËÆÁ <br/></div>
+					<div style="clear:both;"></div>
+					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a  href="/Tip/food">¸ÀÁý</a></li>
 						<li><a id="current" href="/Tip/market">º­·è½ÃÀå</a></li>
 					</ul>

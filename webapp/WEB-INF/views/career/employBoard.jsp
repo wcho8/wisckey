@@ -90,13 +90,13 @@ function viewBoard(brdid){
 <style type="text/css">
 #title_list li>a:hover {
 	text-decoration: none;
-	font-size: 110%;
+	font-size: 105%;
 	font-weight: bold;
 	opacity: 1;
 	color: black;
 }
 #current{
-	font-size: 105%;
+	font-size: 110%;
 	font-weight: bold;
 	opacity:1;
 	color: black;
@@ -113,22 +113,31 @@ function viewBoard(brdid){
 	padding-left: 10px;
 	box-shadow: 2px 2px #778899;
 */
-border-right:2px solid #a80e34;
+ /*border-right:2px solid #a80e34; */
 }
 #title_list>li{
 	list-style-type: disc;
-	list-style-position: none ;
+	list-style-position: inside ;
 }
 
-#top_row>td{
-	font-size:80%;
+#row>td{
+	font-size:11.5px;
 }
 
 #top_row>td{
 	font-size: 80%;
 }
+#list_title{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 320px;
+	display: inline-block;
+	float:left;
+	padding-left: 5px;
+}
 input::placeholder{
-	font-size: 12px;
+	font-size: 65%;
 }
 
 
@@ -141,20 +150,22 @@ input::placeholder{
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow:hidden">
-			<div class="left_menu" style="float:left; width:150px; padding-top: 7px; margin-left: 40px;">
-				<div id="l_title" style="font-weight: bold;">
-					<span style="font-weight: bold; margin-top: 10px; margin-left: 20px; font-size: 110%;">취업</span>
-					<ul id="title_list" style="list-style:none; text-decoration: none;">
+			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
+				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
+					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">취업</div>
+					<div style="clear:both;"></div>
+					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
 						<li><a href="/Career/">취업공고</a></li>
 						<li><a id="current"href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="center_menu" style="width: 700px; float:left; margin-left:30px;">
-				<table id="primary_table" style="background-color: #f7f7f7; width:700px; border-top: 2px solid #910019; ">
+				<div id = "a" style="width: 700px">
+				<table id="top_table" style="background-color: #f7f7f7; width:670px; border-top: 2px solid #910019; ">
 					<colgroup>
 						<col style="width:5%;">
-						<col style="width:50%;">
+						<col style="width:60%;">
 						<col style="width:10%;">
 						<col style="width:10%;">
 						<col style="width:5%;">
@@ -170,7 +181,7 @@ input::placeholder{
 					</thead>
 					<tbody style="text-align: center; padding: 10px;">
 						<c:forEach items="${boardList }" var="list">
-							<tr id="list" style="height: 25px; border-bottom: 1px solid #d3d3d3; font-size:80%;">
+							<tr id="list" style="height: 35px; border-bottom: 1px solid #d3d3d3; font-size:80%;">
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
 								<td style="text-align: left; padding-left: 10px;cursor: pointer; font-size:100%; padding-top: 5px;" 
 									onClick="javascript:viewBoard(${list.brdid});">
@@ -187,6 +198,7 @@ input::placeholder{
 					<button class="btn" id="addEmploymentBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 						<span style="font-size: 80%;">글쓰기</span>
 					</button>
+				</div>
 				</div>
 				<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
 					<div id="searchValue" >
