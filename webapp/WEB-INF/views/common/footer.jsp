@@ -17,7 +17,6 @@ a:hover{
 </style>
 
 <!-- footer -->
-
 <div id="footer" style="border-top: none;border-bottom: none;">
 	<div id="otherSites" style="width:1200px; line-height:30px; margin:auto; padding-left:0px;">
 		<div><a href="http://my.wisc.edu" target="_blank">
@@ -44,9 +43,9 @@ a:hover{
 	    	<a href="/"><img src="/images/common/wisckey_1.png" style="height:110px;"/></a>
 	    </div>    
 	    <div class="fLeft" style="padding-top:40px;padding-bottom:30px; font-size:15px; color:black;">
-	    	<a href="#">이용약관</a> | 
-	    	<a href="#">개인정보활용계획</a> | 
-	    	<a href="#">관리자 연락처</a> | 
+	    	<a href="/About/introWisckey#1">이용약관</a> | 
+	    	<a href="/About/introWisckey#2">개인정보활용계획</a> | 
+	    	<a href="/About/introWisckey#3">관리자 연락처</a> | 
 	    	<a href="#">게시판 이용규칙</a> | 
 	    	<a href="/FAQ">FAQ</a>
 	    </div>

@@ -5,39 +5,42 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	$("#defaultButton").css("background","#b3001e");
-	document.getElementById("defaultButton").style.color = "white";
-	document.getElementById("defaultButton").style.fontWeight = "bold";
-});
-
-function openTab(evt, linkName) {
-	var i;
-    var tabcontent;
-    var tablinks;
-
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";	
-    }
-
-    tablinks = document.getElementsByClassName("tablink");
-
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(linkName).style.display = "block";
-    evt.currentTarget.className += " active";
-	
-    if(linkName == "introWisckey"){
+	if(window.location.hash == "#1"){
+		$("#tab_serviceTerms").trigger('click');
+	}else if(window.location.hash == "#2"){
+		$("#tab_privacyPolicy").trigger('click');
+	}else if(window.location.hash == "#3"){
+		$("#tab_introManager").trigger('click');
+	}else{
 		$("#defaultButton").css("background","#b3001e");
 		document.getElementById("defaultButton").style.color = "white";
 		document.getElementById("defaultButton").style.fontWeight = "bold";
+	}
+	
+});
+
+function openTab(linkName){
+	$.each($(".tabcontent"), function(index, item){
+		$(item).hide();
+	});
+	
+	$.each($(".tablink"), function(index, item){
+		$(item).removeClass("active");
+	});
+	
+	$("#"+linkName).css('display', 'block');
+	
+	if(linkName == 'introWisckey'){
+		$("#defaultButton").addClass("active")
+		$("#defaultButton").css('background', '#b3001e');
+		$("#defaultButton").css('color', 'white');
+		$("#defaultButton").css('fontWeight', 'bold');
 		return;
 	}else{
-		$("#defaultButton").css("background","#ccc");
-		document.getElementById("defaultButton").style.color = "black";
-		document.getElementById("defaultButton").style.fontWeight = "normal";
+		$("#tab_"+linkName).addClass("active");
+		$("#defaultButton").css('background', '#ccc');
+		$("#defaultButton").css('color', 'black');
+		$("#defaultButton").css('fontWeight', 'normal');
 	}
 }
 
@@ -104,8 +107,6 @@ div.tabcontent{
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 }
-.doc{
-}
 </style>
 
 <!-- s:container -->
@@ -125,15 +126,6 @@ div.tabcontent{
 						<li><a href="/About/otherSites">주요사이트</a></li>
 					</ul>
 				</div>
-					<!--  
-					<div style="clear: both;"></div>
-					<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-						<span style="font-weight: bold;">공지사항 <br/></span>
-						<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
-							<li id="notice_left" ></li>
-						</ul>
-					</div>
-					-->
 			</div>
 			
 			<div class="center_menu" id="center" style="width: 700px; float:left;">
@@ -142,10 +134,10 @@ div.tabcontent{
 				<div style="clear: both;"></div>
 				<div id="center_s_menu2" style="overflow: hidden; margin-left:50px;">
 					<div class="tab" align="center">
-						<button class="tablink"  id="defaultButton" onclick="openTab(event, 'introWisckey')" style="width:23%; background-color:#b3001e;">위스키 소개 </button>
-						<button class="tablink" onclick="openTab(event, 'introManager')" style="width:23%; margin-left:6px;"> 운영진 소개 </button>
-						<button class="tablink" onclick="openTab(event, 'serviceTerms')" style="width:23%; margin-left:6px;">이용약관</button>
-						<button class="tablink" onclick="openTab(event, 'privacyPolicy')" style="width:23%; margin-left:8px;">개인정보 보호정책</button>
+						<button class="tablink"  id="defaultButton" onclick="openTab('introWisckey')" style="width:23%; background-color:#b3001e;">위스키 소개 </button>
+						<button class="tablink" id="tab_introManager" onclick="openTab('introManager')" style="width:23%; margin-left:6px;"> 운영진 소개 </button>
+						<button class="tablink" id="tab_serviceTerms" onclick="openTab('serviceTerms')" style="width:23%; margin-left:6px;">이용약관</button>
+						<button class="tablink" id="tab_privacyPolicy" onclick="openTab('privacyPolicy')" style="width:23%; margin-left:8px;">개인정보 보호정책</button>
 					</div>
 					<div style="clear:both;"></div>
 					<div id = "introWisckey" class="tabcontent" >

@@ -58,7 +58,7 @@ body{margin:0;padding:0;background-color:#f7f7f7;}
 #myCarousel>.carousel-control{
 	/*border-radius:2em;*/
 }
-li{
+.no_li{
 	list-style:none;
 }
 .main_body{

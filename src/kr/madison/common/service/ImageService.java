@@ -21,8 +21,8 @@ public class ImageService {
 		vo.setFiletype(upload.getContentType());
 		vo.setFilesize(upload.getSize());
 		
-		if(upload.getSize() >= 1024*1024){
-			throw new Exception("Image is too large");
+		if(upload.getSize() >= 5*1024*1024){
+			return 0;
 		}
 		int fid = imageDAO.uploadImageFile(vo);
 		

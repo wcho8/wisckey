@@ -20,7 +20,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#content").summernote('code', "${details.details}")
+	$("#content").summernote('code', '${details.details}');
 	
 	$("#cancel").click(function(){
 		var url = "/Admin/MyOrg";

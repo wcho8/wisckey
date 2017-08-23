@@ -33,7 +33,7 @@ $(document).ready(function(){
 				title = cutInUTF8(title, 19);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
 					+ "(" + item.likes + ")<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#topBoardList").append(li);
 		});
@@ -46,7 +46,7 @@ $(document).ready(function(){
 				title = cutInUTF8(title, 56);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Tip/foodBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/foodBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
 					+ "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#food_list").append(li);
 		});
@@ -59,7 +59,7 @@ $(document).ready(function(){
 				title = cutInUTF8(title, 56);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/Tip/marketBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/marketBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
 					+ "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#market_list").append(li);
 		});
@@ -72,7 +72,7 @@ $(document).ready(function(){
 				title = title.substring(0, 13);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;'><a href='/About/viewNotice?nid=" + item.nid+ "'>" + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/About/viewNotice?nid=" + item.nid+ "'>" + title
 					+ "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#recentNotice").append(li);
 		});
@@ -87,7 +87,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 			
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#employer_list").append(li);
 
@@ -102,7 +102,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
 		})
@@ -117,7 +117,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;'><a href='/Org/BoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.orgname + "]</b> " + title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Org/BoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.orgname + "]</b> " + title 
 					+ "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#orgs_list").append(li);
 		})
