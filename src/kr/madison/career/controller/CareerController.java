@@ -112,6 +112,28 @@ public class CareerController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public int deleteEmployerReply(CareerVO paramVO){
+		int result = careerService.deleteEmployerReply(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modEmployerReply(CareerVO paramVO){
+		int result = careerService.modEmployerReply(paramVO);
+		
+		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public CareerVO findReplyContent(CareerVO paramVO){
+		CareerVO result = careerService.findReplyContent(paramVO);
+		
+		return result;
+	}
 	
 	
 	/*

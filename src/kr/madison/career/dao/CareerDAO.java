@@ -5,6 +5,7 @@ import java.util.List;
 import kr.madison.career.vo.CareerVO;
 import kr.madison.common.dao.CommonDAO;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 
@@ -41,13 +42,27 @@ public class CareerDAO extends CommonDAO{
 	}
 	
 	public int deleteEmployer(CareerVO paramVO) {
-		getSqlSession().delete("Career.deleteEmployerReply", paramVO);
+		getSqlSession().delete("Career.deleteEmployerEntireReply", paramVO);
 		return getSqlSession().delete("Career.deleteEmployer", paramVO);
 	}
 
 	public int modEmployerData(CareerVO paramVO) {
 		return getSqlSession().update("Career.modEmployerData", paramVO);
 	}
+
+	public int deleteEmployerReply(CareerVO paramVO) {
+		return getSqlSession().delete("Career.deleteEmployerReply", paramVO);
+	}
+
+	public int modEmployerReply(CareerVO paramVO) {
+		return getSqlSession().update("Career.modEmployerReply", paramVO);
+	}
+	public CareerVO findReplyContent(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.findReplyContent", paramVO);
+	}
+
+	
+
 	
 	
 	
@@ -127,8 +142,6 @@ public class CareerDAO extends CommonDAO{
 	public int modRepDislikes(CareerVO paramVO) {
 		return getSqlSession().update("Career.modRepDislikes", paramVO);
 	}
-	
-	
 
 
 	

@@ -11,6 +11,7 @@ $(document).ready(function() {
 	$('#content').summernote({
 		lang:'ko-KR',
 		height: 400,
+		disableResizeEditor:true,
 		callbacks:{
 			onImageUpload: function(files){
 				for(var i = files.length-1; i>=0; i--){
@@ -65,6 +66,7 @@ $(document).ready(function() {
 			});
 		}
 	});
+	/*
 	$.post("/About/listFourNotice", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title;
@@ -84,7 +86,7 @@ $(document).ready(function() {
 			$("#notice_left").append(li);
 			
 		})
-	});
+	});*/
 });
 function viewNotice(nid){
 	var url = "/About/viewNotice?nid=" + nid;
@@ -107,10 +109,18 @@ function sendFile(file, el){
 		processData: false,
 		success: function(fid){
 			var url = "/Image/loadImage/" + fid;
+			if(fid == 0){
+				alert("이미지가 너무 큽니다. 5MB 이하만 첨부하실 수 있습니다.");
+				return;
+			}
 			$(el).summernote('insertImage', url, function($image){
 				$image.attr('id', fid);
+				$image.css('width', '80%');
 			});
 			upImgIds.push(fid);
+		},
+		error:function(error){
+			alert(error);
 		}
 	});
 }

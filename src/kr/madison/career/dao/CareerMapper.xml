@@ -124,7 +124,7 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
 	</select>
-	<delete id="deleteEmployerReply" parameterType="CareerVO">
+	<delete id="deleteEmployerEntireReply" parameterType="CareerVO">
 		DELETE FROM
 			brd_employment_reply
 		WHERE brdid=#{brdid}
@@ -135,14 +135,29 @@
 		WHERE brdid=#{brdid}
 	</delete>
 	<update id="modEmployerData" parameterType="CareerVO">
-		UPDATE brd_employment
-		SET
+		UPDATE brd_employment SET
 		content = #{content},
 		title = #{title},
 		moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
-
+	<delete id="deleteEmployerReply" parameterType="CareerVO">
+		DELETE FROM
+			brd_employment_reply
+		WHERE repid=#{repid}
+	</delete>
+	<update id="modEmployerReply" parameterType="CareerVO">
+		UPDATE brd_employment_reply SET
+			content=#{content},
+			moddate = NOW()
+		WHERE repid=#{repid}
+	</update>
+	<select id="findReplyContent" parameterType="CareerVO" resultType="CareerVO">
+		SELECT
+			content
+		FROM brd_employment_reply
+		WHERE repid=#{repid}
+	</select>
 
 
 
