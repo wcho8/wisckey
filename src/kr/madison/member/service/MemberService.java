@@ -116,4 +116,10 @@ public class MemberService extends CommonService{
 		
 		return vo;
 	}
+
+	public int memberOut(MemberVO paramVO) {
+		int result = memberDAO.memberOut(paramVO);
+		
+		return result;
+	}
 }

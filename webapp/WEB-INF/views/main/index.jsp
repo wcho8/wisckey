@@ -313,7 +313,7 @@ td{
 								</a>
 							</div>
 							
-							<div style="float:left; margin-top:13px;" id="login_button">
+							<div style="float:left; margin-top:15px;" id="login_button">
 								<button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;
 									 background-color:#910019; margin-top:20px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
 									<span style="letter-spacing: 5px;">LOGIN</span>
@@ -330,7 +330,7 @@ td{
 						
 						<div id="advertisea" class="body_div mt15">
 							<img src="/images/kusa_kickoff.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
-							<img src="/images/kusa_kickoff.png" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
+							<img src="/images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>
 				</div>

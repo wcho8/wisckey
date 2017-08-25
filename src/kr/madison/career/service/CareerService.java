@@ -214,6 +214,23 @@ public class CareerService extends CommonService{
 		return result;
 	}
 
+	public int undoEmployBoardLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.undoEmployBoardLikes(paramVO);
+		return result;
+	}
+
+	public int undoEmployBoardRepLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.undoEmployBoardRepLikes(paramVO);
+		return result;
+	}
+	public int undoEmployBoardRepDislikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = careerDAO.undoEmployBoardRepDislikes(paramVO);
+		return result;
+	}
+
 
 
 	

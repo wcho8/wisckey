@@ -101,4 +101,10 @@
 		WHERE 
 			korname = #{korname} AND email=#{email}
 	</select>
+	<update id="memberOut" parameterType="MemberVO">
+		UPDATE info_userinfo SET
+			useyn = #{useyn},
+			nickname = #{nickname}
+		WHERE userno = #{userno}
+	</update>
 </mapper>

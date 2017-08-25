@@ -211,6 +211,14 @@ public class MemberController extends CommonController{
 		MemberVO vo = memberService.findID(paramVO);
 		return vo;
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int memberOut(MemberVO paramVO){
+		int result = memberService.memberOut(paramVO);
+		
+		return result;
+	}
 }
 	
 	

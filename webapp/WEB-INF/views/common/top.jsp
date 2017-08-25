@@ -48,6 +48,11 @@ function login(){
 			$.cookie("saveid", '', {expires:-1});
 			$("#passwd").val('');
 			$("#passwd").focus();
+		}else if(data == "Expired"){
+			alert("탈퇴한 회원 입니다.");
+			$.cookie("saveid",'',{expires:-1});
+			$("#userid").val('');
+			$("#passwd").val('');
 		}
 	}).error(function(){
 		alert("로딩에 실패하였습니다. 잠시 후 다시 시도해 주시기 바랍니다.");

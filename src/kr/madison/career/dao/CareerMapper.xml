@@ -136,9 +136,9 @@
 	</delete>
 	<update id="modEmployerData" parameterType="CareerVO">
 		UPDATE brd_employment SET
-		content = #{content},
-		title = #{title},
-		moddate = NOW()
+			content = #{content},
+			title = #{title},
+			moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
 	<delete id="deleteEmployerReply" parameterType="CareerVO">
@@ -400,5 +400,23 @@
 			brd_employment_reply_likes
 		WHERE repid in (SELECT a.repid FROM brd_employment_reply a WHERE brdid = #{brdid})
 	</delete>
+	<update id="undoEmployBoardLikes" parameterType="CareerVO">
+		UPDATE brd_employment_likes SET
+			likes = likes - 1
+		WHERE brdid=#{brdid}
+			AND userno =#{userno}
+	</update>
+	<update id="undoEmployBoardRepLikes" parameterType="CareerVO">
+		UPDATE brd_employment_reply_likes SET
+			likes = likes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoEmployBoardRepDislikes" parameterType="CareerVO">
+		UPDATE brd_employment_reply_likes SET
+			dislikes = dislikes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
 	
 </mapper>

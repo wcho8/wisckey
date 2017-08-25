@@ -214,6 +214,21 @@ public class SchoolService extends CommonService{
 		List<SchoolVO> result = schoolDAO.getSwtypes(paramVO);
 		return result;
 	}
+	public int undoEducationBoardLikes(SchoolVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = schoolDAO.undoEducationBoardLikes(paramVO);
+		return result;
+	}
+	public int undoEducationBoardRepLikes(SchoolVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = schoolDAO.undoEducationBoardRepLikes(paramVO);
+		return result;
+	}
+	public int undoEducationBoardDislikes(SchoolVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		int result = schoolDAO.undoEducationBoardDislikes(paramVO);
+		return result;
+	}
 	
 
 }

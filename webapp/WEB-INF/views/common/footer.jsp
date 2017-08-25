@@ -23,22 +23,22 @@ a:hover{
 <div id="footer" style="border-top: none;border-bottom: none;">
 	<div id="otherSites" style="width:1200px; line-height:30px; margin:auto; padding-left:0px;">
 		<div><a href="http://my.wisc.edu" target="_blank">
-			<span class="links" style="border-right:1px solid #ccc" >MY UW</span>
+			<span class="links" style="border-right:1px solid #ccc"><img src="/images/my_wisc.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>MY UW</span>
 		</a></div>
 		<div><a href="http://learnuw.wisc.edu" target="_blank">
-			<span class="links" style="border-right:1px solid #ccc">LEARN@UW</span>
+			<span class="links" style="border-right:1px solid #ccc"><img src="/images/learn_at_uw.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>LEARN@UW</span>
 		</a></div>
 		<div><a href="http://wisc.edu" target="_blank">
-		 	<span class="links" style="border-right:1px solid #ccc">WISC EDU</span>
+		 	<span class="links" style="border-right:1px solid #ccc"><img src="/images/wisc_home.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>WISC EDU</span>
 		</a></div>
 		<div><a href="http://wiscmail.wisc.edu" target="_blank">
-			<span class="links" style="border-right:1px solid #ccc">WISC EMAIL</span>
+			<span class="links" style="border-right:1px solid #ccc"><img src="/images/canvas.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>Canvas</span>
 		</a></div>
 		<div><a href="http://uwkssa.org" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc">UW KSSA</span>
 		</a></div>
 		<div><a href="http://library.wisc.edu" target="_blank">
-			<span class="links" style="border-right: 1px solid #ccc;">LIBRARY WISC</span>
+			<span class="links" style="border-right: 1px solid #ccc;"><img src="/images/kusa_facebook.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>UW KUSA</span>
 		</a></div>
 	</div>
 	<div class="txt" style="width:100%;padding-left:70px;">

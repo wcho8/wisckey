@@ -75,4 +75,8 @@ public class MemberDAO extends CommonDAO{
 		return result;
 	}
 
+	public int memberOut(MemberVO paramVO) {
+		return getSqlSession().update("Member.memberOut", paramVO);
+	}
+
 }

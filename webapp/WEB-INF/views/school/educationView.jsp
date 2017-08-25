@@ -65,13 +65,24 @@ $(document).ready(function(){
 		$.post("/School/modEducationLikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				url = "/School/undoEducationBoardLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
-			alert(msg);
+			
 			if(data == "Success"){
 				location.reload(true);
 			}else{
@@ -120,22 +131,44 @@ function likes(like, repid){
 		var msg = "";
 		if(like == 'Y'){
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				url = "/School/undoEducationBoardRepLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}else if(like == "N"){
 			if(data == "Fail"){
-				msg = "이미 비추하였습니다.";
+				url = "/School/undoEducationBoardRepDislikes";
+				$.post(url, params, function(data){
+					msg = "비추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "비추하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}
-		alert(msg);
+		
 		if(data == "Success"){
 			location.reload(true);
 		}else{

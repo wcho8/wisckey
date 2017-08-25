@@ -18,25 +18,7 @@ $(document).ready(function(){
 		$("#employBoardUpdate").show();
 		$("#employBoardDelete").show();
 	}
-		
-	$("#addReply").click(function(){
-		var url = "/Career/addEmployBoardReply";
-		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
-		if(params.repContent==""||params.repContent==null){
-			alert("댓글은 공백일 수 없습니다.");
-			return;
-		}
-		if(params.userno==""||params.userno==null){
-			alert("로그인하여 주십시오.");
-			return;
-		}else{
-			$.post(url, params, function(data){
-				alert("댓글이 등록되었습니다.");
-				location.reload(true);
-			});
-		}
-	});
+	
 
 	$("#employBoardList").click(function(){
 		var params = $.param(defaultParams);
@@ -80,17 +62,29 @@ $(document).ready(function(){
 	});
 	
 	$("#likes").click(function(){
-		var params = $.param($.extend({}, defaultParams, {brdid: "${paramVO.brdid}"}));
-		$.post("/Career/modEmployBoardLikes", params, function(data){
+		var params = $.param($.extend({}, defaultParams, {brdid: "${paramVO.brdid}", userno:"${session.userno}"}));
+		var url ="/Career/modEmployBoardLikes";
+		$.post(url, params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				url = "/Career/undoEmployBoardLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
-			alert(msg);
+			
 			if(data == "Success"){
 				location.reload(true);
 			}else{
@@ -137,22 +131,44 @@ function likes(like, repid){
 		var msg = "";
 		if(like == 'Y'){
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				url = "/Career/undoEmployBoardRepLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}else if(like == "N"){
 			if(data == "Fail"){
-				msg = "이미 비추하였습니다.";
+				url = "/Career/undoEmployBoardRepDislikes";
+				$.post(url, params, function(data){
+					msg = "비추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "비추하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}
-		alert(msg);
+		
 		if(data == "Success"){
 			location.reload(true);
 		}else{
@@ -276,7 +292,7 @@ function likes(like, repid){
 								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
 							</span>
 							<br/>
-						<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
+							<span style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
 						</div>
 					</c:forEach>
 					
