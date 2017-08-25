@@ -100,7 +100,9 @@ public class MemberController extends CommonController{
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("/member/memberEdit");
-	//	int result = memberService.memberEdit(paramVO);
+		//memberService.memberEdit(paramVO);
+		
+		
 		return mav;
 	}
 	

@@ -35,7 +35,8 @@
 			a.nickname as writer,
 			b.count,
 			(SELECT COUNT(*) FROM brd_freeboard_likes f WHERE b.brdid = f.brdid and f.likes = 1) as likes,
-			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount
+			(SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = b.brdid) as repcount,
+			b.chk_anonymous
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_freeboard d on b.frid = d.frid
@@ -73,7 +74,8 @@
 			b.userno,
 			b.count,
 			(SELECT COUNT(*) FROM brd_freeboard_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes,
-			(SELECT COUNT(*) FROM brd_freeboard_likes c WHERE b.brdid = c.brdid AND c.dislikes = 1) as dislikes
+			(SELECT COUNT(*) FROM brd_freeboard_likes c WHERE b.brdid = c.brdid AND c.dislikes = 1) as dislikes,
+			b.chk_anonymous
 		FROM brd_freeboard b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_freeboard d on b.frid = d.frid
@@ -86,14 +88,16 @@
 			regdate,
 			moddate,
 			content,
-			userno
+			userno,
+			chk_anonymous
 		) VALUES(
 			#{frid},
 			#{title},
 			NOW(),
 			NOW(),
 			#{content},
-			#{userno}
+			#{userno},
+			#{chk_anonymous}
 		)
 		<selectKey keyProperty="brdid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()

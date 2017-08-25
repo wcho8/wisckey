@@ -89,8 +89,8 @@
 		) VALUES(
 			#{tipid},
          	#{title},
-         	NOW(),
-         	NOW(),
+         	NOW() - INTERVAL 5 HOUR,
+         	NOW() - INTERVAL 5 HOUR,
          	#{content},
          	#{userno}		
 		)

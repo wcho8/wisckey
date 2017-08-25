@@ -26,6 +26,8 @@ $(document).ready(function(){
 			alert("유효한 생일이 아닙니다.");
 			$("#birthdate").val("");
 		}
+		
+		
 	});
 	
 	var bEdit = false;
@@ -57,9 +59,7 @@ $(document).ready(function(){
 			return;
 		}
 		
-		if($("#birthdate").val() != null && $("#birthdate").val() != ""){
-			var today = new Date();
-		}
+		
 		
 		var params = $.extend({}, $("#info").serialization(), {userid:defaultParams.userid});
 		var userno = defaultParams.userno;
@@ -145,6 +145,10 @@ function submit(){
 			$("#passwd").val(passwd);
 		});
 	}
+	
+	
+	
+	
 }
 //이메일 정규식 체크
 function chkEmail(email){
