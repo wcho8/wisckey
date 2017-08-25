@@ -47,20 +47,23 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#seachPW").click(function(){
-		var pw = $("#id").val();
+	$("#searchPW").click(function(){
+		var userid = $("#id").val();
 		var emailPW = $("#emailPW").val();
+		var korname = $("#kornamePW").val();
 		
-		var params = $.extend({},$("#tablePW").serialization(), {});
-		var url = "";
+		var params = {userid: userid, email:emailPW, korname: korname}
+		var url = "/Member/forgotPassword";
+		
+		$.post("/Member/forgotPassword", params, function(data){
+			alert(data);
+		});
+		
 	});
 });
 
 //
 function idCheck(name, emailID){
-	
-	console.log("name: " + name);
-	console.log("emailID: " + emailID);
 	
 	if(name == null|| name==""){
 		alert("이름을 작성하십시오.");
@@ -79,8 +82,9 @@ function idCheck(name, emailID){
 
 function pwCheck(id, email){
 
-	var id = $("#id").text();
-	var emailPW = $("#emailPW").text();
+	var id = $("#id").val();
+	var emailPW = $("#emailPW").val();
+	var korname = $("#kornamePW").val();
 	
 	if(name == null|| name==""){
 		alert("아이디를 작성하십시오.");
@@ -89,7 +93,12 @@ function pwCheck(id, email){
 	}
 	if(emailPW==null||emailPW==""){
 		alert("이메일을 작성하십시오.");
-		$("#email").focus();
+		$("#emailPW").focus();
+		return false;
+	}
+	if(kornamePW == null || kornamePW == ""){
+		alert("이름을 입력하세요.");
+		$("#kornamePW").focus();
 		return false;
 	}
 	
@@ -206,6 +215,12 @@ function pwCheck(id, email){
    									</td>
    									<td>
    										<input type="text" id="id">
+   									</td>
+   								</tr>
+   								<tr>
+   									<td>이름</td>
+   									<td>
+   										<input type="text" id="kornamePW">
    									</td>
    								</tr>
    								<tr>

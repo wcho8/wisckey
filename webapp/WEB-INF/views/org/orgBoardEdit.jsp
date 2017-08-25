@@ -7,7 +7,8 @@ var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams = {
 			brdid: "${paramVO.brdid}",
-			mypage:"${paramVO.mypage}"
+			mypage:"${paramVO.mypage}",
+			orgtypeid:"${paramVO.orgtypeid}"
 	};
 	
 	$('#content').summernote({
@@ -25,11 +26,12 @@ $(document).ready(function(){
 	var brdid = defaultParams.brdid;
 	var bEdit = false;
 	if(brdid != 0 && brdid != '' && brdid != null){
-		var url = "/Org/findBoardContent";
+		var url = "/Org/getOrgBoardData";
 		bEdit = true;
 		$.post(url, defaultParams, function(data){
 			$("#title").val(data.title);
 			$("#content").summernote('code', data.content);
+			$("#orgid").val(data.orgid).prop("selected", true);
 		});
 	}
 	

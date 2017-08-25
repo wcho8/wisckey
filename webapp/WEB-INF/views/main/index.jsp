@@ -14,6 +14,7 @@ $(document).ready(function(){
 			login();
 		}
 	});
+	
 	$("#login").show();
 	$("#login_button").show();
 	$("#login_function").show();
@@ -124,11 +125,23 @@ $(document).ready(function(){
 	});
 	
 	var userid=$("#userid").val();
+	var saveid = $.cookie("saveid");
+	var savepw = $.cookie("savepwd");
+	
+	if(saveid != null && saveid != ''){
+		$("#userid").val(saveid);
+		$("#passwd").focus();
+    	
+    	if (savepw != null && savepw != "") {
+    		$("#passwd").val(savepw);
+    		$('#savepw').attr("checked", true).checkboxradio("refresh");
+    	}
+	}
 	$("#memberView").click(function(){
 		var url = "/Member/memberView";
 		$(location).attr("href", url);
 		
-	})
+	});
 });
 function changeBest(ab){
 	$("#employer_list").show();
@@ -292,11 +305,13 @@ td{
 								padding-bottom: 10px;">
 							<table id="login" style=" float:left;width:280px;">
 								<tr>
-									<td ><input type="text" placeholder="아이디" style="width:95%;" id="userid"></td>
+									<td ><input type="text" placeholder="아이디" style="width:95%;margin-top:3px;" id="userid"></td>
 								</tr>
 								<tr>
-									<td><input type="password" placeholder="패스워드" style="width:95%;" id="passwd"></td>
+									<td><input type="password" placeholder="패스워드" style="width:95%; margin-bottom:1px;" id="passwd"></td>
 								</tr>
+								<tr>
+									<td style="float:right; font-size:12px; padding-right:20px;"><input type="checkbox" id="savepw"> 비밀번호 기억</td>
 							</table>
 							<div id="userinfo" style="padding-top:20px; width:285px; margin">
 								<div style="line-height: 60px; text-align:center;padding-right: 25px;">
@@ -313,9 +328,9 @@ td{
 								</a>
 							</div>
 							
-							<div style="float:left; margin-top:13px;" id="login_button">
+							<div style="float:left; margin-top:7px;" id="login_button">
 								<button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;
-									 background-color:#910019; margin-top:20px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
+									 background-color:#910019; margin-top:3px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
 									<span style="letter-spacing: 5px;">LOGIN</span>
 								</button>
 							</div>

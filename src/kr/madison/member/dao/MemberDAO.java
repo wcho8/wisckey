@@ -74,5 +74,9 @@ public class MemberDAO extends CommonDAO{
 		
 		return result;
 	}
+	
+	public MemberVO forgotPassword(MemberVO paramVO){
+		return getSqlSession().selectOne("Member.forgotPassword", paramVO);
+	}
 
 }

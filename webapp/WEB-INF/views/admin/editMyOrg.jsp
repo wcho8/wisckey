@@ -227,7 +227,7 @@ font-size:12px;
 							</td>
 						</tr>
 						<tr style="padding-top:15px;margin-top:15px;">
-							<td colspan="6"><b>한줄 소개</b><br/><textarea id="comment" style="border:1px solid black;width:100%;margin-top:10px;">${info.comment}</textarea></td>
+							<td colspan="6"><b>한줄 소개</b><br/><textarea id="comment" maxlength="100" style="border:1px solid black;width:100%;margin-top:10px;">${info.comment}</textarea></td>
 						</tr>
 						<tr style="padding-top:15px;">
 							<td colspan="6"><br/><b>상세 소개</b><br/><div style="margin-top:10px;"><textarea id="content"></textarea></div></td>

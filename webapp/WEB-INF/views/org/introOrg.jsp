@@ -51,7 +51,7 @@ function changeIntro(oid){
 				div += "	<div style='float:left; width:80%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";
 				div += "			<b>정보</b>                                                                              ";
-				div += "			<ul style='padding:0px;'>                                                              ";
+				div += "			<ul class='no_li' style='padding:0px;'>                                                              ";
 				div += "				<li> <b>이름: " + item.orgname + "</b> </li>                                         ";
 				div += "				<li> <b>회장: " + item.prname + "</b> </li>                                          ";
 				div += "				<li> <b>부회장: " + vprname1 + ", " + vprname2 + "</b> </li>                                        ";

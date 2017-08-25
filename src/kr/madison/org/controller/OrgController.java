@@ -105,6 +105,14 @@ public class OrgController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
+	public OrgVO getOrgBoardData(OrgVO paramVO){
+		OrgVO result = orgService.getOrgBoardData(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
 	public List<OrgVO> findOrgListData(OrgVO paramVO){
 		List<OrgVO> result = orgService.findOrgListData(paramVO);
 		

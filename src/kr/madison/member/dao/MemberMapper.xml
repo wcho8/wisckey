@@ -101,4 +101,16 @@
 		WHERE 
 			korname = #{korname} AND email=#{email}
 	</select>
+	<select id="forgotPassword" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			userno,
+			userid,
+			passwd,
+			email,
+			korname
+		FROM info_userinfo
+		WHERE userid = #{userid}
+			AND email = #{email}
+			AND korname = #{korname} 
+	</select>
 </mapper>
