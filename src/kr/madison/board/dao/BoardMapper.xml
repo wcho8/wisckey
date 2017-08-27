@@ -200,6 +200,7 @@
 		SELECT
 			a.repid,
 			b.nickname as replier,
+			a.userno as replierno,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
@@ -242,4 +243,22 @@
 		DELETE FROM brd_freeboard_reply_likes
 			WHERE repid in (SELECT a.repid FROM brd_freeboard_reply a WHERE brdid = #{brdid})
 	</delete>
+	<update id="modBoardReply" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply SET
+			content = #{repContent},
+			moddate = NOW()
+		WHERE repid = #{repid}
+	</update>
+	<delete id="delBoardReply" parameterType="BoardVO">
+		DELETE FROM brd_freeboard_reply
+			WHERE repid = #{repid}
+	</delete>
+	<select id="findBoardReplyData" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			repid,
+			content as repContent,
+			userno
+		FROM brd_freeboard_reply
+		WHERE repid = #{repid}
+	</select>
 </mapper>

@@ -134,7 +134,7 @@ $(document).ready(function(){
     	
     	if (savepw != null && savepw != "") {
     		$("#passwd").val(savepw);
-    		$('#savepw').attr("checked", true).checkboxradio("refresh");
+    		$('#savepw').attr("checked", true);
     	}
 	}
 	$("#memberView").click(function(){

@@ -26,6 +26,7 @@ public class BoardVO extends CommonVO{
 	public int repLikes;
 	public int repDislikes;
 	public String responseType;
+	public int replierno;
 	
 	//file upload
 	public String type;
@@ -166,6 +167,12 @@ public class BoardVO extends CommonVO{
 	}
 	public void setReplid(Integer replid) {
 		this.replid = replid;
+	}
+	public int getReplierno() {
+		return replierno;
+	}
+	public void setReplierno(int replierno) {
+		this.replierno = replierno;
 	}
 	
 }

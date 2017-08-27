@@ -173,4 +173,16 @@ public class BoardService extends CommonService{
 		boardDAO.delBoardReplyLikes(paramVO);
 		boardDAO.delBoardReplyData(paramVO);
 	}
+	
+	public int modBoardReply(BoardVO paramVO){
+		return boardDAO.modBoardReply(paramVO);
+	}
+	
+	public void delBoardReply(BoardVO paramVO){
+		boardDAO.delBoardReply(paramVO);
+	}
+	
+	public BoardVO findBoardReplyData(BoardVO paramVO){
+		return boardDAO.findBoardReplyData(paramVO);
+	}
 }

@@ -152,6 +152,40 @@ function likes(like, repid){
 	});
 }
 
+function delReply(repid){
+	var url = "/Board/delBoardReply";
+	var params = $.extend({}, defaultParams, {repid: repid});
+	$.post(url, params, function(data){
+		alert("댓글이 삭제되었습니다.");
+		location.reload(true);
+	});
+}
+
+function modReply(repid){
+	var text = $("#repText"+repid).val();
+	$("#replyUpdate").hide();
+	$("#replyDelete").hide();
+	$("#repContent"+repid).css("display","none");
+	$("#confirmUpdate").show();
+	$("#repUpdate").show();
+	
+	var url = "/Board/findBoardReplyData";
+	var params = $.extend({}, defaultParams, {repid:repid});
+	$.post(url, params, function(data){
+		$("#repText"+repid).val(data.repContent);
+		$("#repText"+repid).show();
+	});
+}
+
+function confirmUpdate(repid){
+	var content = $("#repUpdate").val();
+	var url ="/Board/modBoardReply";
+	var params = $.extend({}, defaultParams, {repid: repid, content:content});
+	$.post(url, params, function(data){	
+		location.reload(true);
+	});
+}
+
 </script>
 <style>
 .left_ul>li{
@@ -215,12 +249,19 @@ function likes(like, repid){
 					<c:forEach items="${reps}" var="rep">
 						<div style="border-bottom:1px solid lightgrey;padding-bottom:15px;margin-top:15px;" id="${rep.repid}">
 							<b>${rep.replier}</b><span style="font-size:12px;"> (${rep.repRegdate})</span>
+							<c:set var="replierno" value="${rep.replierno }" />
+							<c:set var="userno" value="${session.userno }" />
+							<c:if test="${replierno == userno }">
+							&nbsp;<u><a href="javascript:modReply(${rep.repid})" style="font-size:10px;" id="modRep${rep.repid}">수정</a></u>
+							&nbsp;<u><a href="javascript:delReply(${rep.repid})" style="font-size:10px;" id="delRep${rep.repid}">삭제</a></u>
+							</c:if>
 							<span style="float:right;font-size:12px;">
 								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
 								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
 							</span>
 							<br/>
-							<span style="font-size:13px;margin-top:10px;word-break:break-all;width:100%;">${rep.repContent}</span>
+							<span style="font-size:13px;margin-top:10px;word-break:break-all;width:100%;" id="repContent${rep.repid}">${rep.repContent}</span>
+							<textarea style="width:89%; display:none;" id="repText${rep.repid}"></textarea>
 						</div>
 					</c:forEach>
 					<div style="clear:both;"></div>

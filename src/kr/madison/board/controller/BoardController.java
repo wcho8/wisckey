@@ -212,4 +212,22 @@ public class BoardController {
 	public void delBoardData(BoardVO paramVO){
 		boardService.delBoardData(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modBoardReply(BoardVO paramVO){
+		return boardService.modBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delBoardReply(BoardVO paramVO){
+		boardService.delBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public BoardVO findBoardReplyData(BoardVO paramVO){
+		return boardService.findBoardReplyData(paramVO);
+	}
 }
