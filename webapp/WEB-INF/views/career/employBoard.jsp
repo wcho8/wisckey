@@ -161,7 +161,6 @@ input::placeholder{
 				</div>
 			</div>
 			<div class="center_menu" style="width: 700px; float:left; margin-left:30px;">
-				<div id = "a" style="width: 700px">
 				<table id="top_table" style="background-color: #f7f7f7; width:670px; border-top: 2px solid #910019; ">
 					<colgroup>
 						<col style="width:5%;">
@@ -194,11 +193,10 @@ input::placeholder{
 						</c:forEach>
 					</tbody>
 				</table>
-				<div id="writeBtn" style=" float: right; padding-top: 5px;">
-					<button class="btn" id="addEmploymentBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
+				<div id="writeBtn" style=" float: right; padding-top: 5px; padding-left:30px;">
+					<button class="btn" id="addEmploymentBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding:0px;">
 						<span style="font-size: 80%;">글쓰기</span>
 					</button>
-				</div>
 				</div>
 				<div id="search_box" style="padding-left: 210px; height: 20px; padding-top:20px;">
 					<div id="searchValue" >

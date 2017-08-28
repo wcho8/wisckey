@@ -35,7 +35,7 @@ a:hover{
 			<span class="links" style="border-right:1px solid #ccc"><img src="/images/canvas.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>Canvas</span>
 		</a></div>
 		<div><a href="http://uwkssa.org" target="_blank">
-			<span class="links" style="border-right:1px solid #ccc">UW KSSA</span>
+			<span class="links" style="border-right:1px solid #ccc"><img src="/images/kssa.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>UW KSSA</span>
 		</a></div>
 		<div><a href="http://library.wisc.edu" target="_blank">
 			<span class="links" style="border-right: 1px solid #ccc;"><img src="/images/kusa_facebook.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>UW KUSA</span>

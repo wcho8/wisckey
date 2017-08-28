@@ -106,7 +106,7 @@ input::placeholder{
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:100%;"></div>
+	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body">
 			<jsp:include page="./leftmenu.jsp"></jsp:include>
