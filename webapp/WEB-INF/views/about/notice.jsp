@@ -199,7 +199,7 @@ input::placeholder{
 							<c:forEach items="${aboutList}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.nid}</td>
-									<td onClick="javascript:viewNotice(${list.nid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title}</td>
+									<td onClick="javascript:viewNotice(${list.nid});" style="cursor:pointer; padding-left:30px;">&nbsp;${list.title} <span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span></td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>

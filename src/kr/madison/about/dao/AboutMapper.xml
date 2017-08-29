@@ -20,7 +20,8 @@
 			END as regdate,
 			b.count,
 			b.likes,  
-			a.nickname as writer
+			a.nickname as writer,
+			( SELECT COUNT(*) FROM info_notice_reply c WHERE c.nid = b.nid ) as repcount
 		FROM info_notice b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		WHERE 1=1

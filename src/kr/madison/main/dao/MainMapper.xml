@@ -21,13 +21,15 @@
 	</select>
 	<select id="findRecentNoticeList" parameterType="MainVO" resultType="AboutVO">
 		SELECT
-			nid,
-			title,
-			CASE WHEN regdate > CURDATE()
-				THEN DATE_FORMAT(regdate, '%H:%i:%s')
-				ELSE DATE_FORMAT(regdate, '%Y-%m-%d')
-			END as regdate
-		FROM info_notice
+			b.nid,
+			b.title,
+			CASE WHEN b.regdate > CURDATE()
+				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
+				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
+			END as regdate,
+			( SELECT COUNT(*) FROM info_notice_reply c WHERE c.nid = b.nid ) as repcount
+			
+		FROM info_notice b
 		ORDER BY regdate DESC
 		LIMIT 5
 	</select>
@@ -39,7 +41,9 @@
 				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate,
-			b.name as typename
+			b.name as typename,
+			( SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = a.brdid ) as repcount
+			
 		FROM brd_employment a
 		LEFT JOIN cod_employment b on a.empid = b.empid
 		WHERE b.ptypeid = 3
@@ -54,7 +58,9 @@
 				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate,
-			b.name as typename
+			b.name as typename,
+			( SELECT COUNT(*) FROM brd_schoolwork_reply c WHERE c.brdid = a.brdid ) as repcount
+			
 		FROM brd_schoolwork a
 		LEFT JOIN cod_schoolwork b ON a.swid = b.swid
 		WHERE b.ptypeid = 5
@@ -69,7 +75,9 @@
 				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate,
-			b.name as orgname
+			b.name as orgname,
+			( SELECT COUNT(*) FROM brd_orgnization_reply c WHERE c.brdid = a.brdid ) as repcount
+			
 		FROM brd_orgnization a
 		LEFT JOIN info_organization b on a.orgid = b.orgid
 		ORDER BY brdid DESC
@@ -83,7 +91,8 @@
 				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate,
-			c.name as typename
+			c.name as typename,
+			( SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = a.brdid ) as repcount
 		FROM brd_extratips a
 		LEFT JOIN cod_extratips c ON a.tipid = c.tipid
 		WHERE c.ptypeid = 6
@@ -98,7 +107,9 @@
 				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
 			END as regdate,
-			c.name as typename
+			c.name as typename,
+			( SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = a.brdid ) as repcount
+			
 		FROM brd_extratips a
 		LEFT JOIN cod_extratips c ON a.tipid = c.tipid
 		WHERE c.ptypeid = 7
