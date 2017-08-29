@@ -29,6 +29,9 @@ public class LogInOutService {
 						paramVO.setSuccessyn("Y");
 						paramVO.setIslogin(true);
 						logInOutDAO.addLoginData(paramVO);
+					} else if(logVO.getUseyn() !=null && logVO.getUseyn().equals("N")){
+						logVO.setStatus("Expired");
+					//	logInOutDAO.addLoginData(paramVO);
 					}
 				}else{
 					//비밀번호 틀림

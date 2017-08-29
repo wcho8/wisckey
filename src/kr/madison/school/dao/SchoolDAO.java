@@ -133,6 +133,18 @@ public class SchoolDAO extends CommonDAO {
 		return getSqlSession().insert("School.addEducationRepLikes", paramVO);
 	}
 
+	public int undoEducationBoardLikes(SchoolVO paramVO) {
+		return getSqlSession().update("School.undoEducationBoardLikes", paramVO);
+	}
+
+	public int undoEducationBoardRepLikes(SchoolVO paramVO) {
+		return getSqlSession().update("School.undoEducationBoardRepLikes", paramVO);
+	}
+
+	public int undoEducationBoardDislikes(SchoolVO paramVO) {
+		return getSqlSession().update("School.undoEducationBoardRepDislikes", paramVO);
+	}
+
 	
 
 }

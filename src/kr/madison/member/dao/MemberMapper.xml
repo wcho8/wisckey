@@ -113,4 +113,10 @@
 			AND email = #{email}
 			AND korname = #{korname} 
 	</select>
+	<update id="memberOut" parameterType="MemberVO">
+		UPDATE info_userinfo SET
+			useyn = #{useyn},
+			nickname = #{nickname}
+		WHERE userno = #{userno}
+	</update>
 </mapper>

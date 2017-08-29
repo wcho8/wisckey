@@ -143,6 +143,17 @@ public class CareerDAO extends CommonDAO{
 		return getSqlSession().update("Career.modRepDislikes", paramVO);
 	}
 
+	public int undoEmployBoardLikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.undoEmployBoardLikes", paramVO);
+	}
+
+	public int undoEmployBoardRepLikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.undoEmployBoardRepLikes", paramVO);
+	}
+	public int undoEmployBoardRepDislikes(CareerVO paramVO) {
+		return getSqlSession().update("Career.undoEmployBoardRepDislikes", paramVO);
+	}
+
 
 	
 

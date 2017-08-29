@@ -262,6 +262,7 @@ public class CareerController {
 		
 		return msg;
 	}
+	
 	@RequestMapping
 	@ResponseBody
 	public String modRepDislikes(CareerVO paramVO){
@@ -277,4 +278,26 @@ public class CareerController {
 		return msg;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public int undoEmployBoardLikes(CareerVO paramVO){
+		int result = careerService.undoEmployBoardLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoEmployBoardRepLikes(CareerVO paramVO){
+		int result = careerService.undoEmployBoardRepLikes(paramVO);
+		
+		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoEmployBoardRepDisikes(CareerVO paramVO){
+		int result = careerService.undoEmployBoardRepDislikes(paramVO);
+		
+		return result;
+	}
 }

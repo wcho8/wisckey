@@ -42,6 +42,7 @@ $(document).ready(function(){
 			$('#minor').text(data.minor);
 		}
 	});
+
 	
 	var equal = 0;
 	$(function(){
@@ -93,7 +94,54 @@ $(document).ready(function(){
 			}
 		});
 		$(".ui-dialog-titlebar").hide();
+	});
+	$(function(){
+		$("#outDialog").dialog({
+			width: 500,
+			height: 300,
+			autoOpen: false,
+			resizable: false,
+			draggable: false,
+			position:'top',
+			buttons:
+				[
+					{
+						text:"확인",
+						click: function(e){
+							var pw = $("#outPw").val();
+							var pwCheck = $("#outPwCheck").val();
+							
+							if(pw ==='' || pwCheck ===''){
+								alert("비밀번호를 입력해 주시기 바랍니다.");
+								e.preventDefault();
+							}else if(pw!==pwCheck){
+								alert("비밀번호가 일치하지 않습니다.");
+								e.preventDefault();
+							}
+						
+							var url ="/Member/findPW";
+							var params=$.extend({},$("#dialog").serialization(), {passwd:pw, userno: defaultParams.userno});
+							
+							$.post(url, params, function(data){
+								equal = data;
+							
+								if(pw===pwCheck){
+									memberOut(equal);
+								}
+							});
+						}
+					},
+					{
+						text: "취소",
+						click: function(e){
+							$("#outDialog").dialog('close');
+						}
+					}
+				]
 		
+			
+		});
+		$(".ui-dialog-titlebar").hide();
 	});
 	
 	$("#memberUpdate").on("click", function(){
@@ -111,6 +159,10 @@ $(document).ready(function(){
 			submit(pw, memberPW);
 		}
 	});
+	
+	$("#memberOut").on("click", function(){
+		$("#outDialog").dialog("open");		
+	});
 });
 
 function submit(equal){
@@ -119,6 +171,23 @@ function submit(equal){
 		var url = "/Member/memberEdit?";
 		var params= $.extend({}, $("#info").serialization(),{});
 		location = url+params;
+	}else{
+		alert("비밀번호가 일치하지 않습니다.");
+	}
+}
+
+function memberOut(equal){
+	//회원탈퇴
+	if(equal == 1){
+		var useyn = 'N';
+		var nickname = $("#nickname").text();
+		nickname += " (탈퇴한 회원)";
+		var url = "/Member/memberOut";
+		var params = $.extend({}, $("#info").serialization(),{userno:defaultParams.userno,useyn:useyn, nickname:nickname});
+		$.post(url, params, function(data){
+			alert("탈퇴 처리 되었습니다. 그동안 이용해 주셔서 감사합니다.");
+			$(location).attr("href", "/LogInOut/Logout");
+		});
 	}else{
 		alert("비밀번호가 일치하지 않습니다.");
 	}
@@ -154,7 +223,7 @@ function submit(equal){
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:100%;"></div>
+	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body">
 			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
@@ -162,11 +231,11 @@ function submit(equal){
 			</div>
 			<div class="hr_dash"></div>
 			<div class="center_left" style="float:left;width:55%;">
-				<img src="/images/wicon.jpg">
+				<img src="/images/wikey/wikey_memberView.png" style="width:100%; height: 400px;">
 			</div>
 			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">
 				<div class="detailInfo">
-					<table id="info" style="width:100%; height: 400px;">
+					<table id="info" style="width:100%; height: 500px;">
 						<colgroup>
 							<col style="width:25%; text-align: center;">
 							<col style="width:70%;">
@@ -223,12 +292,24 @@ function submit(equal){
 						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">뒤로</button>
 					</div>
 					
+					<div>
+						<button class="btn member"id="memberOut">회원탈퇴</button>
+					</div>
 					<div id="dialog" title="" style="display:none; line-height:60px; ">
 						<form id="inner_form" action="" method="post" style="text-align:center; margin:0; vertical-align: middle;">
 							<span>비밀번호: </span>
 							<input id="pw" name="pw" type="password" class="chk_pw"><br/>
 							<span>비밀번호 확인:</span>
 							<input id="pwCheck" name="pwCheck" type="password" class="chk_pw"><br/>
+						</form>
+					</div>
+					<div id="outDialog" style="display:none; line-height:50px;">
+						<form id="out" style="text-align: center; margin:0; vertical-align:middle;">
+							<b style="color: red;">*확인을 누른 후 바로 회원 탈퇴처리 됩니다. </b><br/>
+							<span>비밀번호: </span>
+							<input id="outPw" name="pw" type="password" class="chk_pw"><br/>
+							<span>비밀번호 확인:</span>
+							<input id="outPwCheck" name="pwCheck" type="password" class="chk_pw"><br/>
 						</form>
 					</div>
 				</div>

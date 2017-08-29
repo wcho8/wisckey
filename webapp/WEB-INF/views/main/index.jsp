@@ -204,7 +204,7 @@ td{
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:88%; margin-left:auto;margin-right:auto;"></div>
+	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body">
 			<div class="body_top">
@@ -264,7 +264,7 @@ td{
 					<div class="right_left" style="float:left; width:61.68%; height:100%;">
 						<div id="top_etc" class="body_div" style="height:234px;">
 							<div class="body_inside">
-								Best 게시물 
+								New 게시물 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
 								<a href="javascript:changeBest(1)" style="color:white;">취업</a> | <a href="javascript:changeBest(2)" style="color:white;">학업</a> 
 								</span>
@@ -345,7 +345,7 @@ td{
 						
 						<div id="advertisea" class="body_div mt15">
 							<img src="/images/kusa_kickoff.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
-							<img src="/images/kusa_kickoff.png" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
+							<img src="/images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>
 				</div>

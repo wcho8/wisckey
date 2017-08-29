@@ -316,7 +316,7 @@ function chkValid(){
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width:100%;"></div>
+	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body">
 			<div class="head"  style="font-size: 30px; font-weight:bold; color:grey;">
@@ -324,7 +324,7 @@ function chkValid(){
 			</div>
 			<div class="hr_dash"></div>
 			<div class="center_left" style="float:left;width:55%;">
-				<img src="/images/wicon.jpg">
+				<img src="/images/wikey/wikey_memberView.png" style="width:100%; height: 700px;">
 			</div>
 			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">
 				<div class="detailInfo">

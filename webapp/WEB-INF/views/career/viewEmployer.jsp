@@ -184,7 +184,7 @@ function confirmUpdate(repid){
 <!-- s:container -->
 <div class="container">
 	<jsp:include page="../common/top.jsp"></jsp:include>
-	<div class="hr_dash" style="width: 100%"></div>
+	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
 			<div class="left_menu" style="float:left; width:130px; padding-top: 7px; margin-left: 40px;">
@@ -246,13 +246,12 @@ function confirmUpdate(repid){
 						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 15px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> 
 							<span style="font-size:12px;">(${rep.repRegdate})</span>
-							<button class="btn updateRep" id="replyUpdate" style="float:right;" onclick="javascript:deleteReply(${rep.repid});"><span style="font-size: 80%;">삭제</span></button>
-							<button class="btn deleteRep" id="replyDelete" style="float:right;" onclick="javascript:updateReply(${rep.repid});"><span style="font-size: 80%;">수정</span></button>
-							<br/>
-						<span id="repContent" style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
-						<textarea style="width:89%; display:none;" id="repUpdate"></textarea>
-						<button id="confirmUpdate" onclick="javascript:confirmUpdate(${rep.repid});" style="display:none;"><span style="font-size:90%;">완료</span></button>
-						
+							<button class="btn updateRep" id="replyUpdate" style="" onclick="javascript:deleteReply(${rep.repid});"><span style="font-size: 80%;">삭제</span></button>
+							<button class="btn deleteRep" id="replyDelete" style="" onclick="javascript:updateReply(${rep.repid});"><span style="font-size: 80%;">수정</span></button>
+							
+							<br/><span id="repContent" style="font-size:13px;margin-top:10px;">${rep.repContent}</span>
+							<textarea style="width:89%; display:none;" id="repUpdate"></textarea>
+							<button id="confirmUpdate" onclick="javascript:confirmUpdate(${rep.repid});" style="display:none;"><span style="font-size:90%;">완료</span></button>
 						</div>
 						
 					</c:forEach>

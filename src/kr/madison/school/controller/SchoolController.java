@@ -154,7 +154,6 @@ public class SchoolController {
 	public ModelAndView educationView(@ModelAttribute("paramVO") SchoolVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
 		SchoolVO vo = schoolService.findEducationContent(paramVO);
-		
 
 		paramVO.setPtypeid(vo.getPtypeid());
 		
@@ -260,6 +259,30 @@ public class SchoolController {
 	@ResponseBody
 	public List<SchoolVO> getFrTypes(SchoolVO paramVO){
 		List<SchoolVO> result = schoolService.getSwtypes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoEducationBoardLikes(SchoolVO paramVO){
+		int result = schoolService.undoEducationBoardLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoEducationBoardRepLikes(SchoolVO paramVO){
+		int result = schoolService.undoEducationBoardRepLikes(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoEducationBoardRepDislikes(SchoolVO paramVO){
+		int result = schoolService.undoEducationBoardDislikes(paramVO);
 		
 		return result;
 	}

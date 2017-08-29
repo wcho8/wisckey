@@ -264,7 +264,6 @@
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
 	</select>
-	
 	<update id="modEducationData" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
 			content = #{content},
@@ -327,13 +326,13 @@
 		)
 	</insert>
 	<update id="modRepLikes" parameterType="SchoolVO">
-		UPDATE brd_schoolwork_reply SET
+		UPDATE brd_schoolwork_reply_likes SET
 			likes = likes + 1
 		WHERE repid = #{repid}
 			AND userno = #{userno}
 	</update>
 	<update id="modRepDisLikes" parameterType="SchoolVO">
-		UPDATE brd_schoolwork_reply SET
+		UPDATE brd_schoolwork_reply_likes SET
 			dislikes = dislikes+1
 		WHERE repid = #{repid}
 			AND userno = #{userno}
@@ -367,4 +366,22 @@
 		DELETE FROM brd_schoolwork_reply_likes
 			WHERE repid in (SELECT a.repid FROM brd_schoolwork_reply a WHERE brdid = #{brdid})
 	</delete>
+	<update id="undoEducationBoardLikes" parameterType="SchoolVO">
+		UPDATE brd_schoolwork_likes SET
+			likes = likes - 1
+		WHERE brdid = #{brdid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoEducationBoardRepLikes" parameterType="SchoolVO">
+		UPDATE brd_schoolwork_reply_likes SET
+			likes = likes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoEducationBoardRepDislikes" parameterType="SchoolVO">
+		UPDATE brd_schoolwork_reply_likes SET
+			dislikes = dislikes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
 </mapper>
