@@ -36,6 +36,10 @@ public class BoardVO extends CommonVO{
 	public Integer lid = 0;
 	public Integer replid = 0;
 	
+	//comment
+	public int prepid = 0;
+	public int comCount;
+	
 	public int getBrdid() {
 		return brdid;
 	}
@@ -173,6 +177,18 @@ public class BoardVO extends CommonVO{
 	}
 	public void setReplierno(int replierno) {
 		this.replierno = replierno;
+	}
+	public int getPrepid() {
+		return prepid;
+	}
+	public void setPrepid(int prepid) {
+		this.prepid = prepid;
+	}
+	public int getComCount() {
+		return comCount;
+	}
+	public void setComCount(int comCount) {
+		this.comCount = comCount;
 	}
 	
 }

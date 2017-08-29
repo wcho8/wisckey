@@ -105,4 +105,12 @@ public class BoardDAO extends CommonDAO{
 	public BoardVO findBoardReplyData(BoardVO paramVO){
 		return getSqlSession().selectOne("Board.findBoardReplyData", paramVO);
 	}
+	
+	public List<BoardVO> findCommentList(BoardVO paramVO){
+		return getSqlSession().selectList("Board.findCommentList", paramVO);
+	}
+	
+	public int getCommentCount(BoardVO paramVO){
+		return getSqlSession().selectOne("Board.getCommentCount", paramVO);
+	}
 }

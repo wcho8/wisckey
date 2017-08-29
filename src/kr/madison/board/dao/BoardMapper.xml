@@ -105,13 +105,15 @@
 			content,
 			regdate,
 			moddate,
-			userno
+			userno,
+			prepid
 		)VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
-			#{userno}
+			#{userno},
+			#{prepid}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -204,10 +206,11 @@
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(*) FROM brd_freeboard_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
-		WHERE a.brdid = #{brdid}
+		WHERE a.brdid = #{brdid} AND a.prepid = 0
 	</select>
 	<update id="modBoardData" parameterType="BoardVO">
 		UPDATE brd_freeboard SET
@@ -257,8 +260,30 @@
 		SELECT
 			repid,
 			content as repContent,
-			userno
+			userno,
+			prepid
 		FROM brd_freeboard_reply
 		WHERE repid = #{repid}
+	</select>
+	<select id="getCommentCount" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			COUNT(*)
+		FROM brd_freeboard_reply
+		WHERE prepid = #{prepid}
+	</select>
+	<select id="findCommentList" parameterType="BoardVO" resultType="BoardVO">
+		SELECT
+			a.repid,
+			a.content as repContent,
+			b.nickname as replier,
+			a.userno as replierno,
+			a.prepid,
+			DATE_FORMAT(a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+		FROM brd_freeboard_reply a
+		LEFT JOIN info_userinfo b ON a.userno = b.userno
+		WHERE a.prepid = #{prepid}
+		ORDER BY a.repid ASC
 	</select>
 </mapper>

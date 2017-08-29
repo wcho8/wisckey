@@ -230,4 +230,16 @@ public class BoardController {
 	public BoardVO findBoardReplyData(BoardVO paramVO){
 		return boardService.findBoardReplyData(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<BoardVO> findCommentList(BoardVO paramVO){
+		return boardService.findCommentList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getCommentCount(BoardVO paramVO){
+		return boardService.getCommentCount(paramVO);
+	}
 }

@@ -330,7 +330,7 @@ td{
 							
 							<div style="float:left; margin-top:7px;" id="login_button">
 								<button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;
-									 background-color:#910019; margin-top:3px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()">
+									 background-color:#910019; margin-top:3px; margin-left: 5px;  border: #910019;"  onClick="javascript:login()" id="login_btn">
 									<span style="letter-spacing: 5px;">LOGIN</span>
 								</button>
 							</div>

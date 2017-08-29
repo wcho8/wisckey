@@ -185,4 +185,12 @@ public class BoardService extends CommonService{
 	public BoardVO findBoardReplyData(BoardVO paramVO){
 		return boardDAO.findBoardReplyData(paramVO);
 	}
+	
+	public List<BoardVO> findCommentList(BoardVO paramVO){
+		return boardDAO.findCommentList(paramVO);
+	}
+	
+	public int getCommentCount(BoardVO paramVO){
+		return boardDAO.getCommentCount(paramVO);
+	}
 }
