@@ -72,6 +72,12 @@ public class MemberService extends CommonService{
 
 	public int memberEdit(MemberVO paramVO) {
 		paramVO.setUserno(session.getUserno());
+		
+		if(paramVO.getBirthdate() == null || paramVO.getBirthdate().equals("")){
+			paramVO.setBirthdate(null);
+		}
+		
+		
 		memberDAO.memberEdit(paramVO);
 		return paramVO.getUserno();
 		

@@ -39,7 +39,12 @@ $(document).ready(function(){
 			$('#nickname').val(data.nickname);
 			$('#passwd').val(data.passwd);
 			$('#email').val(data.email);
-			$('#birthdate').val(data.birthdate.substring(0,10));
+			
+			if(data.birthdate.length>10){
+				$('#birthdate').val(data.birthdate.substring(0,10));
+			}else{
+				$('#birthdate').val(data.birthdate);
+			}
 			$('#telnum').val(data.telnum);
 			$('#major').val(data.major);
 			$('#minor').val(data.minor);
@@ -52,9 +57,6 @@ $(document).ready(function(){
 			return;
 		}
 		
-		if($("#birthdate").val() != null && $("#birthdate").val() != ""){
-			var today = new Date();
-		}
 		
 		var params = $.extend({}, $("#info").serialization(), {userid:defaultParams.userid});
 		var userno = defaultParams.userno;

@@ -169,7 +169,25 @@ font-size:75%;
 										[${list.typename}]&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
 									</c:if>
 									</td>
-									<td style="text-align: center; font-size: 80%;">&nbsp;${list.writer}</td>
+									<td style="text-align: center; font-size: 80%;">
+										
+										
+										
+										<c:choose>
+										  <c:when test="${list.chk_anonymous == '1'    }">
+										   익명
+										  
+										  </c:when>
+										  <c:when test="${list.chk_anonymous == '0'  }">
+										  &nbsp;${list.writer}
+										   
+										  </c:when>
+										  <c:otherwise>
+										    do this when nothing else is true
+										  </c:otherwise>
+										</c:choose>
+													
+									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.count}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.likes}</td>

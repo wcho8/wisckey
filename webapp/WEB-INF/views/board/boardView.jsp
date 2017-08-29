@@ -340,7 +340,22 @@ display:none;
 					</div>
 					<div id="other_infos" style="width:100%;padding:5px;background-color:white;font-size:12px;">
 						<span style="float:left;">
+						
+					 
+							<c:choose>
+							  <c:when test="${ vo.chk_anonymous == '1'    }">
+							    작성자: <b>익명</b>
+							  
+							  </c:when>
+							  <c:when test="${vo.chk_anonymous == '0'  }">
 							작성자: <b>${vo.writer}</b>
+							   
+							  </c:when>
+							  <c:otherwise>
+							    do this when nothing else is true
+							  </c:otherwise>
+							</c:choose>
+						
 						</span>
 						<span style="float:right;">
 							조회수: ${vo.count} 추천: ${vo.likes} 비추: ${vo.dislikes} 댓글: ${repCnt} <!-- 비추 + 댓글 필요 --> 

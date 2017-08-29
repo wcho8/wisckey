@@ -19,6 +19,8 @@ public class BoardVO extends CommonVO{
 	public int dislikes;
 	public int repcount;
 	
+	public int chk_anonymous;
+	
 	public int repid;
 	public String repContent;
 	public String replier;
@@ -189,6 +191,12 @@ public class BoardVO extends CommonVO{
 	}
 	public void setComCount(int comCount) {
 		this.comCount = comCount;
+	}
+	public int getChk_anonymous() {
+		return chk_anonymous;
+	}
+	public void setChk_anonymous(int chk_anonymous) {
+		this.chk_anonymous = chk_anonymous;
 	}
 	
 }

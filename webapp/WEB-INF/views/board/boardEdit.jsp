@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var upImgIds = [];
@@ -52,7 +53,15 @@ $(document).ready(function(){
 		var url = "/Board/addBoardData";
 		var content = $("#content").summernote('code');
 		var frid = $("#frid").val();
-		var params = $.extend({}, $("#brdContent").serialization(), {brdid:brdid, frid:frid,content:content,userno:"${session.userno}"});
+		
+		// 익명 체크
+		var chk_anonymous = "0";
+		
+		if ($("#anonymous").is(':checked')) {
+			chk_anonymous = "1";
+		}
+  
+		var params = $.extend({}, $("#brdContent").serialization(), {brdid:brdid, frid:frid,content:content,userno:"${session.userno}", chk_anonymous:chk_anonymous});
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");
 			$("#title").focus();
@@ -131,6 +140,13 @@ border:1px dashed red;
 							<col width="*">
 						</colgroup>
 						<tbody>
+							<tr style="border: 1px solid #ccc;">
+								<th style="text-align: center;">익명</th>
+								
+								<td height="30">
+            						<label><input type="checkbox"  id = "anonymous" value = "1" style="width:100%; width:30px; height:30px;" checked="checked" /></label>
+        						</td>
+							</tr>
 							<tr style="border: 1px solid #ccc;">
 								<th style="text-align: center;">말머리</th>
 								<td>
