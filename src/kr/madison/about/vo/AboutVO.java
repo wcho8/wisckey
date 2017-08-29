@@ -16,6 +16,9 @@ public class AboutVO extends CommonVO {
 	private int count;
 	private int likes;
 	
+	
+	public int repcount;
+	
 	public int repid;
 	public String repContent;
 	public String repRegdate;
@@ -94,5 +97,12 @@ public class AboutVO extends CommonVO {
 	}
 	public void setLikes(int likes) {
 		this.likes = likes;
+	}
+	
+	public int getRepcount() {
+		return repcount;
+	}
+	public void setRepcount(int repcount) {
+		this.repcount = repcount;
 	}
 }
