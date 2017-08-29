@@ -284,7 +284,7 @@
 			a.prepid,
 			DATE_FORMAT(a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-`			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b ON a.userno = b.userno
 		WHERE a.prepid = #{prepid}
