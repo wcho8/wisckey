@@ -101,13 +101,15 @@
 			content,
 			regdate,
 			moddate,
-			userno
+			userno,
+			prepid
 		)VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
-			#{userno}
+			#{userno},
+			#{prepid}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -119,7 +121,11 @@
 			a.repid,
 			b.nickname as replier,
 			a.content as repContent,
-			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate
+			a.userno as replierno,
+			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT c.likes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT c.dislikes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(*) FROM brd_employment_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_employment_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid=#{brdid}
@@ -141,32 +147,6 @@
 			moddate = NOW()
 		WHERE brdid=#{brdid}
 	</update>
-	<delete id="deleteEmployerReply" parameterType="CareerVO">
-		DELETE FROM
-			brd_employment_reply
-		WHERE repid=#{repid}
-	</delete>
-	<update id="modEmployerReply" parameterType="CareerVO">
-		UPDATE brd_employment_reply SET
-			content=#{content},
-			moddate = NOW()
-		WHERE repid=#{repid}
-	</update>
-	<select id="findReplyContent" parameterType="CareerVO" resultType="CareerVO">
-		SELECT
-			content
-		FROM brd_employment_reply
-		WHERE repid=#{repid}
-	</select>
-
-
-
-
-
-
-
-
-
 
 													<!-- 취업게시판 -->
 	<insert id="addEmployBoardData" parameterType="CareerVO"
@@ -277,13 +257,15 @@
 			content,
 			regdate,
 			moddate,
-			userno
+			userno,
+			prepid
 		)VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
-			#{userno}
+			#{userno},
+			#{prepid}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -293,16 +275,16 @@
 		SELECT
 			a.repid,
 			b.nickname as replier,
+			a.userno as replierno,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT c.likes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT c.dislikes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT c.dislikes FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(*) FROM brd_employment_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_employment_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
-		WHERE a.brdid=#{brdid}
+		WHERE a.brdid=#{brdid} AND a.prepid = 0
 	</select>
-	
-	
 	<update id="modEmployBoardData" parameterType="CareerVO">
 		UPDATE brd_employment SET
 			content = #{content},
@@ -418,5 +400,44 @@
 		WHERE repid = #{repid}
 			AND userno = #{userno}
 	</update>
-	
+	<delete id="deleteBoardReply" parameterType="CareerVO">
+		DELETE FROM brd_employment_reply
+			WHERE repid = #{repid}
+	</delete>
+	<select id="findBoardReplyData" parameterType="CareerVO" resultType="CareerVO">
+		SELECT 
+			repid,
+			content as repContent,
+			userno,
+			prepid
+		FROM brd_employment_reply
+		WHERE repid = #{repid}
+	</select>
+	<select id="findCommentList" parameterType="CareerVO" resultType="CareerVO">
+		SELECT 
+			a.repid,
+			a.content as repContent,
+			b.nickname as replier,
+			a.userno as replierno,
+			a.prepid,
+			DATE_FORMAT (a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT COUNT(*) FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_employment_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+		FROM brd_employment_reply a
+		LEFT JOIN info_userinfo b ON a.userno = b.userno
+		WHERE a.prepid = #{prepid}
+		ORDER BY a.repid ASC
+	</select>
+	<update id="modBoardReply" parameterType="CareerVO">
+		UPDATE brd_employment_reply SET
+			content = #{repContent},
+			moddate = NOW()
+		WHERE repid = #{repid}
+	</update>
+	<select id="getCommentCount" parameterType="CareerVO" resultType="CareerVO">
+		SELECT 
+			COUNT(*)
+		FROM brd_employment_reply
+		WHERE prepid =#{prepid}
+	</select>
 </mapper>

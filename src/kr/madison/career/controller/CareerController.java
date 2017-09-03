@@ -39,7 +39,10 @@ public class CareerController {
 		Util.setPaging(paramVO, totalcount, pageRow);
 		List<CareerVO> vo = careerService.findCareerList(paramVO);
 	
+		List<CareerVO> emptypes = careerService.getEmptypes(paramVO);
+
 		mav.addObject("careerList", vo);
+		mav.addObject("emptypes", emptypes);
 		mav.addObject("totalCnt", totalcount);
 		mav.setViewName("/career/employer");
 		
@@ -50,6 +53,10 @@ public class CareerController {
 	@RequestMapping("/writeEmployer")
 	public ModelAndView writeEmployer(@ModelAttribute("paramVO") CareerVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
+		paramVO.setPtypeid(8);
+		List<CareerVO> emptypes = careerService.getEmptypes(paramVO);
+		mav.addObject("emptypes", emptypes);
+
 		mav.setViewName("/career/writeEmployer");
 		
 		return mav;
@@ -60,7 +67,9 @@ public class CareerController {
 		ModelAndView mav = new ModelAndView();
 		CareerVO vo = careerService.findEmployerContent(paramVO);
 		
-		List<CareerVO> replies = careerService.findEmployerReply(paramVO);
+		paramVO.setPtypeid(vo.getPtypeid());
+
+		List<CareerVO> replies = careerService.findBoardReply(paramVO);
 		
 		if(vo!=null){
 			careerService.modEmployerCount(paramVO);
@@ -111,30 +120,71 @@ public class CareerController {
 		
 		return result;
 	}
+	@RequestMapping
+	@ResponseBody
+	public String modEmployerLikes(CareerVO paramVO){
+		int result = careerService.modEmployerLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int deleteEmployerReply(CareerVO paramVO){
-		int result = careerService.deleteEmployerReply(paramVO);
+	public String modEmployerRepLikes(CareerVO paramVO){
+		int result = careerService.modEmployerRepLikes(paramVO);
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public String modEmployerRepDislikes(CareerVO paramVO){
+		int result = careerService.modEmployerRepDislikes(paramVO);
+		
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoEmployerLikes(CareerVO paramVO){
+		int result = careerService.undoEmployerLikes(paramVO);
 		
 		return result;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modEmployerReply(CareerVO paramVO){
-		int result = careerService.modEmployerReply(paramVO);
+	public int undoEmployerRepLikes(CareerVO paramVO){
+		int result = careerService.undoEmployerRepLikes(paramVO);
 		
 		return result;
 	}
 	@RequestMapping
 	@ResponseBody
-	public CareerVO findReplyContent(CareerVO paramVO){
-		CareerVO result = careerService.findReplyContent(paramVO);
+	public int undoEmployerRepDisikes(CareerVO paramVO){
+		int result = careerService.undoEmployerRepDislikes(paramVO);
 		
 		return result;
 	}
-	
 	
 	/*
 	 * 
@@ -165,11 +215,6 @@ public class CareerController {
 		ModelAndView mav = new ModelAndView();
 		paramVO.setPtypeid(3);
 		List<CareerVO> emptypes = careerService.getEmptypes(paramVO);
-		
-		for(int i= 0; i<emptypes.size(); i++){
-			System.out.println("HAHAHA: "+emptypes.get(i).toString());
-			
-		}
 		
 		mav.addObject("emptypes", emptypes);
 		mav.setViewName("/career/employBoardWrite");
@@ -299,5 +344,34 @@ public class CareerController {
 		int result = careerService.undoEmployBoardRepDislikes(paramVO);
 		
 		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void deleteEmployBoardReply(CareerVO paramVO){
+		careerService.deleteEmployBoardReply(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public CareerVO findBoardReplyData(CareerVO paramVO){
+		return careerService.findBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<CareerVO> findCommentList(CareerVO paramVO){
+		return careerService.findCommentList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modBoardReply(CareerVO paramVO){
+		return careerService.modBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getCommentCount(CareerVO paramVO){
+		return careerService.getCommentCount(paramVO);
 	}
 }

@@ -79,20 +79,25 @@ public class CareerService extends CommonService{
 		return paramVO.getBrdid();
 	}
 
-	public int deleteEmployerReply(CareerVO paramVO) {
-		int result = careerDAO.deleteEmployerReply(paramVO);
-		
-		return result;
+	
+	public void deleteEmployerReply(CareerVO paramVO) {
+		careerDAO.deleteEmployerReply(paramVO);
+	}
+
+	public CareerVO findEmployerReplyData(CareerVO paramVO) {
+		return careerDAO.findEmployerReplyData(paramVO);
+	}
+
+	public List<CareerVO> findEmployerCommentList(CareerVO paramVO) {
+		return careerDAO.findEmployerCommentList(paramVO);
 	}
 
 	public int modEmployerReply(CareerVO paramVO) {
-		careerDAO.modEmployerReply(paramVO);
-		return paramVO.getRepid();
+		return careerDAO.modEmployerReply(paramVO);
 	}
 
-	public CareerVO findReplyContent(CareerVO paramVO) {
-		CareerVO result = careerDAO.findReplyContent(paramVO);
-		return result;
+	public int getEmployerCommentCount(CareerVO paramVO) {
+		return careerDAO.getEmployerCommentCount(paramVO);
 	}
 
 
@@ -195,7 +200,62 @@ public class CareerService extends CommonService{
 		}
 		return result;
 	}
+	public int modEmployerLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		CareerVO test = careerDAO.checkLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getLid() == null){
+			paramVO.setLikes(1);
+			//result = careerDAO.addEmployerLikes(paramVO);
+		}
+		else if(test.getLid() != 0 && test.getLid() != null){
+			if(test.getLikes() == 0){
+			//	result = careerDAO.modEmployerLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		
+		return result;
+	}
 
+	public int modEmployerRepLikes(CareerVO paramVO) {
+		paramVO.setUserno(session.getUserno());
+		CareerVO test = careerDAO.checkRepLikes(paramVO);
+		int result = 0;
+		if(test == null || test.getReplid() == null){
+			paramVO.setRepLikes(1);
+			result = careerDAO.addEmployRepLikes(paramVO);
+		}
+		else if(test.getReplid() != 0 && test.getReplid() != null){
+			if(test.getRepLikes() == 0){
+				result = careerDAO.modRepLikes(paramVO);
+			}else{
+				result = 0;
+			}
+		}
+		return result;
+	}
+
+	public int modEmployerRepDislikes(CareerVO paramVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int undoEmployerLikes(CareerVO paramVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int undoEmployerRepLikes(CareerVO paramVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int undoEmployerRepDislikes(CareerVO paramVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	public int modRepDislikes(CareerVO paramVO) {
 		paramVO.setUserno(session.getUserno());
 		CareerVO test = careerDAO.checkRepLikes(paramVO);
@@ -230,6 +290,28 @@ public class CareerService extends CommonService{
 		int result = careerDAO.undoEmployBoardRepDislikes(paramVO);
 		return result;
 	}
+
+	public void deleteEmployBoardReply(CareerVO paramVO) {
+		careerDAO.deleteEmployBoardReply(paramVO);
+	}
+
+	public CareerVO findBoardReplyData(CareerVO paramVO) {
+		return careerDAO.findBoardReplyData(paramVO);
+	}
+
+	public List<CareerVO> findCommentList(CareerVO paramVO) {
+		return careerDAO.findCommentList(paramVO);
+	}
+
+	public int modBoardReply(CareerVO paramVO) {
+		return careerDAO.modBoardReply(paramVO);
+	}
+
+	public int getCommentCount(CareerVO paramVO) {
+		return careerDAO.getCommentCount(paramVO);
+	}
+
+	
 
 
 

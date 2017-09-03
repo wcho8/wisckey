@@ -31,13 +31,13 @@ a:hover{
 		<div><a href="http://wisc.edu" target="_blank">
 		 	<span class="links" style="border-right:1px solid #ccc"><img src="/images/wisc_home.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>WISC EDU</span>
 		</a></div>
-		<div><a href="http://wiscmail.wisc.edu" target="_blank">
+		<div><a href="http://canvas.wisc.edu" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc"><img src="/images/canvas.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>Canvas</span>
 		</a></div>
 		<div><a href="http://uwkssa.org" target="_blank">
 			<span class="links" style="border-right:1px solid #ccc"><img src="/images/kssa.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>UW KSSA</span>
 		</a></div>
-		<div><a href="http://library.wisc.edu" target="_blank">
+		<div><a href="https://www.facebook.com/kusauwmadison?fref=ts" target="_blank">
 			<span class="links" style="border-right: 1px solid #ccc;"><img src="/images/kusa_facebook.png" style="width: 20px; height: 18px; padding-bottom:2px;margin-right:5px;"/>UW KUSA</span>
 		</a></div>
 	</div>

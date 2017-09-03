@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.madison.board.vo.BoardVO;
+import kr.madison.career.vo.CareerVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.common.vo.SessionVO;
 import kr.madison.school.dao.SchoolDAO;
@@ -228,6 +229,22 @@ public class SchoolService extends CommonService{
 		paramVO.setUserno(session.getUserno());
 		int result = schoolDAO.undoEducationBoardDislikes(paramVO);
 		return result;
+	}
+	
+	public void deleteEducationBoardReply(SchoolVO paramVO) {
+		schoolDAO.deleteEducationBoardReply(paramVO);
+	}
+	public SchoolVO findEducationBoardReplyData(SchoolVO paramVO) {
+		return schoolDAO.findEducationBoardReplyData(paramVO);
+	}
+	public List<CareerVO> findEducationBoardCommentList(SchoolVO paramVO) {
+		return schoolDAO.findEducationBoardCommentList(paramVO);
+	}
+	public int getEducationBoardCommentCount(SchoolVO paramVO) {
+		return schoolDAO.getEducationBoardCommentCount(paramVO);
+	}
+	public int modEducationBoardReply(SchoolVO paramVO) {
+		return schoolDAO.modEducationBoardReply(paramVO);
 	}
 	
 
