@@ -32,23 +32,33 @@ function login(){
 	var params = $("#login").serialization();
 	
 	$.post(url, params, function(data){
-		if(data == "Success"){
+		if(data.rst == "Success"){
 			$.cookie("saveid", params.userid, {
 				expires:7
 			});
+			if($("input[type=checkbox]#savepw").is(":checked")){
+				var savepw = $.cookie("savepw");
+				if (savepw == null || (savepw != null && savepw == "")) {
+					$.cookie("savepw", data.passwd, {
+						expires:7
+					});
+				}
+			} else {
+				$.cookie("savepw", "", { expires: -1 });
+			}
 			$(location).attr("href","/");
-		} else if(data == "NotFound"){
+		} else if(data.rst == "NotFound"){
 			alert("존재하지 않는 회원입니다.");
 			$.cookie("saveid", '', {expires:-1});
 			$("#userid").val('');
 			$("#userid").focus();
 			$("#passwd").val('');
-		} else if(data == "Fail"){
+		} else if(data.rst == "Fail"){
 			alert("비밀번호가 일치하지 않습니다.");
 			$.cookie("saveid", '', {expires:-1});
 			$("#passwd").val('');
 			$("#passwd").focus();
-		}else if(data == "Expired"){
+		}else if(data.rst == "Expired"){
 			alert("탈퇴한 회원 입니다.");
 			$.cookie("saveid",'',{expires:-1});
 			$("#userid").val('');

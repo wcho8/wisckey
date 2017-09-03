@@ -9,6 +9,12 @@ $(document).ready(function(){
 		ptypeid: "${paramVO.ptypeid}"
 	};
 	
+	if(window.location.hash != null || window.location.hash != ''){
+		var hash = window.location.hash;
+		var expandid = hash.split("#")[1];
+		comment(expandid, 'y');
+	}
+	
 	var writerno = "${vo.userno}";
 	var userno = "${session.userno}";
 	
@@ -42,17 +48,27 @@ $(document).ready(function(){
 	});
 	
 	$("#likes").click(function(){
-		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}", userno:"${session.userno}"}));
 		$.post("/Board/modBoardLikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				var url = "/Board/undoBoardLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
-			alert(msg);
 			if(data == "Success"){
 				location.reload(true);
 			}else{
@@ -62,17 +78,28 @@ $(document).ready(function(){
 	});
 	
 	$("#dislike").click(function(){
-		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}",userno:"${session.userno}"}));
 		$.post("/Board/modBoardDislikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "이미 비추하였습니다.";
+				var url = "/Board/undoBoardDislikes";
+				params.userno = "${session.userno}";
+				$.post(url, params, function(data){
+					msg = "비추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "비추하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
-			alert(msg);
 			if(data == "Success"){
 				location.reload(true);
 			}else{
@@ -127,22 +154,43 @@ function likes(like, repid){
 		var msg = "";
 		if(like == 'Y'){
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				url = "/Board/undoBoardRepLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}else if(like == "N"){
 			if(data == "Fail"){
-				msg = "이미 비추하였습니다.";
+				url = "/Board/undoBoardRepDislikes";
+				$.post(url, params, function(data){
+					msg = "비추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "비추하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}
-		alert(msg);
 		if(data == "Success"){
 			location.reload(true);
 		}else{
@@ -262,6 +310,8 @@ function updComment(prepid, repid){
 	var url ="/Board/modBoardReply";
 	var params = $.extend({}, defaultParams, {repid: repid, repContent:content});
 	$.post(url, params, function(data){	
+		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
+		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+prepid);
 		location.reload(true);
 	});
 }
@@ -285,6 +335,8 @@ function addComment(repid){
 				 userno:"${session.userno}",
 				 repContent:$("#comTxt"+repid).val()});
 	$.post(url, params, function(data){
+		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
+		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+repid);
 		location.reload(true);
 	}).error(function(){
 		alert();
@@ -378,7 +430,7 @@ display:none;
 						<button class="btn update" id="update" style="float:right; margin-top:5px; display:none;">수정</button>	
 					</div>
 					<div style="clear:both;"></div>
-					<div id="reply_box" style="margin-top:20px; border-radius:2em; border:1px solid #cacaca; padding:10px; font-size:12px;">
+					<div id="reply_box" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
 						댓글쓰기<br/>
 						<textarea id="reply" style="width:600px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
 						<button id="addReply" style="height:50px;width:50px;">등록</button>

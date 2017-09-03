@@ -16,22 +16,36 @@ $(document).ready(function(){
 		mtype:"post",
 		jsonReader:{repeatitems:false},
 		colNames:[
+				  "orgtypeid",
+				  "prno",
+				  "vprno1",
+				  "vprno2",
 		          "이름",
 		          "한줄 소개",
 		          "등록일",
 		          "회장",
 		          "부회장",
 		          "부회장",
-		          "동아리 타입"
+		          "동아리 타입",
+		          "filecontent",
+		          "authid",
+		          "orgid"
 		          ],
 		colModel:[
+				  {name:"orgtypeid", hidden:true, sortable:false},
+				  {name:"prno", hidden:true},
+				  {name:"vprno1", hidden:true},
+				  {name:"vprno2", hidden:true},
 		          {name:"orgname", width:120, sortable:false},
 		          {name:"comment", width:475, sortable:false},
 		          {name:"regdate", width:80, sortable:false},
 		          {name:"prname", width:70, sortable:false},
 		          {name:"vprname1", width:70, sortable:false},
 		          {name:"vprname2", width:70, sortable:false},
-		          {name:"orgtype", width:100, sortable:false}
+		          {name:"orgtype", width:100, sortable:false},
+		          {name:"filecontent", hidden:true},
+		          {name:"authid", hidden:true},
+		          {name:"orgid", hidden:true}
 		          ],
 		caption:"동아리 관리",
 		resizable:false,
@@ -78,32 +92,59 @@ function editOrg(data){
 	objDialog.dialog({
 		title:title,
 		modal:true,
-		width:600,
-		height:400,
+		width:670,
+		height:500,
 		resizable:false,
 		draggable:false,
 		open:function(){
+			$("#delete").hide();
 			if(bEdit){
 				var params = data;
-				$("#orgtype").val(data.orgtype);
+				$("#orgtypeid").val(data.orgtypeid).prop("selected", true);
+				$("#orgid").text(data.orgid);
+				$("#prno").text(data.prno);
+				$("#vprno1").text(data.vprno1);
+				$("#vprno2").text(data.vprno2);
 				$("#orgname").val(data.orgname);
-				$("#comment").text(data.comment);
-				$("#prname").val(data.prname);
-				$("#vprname").val(data.vprname);
+				$("#comment").val(data.comment);
+				$("#prname").text(data.prname);
+				$("#vprname1").text(data.vprname1);
+				$("#vprname2").text(data.vprname2);
+				$("#oldprno").text(data.prno);
+				$("#authid").text(data.authid);
+				if(data.filecontent != null && data.filecontent != ''){
+					$("#org_img").attr('src', 'data:image/jpg;base64,'+data.filecontent);
+				}else{
+					$("#org_img").attr('src','/images/noimage.png');
+				}
+				$("#add").text("수정");
+				$("#delete").show();
 			}
 		},
 		close:function(){
-			$("#orgtype").empty();
+			$("#orgtypeid").val('1').prop("selected", true);
+			$("#orgid").text('');
 			$("#orgname").val("");
+			$("#prno").text('');
+			$("#vprno1").text('');
+			$("#vprno2").text('');
 			$("#comment").val("");
-			$("#prname").val("");
-			$("#vprname").val("");
+			$("#prname").text("");
+			$("#vprname1").text("");
+			$("#vprname2").text("");
+			$("#org_img").attr('src','/images/noimage.png');
+			$("#add").text("추가");
+			$("#oldprno").text('');
+			$("#authid").text('');
+			$("#delete").hide();
 		}
 	});
 }
 </script>
 <style>
-.ui-jqgrid tr.jqgrow > td, .ui-jqgrid tr.jqgroup > td, .ui-jqgrid tr.jqfoot > td, .ui-jqgrid tr.ui-subgrid > td, .ui-jqgrid tr.ui-subtblcell > td{
+.ui-jqgrid tr.jqgrow > td, .ui-jqgrid tr.jqgroup > td, 
+.ui-jqgrid tr.jqfoot > td, .ui-jqgrid tr.ui-subgrid > td, 
+.ui-jqgrid tr.ui-subtblcell > td{
 	white-space:nowrap;
 }
 </style>

@@ -7,6 +7,14 @@ var upImgIds = [];
 $(document).ready(function(){
 	$(".current").removeClass("current");
 	$("#manMyOrg").addClass("current");
+	$.post("/Org/getImage", {orgid:"${paramVO.orgid}"}, function(data){
+		if(data != null && data != ''){
+			$("#org_img").attr('src', 'data:image/jpg;base64,' + data.filecontent);
+		}else{
+			$("#org_img").attr('src', '/images/noimage.png');
+		}
+	});
+	
 	
 	$('#content').summernote({
 		lang: 'ko-KR',
@@ -121,7 +129,11 @@ function editOrgData(){
 		orgname:$("#orgname").val(),
 		orgid:"${paramVO.orgid}"
 	});
-	
+	var bDetail = false;
+	var loadDetails = '${details.details}';
+	if(loadDetails.length != 0 && loadDetails.length != null){
+		bDetail = true;
+	}
 	
 	if(params.orgname == null || params.orgname == ""){
 		alert("이름을 입력하여 주십시오.");
@@ -143,15 +155,57 @@ function editOrgData(){
 		return;
 	}
 	
+	var bUploadFile = false;
+	$('input[name="attach_file"]').each(function() {
+		if ($(this).val() != "") {
+			bUploadFile = true;
+		}
+	});
+	
 	$.post(url, params, function(data){
 	}).error(function(){
 		alert("수정에 실패하였습니다. 다시 시도해 주십시오.");
 	}).success(function(){
-		$.post("/Org/addMyOrgDetail", params, function(data){
-			alert("수정하였습니다.");
-			$(location).attr("href", "/Admin/MyOrg");
+		var url = "/Org/addMyOrgDetail";
+		if(bDetail){
+			url = "/Org/modMyOrgDetail";
+		}
+		$.post(url, params, function(data){
 		}).error(function(){
 			alert("수정에 실패하였습니다. 다시 시도해 주십시오.");
+		}).done(function(){
+			if (bUploadFile) {
+				bUploadFile = false;
+				/*
+				* 비동기식 파일 업로드
+				* jquery.form.js 파일을 추가 한 후 사용가능
+				*/
+				var objForm = $("form#form_upload");
+				var url = "/Admin/addOrgFileData?";
+				if(params.orgid != null && params.orgid != ''){
+				}else{
+					params = $.extend(params, {orgid:orgid});
+				}
+				url += $.param(params);
+				objForm.attr("action",url);
+				objForm.ajaxSubmit({
+					dataType:"text",
+					success:function(responseText) {
+						if(responseText=="Success") {
+							alert("수정하였습니다.");
+							$(location).attr("href", "/Admin/MyOrg");
+						} else if(responseText == "Fail") {
+							alert("동아리 수정에 실패하였습니다.");
+							$.post("/Admin/delOrg", params, function(data) {});
+						} else if(responseText == "FileSizeFail") {
+							alert("파일 사이즈가 10메가 이상일 수 없습니다.");
+							$.post("/Admin/delOrg", params, function(data) {});
+						}
+					}
+				});
+			}else{
+				$(location).attr("href", "/Admin/MyOrg");
+			}
 		});
 	});
 }
@@ -198,7 +252,7 @@ font-size:12px;
 							<td></td>
 						</tr>
 						<tr>
-							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="" alt="없음" style="width:100%"></td>
+							<td rowspan="4" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="" style="width:100%"></td>
 							<th>이름</th>
 							<td colspan="4"><input type="text" style="width:100%" id="orgname" value="${info.orgname}"></td>
 						</tr>
@@ -218,7 +272,11 @@ font-size:12px;
 						</tr>
 						<tr>
 							<td colspan="5">
-								<input type="file">
+								<form method="post" id="form_upload" name="form_upload" enctype="multipart/form-data">
+									<div class="mt5">
+									    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()"/>
+							    	</div>
+					    		</form>
 							</td>
 						</tr>
 						<tr>

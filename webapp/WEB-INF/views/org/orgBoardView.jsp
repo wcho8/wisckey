@@ -9,6 +9,12 @@ $(document).ready(function(){
 		orgtypeid: "${paramVO.orgtypeid}"
 	};
 	
+	if(window.location.hash != null || window.location.hash != ''){
+		var hash = window.location.hash;
+		var expandid = hash.split("#")[1];
+		comment(expandid, 'y');
+	}
+	
 	var writerno = "${vo.userno}";
 	var userno = "${session.userno}";
 	
@@ -36,13 +42,24 @@ $(document).ready(function(){
 		$.post("/Org/modBoardLikes", params, function(data){
 			var msg = "";
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				var url = "/Org/undoBoardLikes";
+				params.userno = "${session.userno}";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
-			alert(msg);
 			if(data == "Success"){
 				location.reload(true);
 			}else{
@@ -88,22 +105,44 @@ function likes(like, repid){
 		var msg = "";
 		if(like == 'Y'){
 			if(data == "Fail"){
-				msg = "이미 추천하였습니다.";
+				var url = "/Org/undoBoardRepLikes";
+				$.post(url, params, function(data){
+					msg = "추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "추천하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}else if(like == "N"){
 			if(data == "Fail"){
-				msg = "이미 비추하였습니다.";
+				var url = "/Org/undoBoardRepDislikes";
+				params.userno = "${session.userno}";
+				$.post(url, params, function(data){
+					msg = "비추천 취소하였습니다.";
+					alert(msg);
+					if(data == 1){
+						location.reload(true);
+					}else{
+						return;
+					}			
+				});
 			}else if(data == "Success"){
 				msg = "비추하였습니다.";
+				alert(msg);
 			}else{
 				msg = "오류가 발생하였습니다. 다시 시도해 주십시오.";
+				alert(msg);
 			}
 		}
-		alert(msg);
 		if(data == "Success"){
 			location.reload(true);
 		}else{
@@ -112,6 +151,146 @@ function likes(like, repid){
 	});
 }
 
+//댓글 지우기
+function delReply(repid){
+	var url = "/Org/delBoardReply";
+	var params = $.extend({}, defaultParams, {repid: repid});
+	$.post(url, params, function(data){
+		alert("댓글이 삭제되었습니다.");
+		location.reload(true);
+	});
+}
+
+//댓글 수정시에 불러오기
+function modReply(repid){
+	var text = $("#repText"+repid).val(); //답글 div에 아이디가 명확해야 그 div로 수정할 수 있음 --> repid를 추가하여 id를 만듬
+	$("#repContent"+repid).css("display","none");
+	$("#repText"+repid).show();
+	$("#modBtn"+repid).show();
+	$("#cancel"+repid).show();
+	$("#comment"+repid).hide();
+	
+	var url = "/Org/findBoardReplyData";
+	var params = $.extend({}, defaultParams, {repid:repid});
+	$.post(url, params, function(data){
+		$("#repText"+repid).val(data.repContent);
+	});
+}
+
+//댓글 수정
+function confirmUpdate(repid){
+	var content = $("#repText"+repid).val();
+	var url ="/Org/modBoardReply";
+	var params = $.extend({}, defaultParams, {repid: repid, repContent:content});
+	$.post(url, params, function(data){	
+		location.reload(true);
+	});
+}
+
+//댓글 수정 취소
+function cancelUpd(repid){
+	$("#repContent"+repid).css("display","");
+	$("#modBtn"+repid).hide();
+	$("#cancel"+repid).hide();
+	$("#repText"+repid).hide();
+	$("#comment"+repid).show();
+}
+
+//답글 리스트 불러오기
+function comment(repid, bOpen){
+	if(bOpen == 'y'){
+		$("#comment_div"+repid).show();
+		$("#openCom"+repid).css('display','none');
+		$("#closeCom"+repid).css('display','');
+		var url = "/Org/findCommentList";
+		var params = $.extend({}, defaultParams, {prepid:repid});
+		$.post(url, params, function(data){
+			$("#repList"+repid).append("<div style='height:1px;background-color:lightgrey;width:100%;margin-top:15px;'></div>")
+			$.each(data, function(index, item){
+				var y = 'Y';
+				var n = 'N';
+				var div = "";
+					div +="	<div id='com" + item.repid + "' style='border-bottom:1px solid lightgrey;padding-bottom:15px;margin-top:15px;'>"
+					div +="		<b>" + item.replier + "</b><span style='font-size:12px;'> (" + item.repRegdate+ ")</span>"
+				if(item.replierno == "${session.userno}"){
+					div +="		&nbsp;<a href='javascript:modComment(" + item.repid + ")' style='font-size:10px;' id=''>"
+					div +="			<img src='/images/icon/edit.png' style='width:10px;' /></a>"
+					div +="		<a href='javascript:delReply(" + item.repid + ")' style='font-size:10px;' id=''>"
+					div +="			<img src='/images/icon/cancel.png' style='width:10px;' /></a>"
+				}
+					div +="		<span style='float:right;font-size:12px;'>"
+					div +="			<a id='likes" + item.repid + "' style='font-size:12px;'><img src='/images/icon/thumbs-up.png' style='width:12px;'> " + item.repLikes + "</a> |"
+					div +="			<a id='dislikes" + item.repid + "' style='font-size:12px;'><img src='/images/icon/thumb-down.png' style='width:12px;'> " + item.repDislikes + "</a>"
+					div +="		</span>"
+					div +="		<br/>"
+					div +="		<div style='font-size:13px;margin-top:5px;word-break:break-all;width:100%;clear:both;' id='comm" + item.repid + "'>" + item.repContent + "</div>"
+					div +="	</div>"
+					div +="</div>"
+				$("#repList"+repid).append(div);
+				$("#likes"+item.repid).attr('href', "javascript:likes('Y', " + item.repid + ")"); //답글의 추천수 href
+				$("#dislikes"+item.repid).attr('href', "javascript:likes('N', " + item.repid + ")");
+			});
+		});
+	}else if(bOpen == 'n'){
+		$("#comment_div"+repid).hide();
+		$("#openCom"+repid).css('display','');
+		$("#closeCom"+repid).css('display','none');
+		$("#repList"+repid).empty();
+	}
+	$("#repList"+repid).show();
+	$("#repReply"+repid).show();
+}
+
+//답글 수정시 불러오기
+function modComment(repid){
+	$("#com"+repid).hide();
+	
+	var url = "/Org/findBoardReplyData";
+	var params = $.extend({}, defaultParams, {repid:repid});
+	$.post(url, params, function(data){
+		$("#comTxt"+data.prepid).val(data.repContent);
+		$("#comTxt"+data.prepid).focus();
+		$("#addCom"+data.prepid).attr("onclick", "javascript:updComment(" + data.prepid + ", " + data.repid + ")");
+		$("#addCom"+data.prepid).text("수정");
+	});
+}
+
+//답글 수정
+function updComment(prepid, repid){
+	var content = $("#comTxt"+prepid).val();
+	var url ="/Org/modBoardReply";
+	var params = $.extend({}, defaultParams, {repid: repid, repContent:content});
+	$.post(url, params, function(data){	
+		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
+		$(location).attr("href", "/Org/BoardView?"+urlParams +"#"+prepid);
+	});
+}
+
+//답글 수정 취소
+function cancelComment(repid){
+	$("#comment"+repid).show();
+	$("#comment_div"+repid).hide();
+	$("#openCom"+repid).show();
+	$("#closeCom"+repid).hide();
+	$("#repList"+repid).empty();
+	$("#comTxt"+repid).val('');
+}
+
+//답글 달기
+function addComment(repid){
+	var url = "/Org/addBoardReply";
+	var params = $.extend({}, defaultParams, 
+				{prepid:repid, 
+				 brdid:"${paramVO.brdid}",
+				 userno:"${session.userno}",
+				 repContent:$("#comTxt"+repid).val()});
+	$.post(url, params, function(data){
+		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
+		$(location).attr("href", "/Org/BoardView?"+urlParams +"#"+repid);
+	}).error(function(){
+		alert();
+	});
+}
 </script>
 <style>
 .left_ul>li{
@@ -130,6 +309,24 @@ font-size:13px;
 	width:40px; 
 	vertical-align:middle; 
 	padding:0px;
+}
+.commentList{
+/* display:none; */
+padding-left:10px;
+width:100%;
+}
+.comment_div{
+width:100%;
+padding-top:12px;
+}
+.comment{
+width:100%; 
+background-color:#f3f3f3;
+padding:1px 20px;
+margin-top:12px;
+clear:both;
+padding-bottom:10px;
+display:none;
 }
 </style>
 <!-- s:container -->
@@ -169,8 +366,8 @@ font-size:13px;
 						<button class="btn update" id="update" style="float:right; margin-top:5px; display:none;">수정</button>	
 					</div>
 					<div style="clear:both;"></div>
-					<div id="reply_box" style="margin-top:20px; border-radius:2em; border:1px solid #cacaca; padding:10px; font-size:12px;">
-						댓글쓰기<br/>
+					<div id="reply_box" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
+						댓글쓰기 <label><input type="checkbox" style="margin-left:300px;">익명</label><br/>
 						<textarea id="reply" style="width:600px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
 						<button id="addReply" style="height:50px;width:50px;">등록</button>
 					</div>
@@ -178,12 +375,36 @@ font-size:13px;
 					<c:forEach items="${reps}" var="rep">
 						<div style="border-bottom:1px solid lightgrey;padding-bottom:15px;margin-top:15px;" id="${rep.repid}">
 							<b>${rep.replier}</b><span style="font-size:12px;"> (${rep.repRegdate})</span>
+							<c:set var="replierno" value="${rep.replierno }" />
+							<c:set var="userno" value="${session.userno }" />
+							<c:if test="${replierno == userno }">
+							&nbsp;<a href="javascript:modReply(${rep.repid})" style="font-size:10px;" id="modRep${rep.repid}">
+								<img src='/images/icon/edit.png' style="width:10px;" /></a>
+							<a href="javascript:delReply(${rep.repid})" style="font-size:10px;" id="delRep${rep.repid}">
+								<img src="/images/icon/cancel.png" style="width:10px;" /></a>
+							</c:if>
 							<span style="float:right;font-size:12px;">
 								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
 								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
 							</span>
 							<br/>
-							<span style="font-size:13px;margin-top:10px;word-break:break-all;width:100%;">${rep.repContent}</span>
+							<div style="font-size:13px;margin-top:5px;word-break:break-all;width:100%;clear:both;" id="repContent${rep.repid}">${rep.repContent}</div>
+							<textarea style="width:89%; display:none; margin-top:12px;" id="repText${rep.repid}"></textarea>
+							<a href="javascript:confirmUpdate(${rep.repid});"><img src="/images/icon/success.png" id="modBtn${rep.repid}" style="display:none; width:4%; margin-top:30px;"></a>
+							<a href="javascript:cancelUpd(${rep.repid});"><img src="/images/icon/error.png" id="cancel${rep.repid}" style="display:none; width:4%; margin-top:30px;" /></a>
+							<div style="width:100%;float:right;height:auto;margin-bottom:5px;" id="comment${rep.repid}">
+								<a href="javascript:comment(${rep.repid},'y')" style="float:right;font-size:10px;" id="openCom${rep.repid}">Comment<b style="color:#910019">(${rep.comCount})</b></a>
+								<a href="javascript:comment(${rep.repid},'n')" style="float:right;font-size:10px;display:none;" id="closeCom${rep.repid}">Comment<b>(${rep.comCount})</b></a>
+							</div>
+							<div class="comment" id="comment_div${rep.repid}">
+								<div id="repList${rep.repid}" class="comment_list">
+								</div>
+								<div id="repReply${rep.repid}" class="comment_div">
+									<input type="text" style="width:550px;" id="comTxt${rep.repid}">
+									<button id="addCom${rep.repid}" onclick="javascript:addComment(${rep.repid})" class="btn btn-default" style="width:35px;padding:0px;margin-left:5px;font-size:12px;">등록</button>
+									<button onclick="javascript:cancelComment(${rep.repid})" class="btn btn-default" style="width:35px;padding:0px;font-size:12px;">접기</button>
+								</div>
+							</div>
 						</div>
 					</c:forEach>
 					<div style="clear:both;"></div>

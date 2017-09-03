@@ -193,4 +193,17 @@ public class BoardService extends CommonService{
 	public int getCommentCount(BoardVO paramVO){
 		return boardDAO.getCommentCount(paramVO);
 	}
+	
+	public int undoBoardLikes(BoardVO paramVO){
+		return boardDAO.undoBoardLikes(paramVO);
+	}
+	public int undoBoardDislikes(BoardVO paramVO){
+		return boardDAO.undoBoardDislikes(paramVO);
+	}
+	public int undoBoardRepLikes(BoardVO paramVO){
+		return boardDAO.undoBoardRepLikes(paramVO);
+	}
+	public int undoBoardRepDislikes(BoardVO paramVO){
+		return boardDAO.undoBoardRepDislikes(paramVO);
+	}
 }

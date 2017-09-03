@@ -94,10 +94,7 @@
 			NOW(),
 			NOW(),
 			#{userno}
-		) ON DUPLICATE KEY UPDATE
-			details = #{details},
-			moddate = NOW(),
-			userno = #{userno}
+		) 
 	</insert>
 	<update id="modMyOrgDetail" parameterType="OrgVO">
 		UPDATE info_organization_detail SET
@@ -105,7 +102,7 @@
 			details = #{details},
 			moddate = NOW(),
 			userno = #{userno}
-		WHERE detid = #{detid}
+		WHERE orgid = #{orgid}
 	</update>
 	<select id="findOrgList" resultType="OrgVO" parameterType="OrgVO">
 		SELECT
@@ -121,10 +118,14 @@
 			(SELECT korname FROM info_userinfo c WHERE a.vprno1 = c.userno) as vprname1,
 			(SELECT korname FROM info_userinfo c WHERE a.vprno2 = c.userno) as vprname2,
 			b.name as orgtype,
-			b.useyn
+			a.orgtypeid,
+			b.useyn,
+			a.filecontent,
+			d.authid
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b on a.orgtypeid = b.orgtypeid
-		ORDER BY b.orgtypeid ASC, a.regdate DESC;
+		LEFT JOIN info_userinfo d ON a.prno = d.userno
+		ORDER BY b.orgtypeid ASC, a.regdate DESC
 	</select>
 	<select id="getOrgCount" resultType="int" parameterType="OrgVO">
 		SELECT
@@ -147,10 +148,12 @@
 			b.name as orgtype,
 			b.useyn,
 			c.details,
-			a.filecontent
+			a.filecontent,
+			d.authid
 		FROM info_organization a
 		LEFT JOIN cod_orgtype b ON a.orgtypeid = b.orgtypeid
 		LEFT JOIN info_organization_detail c ON a.orgid = c.orgid
+		LEFT JOIN info_userinfo d ON a.prno = d.userno
 		WHERE a.orgid = #{orgid}
 	</select>
 	<insert id="addOrgData" parameterType="OrgVO" useGeneratedKeys="true" keyProperty="orgid" keyColumn="orgid">
@@ -275,13 +278,15 @@
 			content,
 			regdate,
 			moddate,
-			userno
+			userno,
+			prepid
 		)VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
-			#{userno}
+			#{userno},
+			#{prepid}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -361,12 +366,104 @@
 		SELECT
 			a.repid,
 			b.korname as replier,
+			a.userno as replierno,
 			a.content as repContent,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(*) FROM brd_orgnization_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_orgnization_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid}
+			AND a.prepid = 0
 	</select>
+	<update id="modOrgPrAuth" parameterType="OrgVO">
+		UPDATE info_userinfo SET
+			authid = 2
+		WHERE userno = #{prno}
+	</update>
+	<update id="modOrgOldPrAuth" parameterType="OrgVO">
+		UPDATE info_userinfo SET
+			authid = 5
+		WHERE userno = #{oldprno}
+	</update>
+	<select id="getImage" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			orgid,
+			filecontent
+		FROM info_organization
+		WHERE orgid = #{orgid}
+	</select>
+	<delete id="delBoardLikes" parameterType="OrgVO">
+		DELETE FROM brd_orgnization_likes
+			WHERE brdid = #{brdid}
+	</delete>
+	<delete id="delBoardReplyLikes" parameterType="OrgVO">
+		DELETE FROM brd_orgnization_reply_likes
+			WHERE repid in (SELECT a.repid FROM brd_orgnization_reply a WHERE brdid = #{brdid})
+	</delete>
+	<update id="modBoardReply" parameterType="OrgVO">
+		UPDATE brd_orgnization_reply SET
+			content = #{repContent},
+			moddate = NOW()
+		WHERE repid = #{repid}
+	</update>
+	<delete id="delBoardReply" parameterType="OrgVO">
+		DELETE FROM brd_orgnization_reply
+			WHERE repid = #{repid}
+	</delete>
+	<select id="findBoardReplyData" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			repid,
+			content as repContent,
+			userno,
+			prepid
+		FROM brd_orgnization_reply
+		WHERE repid = #{repid}
+	</select>
+	<select id="getCommentCount" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			COUNT(*)
+		FROM brd_orgnization_reply
+		WHERE prepid = #{prepid}
+	</select>
+	<select id="findCommentList" parameterType="OrgVO" resultType="OrgVO">
+		SELECT
+			a.repid,
+			a.content as repContent,
+			b.nickname as replier,
+			a.userno as replierno,
+			a.prepid,
+			DATE_FORMAT(a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_orgnization_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+		FROM brd_orgnization_reply a
+		LEFT JOIN info_userinfo b ON a.userno = b.userno
+		WHERE a.prepid = #{prepid}
+		ORDER BY a.repid ASC
+	</select>
+	<update id="undoBoardLikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_likes SET
+			likes = likes - 1
+		WHERE brdid=#{brdid}
+			AND userno =#{userno}
+	</update>
+	<update id="undoBoardDislikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_likes SET
+			dislikes = dislikes - 1
+		WHERE brdid = #{brdid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoBoardRepDislikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_reply_likes SET
+			dislikes = dislikes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoBoardRepLikes" parameterType="OrgVO">
+		UPDATE brd_orgnization_reply_likes SET
+			likes = likes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
 </mapper>

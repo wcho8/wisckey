@@ -2,7 +2,6 @@ package kr.madison.org.dao;
 
 import java.util.List;
 
-import kr.madison.board.vo.BoardVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.org.vo.OrgVO;
 
@@ -124,5 +123,45 @@ public class OrgDAO extends CommonDAO{
 	}
 	public int addBoardRepLikes(OrgVO paramVO){
 		return getSqlSession().insert("Org.addBoardRepLikes", paramVO);
+	}
+	public void modOrgPrAuth(OrgVO paramVO){
+		getSqlSession().update("Org.modOrgPrAuth", paramVO);
+	}
+	public void modOrgOldPrAuth(OrgVO paramVO){
+		getSqlSession().update("Org.modOrgOldPrAuth", paramVO);
+	}
+	public OrgVO getImage(OrgVO paramVO){
+		return getSqlSession().selectOne("Org.getImage", paramVO);
+	}
+	public int modBoardReply(OrgVO paramVO){
+		return getSqlSession().update("Org.modBoardReply", paramVO);
+	}
+	
+	public void delBoardReply(OrgVO paramVO){
+		getSqlSession().delete("Org.delBoardReply", paramVO);
+	}
+	
+	public OrgVO findBoardReplyData(OrgVO paramVO){
+		return getSqlSession().selectOne("Org.findBoardReplyData", paramVO);
+	}
+	
+	public List<OrgVO> findCommentList(OrgVO paramVO){
+		return getSqlSession().selectList("Org.findCommentList", paramVO);
+	}
+	
+	public int getCommentCount(OrgVO paramVO){
+		return getSqlSession().selectOne("Org.getCommentCount", paramVO);
+	}
+	public int undoBoardLikes(OrgVO paramVO){
+		return getSqlSession().update("Org.undoBoardLikes", paramVO);
+	}
+	public int undoBoardDislikes(OrgVO paramVO){
+		return getSqlSession().update("Org.undoBoardDislikes", paramVO);
+	}
+	public int undoBoardRepLikes(OrgVO paramVO){
+		return getSqlSession().update("Org.undoBoardRepLikes", paramVO);
+	}
+	public int undoBoardRepDislikes(OrgVO paramVO){
+		return getSqlSession().update("Org.undoBoardRepDislikes", paramVO);
 	}
 }

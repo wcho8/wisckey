@@ -126,7 +126,8 @@ $(document).ready(function(){
 	
 	var userid=$("#userid").val();
 	var saveid = $.cookie("saveid");
-	var savepw = $.cookie("savepwd");
+	var savepw = $.cookie("savepw");
+	console.log(savepw);	
 	
 	if(saveid != null && saveid != ''){
 		$("#userid").val(saveid);
@@ -311,7 +312,9 @@ td{
 									<td><input type="password" placeholder="패스워드" style="width:95%; margin-bottom:1px;" id="passwd"></td>
 								</tr>
 								<tr>
-									<td style="float:right; font-size:12px; padding-right:20px;"><input type="checkbox" id="savepw"> 비밀번호 기억</td>
+									<td style="float:right; font-size:12px; padding-right:20px;">
+										<label><input type="checkbox" id="savepw"> 비밀번호 기억</label>
+									</td>
 							</table>
 							<div id="userinfo" style="padding-top:20px; width:285px; margin">
 								<div style="line-height: 60px; text-align:center;padding-right: 25px;">

@@ -242,4 +242,27 @@ public class BoardController {
 	public int getCommentCount(BoardVO paramVO){
 		return boardService.getCommentCount(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardLikes(BoardVO paramVO){
+		return boardService.undoBoardLikes(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardDislikes(BoardVO paramVO){
+		return boardService.undoBoardDislikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardRepLikes(BoardVO paramVO){
+		return boardService.undoBoardRepLikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardRepDislikes(BoardVO paramVO){
+		return boardService.undoBoardRepDislikes(paramVO);
+	}
+	
 }

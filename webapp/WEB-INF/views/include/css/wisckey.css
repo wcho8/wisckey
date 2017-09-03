@@ -198,3 +198,6 @@ position:fixed;
 .ui-dialog .ui-dialog-titlebar-close span{
 margin:-9px;
 }
+.ui-jqgrid tr.jqgrow, .ui-jqgrid tr.jqgroup{
+cursor:pointer;
+}

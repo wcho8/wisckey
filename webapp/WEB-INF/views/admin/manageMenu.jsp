@@ -82,6 +82,7 @@ $(document).ready(function(){
 					$("#typename").val(data.name);
 					$("#comment").val(data.comment);
 					$("#useyn").val(data.useyn).prop('selected', true);
+					$("#addMenu").text("수정");
 				}
 			},
 			close:function(){
@@ -89,6 +90,7 @@ $(document).ready(function(){
 				$("#typename").val('');
 				$("#comment").val('');
 				$("#useyn").val('Y').prop('selected', true);
+				$("#addMenu").text("추가");
 			}
 		});
 	}

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import kr.madison.admin.vo.AdminVO;
-import kr.madison.board.vo.BoardVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.org.dao.OrgDAO;
 import kr.madison.org.vo.OrgVO;
@@ -172,6 +171,12 @@ public class OrgService extends CommonService{
 	}
 	
 	public int modMyOrgData(OrgVO paramVO){
+		/*if(paramVO.getPrno() != paramVO.getOldprno()){
+			orgDAO.modOrgPrAuth(paramVO);
+			if(paramVO.getAuthid() != null && paramVO.getAuthid() == 2){
+				orgDAO.modOrgOldPrAuth(paramVO);
+			}
+		}*/
 		return orgDAO.modMyOrgData(paramVO);
 	}
 	
@@ -183,4 +188,39 @@ public class OrgService extends CommonService{
 		return orgDAO.addMyOrgDetail(paramVO);
 	}
 	
+	public OrgVO getImage(OrgVO paramVO){
+		return orgDAO.getImage(paramVO);
+	}
+	public int modBoardReply(OrgVO paramVO){
+		return orgDAO.modBoardReply(paramVO);
+	}
+	
+	public void delBoardReply(OrgVO paramVO){
+		orgDAO.delBoardReply(paramVO);
+	}
+	
+	public OrgVO findBoardReplyData(OrgVO paramVO){
+		return orgDAO.findBoardReplyData(paramVO);
+	}
+	
+	public List<OrgVO> findCommentList(OrgVO paramVO){
+		return orgDAO.findCommentList(paramVO);
+	}
+	
+	public int getCommentCount(OrgVO paramVO){
+		return orgDAO.getCommentCount(paramVO);
+	}
+	
+	public int undoBoardLikes(OrgVO paramVO){
+		return orgDAO.undoBoardLikes(paramVO);
+	}
+	public int undoBoardDislikes(OrgVO paramVO){
+		return orgDAO.undoBoardDislikes(paramVO);
+	}
+	public int undoBoardRepLikes(OrgVO paramVO){
+		return orgDAO.undoBoardRepLikes(paramVO);
+	}
+	public int undoBoardRepDislikes(OrgVO paramVO){
+		return orgDAO.undoBoardRepDislikes(paramVO);
+	}
 }

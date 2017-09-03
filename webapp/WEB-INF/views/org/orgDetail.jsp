@@ -16,7 +16,7 @@ $(document).ready(function(){
 		<div id="org_infos" style="float:left; width:80%;padding:10px 0px;font-size:12px;">
 			<div id="org_info" style='float:left; width:30%; padding-left:10px;'>
 				<b>정보</b>                                      
-				<ul style='padding:0px;'>                      
+				<ul class="no_li" style='padding:0px;'>                      
 					<li> <b>이름:</b> <span id="orgname"></span></li> 
 					<li> <b>회장:</b> <span id="prname"></span></li>  
 					<li> <b>부회장:</b> <span id="vprname1"></span>, <span id="vprname2"></span></li>     

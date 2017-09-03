@@ -296,4 +296,65 @@ public class OrgController extends CommonController{
 	public int addMyOrgDetail(OrgVO paramVO){
 		return orgService.addMyOrgDetail(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public OrgVO getImage(OrgVO paramVO){
+		OrgVO result = orgService.getImage(paramVO);
+		
+		return result;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modBoardReply(OrgVO paramVO){
+		return orgService.modBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delBoardReply(OrgVO paramVO){
+		orgService.delBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public OrgVO findBoardReplyData(OrgVO paramVO){
+		return orgService.findBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<OrgVO> findCommentList(OrgVO paramVO){
+		return orgService.findCommentList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getCommentCount(OrgVO paramVO){
+		return orgService.getCommentCount(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardLikes(OrgVO paramVO){
+		return orgService.undoBoardLikes(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardDislikes(OrgVO paramVO){
+		return orgService.undoBoardDislikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardRepLikes(OrgVO paramVO){
+		return orgService.undoBoardRepLikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoBoardRepDislikes(OrgVO paramVO){
+		return orgService.undoBoardRepDislikes(paramVO);
+	}
+	
 }

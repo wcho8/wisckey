@@ -65,7 +65,6 @@ function editMenu(){
 	</table>
 	<div style="float:right; margin-top:15px;">
 		<button id="addMenu">추가</button>
-		<button id="editMenu" style="display:none;">수정</button>
 		<button id="cancel">취소</button>
 	</div>
 </div>

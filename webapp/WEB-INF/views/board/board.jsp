@@ -170,9 +170,6 @@ font-size:75%;
 									</c:if>
 									</td>
 									<td style="text-align: center; font-size: 80%;">
-										
-										
-										
 										<c:choose>
 										  <c:when test="${list.chk_anonymous == '1'    }">
 										   익명

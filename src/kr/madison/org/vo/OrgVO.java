@@ -42,6 +42,12 @@ public class OrgVO extends CommonVO{
 	private Integer lid = 0;
 	private Integer replid = 0;
 	
+	private Integer oldprno = 0;
+	private int comCount;
+	private int prepid = 0;
+	
+	private int replierno;
+	
 	public Integer getOrgid() {
 		return orgid;
 	}
@@ -233,6 +239,30 @@ public class OrgVO extends CommonVO{
 	}
 	public void setReplid(Integer replid) {
 		this.replid = replid;
+	}
+	public Integer getOldprno() {
+		return oldprno;
+	}
+	public void setOldprno(Integer oldprno) {
+		this.oldprno = oldprno;
+	}
+	public int getComCount() {
+		return comCount;
+	}
+	public void setComCount(int comCount) {
+		this.comCount = comCount;
+	}
+	public int getPrepid() {
+		return prepid;
+	}
+	public void setPrepid(int prepid) {
+		this.prepid = prepid;
+	}
+	public int getReplierno() {
+		return replierno;
+	}
+	public void setReplierno(int replierno) {
+		this.replierno = replierno;
 	}
 	
 }

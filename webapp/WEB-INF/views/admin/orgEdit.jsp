@@ -11,7 +11,20 @@ $(document).ready(function(){
 			searchId();
 		}
 	});
-	
+	$("#delete").click(function(){
+		var url="/Org/deleteOrg";
+		var orgid = $("#orgid").text();
+		if(confirm("정말로 삭제하시겠습니까?")){
+			$.post(url, {orgid:orgid}, function(data){
+			}).success(function(){
+				alert("삭제되었습니다.");
+				$(location).reload(true);
+			}).error(function(){
+				alert("삭제에 실패하였습니다. 조금 후에 다시 시도해주세요.");
+				$(location).reload(true);
+			});
+		}
+	});
 	
 	$("#add").click(function(){
 		addOrg();
@@ -36,6 +49,17 @@ $(document).ready(function(){
 	function addOrg(){
 		var params = $("#dialog_contents").serialization();
 		var url = "/Org/addOrgData";
+		if($("#orgid").text() != null && $("#orgid").text() != ''){
+			url = "/Org/modMyOrgData";
+		}
+		params = $.extend({}, params, {
+			orgid: $("#orgid").text(),
+			prno: $("#prno").text(),
+			vprno1:$("#vprno1").text(),
+			vprno2:$("#vprno2").text(),
+			oldprno:$("#oldprno").text(),
+			authid:$("#authid").text()
+		});
 		if(params.orgname == null || params.orgname == ""){
 			alert("이름이 필요합니다.");
 			$("#orgname").focus();
@@ -51,7 +75,7 @@ $(document).ready(function(){
 			$("#prid").focus();
 			return;
 		} */
-		
+		var bUploadFile = false;
 		$('input[name="attach_file"]').each(function() {
 			if ($(this).val() != "") {
 				bUploadFile = true;
@@ -69,7 +93,10 @@ $(document).ready(function(){
 				*/
 				var objForm = $("form#form_upload");
 				var url = "/Admin/addOrgFileData?";
-				params = $.extend(params, {orgid:orgid});
+				if(params.orgid != null && params.orgid != ''){
+				}else{
+					params = $.extend(params, {orgid:orgid});
+				}
 				url += $.param(params);
 				objForm.attr("action",url);
 				objForm.ajaxSubmit({
@@ -87,7 +114,9 @@ $(document).ready(function(){
 						}
 					}
 				});
-			}	
+			}else{
+				$(location).attr("href","/Admin/ManageOrg");
+			}
 		});
 	}
 });
@@ -147,64 +176,82 @@ function searchId(){
 </style>
 <div class="dialog">
 	<div id="bCheckPr" style="display:none;"></div>
-	<table id="dialog_contents" style="padding:5px; width:100%;">
+	<table id="dialog_contents" style="width:100%;padding:10px;">
 		<colgroup>
-			<col width="20%" />
-			<col width="*" />
+			<col width="20%">
+			<col width="12%">
+			<col width="23%">
+			<col width="10%">
+			<col width="15%">
+			<col width="20%">
 		</colgroup>
-		<tr>
-			<th>타입</th>
-			<td>
-				<select id="orgtypeid">
-					<option value="1">학술</option>
-					<option value="2">취미</option>
-					<option value="3">스포츠</option>
-					<option value="4">종교</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td>
-				<input type="text" id="orgname" style="width:100%;">
-			</td>
-		</tr>
-		<tr>
-			<th>소개</th>
-			<td>
-				<textarea maxlength="100" id="comment" style="width:100%; height:100px;"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>회장</th>
-			<td>
-				<span id="prname"></span><button style="margin-left:15px;" onclick="javascript:searchById(1)">찾기</button><br/>
-				<input type="text" id="prno" style="display:none;">
-			</td>
-		</tr>
-		<tr>
-			<th>부회장</th>
-			<td>
-				<span id="vprname1"></span><button style="margin-left:15px;" onclick="javascript:searchById(2)">찾기</button>
-				<input type="text" id="vprno1" style="display:none;">
-				/<span id="vprname2"></span><button style="margin-left:15px;" onclick="javascript:searchById(3)">찾기</button>
-				<input type="text" id="vprno2" style="display:none;">
-			</td>
-		</tr>
-		<tr>
-			<th>사진</th>
-			<td>
-				<form method="post" id="form_upload" name="form_upload" enctype="multipart/form-data">
-					<div class="mt5">
-					    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()"/>
-			    	</div>
-		    	</form>
-			</td>
-		</tr>
+		<tbody>
+			<tr style="display:none;">
+				<td id="prno"></td>
+				<td id="vprno1"></td>
+				<td id="vprno2"></td>
+				<td id="orgid"></td>
+				<td id="oldprno"></td>
+			</tr>
+			<tr>
+				<td rowspan="5" style="padding:0px 10px;padding-left:0px;"><img id="org_img" src="" style="width:100%"></td>
+				<th>타입</th>
+				<td colspan="4">
+					<select id="orgtypeid">
+						<option value="1">학술</option>
+						<option value="2">취미</option>
+						<option value="3">스포츠</option>
+						<option value="4">종교</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td colspan="5"><input type="text" style="width:100%" id="orgname"></td>
+			</tr>
+			<tr>
+				<th>회장</th>
+				<td><span id="prname"></span>&nbsp;<button style="float:right;" onClick="javascript:searchById(1)">찾기</button></td>
+				<th id="authid" style="display:none;"></th>
+				<td></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<th>부회장</th>
+				<td>
+					<span id="vprname1"></span>&nbsp;<button style="float:right;" onClick="javascript:searchById(2)">찾기</button>
+				</td>
+				<td></td>
+				<th>부회장</th>
+				<td>
+					<span id="vprname2"></span>&nbsp;<button style="float:right;" onClick="javascript:searchById(3)">찾기</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5">
+					<form method="post" id="form_upload" name="form_upload" enctype="multipart/form-data">
+						<div class="mt5">
+						    <input type="file" id="filedata" name="attach_file" class="upload" onkeypress="key_false()"/>
+				    	</div>
+		    		</form>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+				<div class="hr_dash" style="margin:20px 0px;"></div>
+				</td>
+			</tr>
+			<tr style="padding-top:15px;margin-top:15px;">
+				<td colspan="6">
+					<b>한줄 소개</b><br/>
+					<textarea id="comment" maxlength="200" style="border:1px solid black;width:100%;margin-top:10px; height:80px;">${info.comment}</textarea>
+				</td>
+			</tr>
+		</tbody>
 	</table>
-	<div style="float:right;">
+	<div style="float:right; margin-top:90px;">
 		<button id="add">추가</button>
-		<button id="edit" style="display:none;">수정</button>
+		<button id="delete">삭제</button>
 		<button id="cancel">취소</button>
 	</div>
 	<div id="searchDialog" style="display:none; width:100%;">

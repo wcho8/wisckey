@@ -14,6 +14,8 @@ public class LogInOutVO extends SessionVO{
 	private String useragent = null; // 유저 에이전트
 	private String successyn = null; // 로그인 성공여부
 	
+	private String rst = null; //로그인 result
+	
 	public String getPasswd() {
 		return passwd;
 	}
@@ -49,6 +51,12 @@ public class LogInOutVO extends SessionVO{
 	}
 	public void setSuccessyn(String successyn) {
 		this.successyn = successyn;
+	}
+	public String getRst() {
+		return rst;
+	}
+	public void setRst(String rst) {
+		this.rst = rst;
 	}
 	
 	

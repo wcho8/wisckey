@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.madison.common.service.LogInOutService;
 import kr.madison.common.vo.LogInOutVO;
+import kr.madison.util.Util;
 
 @RequestMapping("/LogInOut/*")
 @Controller
@@ -21,7 +22,7 @@ public class LogInOutController extends CommonController{
 	
 	@RequestMapping
 	@ResponseBody
-	public String Login(HttpServletRequest request, LogInOutVO paramVO){
+	public LogInOutVO Login(HttpServletRequest request, LogInOutVO paramVO){
 		String loginResult = null;
 		
 		try{
@@ -34,14 +35,17 @@ public class LogInOutController extends CommonController{
 				loginResult = logVO.getStatus();
 				if(loginResult != null && loginResult.equals("Success")){
 					BeanUtils.copyProperties(logVO, session);
+					logVO.setPasswd(Util.encryptSHA256(paramVO.getPasswd()));
 				}
 			}else{
 				loginResult = "NotFound";
 			}
+			logVO.setRst(loginResult);
+			return logVO;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return loginResult;
+		return null;
 	}
 	
 	@RequestMapping

@@ -113,4 +113,16 @@ public class BoardDAO extends CommonDAO{
 	public int getCommentCount(BoardVO paramVO){
 		return getSqlSession().selectOne("Board.getCommentCount", paramVO);
 	}
+	public int undoBoardLikes(BoardVO paramVO){
+		return getSqlSession().update("Board.undoBoardLikes", paramVO);
+	}
+	public int undoBoardDislikes(BoardVO paramVO){
+		return getSqlSession().update("Board.undoBoardDislikes", paramVO);
+	}
+	public int undoBoardRepLikes(BoardVO paramVO){
+		return getSqlSession().update("Board.undoBoardRepLikes", paramVO);
+	}
+	public int undoBoardRepDislikes(BoardVO paramVO){
+		return getSqlSession().update("Board.undoBoardRepDislikes", paramVO);
+	}
 }

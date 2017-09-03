@@ -230,10 +230,11 @@
 			name as typename
 		FROM cod_freeboard
 		WHERE ptypeid = #{ptypeid}
+			AND useyn = 'Y'
 	</select>
 	<delete id="delBoardData" parameterType="BoardVO">
 		DELETE FROM brd_freeboard
-		WHERE brdid = #{brdid}
+		WHERE brdid = #{brdid}v
 	</delete>
 	<delete id="delBoardReplyData" parameterType="BoardVO">
 		DELETE FROM brd_freeboard_reply
@@ -290,4 +291,28 @@
 		WHERE a.prepid = #{prepid}
 		ORDER BY a.repid ASC
 	</select>
+	<update id="undoBoardLikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_likes SET
+			likes = likes - 1
+		WHERE brdid=#{brdid}
+			AND userno =#{userno}
+	</update>
+	<update id="undoBoardDislikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_likes SET
+			dislikes = dislikes - 1
+		WHERE brdid = #{brdid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoBoardRepDislikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply_likes SET
+			dislikes = dislikes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
+	<update id="undoBoardRepLikes" parameterType="BoardVO">
+		UPDATE brd_freeboard_reply_likes SET
+			likes = likes - 1
+		WHERE repid = #{repid}
+			AND userno = #{userno}
+	</update>
 </mapper>

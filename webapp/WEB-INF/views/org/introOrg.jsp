@@ -46,13 +46,17 @@ function changeIntro(oid){
 			}
 			var div = "<div id='" + item.orgid + "' style='height:140px;margin:0px 10px;margin-top:10px;border-bottom:1px dashed #cacaca'>";
 				div += "	<div style='float:left; width:20%;'>                                                           ";
-				div += "		<img src='data:image/jpg;base64,"+ item.filecontent +"' style='width:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
+				if(item.filecontent != null && item.filecontent != ''){
+					div += "		<img src='data:image/jpg;base64,"+ item.filecontent +"' style='width:100%;padding:10px;'/>         "; 
+				}else{
+					div += "		<img src='/images/noimage.png' style='width:100%;padding:10px;'/>         ";
+				}
 				div += "	</div>                                                                                         ";
 				div += "	<div style='float:left; width:80%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";
 				div += "			<b>정보</b>                                                                              ";
-				div += "			<ul class='no_li' style='padding:0px;'>                                                              ";
-				div += "				<li> <b>이름: " + item.orgname + "</b> </li>                                         ";
+				div += "			<ul class='no_li' style='padding:0px;font-size:14px;'>                                                              ";
+				div += "				<li style='font-size:20px;'> <b>" + item.orgname + "</b> </li>                                         ";
 				div += "				<li> <b>회장: " + item.prname + "</b> </li>                                          ";
 				div += "				<li> <b>부회장: " + vprname1 + ", " + vprname2 + "</b> </li>                                        ";
 				div += "			</ul>                                                                                  ";

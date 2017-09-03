@@ -20,10 +20,20 @@ function reloadOrgs(){
 	$.post(url, {userno:userno}, function(data){
 		$.each(data, function(index, item){
 			var vprname = "";
-			if(item.vprname == '' || item.vprname == null){
-				vprname = "없음";
+			if(item.vprname1 == '' || item.vprname1 == null){
+				if(item.vprname2 == '' || item.vprname2 == null){
+					vprname = "없음";
+				}
+				else{
+					vprname = item.vprname2;
+				}
 			}else{
-				vprname = item.vprname;
+				if(item.vprname2 == '' || item.vprname2 == null){
+					vprname = item.vprname1;
+				}
+				else{
+					vprname = item.vprname1 + ", " + item.vprname2;
+				}
 			}
 			var div = "<div id='" + item.orgid + "' style='height:140px;margin:0px 10px;margin-top:10px;border-bottom:1px dashed #cacaca'>";
 				div += "	<div style='float:left; width:20%;'>                                                           ";
@@ -32,7 +42,7 @@ function reloadOrgs(){
 				div += "	<div style='float:left; width:70%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";
 				div += "			<b>정보</b>                                                                              ";
-				div += "			<ul style='padding:0px;'>                                                              ";
+				div += "			<ul class='no_li' style='padding:0px;'>                                                              ";
 				div += "				<li> <b>이름: " + item.orgname + "</b> </li>                                         ";
 				div += "				<li> <b>회장: " + item.prname + "</b> </li>                                          ";
 				div += "				<li> <b>부회장: " + vprname + "</b> </li>                                        ";
