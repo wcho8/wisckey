@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import kr.madison.board.vo.BoardVO;
+import kr.madison.career.vo.CareerVO;
 import kr.madison.common.dao.CommonDAO;
 import kr.madison.school.vo.SchoolVO;
 
@@ -145,6 +146,25 @@ public class SchoolDAO extends CommonDAO {
 		return getSqlSession().update("School.undoEducationBoardRepDislikes", paramVO);
 	}
 
+	public void deleteEducationBoardReply(SchoolVO paramVO) {
+		getSqlSession().delete("School.deleteEducationBoardReply", paramVO);
+	}
+
+	public SchoolVO findEducationBoardReplyData(SchoolVO paramVO) {
+		return getSqlSession().selectOne("School.findEducationBoardReplyData", paramVO);
+	}
+
+	public List<CareerVO> findEducationBoardCommentList(SchoolVO paramVO) {
+		return getSqlSession().selectList("School.findEducationBoardCommentList", paramVO);
+	}
+
+	public int getEducationBoardCommentCount(SchoolVO paramVO) {
+		return getSqlSession().selectOne("School.getEducationBoardCommentCount", paramVO);
+	}
+
+	public int modEducationBoardReply(SchoolVO paramVO) {
+		return getSqlSession().update("School.modEducationBoardReply", paramVO);
+	}
 	
 
 }

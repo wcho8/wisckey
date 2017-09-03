@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.madison.board.vo.BoardVO;
+import kr.madison.career.vo.CareerVO;
 import kr.madison.school.service.SchoolService;
 import kr.madison.school.vo.SchoolVO;
 import kr.madison.util.Util;
@@ -110,6 +111,7 @@ public class SchoolController {
 		
 		return result;
 	}
+	
 	
 	
 						
@@ -285,5 +287,33 @@ public class SchoolController {
 		int result = schoolService.undoEducationBoardDislikes(paramVO);
 		
 		return result;
+	}
+	@RequestMapping
+	@ResponseBody
+	public void deleteEducationBoardReply(SchoolVO paramVO){
+		schoolService.deleteEducationBoardReply(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public SchoolVO findEducationBoardReplyData(SchoolVO paramVO){
+		return schoolService.findEducationBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<CareerVO> findEducationBoardCommentList(SchoolVO paramVO){
+		return schoolService.findEducationBoardCommentList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modEducationBoardReply(SchoolVO paramVO){
+		return schoolService.modEducationBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getEducationBoardCommentCount(SchoolVO paramVO){
+		return schoolService.getEducationBoardCommentCount(paramVO);
 	}
 }

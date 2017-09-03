@@ -50,16 +50,27 @@ public class CareerDAO extends CommonDAO{
 		return getSqlSession().update("Career.modEmployerData", paramVO);
 	}
 
-	public int deleteEmployerReply(CareerVO paramVO) {
-		return getSqlSession().delete("Career.deleteEmployerReply", paramVO);
+	public void deleteEmployerReply(CareerVO paramVO) {
+		getSqlSession().delete("Career.deleteEmployerReply", paramVO);
+	}
+
+	public CareerVO findEmployerReplyData(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.findEmployerReplyData", paramVO);
+	}
+
+	public List<CareerVO> findEmployerCommentList(CareerVO paramVO) {
+		return getSqlSession().selectList("Career.findEmployerCommentList", paramVO);
 	}
 
 	public int modEmployerReply(CareerVO paramVO) {
 		return getSqlSession().update("Career.modEmployerReply", paramVO);
 	}
-	public CareerVO findReplyContent(CareerVO paramVO) {
-		return getSqlSession().selectOne("Career.findReplyContent", paramVO);
+
+	public int getEmployerCommentCount(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.getEmployerCommentCount", paramVO);
 	}
+
+
 
 	
 
@@ -152,6 +163,26 @@ public class CareerDAO extends CommonDAO{
 	}
 	public int undoEmployBoardRepDislikes(CareerVO paramVO) {
 		return getSqlSession().update("Career.undoEmployBoardRepDislikes", paramVO);
+	}
+
+	public void deleteEmployBoardReply(CareerVO paramVO) {
+		getSqlSession().delete("Career.deleteBoardReply", paramVO);
+	}
+
+	public CareerVO findBoardReplyData(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.findBoardReplyData", paramVO);
+	}
+
+	public List<CareerVO> findCommentList(CareerVO paramVO) {
+		return getSqlSession().selectList("Career.findCommentList", paramVO);
+	}
+
+	public int modBoardReply(CareerVO paramVO) {
+		return getSqlSession().update("Career.modBoardReply", paramVO);
+	}
+
+	public int getCommentCount(CareerVO paramVO) {
+		return getSqlSession().selectOne("Career.getCommentCount", paramVO);
 	}
 
 

@@ -24,15 +24,23 @@ public class CareerVO extends CommonVO{
 	public String replier;
 	public int repLikes;
 	public int repDislikes;
-	
+	public int replierno;
 	
 	public Integer lid = 0;
 	public Integer replid = 0;
 	
 	public int dDate;
 	
+	//comment
+	public int prepid = 0;
+	public int comCount;
 	
-	
+	public int getReplierno() {
+		return replierno;
+	}
+	public void setReplierno(int replierno) {
+		this.replierno = replierno;
+	}
 	public int getRepLikes() {
 		return repLikes;
 	}
@@ -152,6 +160,18 @@ public class CareerVO extends CommonVO{
 	}
 	public void setLikes(int likes) {
 		this.likes = likes;
+	}
+	public int getPrepid() {
+		return prepid;
+	}
+	public void setPrepid(int prepid) {
+		this.prepid = prepid;
+	}
+	public int getComCount() {
+		return comCount;
+	}
+	public void setComCount(int comCount) {
+		this.comCount = comCount;
 	}
 	
 	

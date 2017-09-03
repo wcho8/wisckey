@@ -230,7 +230,7 @@ function memberOut(equal){
 				회원정보
 			</div>
 			<div class="hr_dash"></div>
-			<div class="center_left" style="float:left;width:55%;">
+			<div class="center_left" style="float:left;width:55%; padding-top: 100px;">
 				<img src="/images/wikey/wikey_memberView.png" style="width:100%; height: 400px;">
 			</div>
 			<div class="memberDetail" style="float:left; width:42%; margin-left: 3%; background:#eaeaea; padding-bottom:10px;">

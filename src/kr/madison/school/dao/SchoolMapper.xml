@@ -240,13 +240,15 @@
 			content,
 			regdate,
 			moddate,
-			userno
+			userno,
+			prepid
 		) VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
-			#{userno}
+			#{userno},
+			#{prepid}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -257,12 +259,14 @@
 			a.repid,
 			b.nickname as replier,
 			a.content as repContent,
+			a.userno as replierno,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT c.likes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT c.dislikes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT c.dislikes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(*) FROM brd_schoolwork_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_schoolwork_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
-		WHERE a.brdid = #{brdid}
+		WHERE a.brdid = #{brdid} AND a.prepid = 0;
 	</select>
 	<update id="modEducationData" parameterType="SchoolVO">
 		UPDATE brd_schoolwork SET
@@ -384,4 +388,44 @@
 		WHERE repid = #{repid}
 			AND userno = #{userno}
 	</update>
+	<delete id="deleteEducationBoardReply" parameterType="SchoolVO">
+		DELETE FROM brd_schoolwork_reply
+			WHERE repid = #{repid}
+	</delete>
+	<select id="findEducationBoardReplyData" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT 
+			repid,
+			content as repContent,
+			userno,
+			prepid
+		FROM brd_schoolwork_reply
+		WHERE repid = #{repid}
+	</select>
+	<select id="findEducationBoardCommentList" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT 
+			a.repid,
+			a.content as repContent,
+			b.nickname as replier,
+			a.userno as replierno,
+			a.prepid,
+			DATE_FORMAT (a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
+			(SELECT COUNT(*) FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(*) FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+		FROM brd_schoolwork_reply a
+		LEFT JOIN info_userinfo b ON a.userno = b.userno
+		WHERE a.prepid = #{prepid}
+		ORDER BY a.repid ASC
+	</select>
+	<update id="modEducationBoardReply" parameterType="SchoolVO">
+		UPDATE brd_schoolwork_reply SET
+			content = #{repContent},
+			moddate = NOW()
+		WHERE repid = #{repid}
+	</update>
+	<select id="getEducationBoardCommentCount" parameterType="SchoolVO" resultType="SchoolVO">
+		SELECT 
+			COUNT(*)
+		FROM brd_schoolwork_reply
+		WHERE prepid =#{prepid}
+	</select>
 </mapper>
