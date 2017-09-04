@@ -261,8 +261,8 @@
 			a.content as repContent,
 			a.userno as replierno,
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
-			(SELECT c.likes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT c.dislikes FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			(SELECT COUNT(c.likes) FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
+			(SELECT COUNT(c.dislikes) FROM brd_schoolwork_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
 			(SELECT COUNT(*) FROM brd_schoolwork_reply d WHERE a.repid = d.prepid) as comCount
 		FROM brd_schoolwork_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno

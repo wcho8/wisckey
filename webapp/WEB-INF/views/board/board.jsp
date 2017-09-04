@@ -101,7 +101,6 @@ background-color:#cacaca;
 height:25px;
 }
 table{
-border:1px solid #cacaca;
 border-collapse:collapse;
 }
 td{
@@ -117,6 +116,14 @@ font-size:13px;
 }
 #top_row>td{
 	font-size: 80%;
+}
+.list_title{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	float:left;
+	padding-left: 5px;
 }
 input::placeholder{
 	font-size:65%;
@@ -160,13 +167,13 @@ font-size:75%;
 							<c:forEach items="${boardList}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-top: 7px;padding-left:30px;">
 									<c:set var="title" value="${list.title }"/>
 									<c:if test="${fn:length(title) > 30 }">
-										[${list.typename}]&nbsp;${fn:substring(title, 0, 30)}...<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+										<p class="list_title" style="font-weight: 100%;">[${list.typename}]&nbsp;${fn:substring(title, 0, 30)}...</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
 									</c:if>
 									<c:if test="${fn:length(title) <= 30 }">
-										[${list.typename}]&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+										<p class="list_title" style="font-weight: 100%;">[${list.typename}]&nbsp;${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
 									</c:if>
 									</td>
 									<td style="text-align: center; font-size: 80%;">

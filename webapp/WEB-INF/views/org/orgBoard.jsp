@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
 var curPage = "/Org/orgBoard?";
@@ -82,12 +83,12 @@ background-color:#cacaca;
 height:25px;
 }
 table{
-border:1px solid #cacaca;
 border-collapse:collapse;
 }
 td{
 border-top:1px solid #cacaca;
 font-size:13px;
+}
 #title_list_about>li{
 	list-style-type: disc; 
 	list-style-position: inside;	
@@ -95,12 +96,19 @@ font-size:13px;
 #row>td{
 	font-size: 11.5px;
 }
+.list_title{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	float:left;
+	padding-left: 5px;
+}
 #top_row>td{
 	font-size: 80%;
 }
 input::placeholder{
 	font-size:65%;
-}
 }
 </style>
 <!-- s:container -->
@@ -136,8 +144,14 @@ input::placeholder{
 							<c:forEach items="${oblist}" var = "list">
 								<tr id="row" style="height:25px; border-bottom: 1px solid #d3d3d3;">
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.brdid}</td>
-									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-left:30px;">
-										<b>[${list.orgname}]</b>&nbsp;${list.title}<span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									<td onClick="javascript:viewBoard(${list.brdid});" style="cursor:pointer; padding-top: 7px;padding-left:30px;">
+									<c:set var="title" value="${list.title }"/>
+									<c:if test="${fn:length(title) > 30 }">
+										<p class="list_title" style="font-weight: 100%;">[${list.orgname}]&nbsp;${fn:substring(title, 0, 30)}...</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									</c:if>
+									<c:if test="${fn:length(title) <= 30 }">
+										<p class="list_title" style="font-weight: 100%;">[${list.orgname}]&nbsp;${list.title}</p><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+									</c:if>
 									</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.korname}</td>
 									<td style="text-align: center; font-size: 80%;">&nbsp;${list.regdate}</td>
