@@ -1,5 +1,12 @@
 package kr.madison.member.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -134,31 +141,43 @@ public class MemberService extends CommonService{
 		return vo;
 	}
 	
-	public String forgotPassword(MemberVO paramVO) throws Exception{
+	public String forgotPassword(MemberVO paramVO, String path) throws Exception{
 		MemberVO vo = memberDAO.forgotPassword(paramVO);
 		String result = "";
 		String newPasswd = "";
-		int length = 6 + (int)(Math.random()*14); //비밀번호 길이: min 6 max 20
+		int length = 6 + (int)(Math.random()*3); //비밀번호 길이: min 6 max 20
 		if(vo.getUserno() != null && vo.getUserno() != 0){
 			newPasswd = RandomStringUtils.randomAlphanumeric(length);
 			vo.setPasswd(Util.encryptSHA256(newPasswd));
 			memberDAO.modPasswdEdit(vo); 
 			vo.setPasswd(newPasswd);
-			result = sendMail(vo);
+			result = sendMail(vo, path);
 		}
 		
 		return result;
 	}
 	
-	public String sendMail(MemberVO paramVO) throws AddressException, MessagingException{
+	public String sendMail(MemberVO paramVO, String path) throws AddressException, MessagingException, IOException{
 		String result = "";
 		String from = "uwwisckey@gmail.com";
 		String to = paramVO.getEmail();
 		
 		String subject="[WISCKEY]임시 비밀번호 발급";
-		String body= "임시 비밀번호 발송입니다.";
-		body += "<br/>비밀번호: " + paramVO.getPasswd();
-		body += "<div style='font-size:15px;color:green'>감사합니다</div>";
+		String body= "";
+		
+		//메일 파일 읽은 후 String으로 변환
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String template = null;
+		File file = new File(path + "/forgotPassword");
+		br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		while((template = br.readLine()) != null){
+			template = template.replaceAll("NAME", paramVO.getKorname());
+			template = template.replaceAll("PASSWD", paramVO.getPasswd());
+			sb.append(template);
+		}
+		
+		body = sb.toString();
 		
 		String SMTP_USERNAME="AKIAI6OGSH2GA5B4DODA";
 		String SMTP_PASSWORD="AnkzKmV/28Zs474SwX7vyrbmHb8ZZSZ5HUwBS9iQL4dg";
