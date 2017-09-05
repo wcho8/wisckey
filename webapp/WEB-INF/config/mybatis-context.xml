@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>/WEB-INF/config/jdbc.properties</value>
@@ -20,8 +20,8 @@
 		<property name="username" value="${jdbc.mysql.username}" />
 		<property name="password" value="${jdbc.mysql.password}" />
 		<property name="validationQuery" value="SELECT 1" />
-	</bean>
-    <!-- <bean id="dataSourceSpied" class="org.springframework.jndi.JndiObjectFactoryBean">
+	</bean> -->
+    <bean id="dataSourceSpied" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/wisckey</value>
 		</property>
@@ -34,7 +34,7 @@
 				<property name="sqlPrefix" value="SQL:::" />
 			</bean>
 		</property>
-	</bean> -->
+	</bean>
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
