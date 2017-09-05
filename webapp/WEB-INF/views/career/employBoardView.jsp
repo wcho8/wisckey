@@ -450,7 +450,7 @@ display:none;
 					<div style="height: 1px; background-color: lightgrey; width:100%; margin-top:15px;"></div>
 					
 					<c:forEach items="${reps }" var="rep">
-						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 13px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
+						<div style="border-bottom: 1px solid lightgrey;padding-bottom: 16px; margin-top:15px; padding-left:12px;" id="${rep.repid}">
 							<b>${rep.replier} </b> <span style="font-size:12px;">(${rep.repRegdate})</span>
 							<c:set var="replierno" value="${rep.replierno }" />
 							<c:set var="userno" value="${session.userno }" />
@@ -475,8 +475,8 @@ display:none;
 							<a href="javascript:confirmUpdate(${rep.repid});"><img src="/images/icon/success.png" id="modBtn${rep.repid}" style="display:none; width:4%; margin-top:30px;"></a>
 							<a href="javascript:cancelUpd(${rep.repid});"><img src="/images/icon/error.png" id="cancel${rep.repid}" style="display:none; width:4%; margin-top:30px;" /></a>
 							<div style="width:100%;float:right;height:auto;margin-bottom:5px;" id="comment${rep.repid}">
-								<a href="javascript:comment(${rep.repid},'y')" style="float:right;font-size:10px;" id="openCom${rep.repid}">Comment<b style="color:#910019">(${rep.comCount})</b></a>
-								<a href="javascript:comment(${rep.repid},'n')" style="float:right;font-size:10px;display:none;" id="closeCom${rep.repid}">Comment<b>(${rep.comCount})</b></a>
+								<a href="javascript:comment(${rep.repid},'y')" style="float:right;font-size:13px;" id="openCom${rep.repid}">답글<b style="color:#910019">(${rep.comCount})</b></a>
+								<a href="javascript:comment(${rep.repid},'n')" style="float:right;font-size:13px;display:none;" id="closeCom${rep.repid}">답글<b>(${rep.comCount})</b></a>
 							</div>
 							<div class="comment" id="comment_div${rep.repid}">
 								<div id="repList${rep.repid}" class="comment_list">

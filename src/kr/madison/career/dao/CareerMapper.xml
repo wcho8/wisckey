@@ -358,6 +358,7 @@
 			name as typename
 		FROM cod_employment
 		WHERE ptypeid = #{ptypeid}
+			AND useyn = 'Y'
 	</select>
 	<delete id="deleteEmployBoard" parameterType="CareerVO">
 		DELETE FROM

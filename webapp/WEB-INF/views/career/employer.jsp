@@ -202,10 +202,13 @@ input::placeholder{
 									<span id="d-day" style="display:inline-block; text-align:center; background-color:lightgrey; color:black; font-weight:bold;">-</span>
 								</c:if>
 								
-								<span class="list_title" style="font-weight: 100%; padding-left: 5px;display:inline-block;">${list.title} </span>
-								<span style="margin-left:4px; color:#910019;">(${list.repcount })</span>
-									
-									
+								<c:set var="title" value="${list.title }"/>
+								<c:if test="${fn:length(title)>30 }">
+									<span class="list_title" style="font-weight: 100%; padding-left: 5px;">${fn:substring(title,0,30)}... </span><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+								</c:if>
+								<c:if test="${fn:length(title)<=30 }">
+									<span class="list_title" style="font-weight: 100%; padding-left: 5px;">${list.title} </span><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+								</c:if>
 							</td>
 							
 							<td style="text-align: center;">&nbsp;${list.writer}</td>
@@ -216,7 +219,7 @@ input::placeholder{
 					</c:forEach>
 					</tbody>
 				</table>
-				<div id="writeBtn" style=" float: right; padding-top: 5px; display:none;">
+				<div id="writeBtn" style=" float: right; padding-top: 5px; display:none; padding-right: 30px;">
 					<button class="btn" id="addEmployer" style="width: 50px; line-height: 15px; vertical-align: middle; padding: 0px;">
 						<span style="font-size: 80%;">글쓰기</span>
 					</button>

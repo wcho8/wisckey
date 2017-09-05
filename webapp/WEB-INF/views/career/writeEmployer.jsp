@@ -5,7 +5,8 @@
 var upImgIds = [];
 $(document).ready(function(){
 	var defaultParams={
-		mypage: "${paramVO.mypage}"
+		mypage: "${paramVO.mypage}",
+		ptypeid: "${paramVO.ptypeid}"
 	};
 	
 	//summernote 에디터
@@ -28,9 +29,15 @@ $(document).ready(function(){
 	if(brdid !=0 && brdid!='' && brdid != null){
 		var url="/Career/findEmployerContent";
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
-			$('#title').val(data.title);
-			$('#content').summernote('code', data.content);
+		var params = $.extend({}, defaultParams, {brdid: brdid});
+		$.post(url, params, function(data){
+			if("${session.userno}" != data.userno || "${session.userno}" == null){
+				alert("수정할 수 있는 권한이 없습니다.");
+				$(location).attr("href", "/Career/?"+$.param(defaultParams));
+			}else{
+				$("#title").val(data.title);
+				$("#content").summernote('code', data.content);
+			}
 		});
 	}
 	
@@ -63,7 +70,7 @@ $(document).ready(function(){
 		
 		var deadline = $("#deadline").val();
 		
-		var params = $.extend({}, $("#emplyContent").serialization(), {empid:1, content:content, deadline:deadline});
+		var params = $.extend({}, $("#emplyContent").serialization(), {empid:1, content:content, deadline:deadline, userno:"${session.userno}"});
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");

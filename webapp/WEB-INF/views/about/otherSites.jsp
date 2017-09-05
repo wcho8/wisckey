@@ -6,6 +6,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	/*
 	$.post("/About/listFourNotice", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title;
@@ -24,8 +25,11 @@ $(document).ready(function(){
 			$("#notice_left").append(li);
 			
 		})
-	});
+	});*/
+	
+	
 });
+
 function viewNotice(nid){
 	var url = "/About/viewNotice?nid=" + nid;
 	$(location).attr("href", url);
@@ -48,7 +52,6 @@ function viewNotice(nid){
 #title_list_about li>a {
 	opacity: 0.7;
 	text-decoration: none;
-	
 }
 /*
 #l_first_title{
@@ -70,6 +73,30 @@ function viewNotice(nid){
 	list-style-position: inside;	
 }
 
+#linkInfo {
+    margin: 0.75em 0;
+    padding: 0 1em;
+    list-style: none;
+}
+.linkName:before { 
+    content: "";
+    border-color: transparent #111;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+.name{
+	width: 60%;
+	display:inline-block;
+}
+.link{
+	margin-left: 30px;
+}
 </style>
 <!-- s:container -->
 <div class="container">
@@ -99,12 +126,79 @@ function viewNotice(nid){
 					-->
 			</div>
 
-			<div class="center_menu" style="float: left; margin-left: 30px; width: 700px;">
-				<div style="width: 100%; margin-top:10px; float:left;">
-					<b style="font-size: 30px;">주요사이트</b>
+			<div class="center_menu" style="float: left; margin-left: 50px; width: 700px; ">
+				<div style="width: 100%; margin-top:10px; float:left; border-bottom: 5px solid #910019;">
+					<b style="font-size: 30px; color: #910019; width: 200px;">주요사이트</b>
+					<img src="../images/LOGO.png" style="width:100px; height: 30px; margin-left: 445px;">
 				</div>
+				<div style="clear:both;"></div>
 				<div>
-					
+					<ul id="linkInfo" style="width:100%; padding-left: 30px;">
+						<li class="linkName">
+							<span class="name">UW-Madison</span>
+							<span class="link"><a href="http://www.wisc.edu" target="_blank">http://www.wisc.edu</a></span>
+						</li>	
+						<li class="linkName">
+							<span class="name">Campus Map</span>
+							<span class="link"><a href="http://map.wisc.edu" target="_blank">http://map.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Office of Registrar(Tuition)</span>
+							<span class="link"><a href="http://registrar.wisc.edu" target="_blank">http://registrar.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">WISCARD</span>
+							<span class="link"><a href="http://wiscard.wisc.edu" target="_blank">http://wiscard.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">ISS (International Student Services)</span>
+							<span class="link"><a href="http://iss.wisc.edu" target="_blank">http://iss.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">GUTS (Greater University Tutoring Service)</span>
+							<span class="link"><a href="http://guts.studentorg.wisc.edu" target="_blank">http://guts.studentorg.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">The Writing Center</span>
+							<span class="link"><a href="http://www.writing.wisc.edu" target="_blank">http://www.writing.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Health Insurances (SHIP)</span>
+							<span class="link"><a href="http://www.uhs.wisc.edu" target="_blank">http://www.uhs.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Financial aid/Scholarships</span>
+							<span class="link"><a href="http://www.finaid.wisc.edu" target="_blank">http://www.finaid.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Libraries</span>
+							<span class="link"><a href="http://www.library.wisc.edu" target="_blank">http://www.library.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Housing</span>
+							<span class="link"><a href="http://housing.wisc.edu" target="_blank">http://housing.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Recreational Sports</span>
+							<span class="link"><a href="http://www.recsports.wisc.edu" target="_blank">http://www.recsports.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Division of IT (DoIT: Computing, Tech store)</span>
+							<span class="link"><a href="http://www.doit.wisc.edu" target="_blank">http://www.doit.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">Student Job Center</span>
+							<span class="link"><a href="http://jobcenter.wisc.edu" target="_blank">http://jobcenter.wisc.edu</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">KUSA (Korean Undergraduate Students Association)</span>
+							<span class="link"><a href="http://www.facebook.com/uwkusa" target="_blank">http://www.facebook.com/uwkusa</a></span>
+						</li>
+						<li class="linkName">
+							<span class="name">UWKSSA</span>
+							<span class="link"><a href="http://www.uwkssa.org/mainnew/" target="_blank">http://www.uwkssa.org/mainnew/</a></span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -79,7 +79,7 @@ function login(){
 		</div>
 		<div style="width:100%; height:140px;">
 			<div class="logo" id="top_logo" style="width:35%; height:100%; margin-left:auto; margin-right:auto">
-				<a id="logoSrc" href="/"><img style="height:100%; width: 100%;"src="/images/common/LOGO.png" alt="logo" /></a>
+				<a id="logoSrc" href="/"><img style="height:100%; width: 100%;"src="../images/common/LOGO.png" alt="logo" /></a>
 			</div>
 		</div>
 		<nav class="navbar navbar-default">

@@ -20,7 +20,11 @@ $(document).ready(function(){
 		$('#userid').text(data.userid);
 		$('#nickname').text(data.nickname);
 		$('#email').text(data.email);
-		$('#birthdate').text(data.birthdate.substring(0,10));
+		if(data.birthdate==null||data.birthdate==''){
+			$("#birthdate").text('');
+		}else{
+			$('#birthdate').text(birthdate.substring(0,10));
+		}
 		if(data.telnum == null || data.telnum == ''){
 			$("#telnum").text('없음');
 		}else{
@@ -163,6 +167,8 @@ $(document).ready(function(){
 	$("#memberOut").on("click", function(){
 		$("#outDialog").dialog("open");		
 	});
+	
+	
 });
 
 function submit(equal){
@@ -192,9 +198,17 @@ function memberOut(equal){
 		alert("비밀번호가 일치하지 않습니다.");
 	}
 }
+
 </script>
 
 <style type="text/css">
+#memberOut{
+	 color:#ccc;
+}
+#memberOut:hover{
+	color:black;
+	text-decoration: underline;
+}
 #info>tbody>tr>th{
 	font-size:  90%;
 	padding-left: 5px;
@@ -218,6 +232,7 @@ function memberOut(equal){
 	border:0;
 	font-weight:bold;
 }
+
 </style>
 
 <!-- s:container -->
@@ -292,9 +307,7 @@ function memberOut(equal){
 						<button class="btn_btn-cancel" id="back" style="height: 50px;" onClick="history.go(-1)">뒤로</button>
 					</div>
 					
-					<div>
-						<button class="btn member"id="memberOut">회원탈퇴</button>
-					</div>
+					
 					<div id="dialog" title="" style="display:none; line-height:60px; ">
 						<form id="inner_form" action="" method="post" style="text-align:center; margin:0; vertical-align: middle;">
 							<span>비밀번호: </span>
@@ -313,6 +326,9 @@ function memberOut(equal){
 						</form>
 					</div>
 				</div>
+			</div>
+			<div style="float:right; border:0;">
+				<span id="memberOut" style="font-size:80%;">회원탈퇴</span>
 			</div>
 		</div>
 	</div>

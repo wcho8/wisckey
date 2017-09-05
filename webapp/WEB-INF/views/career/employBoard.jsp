@@ -184,7 +184,14 @@ input::placeholder{
 								<td style="text-align:center;">&nbsp;${list.brdid}</td>
 								<td style="text-align: left; padding-left: 10px;cursor: pointer; font-size:100%; padding-top: 5px;" 
 									onClick="javascript:viewBoard(${list.brdid});">
-								 	<span id="list_title" style="font-weight: 100%;">[${list.typename}]&nbsp;${list.title} </span><span style="color: #910019; margin-left: 2px;">(${list.repcount})</span>
+									
+									<c:set var="title" value="${list.title }"/>
+										<c:if test="${fn:length(title)>30 }">
+											<span class="list_title" style="font-weight: 100%; padding-left: 5px;">[${list.typename}]&nbsp;${fn:substring(title,0,30)}... </span><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+										</c:if>
+										<c:if test="${fn:length(title)<=30 }">
+											<span class="list_title" style="font-weight: 100%; padding-left: 5px;">[${list.typename}]&nbsp;${list.title} </span><span style="color: #910019; margin-left: 2px; font-size: 80%;">(${list.repcount})</span>
+										</c:if>
 								</td>
 								<td style="text-align:center;">&nbsp;${list.writer }</td>
 								<td style="text-align:center;">&nbsp;${list.regdate }</td>
@@ -193,7 +200,7 @@ input::placeholder{
 						</c:forEach>
 					</tbody>
 				</table>
-				<div id="writeBtn" style=" float: right; padding-top: 5px; padding-left:30px;">
+				<div id="writeBtn" style=" float: right; padding-top: 5px; padding-right:30px;">
 					<button class="btn" id="addEmploymentBoard" style="width: 50px; line-height: 15px; vertical-align: middle; padding:0px;">
 						<span style="font-size: 80%;">글쓰기</span>
 					</button>
