@@ -127,7 +127,6 @@ $(document).ready(function(){
 	var userid=$("#userid").val();
 	var saveid = $.cookie("saveid");
 	var savepw = $.cookie("savepw");
-	console.log(savepw);	
 	
 	if(saveid != null && saveid != ''){
 		$("#userid").val(saveid);
@@ -214,6 +213,7 @@ td{
 						<ol class="carousel-indicators">
 							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 							<li data-target="#myCarousel" data-slide-to="1"></li>
+							<li data-target="#myCarousel" data-slide-to="2"></li>
 							<!-- <li data-target="#myCarousel" data-slide-to="2"></li> -->
 						</ol>
 
@@ -223,6 +223,9 @@ td{
 							</div>
 							<div class="item">
 								<img src="../images/banner2.png" />
+							</div>
+							<div class="item">
+								<img src="../images/banner_kusa_kickoff.png">
 							</div>
 							<!-- <div class="item">
 								<img src="../images/sample_carousel_3.jpg" />
