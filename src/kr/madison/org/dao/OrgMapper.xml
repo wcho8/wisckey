@@ -466,4 +466,9 @@
 		WHERE repid = #{repid}
 			AND userno = #{userno}
 	</update>
+	<delete id="deleteOrg" parameterType="OrgVO">
+		DELETE FROM
+			info_organization
+		WHERE orgid=#{orgid} references
+	</delete>
 </mapper>

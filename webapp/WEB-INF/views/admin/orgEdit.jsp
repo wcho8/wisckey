@@ -18,10 +18,10 @@ $(document).ready(function(){
 			$.post(url, {orgid:orgid}, function(data){
 			}).success(function(){
 				alert("삭제되었습니다.");
-				$(location).reload(true);
+				location.reload(true);
 			}).error(function(){
 				alert("삭제에 실패하였습니다. 조금 후에 다시 시도해주세요.");
-				$(location).reload(true);
+				location.reload(true);
 			});
 		}
 	});

@@ -30,8 +30,8 @@ $(document).ready(function(){
 	$.post("./findTopBoardList", {}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
-			if(byteCheck(title)> 19){
-				title = cutInUTF8(title, 19);
+			if(byteCheck(title)> 21){
+				title = cutInUTF8(title, 21);
 				title += "...";
 			}
 			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
@@ -270,7 +270,7 @@ td{
 							<div class="body_inside">
 								New 게시물 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
-								<a href="javascript:changeBest(1)" style="color:white;">취업</a> | <a href="javascript:changeBest(2)" style="color:white;">학업</a> 
+								<a href="javascript:changeBest(1)" style="color:white;">학업</a> | <a href="javascript:changeBest(2)" style="color:white;">취업</a> 
 								</span>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">

@@ -357,4 +357,10 @@ public class OrgController extends CommonController{
 		return orgService.undoBoardRepDislikes(paramVO);
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public int deleteOrg(OrgVO paramVO){
+		return orgService.deleteOrg(paramVO);
+	}
+	
 }
