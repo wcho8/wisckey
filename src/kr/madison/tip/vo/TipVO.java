@@ -26,6 +26,9 @@ public class TipVO extends CommonVO{
 	public int repLikes;
 	public int repDislikes;
 	public String responseType;
+	public int replierno;
+	
+	
 	
 	//file upload
 	public String type;
@@ -33,6 +36,12 @@ public class TipVO extends CommonVO{
 	
 	public Integer lid = 0;
 	public Integer replid = 0;
+	
+	//comment
+	public int prepid = 0;
+	public int comCount;
+	
+	
 	
 	public int getBrdid() {
 		return brdid;
@@ -167,4 +176,23 @@ public class TipVO extends CommonVO{
 	public void setReplid(Integer replid) {
 		this.replid = replid;
 	}
+	public int getReplierno() {
+		return replierno;
+	}
+	public void setReplierno(int replierno) {
+		this.replierno = replierno;
+	}
+	public int getPrepid() {
+		return prepid;
+	}
+	public void setPrepid(int prepid) {
+		this.prepid = prepid;
+	}
+	public int getComCount() {
+		return comCount;
+	}
+	public void setComCount(int comCount) {
+		this.comCount = comCount;
+	}
+	
 }

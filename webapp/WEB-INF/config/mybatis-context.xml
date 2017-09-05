@@ -14,7 +14,7 @@
             </list>
         </property>
     </bean>
-    <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.mysql.driverClassName}" />
 		<property name="url" value="${jdbc.mysql.url}" />
 		<property name="username" value="${jdbc.mysql.username}" />
