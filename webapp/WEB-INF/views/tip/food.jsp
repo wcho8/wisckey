@@ -22,6 +22,7 @@ $(document).ready(function(){
 		}else if(srchType == 2){
 			$("keyword").attr("placeholder", "닉네임");
 		}
+		//TODO
 	}	
 	//글쓰기 버튼 id
 	$("#addFoodBoard").click(function(){	

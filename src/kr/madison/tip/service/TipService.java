@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.madison.board.vo.BoardVO;
 //import kr.madison.board.vo.BoardVO;
 import kr.madison.common.service.CommonService;
 import kr.madison.common.vo.SessionVO;
@@ -152,6 +153,63 @@ public class TipService extends CommonService{
 	}
 	
 	
+	// 9/4
+	
+	public void delFoodBoardData(TipVO paramVO){
+		tipDAO.delFoodBoardReplyLikes(paramVO);
+		tipDAO.delFoodBoardReplyData(paramVO);
+		tipDAO.delFoodBoardLikes(paramVO);
+		tipDAO.delFoodBoardData(paramVO);
+	}
+	
+	public void delFoodBoardReplyData(TipVO paramVO){
+		tipDAO.delFoodBoardReplyLikes(paramVO);
+		tipDAO.delFoodBoardReplyData(paramVO);
+	}
+	
+	public int modFoodBoardReply(TipVO paramVO){
+		return tipDAO.modFoodBoardReply(paramVO);
+	}
+	
+	public void delFoodBoardReply(TipVO paramVO){
+		tipDAO.delFoodBoardReply(paramVO);
+	}
+	
+	public TipVO findFoodBoardReplyData(TipVO paramVO){
+		return tipDAO.findFoodBoardReplyData(paramVO);
+	}
+	
+	public List<BoardVO> findFoodCommentList(TipVO paramVO){
+		return tipDAO.findFoodCommentList(paramVO);
+	}
+	
+	public int getFoodCommentCount(TipVO paramVO){
+		return tipDAO.getFoodCommentCount(paramVO);
+	}
+	
+	public int undoFoodBoardLikes(TipVO paramVO){
+		return tipDAO.undoFoodBoardLikes(paramVO);
+	}
+	public int undoFoodBoardDislikes(TipVO paramVO){
+		return tipDAO.undoFoodBoardDislikes(paramVO);
+	}
+	public int undoFoodBoardRepLikes(TipVO paramVO){
+		return tipDAO.undoFoodBoardRepLikes(paramVO);
+	}
+	public int undoFoodBoardRepDislikes(TipVO paramVO){
+		return tipDAO.undoFoodBoardRepDislikes(paramVO);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// Market
 	
 	
 	public int findMarketTotalCnt(TipVO paramVO){
@@ -256,5 +314,54 @@ public class TipService extends CommonService{
 		tipDAO.delBoardLikes(paramVO);
 		tipDAO.delBoardData(paramVO);
 	}
+	
+	// 9/4
+	public void delMarketBoardData(TipVO paramVO){
+		tipDAO.delMarketBoardReplyLikes(paramVO);
+		tipDAO.delMarketBoardReplyData(paramVO);
+		tipDAO.delMarketBoardLikes(paramVO);
+		tipDAO.delMarketBoardData(paramVO);
+	}
+	
+	public void delMarketBoardReplyData(TipVO paramVO){
+		tipDAO.delMarketBoardReplyLikes(paramVO);
+		tipDAO.delMarketBoardReplyData(paramVO);
+	}
+	
+	public int modMarketBoardReply(TipVO paramVO){
+		return tipDAO.modMarketBoardReply(paramVO);
+	}
+	
+	public void delMarketBoardReply(TipVO paramVO){
+		tipDAO.delMarketBoardReply(paramVO);
+	}
+	
+	public TipVO findMarketBoardReplyData(TipVO paramVO){
+		return tipDAO.findMarketBoardReplyData(paramVO);
+	}
+	
+	public List<TipVO> findMarketCommentList(TipVO paramVO){
+		return tipDAO.findMarketCommentList(paramVO);
+	}
+	
+	public int getMarketCommentCount(TipVO paramVO){
+		return tipDAO.getMarketCommentCount(paramVO);
+	}
+	
+	public int undoMarketBoardLikes(TipVO paramVO){
+		return tipDAO.undoMarketBoardLikes(paramVO);
+	}
+	public int undoMarketBoardDislikes(TipVO paramVO){
+		return tipDAO.undoMarketBoardDislikes(paramVO);
+	}
+	public int undoMarketBoardRepLikes(TipVO paramVO){
+		return tipDAO.undoMarketBoardRepLikes(paramVO);
+	}
+	public int undoMarketBoardRepDislikes(TipVO paramVO){
+		return tipDAO.undoMarketBoardRepDislikes(paramVO);
+	}
+	
+	
+	
 
 }

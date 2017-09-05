@@ -191,6 +191,70 @@ public class TipController {
 		return result;
 	}
 	
+	@RequestMapping
+	@ResponseBody
+	public void delFoodBoardData(TipVO paramVO){
+		tipService.delFoodBoardData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int modFoodBoardReply(TipVO paramVO){
+		return tipService.modFoodBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delFoodBoardReply(TipVO paramVO){
+		tipService.delFoodBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public TipVO findFoodBoardReplyData(TipVO paramVO){
+		return tipService.findFoodBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<BoardVO> findFoodCommentList(TipVO paramVO){
+		return tipService.findFoodCommentList(paramVO);
+	}
+	
+//	@RequestMapping
+//	@ResponseBody
+//	public int getCommentCount(TipVO paramVO){
+//		return tipService.getCommentCount(paramVO);
+//	}
+//	
+	@RequestMapping
+	@ResponseBody
+	public int undoFoodBoardLikes(TipVO paramVO){
+		return tipService.undoFoodBoardLikes(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoFoodBoardDislikes(TipVO paramVO){
+		return tipService.undoFoodBoardDislikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoFoodBoardRepLikes(TipVO paramVO){
+		return tipService.undoFoodBoardRepLikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoFoodBoardRepDislikes(TipVO paramVO){
+		return tipService.undoFoodBoardRepDislikes(paramVO);
+	}
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("/market")	// mapping url
 	public ModelAndView tipMarketMain(@ModelAttribute("paramVO") TipVO paramVO, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
@@ -283,18 +347,32 @@ public class TipController {
 	
 	@RequestMapping
 	@ResponseBody
-	public int modMarketLikes(TipVO paramVO){
+	public String modMarketLikes(TipVO paramVO){
 		int result = tipService.modMarketLikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modMarketDislikes(TipVO paramVO){
+	public String modMarketDislikes(TipVO paramVO){
 		int result = tipService.modMarketDislikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
@@ -315,23 +393,94 @@ public class TipController {
 
 	@RequestMapping
 	@ResponseBody
-	public int modMarketRepLikes(TipVO paramVO){
+	public String modMarketRepLikes(TipVO paramVO){
 		int result = tipService.modMarketRepLikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public int modMarketRepDislikes(TipVO paramVO){
+	public String modMarketRepDislikes(TipVO paramVO){
 		int result = tipService.modMarketRepDislikes(paramVO);
 		
-		return result;
+		String msg = "";
+		if(result == 0){
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		return msg;
+	}
+	
+	
+	// 9/4
+	@RequestMapping
+	@ResponseBody
+	public void delMarketBoardData(TipVO paramVO){
+		tipService.delMarketBoardData(paramVO);
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public void delBoardData(TipVO paramVO){
-		tipService.delBoardData(paramVO);
+	public int modMarketBoardReply(TipVO paramVO){
+		return tipService.modMarketBoardReply(paramVO);
 	}
+	
+	@RequestMapping
+	@ResponseBody
+	public void delMarketBoardReply(TipVO paramVO){
+		tipService.delMarketBoardReply(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public TipVO findMarketBoardReplyData(TipVO paramVO){
+		return tipService.findMarketBoardReplyData(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public List<TipVO> findMarketCommentList(TipVO paramVO){
+		return tipService.findMarketCommentList(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int getMarketCommentCount(TipVO paramVO){
+		return tipService.getMarketCommentCount(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoMarketBoardLikes(TipVO paramVO){
+		return tipService.undoMarketBoardLikes(paramVO);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public int undoMarketBoardDislikes(TipVO paramVO){
+		return tipService.undoMarketBoardDislikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoMarketBoardRepLikes(TipVO paramVO){
+		return tipService.undoMarketBoardRepLikes(paramVO);
+	}
+	@RequestMapping
+	@ResponseBody
+	public int undoMarketBoardRepDislikes(TipVO paramVO){
+		return tipService.undoMarketBoardRepDislikes(paramVO);
+	}
+	
+		
+	
 }
