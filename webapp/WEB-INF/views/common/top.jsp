@@ -72,6 +72,16 @@ function login(){
 
 </script>
 
+<style type="text/css">
+.dropdown-menu>li>.link:hover{
+	background-color: #ccc;
+	font-weight: bold;
+	color: black;
+	
+}
+</style>
+
+
 <div class="row top_nav">
 		<div class="nav logInOut" id="logoutDiv" style="float:right; vertical-align: middle;padding-top:12px; display:hidden; padding-right: 110px;" >
 			<span id="userName" style="font-weight: bold; font-size:105%;"></span>님
@@ -90,10 +100,10 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white;padding-left:60px;"><span style="font-weight: bold;">ABOUT</span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/About/introWisckey">위스키 소개</a></li>
-								<li><a href="/About/introUniv">학교소개</a></li>
-								<li><a href="/About/">공지사항</a></li>
-								<li><a href="/About/otherSites">주요사이트 소개</a></li>
+								<li><a class="link" href="/About/introWisckey">위스키 소개</a></li>
+								<li><a class="link" href="/About/introUniv">학교소개</a></li>
+								<li><a class="link" href="/About/">공지사항</a></li>
+								<li><a class="link" href="/About/otherSites">주요사이트 소개</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -102,8 +112,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">취업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Career/?ptypeid=8">취업공고</a></li>
-								<li><a href="/Career/employBoard?ptypeid=3">취업 게시판</a></li>
+								<li><a class="link" href="/Career/?ptypeid=8">취업공고</a></li>
+								<li><a class="link" href="/Career/employBoard?ptypeid=3">취업 게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -112,7 +122,7 @@ function login(){
 							aria-expanded="false" style="color:white; margin-left:20px;">학업 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<!-- <li><a href="/School/pastWork">족보</a></li> -->
-								<li><a href="/School/education?ptypeid=5">학업게시판</a></li>
+								<li><a class="link" href="/School/education?ptypeid=5">학업게시판</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -120,8 +130,8 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">깨알팁<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Tip/food">맛집</a></li>
-								<li><a href="/Tip/market">벼룩시장</a></li>
+								<li><a class="link" href="/Tip/food">맛집</a></li>
+								<li><a class="link" href="/Tip/market">벼룩시장</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -129,11 +139,11 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">동아리 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Org/">소개</a></li>
-								<li><a href="/Org/orgBoard?orgtypeid=1">학술</a></li>
-								<li><a href="/Org/orgBoard?orgtypeid=2">취미</a></li>
-								<li><a href="/Org/orgBoard?orgtypeid=3">스포츠</a></li>
-								<li><a href="/Org/orgBoard?orgtypeid=4">종교</a></li>
+								<li><a class="link" href="/Org/">소개</a></li>
+								<li><a class="link" href="/Org/orgBoard?orgtypeid=1">학술</a></li>
+								<li><a class="link" href="/Org/orgBoard?orgtypeid=2">취미</a></li>
+								<li><a class="link" href="/Org/orgBoard?orgtypeid=3">스포츠</a></li>
+								<li><a class="link" href="/Org/orgBoard?orgtypeid=4">종교</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav">
@@ -141,7 +151,7 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">자유 게시판<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/Board/?ptypeid=1">게시판</a></li>
+								<li><a class="link" href="/Board/?ptypeid=1">게시판</a></li>
 								<!-- <li><a href="/Board/?ptypeid=2">신입생 게시판</a></li> -->
 							</ul></li>
 					</ul>
@@ -150,9 +160,9 @@ function login(){
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" style="color:white; margin-left:20px;">관리자<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class='superadmin'><a href="/Admin/ManageMenu">게시판 관리</a></li>
-								<li class='superadmin'><a href="/Admin/ManageOrg">동아리 관리</a></li>
-								<li class='orgadmin'><a href="/Admin/MyOrg">내 동아리</a>
+								<li class='superadmin'><a class="link" href="/Admin/ManageMenu">게시판 관리</a></li>
+								<li class='superadmin'><a class="link" href="/Admin/ManageOrg">동아리 관리</a></li>
+								<li class='orgadmin'><a class="link" href="/Admin/MyOrg">내 동아리</a>
 							</ul>
 						</li>
 					</ul>

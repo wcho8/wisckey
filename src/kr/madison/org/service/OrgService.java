@@ -222,4 +222,8 @@ public class OrgService extends CommonService{
 	public int undoBoardRepDislikes(OrgVO paramVO){
 		return orgDAO.undoBoardRepDislikes(paramVO);
 	}
+
+	public int deleteOrg(OrgVO paramVO) {
+		return orgDAO.deleteOrg(paramVO);
+	}
 }

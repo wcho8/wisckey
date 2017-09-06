@@ -164,4 +164,7 @@ public class OrgDAO extends CommonDAO{
 	public int undoBoardRepDislikes(OrgVO paramVO){
 		return getSqlSession().update("Org.undoBoardRepDislikes", paramVO);
 	}
+	public int deleteOrg(OrgVO paramVO) {
+		return getSqlSession().delete("Org.deleteOrg", paramVO);
+	}
 }
