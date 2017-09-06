@@ -37,6 +37,18 @@ $(document).ready(function(){
 		$(location).attr("href", "/Org/orgBoard?"+params);
 	});
 	
+	$("#boardDelete").click(function(){
+		var url = "/Org/delBoardData?";
+		var params = $.param($.extend({},defaultParams, {brdid:"${paramVO.brdid}"}));
+		if(confirm("정말로 삭제하시겠습니까?")){
+			$.post(url, params, function(data){
+				alert("삭제되었습니다.");
+				$(location).attr("href", "/Org/orgBoard?" + $.param(defaultParams));
+			});	
+		}
+	});
+	
+	
 	$("#likes").click(function(){
 		var params = $.extend({}, defaultParams, {userno:"${session.userno}", brdid:"${paramVO.brdid}"});
 		$.post("/Org/modBoardLikes", params, function(data){
@@ -367,7 +379,7 @@ display:none;
 					</div>
 					<div style="clear:both;"></div>
 					<div id="reply_box" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
-						댓글쓰기 <label><input type="checkbox" style="margin-left:300px;">익명</label><br/>
+						댓글쓰기 <br/>
 						<textarea id="reply" style="width:600px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
 						<button id="addReply" style="height:50px;width:50px;">등록</button>
 					</div>

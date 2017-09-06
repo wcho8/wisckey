@@ -345,12 +345,12 @@ td{
 							<div class="hr_dash" style="width: 255px; margin-left:5px;"></div>
 							<div style="float:left;" id="login_function">
 								<div style="float:left; margin-left:5px;display: inline-block; width: 60px;"><a href="/Member/">Sign Up</a></div>
-							    <div style="float:left; display: inline-block; width:120px; margin-left: 85px;"><a href="/Member/findID&PW">Forgot Password?</a></div> 
+							    <div style="float:left; display: inline-block; width:120px; margin-left: 85px;"><a href="/Member/findID&PW">Forgot ID/Passwd</a></div> 
 							</div>
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="/images/kusa_kickoff.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
+							<img src="/images/advertise_wikey.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
 							<img src="/images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>

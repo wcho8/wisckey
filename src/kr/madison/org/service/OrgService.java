@@ -146,7 +146,6 @@ public class OrgService extends CommonService{
 	
 	public void delBoardData(OrgVO paramVO){
 		orgDAO.delBoardData(paramVO);
-		orgDAO.delBoardReplyData(paramVO);
 	}
 	
 	public int delBoardReplyData(OrgVO paramVO){

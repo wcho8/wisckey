@@ -466,4 +466,8 @@
 		WHERE repid = #{repid}
 			AND userno = #{userno}
 	</update>
+	<delete id="delOrgBoardData" parameterType="OrgVO">
+		DELETE FROM brd_orgnization
+			WHERE brdid= #{brdid}
+	</delete>
 </mapper>

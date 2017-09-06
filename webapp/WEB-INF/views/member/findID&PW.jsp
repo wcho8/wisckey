@@ -57,10 +57,15 @@ $(document).ready(function(){
 		
 		if(pwCheck(userid, emailPW, kornamePW)){
 			$.post("/Member/forgotPassword", params, function(data){
-				alert(data);
+				if(data == "success"){
+					alert("메일이 성공적으로 보내졌습니다.");
+					$(location).attr("href", "/NeedLogin");
+				}else if(data == "Fail"){
+					alert("찾지 못하였습니다.");
+					location.reload(true);
+				}
 			});
 		}
-		
 	});
 });
 

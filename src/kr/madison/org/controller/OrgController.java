@@ -252,7 +252,6 @@ public class OrgController extends CommonController{
 	@ResponseBody
 	public void delBoardData(OrgVO paramVO){
 		orgService.delBoardData(paramVO);
-		orgService.delBoardReplyData(paramVO);
 	}
 	
 	@RequestMapping

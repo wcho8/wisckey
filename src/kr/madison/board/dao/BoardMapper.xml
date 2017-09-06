@@ -234,7 +234,7 @@
 	</select>
 	<delete id="delBoardData" parameterType="BoardVO">
 		DELETE FROM brd_freeboard
-		WHERE brdid = #{brdid}v
+		WHERE brdid = #{brdid}
 	</delete>
 	<delete id="delBoardReplyData" parameterType="BoardVO">
 		DELETE FROM brd_freeboard_reply
