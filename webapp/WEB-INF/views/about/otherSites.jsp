@@ -129,7 +129,7 @@ function viewNotice(nid){
 			<div class="center_menu" style="float: left; margin-left: 50px; width: 700px; ">
 				<div style="width: 100%; margin-top:10px; float:left; border-bottom: 5px solid #910019;">
 					<b style="font-size: 30px; color: #910019; width: 200px;">주요사이트</b>
-					<img src="../images/LOGO.png" style="width:100px; height: 30px; margin-left: 445px;">
+					<img src="../images/LOGO1.png" style="width:100px; height: 30px; margin-left: 445px;">
 				</div>
 				<div style="clear:both;"></div>
 				<div>
