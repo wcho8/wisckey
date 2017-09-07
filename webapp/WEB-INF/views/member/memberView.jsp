@@ -23,7 +23,7 @@ $(document).ready(function(){
 		if(data.birthdate==null||data.birthdate==''){
 			$("#birthdate").text('');
 		}else{
-			$('#birthdate').text(birthdate.substring(0,10));
+			$('#birthdate').text(data.birthdate.substring(0,10));
 		}
 		if(data.telnum == null || data.telnum == ''){
 			$("#telnum").text('없음');
