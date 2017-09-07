@@ -8,8 +8,9 @@
 		resultType="int">
 		SELECT
 			COUNT(*)
-		FROM brd_employment
-		WHERE empid=1
+		FROM brd_employment a
+		LEFT JOIN cod_employment b ON a.empid = b.empid
+		WHERE b.ptypeid = #{ptypeid}
 	</select>
 	<select id="findEmployerList" parameterType="CareerVO"
 		resultType="CareerVO">
@@ -28,8 +29,9 @@
          	(SELECT COUNT(*) FROM brd_employment_reply c WHERE c.brdid = b.brdid) as repcount,
          	-1*DATEDIFF(CURRENT_DATE, b.deadline) as dDate 
       		FROM brd_employment b
-      		LEFT JOIN info_userinfo a on b.userno = a.userno   
-      		WHERE empid=1
+      		LEFT JOIN info_userinfo a on b.userno = a.userno
+      		LEFT JOIN cod_employment c ON b.empid = c.empid   
+      		WHERE c.ptypeid = #{ptypeid}
       		<if test = "keyword !=null and keyword != ''">
 				<if test = "srchType ==1">
 					AND b.title LIKE CONCAT('%',#{keyword},'%')
@@ -60,9 +62,11 @@
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			b.likes
+			b.likes,
+			c.ptypeid
 		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
+		LEFT JOIN cod_employment c ON b.empid = c.empid
 		WHERE b.brdid = #{brdid}
 	</select>
 	<insert id="addEmployerData" parameterType="CareerVO"
@@ -181,7 +185,8 @@
 			a.nickname as writer,
 			b.userno,
 			b.count,
-			(SELECT COUNT(*) FROM brd_employment_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes
+			(SELECT COUNT(*) FROM brd_employment_likes c WHERE b.brdid = c.brdid AND c.likes = 1) as likes,
+			d.ptypeid
 		FROM brd_employment b
 		LEFT JOIN info_userinfo a on b.userno = a.userno
 		LEFT JOIN cod_employment d on b.empid = d.empid

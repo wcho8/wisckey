@@ -397,7 +397,7 @@ display:none;
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">취업</div>
 					<div style="clear:both;"></div>
 					<ul id="title_list" style="list-style: none; padding-top:5px; padding-left: 10px; text-decoration: none;">
-						<li><a href="/Career/">취업공고</a></li>
+						<li><a href="/Career/?ptypeid=8">취업공고</a></li>
 						<li><a id="current"href="/Career/employBoard?ptypeid=3">취업게시판</a></li>
 					</ul>
 				</div>
@@ -437,8 +437,8 @@ display:none;
 
 					<div style="float: left; width:100%;">
 						<button class="btn delete" id="employBoardDelete" style="float: right; display:none;"><span style="font-size:80%;">삭제</span></button>
-						<button class="btn update" id="employBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
 						<button class="btn confirm" id="employBoardList" style="float: right;"><span style="font-size:80%;">목록</span></button>			
+						<button class="btn update" id="employBoardUpdate" style="float:right; display:none;"><span style="font-size:80%;">수정</span></button>	
 					</div>
 					
 					<div style="clear:both;"></div>

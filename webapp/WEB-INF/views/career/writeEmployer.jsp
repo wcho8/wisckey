@@ -70,7 +70,7 @@ $(document).ready(function(){
 		
 		var deadline = $("#deadline").val();
 		
-		var params = $.extend({}, $("#emplyContent").serialization(), {empid:1, content:content, deadline:deadline, userno:"${session.userno}"});
+		var params = $.extend({}, $("#emplyContent").serialization(), {empid:5, content:content, deadline:deadline, userno:"${session.userno}"});
 		
 		if(params.title == null || params.title == ""){
 			alert("제목을 입력하여 주십시오.");

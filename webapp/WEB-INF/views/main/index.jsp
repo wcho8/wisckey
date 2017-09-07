@@ -88,7 +88,7 @@ $(document).ready(function(){
 				title += " ...";
 			}
 			
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/employBoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
 					+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" +"<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#employer_list").append(li);
 
@@ -270,13 +270,13 @@ td{
 							<div class="body_inside">
 								New 게시물 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
-								<a href="javascript:changeBest(1)" style="color:white;">학업</a> | <a href="javascript:changeBest(2)" style="color:white;">취업</a> 
+								<a href="javascript:changeBest(2)" style="color:white;">학업</a> | <a href="javascript:changeBest(1)" style="color:white;">취업</a> 
 								</span>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="employer_list" style="padding-left:0px;">
+								<ul id="employer_list" style="padding-left:0px; display: none;">
 								</ul>								
-								<ul id="education_list" style="padding-left:0px; display: none;">
+								<ul id="education_list" style="padding-left:0px;">
 								</ul>
 							</div>
 						</div>

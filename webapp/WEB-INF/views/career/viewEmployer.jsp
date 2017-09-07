@@ -10,7 +10,6 @@ $(document).ready(function(){
 		mypage: "${paramVO.mypage}",
 		ptypeid: "${paramVO.ptypeid}"
 	};
-	
 	var userno = "${session.userno}";
 	var writerno = "${vo.userno}";
 	
