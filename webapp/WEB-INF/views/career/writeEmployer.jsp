@@ -44,7 +44,7 @@ $(document).ready(function(){
 	$("#cancel").click(function(){
 		var url = "/Career/?";
 		var params = $.param(defaultParams);
-		$(location).attr("href", url+params);
+		$(location).attr("href", url+params); 
 	});
 	
 	//데드라인

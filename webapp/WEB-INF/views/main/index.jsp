@@ -83,8 +83,8 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(byteCheck(title)> 74){
-				title = cutInUTF8(title, 74);
+			if(byteCheck(title)> 64){
+				title = cutInUTF8(title, 64);
 				title += " ...";
 			}
 			
@@ -98,12 +98,12 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(byteCheck(title)> 74){
-				title = cutInUTF8(title, 74);
+			if(byteCheck(title)> 64){
+				title = cutInUTF8(title, 64);
 				title += " ...";
 			}
 						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/viewEmployer?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/School/educationView?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
 			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
 		})
@@ -113,8 +113,8 @@ $(document).ready(function(){
 		$.each(data, function(index,item){
 			var title = item.title;
 			
-			if(byteCheck(title)> 74){
-				title = cutInUTF8(title, 74);
+			if(byteCheck(title)> 64){
+				title = cutInUTF8(title, 64);
 				title += " ...";
 			}
 						
@@ -225,7 +225,7 @@ td{
 								<img src="../images/banner2.png" />
 							</div>
 							<div class="item">
-								<img src="../images/banner_kusa_kickoff.png">
+								<img src="../images/banner_kusakickoff.png">
 							</div>
 							<!-- <div class="item">
 								<img src="../images/sample_carousel_3.jpg" />
@@ -350,8 +350,8 @@ td{
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="/images/advertise_wikey.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
-							<img src="/images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
+							<img src="../images/kusakickoff.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
+							<img src="../images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>
 				</div>
