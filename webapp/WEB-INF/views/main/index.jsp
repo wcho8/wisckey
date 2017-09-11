@@ -350,7 +350,7 @@ td{
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="../images/kusakickoff.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
+							<img src="../images/ads_1.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
 							<img src="../images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>
