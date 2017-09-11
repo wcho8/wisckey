@@ -36,8 +36,8 @@ function reloadOrgs(){
 				}
 			}
 			var div = "<div id='" + item.orgid + "' style='height:140px;margin:0px 10px;margin-top:10px;border-bottom:1px dashed #cacaca'>";
-				div += "	<div style='float:left; width:20%;'>                                                           ";
-				div += "		<img src='data:image/jpg;base64," + item.filecontent + "' style='width:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
+				div += "	<div style='float:left; width:20%;height:100%;'>                                                           ";
+				div += "		<img src='data:image/jpg;base64," + item.filecontent + "' style='max-width:100%;max-height:100%;padding:10px;'/>         "; //TODO: Image 테이블에서 이미지 가져오기
 				div += "	</div>                                                                                         ";
 				div += "	<div style='float:left; width:70%;margin-top:10px;padding:10px 0px;font-size:12px;'>           ";
 				div += "		<div id='info' style='float:left; width:30%; padding-left:10px;'>                          ";

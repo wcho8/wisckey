@@ -131,7 +131,6 @@ $(document).ready(function(){
 			alert("로그인하여 주십시오.");
 			return;
 		}else{
-			//TODO 댓글익명
 			$.post(url, params, function(data){
 				alert("댓글이 등록되었습니다.");
 				location.reload(true);
@@ -236,6 +235,11 @@ function modReply(repid){
 	var params = $.extend({}, defaultParams, {repid:repid});
 	$.post(url, params, function(data){
 		$("#repText"+repid).val(data.repContent);
+		if(data.chk_rep_anonymous == '1'){
+			$("#rep_anonymous"+repid).prop('checked', true);
+		}else{
+			$("#rep_anonymous"+repid).prop('checked', false);
+		}
 	});
 }
 
@@ -243,8 +247,20 @@ function modReply(repid){
 function confirmUpdate(repid){
 	var content = $("#repText"+repid).val();
 	var url ="/Board/modBoardReply";
-	var params = $.extend({}, defaultParams, {repid: repid, repContent:content});
+	var anon = $("#rep_anonymous"+repid);
+	if(anon.is(':checked')){
+		chk_rep_anonymous = '1';
+	}else{
+		chk_rep_anonymous = '0';
+	}
+	var params = $.extend({}, defaultParams, {repid: repid, repContent:content,chk_rep_anonymous:chk_rep_anonymous});
+	if(params.repContent == null || params.repContent == ''){
+		alert("댓글은 공백일 수 없습니다.");
+		$("#repText"+repid).focus();
+		return;
+	}
 	$.post(url, params, function(data){	
+		alert("수정하였습니다.");
 		location.reload(true);
 	});
 }
@@ -323,19 +339,28 @@ function modComment(repid){
 		$("#comTxt"+data.prepid).focus();
 		$("#addCom"+data.prepid).attr("onclick", "javascript:updComment(" + data.prepid + ", " + data.repid + ")");
 		$("#addCom"+data.prepid).text("수정");
+		if(data.chk_rep_anonymous == '1'){
+			$("#com_anonymous"+data.prepid).prop('checked', true);
+		}else{
+			$("#com_anonymous"+data.prepid).prop('checked', false);
+		}
 	});
 }
 
 //답글 수정
 function updComment(prepid, repid){
 	var chk_rep_anonymous = "0";
-	if ($("#com_anonymous").is(':checked')) {
+	if ($("#com_anonymous"+prepid).is(':checked')) {
 		chk_rep_anonymous = "1";
 	}
-	alert(chk_rep_anonymous+"updateComment");
 	var content = $("#comTxt"+prepid).val();
 	var url ="/Board/modBoardReply";
 	var params = $.extend({}, defaultParams, {repid: repid, repContent:content, chk_rep_anonymous:chk_rep_anonymous});
+	if(params.repContent == null || params.repContent == ''){
+		alert("댓글은 공백일 수 없습니다.");
+		$("#comTxt"+prepid).focus();
+		return;
+	}
 	$.post(url, params, function(data){	
 		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
 		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+prepid);
@@ -351,6 +376,7 @@ function cancelComment(repid){
 	$("#closeCom"+repid).hide();
 	$("#repList"+repid).empty();
 	$("#comTxt"+repid).val('');
+	$("#addCom"+repid).text("등록");
 }
 
 //답글 달기
@@ -362,14 +388,17 @@ function addComment(repid){
 	if ($("#com_anonymous"+repid).is(':checked')) {
 		chk_rep_anonymous = "1";
 	}
-	alert(chk_rep_anonymous +"addComment");
-	
 	var params = $.extend({}, defaultParams, 
 				{prepid:repid, 
 				 brdid:"${paramVO.brdid}",
 				 userno:"${session.userno}",
 				 repContent:$("#comTxt"+repid).val(),
 				 chk_rep_anonymous:chk_rep_anonymous});
+	if(params.repContent == null || params.repContent == ''){
+		alert("댓글은 공백일 수 없습니다.");
+		$("#comTxt"+repid).focus();
+		return;
+	}
 	$.post(url, params, function(data){
 		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
 		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+repid);
