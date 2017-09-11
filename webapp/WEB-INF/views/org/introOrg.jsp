@@ -45,9 +45,9 @@ function changeIntro(oid){
 				vprname2 = item.vprname2;
 			}
 			var div = "<div id='" + item.orgid + "' style='height:140px;margin:0px 10px;margin-top:10px;border-bottom:1px dashed #cacaca'>";
-				div += "	<div style='float:left; width:20%;'>                                                           ";
+				div += "	<div style='float:left; width:20%;height:100%;'>                                                           ";
 				if(item.filecontent != null && item.filecontent != ''){
-					div += "		<img src='data:image/jpg;base64,"+ item.filecontent +"' style='width:100%;padding:10px;'/>         "; 
+					div += "		<img src='data:image/jpg;base64,"+ item.filecontent +"' style='max-height:100%;max-width:100%;padding:10px;'/>         "; 
 				}else{
 					div += "		<img src='/images/noimage.png' style='width:100%;padding:10px;'/>         ";
 				}
