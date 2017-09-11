@@ -23,7 +23,7 @@ public class AboutDAO extends CommonDAO{
 	}
 
 	public AboutVO findAboutContent(AboutVO paramVO) {
-		return getSqlSession().selectOne("About.viewNotice", paramVO);
+		return getSqlSession().selectOne("About.findAboutContent", paramVO);
 	}
 
 	public int modNoticeCount(AboutVO paramVO) {
@@ -36,12 +36,6 @@ public class AboutDAO extends CommonDAO{
 
 	public int noticeDelete(AboutVO paramVO) {
 		return getSqlSession().delete("noticeDelete", paramVO);
-	}
-
-	public List<AboutVO> listFourNotice(AboutVO paramVO) {
-		List<AboutVO> list = getSqlSession().selectList("About.listFourNotice", paramVO);
-		
-		return list;
 	}
 
 	public int modAboutData(AboutVO paramVO) {

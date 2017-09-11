@@ -110,14 +110,16 @@
 			regdate,
 			moddate,
 			userno,
-			prepid
+			prepid,
+			chk_rep_anonymous
 		)VALUES(
 			#{brdid},
 			#{repContent},
 			NOW(),
 			NOW(),
 			#{userno},
-			#{prepid}
+			#{prepid},
+			#{chk_rep_anonymous}
 		)
 		<selectKey keyProperty="repid" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -211,7 +213,8 @@
 			DATE_FORMAT(a.regdate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
-			(SELECT COUNT(*) FROM brd_freeboard_reply d WHERE a.repid = d.prepid) as comCount
+			(SELECT COUNT(*) FROM brd_freeboard_reply d WHERE a.repid = d.prepid) as comCount,
+			a.chk_rep_anonymous as chk_rep_anonymous
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b on a.userno = b.userno
 		WHERE a.brdid = #{brdid} AND a.prepid = 0
@@ -254,7 +257,8 @@
 	<update id="modBoardReply" parameterType="BoardVO">
 		UPDATE brd_freeboard_reply SET
 			content = #{repContent},
-			moddate = NOW()
+			moddate = NOW(),
+			chk_rep_anonymous = #{chk_rep_anonymous}
 		WHERE repid = #{repid}
 	</update>
 	<delete id="delBoardReply" parameterType="BoardVO">
@@ -266,7 +270,8 @@
 			repid,
 			content as repContent,
 			userno,
-			prepid
+			prepid,
+			chk_rep_anonymous
 		FROM brd_freeboard_reply
 		WHERE repid = #{repid}
 	</select>
@@ -285,7 +290,8 @@
 			a.prepid,
 			DATE_FORMAT(a.moddate, '%Y-%m-%d %H:%i:%s') as repRegdate,
 			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.likes = 1) as repLikes,
-			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes
+			(SELECT COUNT(*) FROM brd_freeboard_reply_likes c WHERE a.repid = c.repid AND c.dislikes = 1) as repDislikes,
+			a.chk_rep_anonymous as chk_rep_anonymous
 		FROM brd_freeboard_reply a
 		LEFT JOIN info_userinfo b ON a.userno = b.userno
 		WHERE a.prepid = #{prepid}

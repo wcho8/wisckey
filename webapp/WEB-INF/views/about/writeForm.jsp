@@ -2,10 +2,9 @@
 
 <jsp:include page="../common/header.jsp"></jsp:include>
 <script type="text/javascript">
+var upImgIds = [];
 $(document).ready(function() {
-	var upImgIds = [];
 	var defaultParams ={
-			nid: "${paramVO.nid}",
 			mypage: "${paramVO.mypage}"
 	}
 	$('#content').summernote({
@@ -21,15 +20,21 @@ $(document).ready(function() {
 		}
 	});
 		
-	var nid = defaultParams.nid;
+	var nid = "${paramVO.nid}";
+	var userno = "${session.userno}";
 	var bEdit = false;
-	
 	if(nid!=0 && nid!="" && nid!=null){
 		var url="/About/findAboutContent";
 		bEdit = true;
-		$.post(url, defaultParams, function(data){
-			$("#title").val(data.title);
-			$("#content").summernote('code', data.content);
+		var params = $.extend({}, defaultParams, {nid: nid});
+		$.post(url, params, function(data){
+			if(userno != data.userno || userno  == null){
+				alert("수정할 수 있는 권한이 없습니다.");
+				$(location).attr("href", "/About/?" + $.param(defaultParams));
+			}else{
+				$("#title").val(data.title);
+				$("#content").summernote('code', data.content);
+			}
 		});
 	}
 	
@@ -42,7 +47,7 @@ $(document).ready(function() {
 	$("#addData").click(function() {
 		var url = "/About/addNewNotice";
 		var content = $("#content").summernote('code');
-		var params = $.extend({}, $("#notice_info").serialization(), {content:content});
+		var params = $.extend({}, $("#notice_info").serialization(), {nid:nid,content:content, userno: "${session.userno}"});
 			
 		if(params.title == null||params.title==""){
 			alert("제목을 입력하여 주십시오.");
@@ -56,37 +61,16 @@ $(document).ready(function() {
 		}
 		if(bEdit){
 			url = "/About/modAboutData";
-			param.nid = nid;
 			$.post(url, params, function(data) {
-				$(location).attr("href", "/About/viewNotice?nid="+data);
+				$(location).attr("href", "/About/viewNotice?nid="+nid);
 			});
 		}else{
 			$.post(url, params, function(data){
-				$(location).attr("href", "/About/viewNotice?nid="+data);
+				$(location).attr("href", "/About/viewNotice?nid="+nid);
 			});
 		}
 	});
-	/*
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-			var title = item.title;
-			if(title.length>11){
-				title = title.substring(0, 11);
-				title += "...";
-				console.log(title);
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
-	});*/
+	
 });
 function viewNotice(nid){
 	var url = "/About/viewNotice?nid=" + nid;
@@ -145,32 +129,10 @@ function sendFile(file, el){
 	text-decoration: none;
 	
 }
-/*
-#l_first_title{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-}
-
-#l_second_title{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 5px;
-	box-shadow: 2px 2px #778899;
-}
-*/
 #title_list_about>li{
 	list-style-type: disc; 
 	list-style-position: inside;	
 }
-
-/*
-#title_list_notice>li{
-	list-style-type:none;
-	
-}
-*/
 #center{
 	border: 2px solid #808080;
 	border-radius: 25px;

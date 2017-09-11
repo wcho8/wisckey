@@ -6,32 +6,43 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
-
-
 $(document).ready(function(){
-	$("#userno_notice").hide();
 	var defaultParams = {
-			nickname: "${session.nickname}",
 			mypage:"${paramVO.mypage}"
 	};
 	
 	var userno = "${session.userno}";
-	var nid = "${paramVO.nid}";
-	
 
 	var writerno = "${vo.userno}";
+	
 	if(userno == writerno){
 		$("#noticeUpdate").show();
 		$("#noticeDelete").show();
 	}
-
+	
+	console.log(userno);
+	console.log(writerno);
+	
 	$("#noticeDelete").click(function(){
 		var url = "/About/deleteNotice";
-		var params = $.extend({}, defaultParams, {});
-		$.post(url, params, function(data){
-			alert("게시글이 삭제되었습니다.");
-			$(location).attr("href","/About/");
-		});
+		var params = $.extend({}, defaultParams, {nid: "${paramVO.nid}"});
+		if(confirm("정말로 삭제하시겠습니까?")){
+			$.post(url, params, function(data){
+				alert("게시글이 삭제되었습니다.");
+				$(location).attr("href", "/About/?"+$.param(defaultParams));
+			});
+		}
+	});
+
+	$("#noticeUpdate").click(function(){
+		var url = "/About/writeForm?";
+		var params = $.param($.extend({}, defaultParams, {nid: "${paramVO.nid}"}));
+		$(location).attr("href", url+params);
+	});
+	
+	$("#noticeList").click(function(){
+		var url = "/About/";
+		$(location).attr("href", url);
 	});
 
 	$("#addReply").click(function(){
@@ -52,22 +63,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
-	$("#noticeUpdate").click(function(){
-		var url = "/About/writeForm?";
-		var params = $.param(defaultParams);
-		$(location).attr("href", url+params);
-	});
-	$("#noticeList").click(function(){
-		var url = "/About/";
-		$(location).attr("href", url);
-	});
 });
-
-function viewNotice(nid){
-	var url = "/About/viewNotice?nid=" + nid;
-	$(location).attr("href", url);
-}
 
 </script>
 <style type="text/css">
@@ -89,26 +85,6 @@ function viewNotice(nid){
 	text-decoration: none;
 	
 }
-/*
-#l_first_title{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-}
-
-#l_second_title{
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 5px;
-	box-shadow: 2px 2px #778899;
-}
-#title_list_notice>li{
-	list-style-type:none;
-	
-}
-
-*/
 #title_list>li{
 	list-style-type: disc; 
 	list-style-position: inside;	
@@ -131,7 +107,6 @@ function viewNotice(nid){
 	<div class="hr_dash" style="width: 84.3%; margin-left: 100px; "></div>
 	<div class="row">
 		<div class="main_body" style="overflow: hidden;">
-			<span id="userno_notice" value="${vo.userno}">${vo.userno}</span>
 			<div id="left_menu" style="float: left; width: 130px;  padding-top: 7px; margin-left: 40px;"> 
 				<div id="l_first_title" style="font-weight: bold; border-right: 2px solid #910019;">
 					<div style="font-weight: bold; padding-left:5px; font-size: 110%; ">ABOUT <br/></div>
@@ -143,15 +118,6 @@ function viewNotice(nid){
 						<li><a href="/About/otherSites">주요사이트</a></li>
 					</ul>
 				</div>
-				<!-- 
-				<div style="clear: both;"></div>
-				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">공지사항 <br/></span>
-					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
-						<li id="notice_left" ></li>
-					</ul>
-				</div>
-				 -->
 			</div>
 
 			<div class="center_menu" style="float: left; margin-left: 25px; width: 700px;">

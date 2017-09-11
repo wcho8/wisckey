@@ -30,7 +30,7 @@
 			( SELECT COUNT(*) FROM info_notice_reply c WHERE c.nid = b.nid ) as repcount
 			
 		FROM info_notice b
-		ORDER BY regdate DESC
+		ORDER BY b.regdate DESC
 		LIMIT 5
 	</select>
 	<select id="findEmployerList" parameterType="MainVO" resultType="CareerVO">

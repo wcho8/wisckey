@@ -36,10 +36,6 @@ public class AboutController {
 	public ModelAndView introWisckey(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
 		
-		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
-		
-		
-		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/introWisckey");
 		return mav;
 	}
@@ -49,9 +45,6 @@ public class AboutController {
 	public ModelAndView introUniv(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
 		
-		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
-		
-		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/introUniv");
 		return mav;
 	}
@@ -61,9 +54,6 @@ public class AboutController {
 	public ModelAndView otherSites(@ModelAttribute("paramVO") AboutVO paramVO){
 		ModelAndView mav = new ModelAndView();
 		
-		List<AboutVO> vo = aboutService.listFourNotice(paramVO);
-		
-		mav.addObject("aboutList", vo);
 		mav.setViewName("/about/otherSites");
 		return mav;
 	}
@@ -95,6 +85,7 @@ public class AboutController {
 	@RequestMapping("/viewNotice")
 	public ModelAndView viewNotice(@ModelAttribute("paramVO") AboutVO paramVO, HttpServletRequest res){
 		ModelAndView mav = new ModelAndView();
+		
 		AboutVO vo = aboutService.findAboutContent(paramVO);
 		
 		List<AboutVO> replies = aboutService.findNoticeReply(paramVO); 
@@ -137,14 +128,6 @@ public class AboutController {
 		int result = aboutService.noticeDelete(paramVO);
 		
 		return result;
-	}
-	
-	@RequestMapping
-	@ResponseBody
-	public List<AboutVO> listFourNotice(AboutVO paramVO){
-		List<AboutVO> list = new ArrayList<AboutVO>();
-		list = aboutService.listFourNotice(paramVO);
-		return list;
 	}
 	
 	@RequestMapping 

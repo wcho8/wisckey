@@ -111,7 +111,18 @@ $(document).ready(function(){
 	$("#addReply").click(function(){
 		var url = "/Board/addBoardReply";
 		var replyContent = $("#reply").val();
-		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}"});
+		
+		// 댓글익명
+		var chk_rep_anonymous = "0";
+				
+		if ($("#rep_anonymous").is(':checked')) {
+			chk_rep_anonymous = "1";
+		}
+		
+		var params = $.extend({}, defaultParams, {repContent:replyContent, brdid:"${paramVO.brdid}", userno:"${session.userno}", chk_rep_anonymous:chk_rep_anonymous});
+		
+		//
+		
 		if(params.repContent == "" || params.repContent == null){
 			alert("댓글은 공백일 수 없습니다.");
 			return;
@@ -120,6 +131,7 @@ $(document).ready(function(){
 			alert("로그인하여 주십시오.");
 			return;
 		}else{
+			//TODO 댓글익명
 			$.post(url, params, function(data){
 				alert("댓글이 등록되었습니다.");
 				location.reload(true);
@@ -218,6 +230,7 @@ function modReply(repid){
 	$("#modBtn"+repid).show();
 	$("#cancel"+repid).show();
 	$("#comment"+repid).hide();
+	$("#label"+repid).show();
 	
 	var url = "/Board/findBoardReplyData";
 	var params = $.extend({}, defaultParams, {repid:repid});
@@ -243,6 +256,7 @@ function cancelUpd(repid){
 	$("#cancel"+repid).hide();
 	$("#repText"+repid).hide();
 	$("#comment"+repid).show();
+	$("#label"+repid).hide();
 }
 
 //답글 리스트 불러오기
@@ -260,20 +274,28 @@ function comment(repid, bOpen){
 				var n = 'N';
 				var div = "";
 					div +="	<div id='com" + item.repid + "' style='border-bottom:1px solid lightgrey;padding-bottom:15px;margin-top:15px;'>"
-					div +="		<b>" + item.replier + "</b><span style='font-size:12px;'> (" + item.repRegdate+ ")</span>"
+					
+				if(item.chk_rep_anonymous == '1'){
+					div +="<b>익명</b>" 
+				}else if(item.chk_rep_anonymous == '0'){
+					div +="	<b>"+item.replier+"</b>"
+				}else{
+					div +="	<b>"+item.replier+"</b>"
+				}
+					div +="			<span style='font-size:12px;'> (" + item.repRegdate+ ")</span>"
 				if(item.replierno == "${session.userno}"){
 					div +="		&nbsp;<a href='javascript:modComment(" + item.repid + ")' style='font-size:10px;' id=''>"
 					div +="			<img src='/images/icon/edit.png' style='width:10px;' /></a>"
 					div +="		<a href='javascript:delReply(" + item.repid + ")' style='font-size:10px;' id=''>"
 					div +="			<img src='/images/icon/cancel.png' style='width:10px;' /></a>"
-				}
+						}
 					div +="		<span style='float:right;font-size:12px;'>"
 					div +="			<a id='likes" + item.repid + "' style='font-size:12px;'><img src='/images/icon/thumbs-up.png' style='width:12px;'> " + item.repLikes + "</a> |"
 					div +="			<a id='dislikes" + item.repid + "' style='font-size:12px;'><img src='/images/icon/thumb-down.png' style='width:12px;'> " + item.repDislikes + "</a>"
 					div +="		</span>"
 					div +="		<br/>"
 					div +="		<div style='font-size:13px;margin-top:5px;word-break:break-all;width:100%;clear:both;' id='comm" + item.repid + "'>" + item.repContent + "</div>"
-					div +="	</div>"
+					div +=" </div>"
 					div +="</div>"
 				$("#repList"+repid).append(div);
 				$("#likes"+item.repid).attr('href', "javascript:likes('Y', " + item.repid + ")"); //답글의 추천수 href
@@ -306,9 +328,14 @@ function modComment(repid){
 
 //답글 수정
 function updComment(prepid, repid){
+	var chk_rep_anonymous = "0";
+	if ($("#com_anonymous").is(':checked')) {
+		chk_rep_anonymous = "1";
+	}
+	alert(chk_rep_anonymous+"updateComment");
 	var content = $("#comTxt"+prepid).val();
 	var url ="/Board/modBoardReply";
-	var params = $.extend({}, defaultParams, {repid: repid, repContent:content});
+	var params = $.extend({}, defaultParams, {repid: repid, repContent:content, chk_rep_anonymous:chk_rep_anonymous});
 	$.post(url, params, function(data){	
 		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
 		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+prepid);
@@ -329,11 +356,20 @@ function cancelComment(repid){
 //답글 달기
 function addComment(repid){
 	var url = "/Board/addBoardReply";
+	
+	// 댓글익명
+	var chk_rep_anonymous = "0";
+	if ($("#com_anonymous"+repid).is(':checked')) {
+		chk_rep_anonymous = "1";
+	}
+	alert(chk_rep_anonymous +"addComment");
+	
 	var params = $.extend({}, defaultParams, 
 				{prepid:repid, 
 				 brdid:"${paramVO.brdid}",
 				 userno:"${session.userno}",
-				 repContent:$("#comTxt"+repid).val()});
+				 repContent:$("#comTxt"+repid).val(),
+				 chk_rep_anonymous:chk_rep_anonymous});
 	$.post(url, params, function(data){
 		var urlParams = $.param({brdid:"${paramVO.brdid}", mypage:"${paramVO.mypage}"});
 		$(location).attr("href", "/Board/BoardView?"+urlParams +"#"+repid);
@@ -431,14 +467,25 @@ display:none;
 					</div>
 					<div style="clear:both;"></div>
 					<div id="reply_box" style="margin-top:20px;border: 1px solid #cacaca; border-left:0; border-right:0;padding: 10px; font-size: 12px;">
-						댓글쓰기<br/>
+						<span>댓글쓰기 </span> 
+						<div style="vertical-align: middle; width:70px; display: inline-block;">
+							<label><input type="checkbox"  id = "rep_anonymous" style="vertical-align:middle; display:inline-block;width:15px; height:15px;margin-left: 5px;" checked="checked" />
+							<span style="margin-left:3px;">익명</span></label>
+						</div>
 						<textarea id="reply" style="width:600px;height:60px;text-align:left;overflow:auto;border-radius:1em;margin-top:5px;padding-top:5px;"></textarea>
 						<button id="addReply" style="height:50px;width:50px;">등록</button>
 					</div>
 					<div style="height:1px;background-color:lightgrey;width:100%;margin-top:15px;"></div>
 					<c:forEach items="${reps}" var="rep">
 						<div style="border-bottom:1px solid lightgrey;padding-bottom:15px;margin-top:15px;" id="${rep.repid}">
-							<b>${rep.replier}</b><span style="font-size:12px;"> (${rep.repRegdate})</span>
+							  <c:if test="${ rep.chk_rep_anonymous == '1' }">
+							    <b>익명</b>
+							  </c:if>
+							  <c:if test="${ rep.chk_rep_anonymous == '0'  }">
+								<b>${rep.replier}</b>
+							  </c:if>
+							<span style="font-size:12px;"> (${rep.repRegdate})</span>
+							
 							<c:set var="replierno" value="${rep.replierno }" />
 							<c:set var="userno" value="${session.userno }" />
 							<c:if test="${replierno == userno }">
@@ -447,6 +494,11 @@ display:none;
 							<a href="javascript:delReply(${rep.repid})" style="font-size:10px;" id="delRep${rep.repid}">
 								<img src="/images/icon/cancel.png" style="width:10px;" /></a>
 							</c:if>
+							<div style="vertical-align: middle; width: 70px; display:inline-block;">
+								<label id="label${rep.repid}" style="display:none; margin-left: 5px;"><input type="checkbox"  id = "rep_anonymous${rep.repid}" style="vertical-align:middle; display:inline-block; width:15px; height:15px;" checked="checked" />
+									<span style="font-size: 80%;padding-top:3px;">익명</span>
+								</label>
+							</div>
 							<span style="float:right;font-size:12px;">
 								<a href="javascript:likes('Y', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumbs-up.png" style="width:12px;"> ${rep.repLikes}</a> | 
 								<a href="javascript:likes('N', ${rep.repid})" style="font-size:12px;"><img src="/images/icon/thumb-down.png" style="width:12px;"> ${rep.repDislikes}</a>
@@ -456,6 +508,7 @@ display:none;
 							<textarea style="width:89%; display:none; margin-top:12px;" id="repText${rep.repid}"></textarea>
 							<a href="javascript:confirmUpdate(${rep.repid});"><img src="/images/icon/success.png" id="modBtn${rep.repid}" style="display:none; width:4%; margin-top:30px;"></a>
 							<a href="javascript:cancelUpd(${rep.repid});"><img src="/images/icon/error.png" id="cancel${rep.repid}" style="display:none; width:4%; margin-top:30px;" /></a>
+							
 							<div style="width:100%;float:right;height:auto;margin-bottom:5px;" id="comment${rep.repid}">
 								<a href="javascript:comment(${rep.repid},'y')" style="float:right;font-size:13px;" id="openCom${rep.repid}">답글<b style="color:#910019">(${rep.comCount})</b></a>
 								<a href="javascript:comment(${rep.repid},'n')" style="float:right;font-size:13px;display:none;" id="closeCom${rep.repid}">답글<b>(${rep.comCount})</b></a>
@@ -464,7 +517,10 @@ display:none;
 								<div id="repList${rep.repid}" class="comment_list">
 								</div>
 								<div id="repReply${rep.repid}" class="comment_div">
-									<input type="text" style="width:550px;" id="comTxt${rep.repid}">
+									<div style="float:left; width:50px; vertical-align: middle; padding-top:5px;">
+										<label><input type="checkbox"  id = "com_anonymous${rep.repid}" style="vertical-align:middle; display:inline-block; width:15px; height:15px;" checked="checked" />익명</label>
+									</div>
+									<input type="text" style="width:450px;" id="comTxt${rep.repid}">
 									<button id="addCom${rep.repid}" onclick="javascript:addComment(${rep.repid})" class="btn btn-default" style="width:35px;padding:0px;margin-left:5px;font-size:12px;">등록</button>
 									<button onclick="javascript:cancelComment(${rep.repid})" class="btn btn-default" style="width:35px;padding:0px;font-size:12px;">접기</button>
 								</div>

@@ -52,30 +52,6 @@ $(document).ready(function(){
 			search();
 		}
 	});
-
-	
-	//왼쪽 공지사항 탭 목록
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-		
-			var title = item.title;
-			
-			if(title.length>10){
-				title = title.substring(0, 10);
-				title += "...";
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
-	});
 });
 
 function search(){
@@ -162,15 +138,6 @@ input::placeholder{
 						<li><a href="/About/otherSites">주요사이트</a></li>
 					</ul>
 				</div>
-				<!--  
-				<div style="clear: both;"></div>
-				<div id="l_second_title" style="font-size: 115%; margin-top: 20px; padding: 15px;">
-					<span style="font-weight: bold;">공지사항 <br/></span>
-					<ul id="title_list_notice" style=" padding-left: 5px; text-decoration: none; padding-top:5px;">
-						<li id="notice_left" ></li>
-					</ul>
-				</div>
-				-->
 			</div>
 			
 			<div class="center_menu"

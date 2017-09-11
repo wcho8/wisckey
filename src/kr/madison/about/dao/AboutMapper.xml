@@ -8,7 +8,19 @@
 		SELECT 
 			COUNT(*)
 		FROM info_notice 
-	
+	</select>
+	<select id="findAboutContent" parameterType="AboutVO" resultType="AboutVO">
+		SELECT
+			b.nid,
+			b.title,
+			b.content,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			a.nickname as writer,
+			b.userno,
+			b.count
+		FROM info_notice b
+		LEFT JOIN info_userinfo a on b.userno = a.userno
+		WHERE b.nid = #{nid}
 	</select>
 	<select id="listNotice" parameterType="AboutVO" resultType="AboutVO">
 		SELECT 
@@ -35,22 +47,6 @@
 		</if>
 		ORDER BY b.nid DESC
 		LIMIT #{skiprow}, #{pagerow}
-	</select>
-	<select id="listFourNotice" parameterType="AboutVO" resultType="AboutVO">
-		SELECT 
-			b.nid, 
-			b.title, 
-			CASE WHEN b.regdate > CURDATE()
-				THEN DATE_FORMAT(b.regdate, '%H:%i:%s')
-				ELSE DATE_FORMAT(b.regdate, '%Y-%m-%d')
-			END as regdate,
-			b.count,
-			b.likes,  
-			a.nickname as writer
-		FROM info_notice b
-		LEFT JOIN info_userinfo a on b.userno = a.userno
-		ORDER BY b.nid DESC
-		LIMIT 4
 	</select>
 	<select id="viewNotice" parameterType="AboutVO" resultType="AboutVO">
 		SELECT 

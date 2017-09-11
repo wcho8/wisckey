@@ -76,6 +76,7 @@ $(document).ready(function(){
 			url = "/Board/modBoardData";
 			params.brdid = brdid;
 			$.post(url, params, function(data){
+				alert(data);
 				$(location).attr("href", "/Board/BoardView?brdid="+data);
 			});
 		}else{

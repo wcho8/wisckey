@@ -20,6 +20,7 @@ public class BoardVO extends CommonVO{
 	public int repcount;
 	
 	public int chk_anonymous;
+	public int chk_rep_anonymous;
 	
 	public int repid;
 	public String repContent;
@@ -42,6 +43,14 @@ public class BoardVO extends CommonVO{
 	public int prepid = 0;
 	public int comCount;
 	
+	
+	
+	public int getChk_rep_anonymous() {
+		return chk_rep_anonymous;
+	}
+	public void setChk_rep_anonymous(int chk_rep_anonymous) {
+		this.chk_rep_anonymous = chk_rep_anonymous;
+	}
 	public int getBrdid() {
 		return brdid;
 	}

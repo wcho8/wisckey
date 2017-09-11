@@ -57,13 +57,6 @@ public class AboutService extends CommonService{
 		return result;
 	}
 
-	public List<AboutVO> listFourNotice(AboutVO paramVO) {
-		List<AboutVO> list = new ArrayList<AboutVO>();
-		
-		list = aboutDAO.listFourNotice(paramVO);
-		return list;
-	}
-
 	public int modAboutData(AboutVO paramVO) {
 		int result = aboutDAO.modAboutData(paramVO);
 		

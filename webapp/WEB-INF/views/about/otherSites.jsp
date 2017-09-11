@@ -6,26 +6,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	/*
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-			var title = item.title;
-			if(title.length>13){
-				title = title.substring(0, 12);
-				title += "...";
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
-	});*/
 	
 	
 });
@@ -94,8 +74,8 @@ function viewNotice(nid){
 	width: 60%;
 	display:inline-block;
 }
-.link{
-	margin-left: 30px;
+.linkOther{
+	margin-left: 25px;
 }
 </style>
 <!-- s:container -->
@@ -136,67 +116,67 @@ function viewNotice(nid){
 					<ul id="linkInfo" style="width:100%; padding-left: 30px;">
 						<li class="linkName">
 							<span class="name">UW-Madison</span>
-							<span class="link"><a href="http://www.wisc.edu" target="_blank">http://www.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.wisc.edu" target="_blank">http://www.wisc.edu</a></span>
 						</li>	
 						<li class="linkName">
 							<span class="name">Campus Map</span>
-							<span class="link"><a href="http://map.wisc.edu" target="_blank">http://map.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://map.wisc.edu" target="_blank">http://map.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Office of Registrar(Tuition)</span>
-							<span class="link"><a href="http://registrar.wisc.edu" target="_blank">http://registrar.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://registrar.wisc.edu" target="_blank">http://registrar.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">WISCARD</span>
-							<span class="link"><a href="http://wiscard.wisc.edu" target="_blank">http://wiscard.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://wiscard.wisc.edu" target="_blank">http://wiscard.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">ISS (International Student Services)</span>
-							<span class="link"><a href="http://iss.wisc.edu" target="_blank">http://iss.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://iss.wisc.edu" target="_blank">http://iss.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">GUTS (Greater University Tutoring Service)</span>
-							<span class="link"><a href="http://guts.studentorg.wisc.edu" target="_blank">http://guts.studentorg.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://guts.studentorg.wisc.edu" target="_blank">http://guts.studentorg.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">The Writing Center</span>
-							<span class="link"><a href="http://www.writing.wisc.edu" target="_blank">http://www.writing.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.writing.wisc.edu" target="_blank">http://www.writing.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Health Insurances (SHIP)</span>
-							<span class="link"><a href="http://www.uhs.wisc.edu" target="_blank">http://www.uhs.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.uhs.wisc.edu" target="_blank">http://www.uhs.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Financial aid/Scholarships</span>
-							<span class="link"><a href="http://www.finaid.wisc.edu" target="_blank">http://www.finaid.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.finaid.wisc.edu" target="_blank">http://www.finaid.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Libraries</span>
-							<span class="link"><a href="http://www.library.wisc.edu" target="_blank">http://www.library.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.library.wisc.edu" target="_blank">http://www.library.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Housing</span>
-							<span class="link"><a href="http://housing.wisc.edu" target="_blank">http://housing.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://housing.wisc.edu" target="_blank">http://housing.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Recreational Sports</span>
-							<span class="link"><a href="http://www.recsports.wisc.edu" target="_blank">http://www.recsports.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.recsports.wisc.edu" target="_blank">http://www.recsports.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Division of IT (DoIT: Computing, Tech store)</span>
-							<span class="link"><a href="http://www.doit.wisc.edu" target="_blank">http://www.doit.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://www.doit.wisc.edu" target="_blank">http://www.doit.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">Student Job Center</span>
-							<span class="link"><a href="http://jobcenter.wisc.edu" target="_blank">http://jobcenter.wisc.edu</a></span>
+							<span class="linkOther"><a href="http://jobcenter.wisc.edu" target="_blank">http://jobcenter.wisc.edu</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">KUSA (Korean Undergraduate Students Association)</span>
-							<span class="link"><a href="http://www.facebook.com/uwkusa" target="_blank">http://www.facebook.com/uwkusa</a></span>
+							<span class="linkOther"><a href="http://www.facebook.com/uwkusa" target="_blank">http://www.facebook.com/uwkusa</a></span>
 						</li>
 						<li class="linkName">
 							<span class="name">UWKSSA</span>
-							<span class="link"><a href="http://www.uwkssa.org/mainnew/" target="_blank">http://www.uwkssa.org/mainnew/</a></span>
+							<span class="linkOther"><a href="http://www.uwkssa.org/mainnew/" target="_blank">http://www.uwkssa.org/mainnew/</a></span>
 						</li>
 					</ul>
 				</div>

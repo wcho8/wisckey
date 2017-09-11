@@ -7,31 +7,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$.post("/About/listFourNotice", {}, function(data){
-		$.each(data, function(index, item){
-		
-			console.log(index);
-			
-			var title = item.title;
-			console.log(title);
-			
-			if(title.length>10){
-				title = title.substring(0, 10);
-				title += "...";
-				console.log(title);
-			}
-			var li="";
-			if(index<3){
-				li ="<li  style='cursor: pointer;font-weight:bold; font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-						+ ++index +'. '+ title +"</li>";
-			}else{
-				li ="<li  style='cursor: pointer;font-size:80%;' onClick='javascript:viewNotice("+ item.nid +");'>"
-				+ ++index +'. '+ title +"</li>";
-			}
-			$("#notice_left").append(li);
-			
-		})
-	});
+
 });
 
 function viewNotice(nid){
