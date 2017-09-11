@@ -284,13 +284,13 @@ td{
 							<div class="body_inside">
 								깨알팁 
 								<span style="float:right; font-size:14px;padding-top:10px;padding-right:15px;">
-								<a href="javascript:changeTips(1)" style="color:white;">맛집</a> | <a href="javascript:changeTips(2)" style="color:white;">벼룩시장</a>
+								<a href="javascript:changeTips(2)" style="color:white;">벼룩시장</a> | <a href="javascript:changeTips(1)" style="color:white;">맛집</a>
 								</span>
 							</div>
 							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="food_list" style="padding-left:0px;">
+								<ul id="food_list" style="padding-left:0px;display:none;">
 								</ul>
-								<ul id="market_list" style="padding-left:0px; display:none;">
+								<ul id="market_list" style="padding-left:0px;">
 								</ul>
 							</div>
 						</div>
