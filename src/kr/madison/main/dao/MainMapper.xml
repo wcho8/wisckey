@@ -7,7 +7,7 @@
 			a.brdid,
 			a.title,
 			b.nickname,
-			(SELECT COUNT(*) FROM brd_freeboard_likes d WHERE a.brdid = d.brdid AND likes = 1) as likes,
+			( SELECT COUNT(*) FROM brd_freeboard_reply c WHERE c.brdid = a.brdid) as repcount,
 			CASE WHEN a.regdate > CURDATE()
 				THEN DATE_FORMAT(a.regdate, '%H:%i:%s')
 				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
@@ -16,7 +16,7 @@
 		LEFT JOIN info_userinfo b ON a.userno = b.userno
 		LEFT JOIN cod_freeboard c ON a.frid = c.frid
 		WHERE c.ptypeid = 1
-		ORDER BY likes DESC, a.regdate desc
+		ORDER BY repcount DESC, a.regdate desc
 		LIMIT 15
 	</select>
 	<select id="findRecentNoticeList" parameterType="MainVO" resultType="AboutVO">

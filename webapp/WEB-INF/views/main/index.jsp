@@ -29,97 +29,63 @@ $(document).ready(function(){
 	
 	$.post("./findTopBoardList", {}, function(data){
 		$.each(data, function(index, item){
-			var title = item.title
-			if(byteCheck(title)> 21){
-				title = cutInUTF8(title, 21);
-				title += "...";
-			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
-					+ " <span style='color:#910019;'> (" + item.likes + ") </span> <span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Board/BoardView?brdid=" + item.brdid + "'>" 
+					+ "<span style='max-width:66%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.typename + "]</b> " + item.title
+					+ " </span><span style='color:#910019;'>&nbsp;(" + item.repcount+ ") </span> <span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#topBoardList").append(li);
 		});
 	});
 	
 	$.post("./findTipsList", {ptypeid:6}, function(data){
 		$.each(data, function(index, item){
-			var title = item.title
-			if(byteCheck(title)> 56){
-				title = cutInUTF8(title, 56);
-				title += "...";
-			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=6'>" + "<b>[" + item.typename + "]</b> " + title
-			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=6'>" 
+					+ "<span style='max-width:78%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.typename + "]</b> " + item.title
+					+" </span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#food_list").append(li);
 		});
 	});
 	
 	$.post("./findTipsList", {ptypeid:7}, function(data){
 		$.each(data, function(index, item){
-			var title = item.title
-			if(byteCheck(title)> 56){
-				title = cutInUTF8(title, 56);
-				title += "...";
-			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=7'>" + "<b>[" + item.typename + "]</b> " + title
-			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=7'>" 
+					+ "<span style='max-width:78%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.typename + "]</b> " + item.title
+					+" </span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#market_list").append(li);
 		});
 	});
 	
 	$.post("./findRecentNoticeList", {}, function(data){
 		$.each(data, function(index, item){
-			var title = item.title
-			if(title.length > 13){
-				title = title.substring(0, 13);
-				title += "...";
-			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/About/viewNotice?nid=" + item.nid+ "'>" + title
-					+ "<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/About/viewNotice?nid=" + item.nid+ "'>" 
+					 + "<span style='max-width:67%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'>"+ item.title 
+					+ "</span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#recentNotice").append(li);
 		});
 	});
 	
 	$.post("./findEmployerList", {}, function(data){
 		$.each(data, function(index,item){
-			var title = item.title;
-			
-			if(byteCheck(title)> 64){
-				title = cutInUTF8(title, 64);
-				title += " ...";
-			}
-			
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/employBoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+ title 
-					+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" +"<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Career/employBoardView?brdid="+ item.brdid + "'>" 
+					+ "<span style='max-width:78%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.typename + "]</b> "+ item.title 
+					+" </span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" +"<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#employer_list").append(li);
 
 		})
 	});
 	$.post("./findEducationList", {}, function(data){
 		$.each(data, function(index,item){
-			var title = item.title;
-			
-			if(byteCheck(title)> 64){
-				title = cutInUTF8(title, 64);
-				title += " ...";
-			}
-						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/School/educationView?brdid="+ item.brdid + "'>" + "<b>[" + item.typename + "]</b> "+title 
-			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/School/educationView?brdid="+ item.brdid + "'>" + 
+					" <span style='max-width:78%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.typename + "]</b> " + item.title 
+				+"</span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" + "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#education_list").append(li);
 		})
 	});
 	
 	$.post("./findOrgBoardList", {}, function(data){
 		$.each(data, function(index,item){
-			var title = item.title;
-			
-			if(byteCheck(title)> 64){
-				title = cutInUTF8(title, 64);
-				title += " ...";
-			}
-						
-			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Org/BoardView?brdid="+ item.brdid + "'>" + "<b>[" + item.orgname + "]</b> " + title 
-			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
+			var li="<li style='margin-top: 8px; margin-left: 0px; font-size: 14px;' class='no_li'><a href='/Org/BoardView?brdid="+ item.brdid + "'>" 
+					+ "<span style='max-width:78%;float:left;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;'><b>[" + item.orgname + "]</b> " + item.title 
+					+" </span><span style='color:#910019;'>&nbsp;(" + item.repcount + ")  </span>" + "<span style='float: right; font-size: 12px;'>" + item.regdate + "</span></a></li>";
 			$("#orgs_list").append(li);
 		})
 	});
@@ -273,10 +239,10 @@ td{
 								<a href="javascript:changeBest(2)" style="color:white;">학업</a> | <a href="javascript:changeBest(1)" style="color:white;">취업</a> 
 								</span>
 							</div>
-							<div style="padding:3px;width:100%;font-size:14px;">
-								<ul id="employer_list" style="padding-left:0px; display: none;">
-								</ul>								
-								<ul id="education_list" style="padding-left:0px;">
+							<div style="padding: 3px; width: 100%; font-size: 14px;">
+								<ul id="employer_list" style="padding-left: 0px; display: none;">
+								</ul>
+								<ul id="education_list" style="padding-left: 0px;">
 								</ul>
 							</div>
 						</div>

@@ -22,7 +22,7 @@ $(document).ready(function(){
 					<li> <b>부회장:</b> <span id="vprname1"></span>, <span id="vprname2"></span></li>     
 				</ul>                                          
 			</div>
-			<div id="org_comment" style='min-height:80px; padding-right:20px'>
+			<div id="org_comment" style='min-height:80px; padding-right:20px;float:left;width:70%;'>
 				<b>한줄 소개</b><br/>
 				<i><span id="comment"></span></i>
 			</div>
