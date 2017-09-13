@@ -189,22 +189,12 @@ public class MainController extends CommonController{
 		return result;
 	}
 	
-	@RequestMapping("/findFoodList")
+	@RequestMapping("/findTipsList")
 	@ResponseBody
-	public List<TipVO> findFoodList(MainVO paramVO){
+	public List<TipVO> findTipsList(MainVO paramVO){
 		List<TipVO> result = new ArrayList<TipVO>();
 		
-		result = mainService.findFoodList(paramVO);
-		
-		return result;
-	}
-	
-	@RequestMapping("/findMarketList")
-	@ResponseBody
-	public List<TipVO> findMarketList(MainVO paramVO){
-		List<TipVO> result = new ArrayList<TipVO>();
-		
-		result = mainService.findMarketList(paramVO);
+		result = mainService.findTipsList(paramVO);
 		
 		return result;
 	}

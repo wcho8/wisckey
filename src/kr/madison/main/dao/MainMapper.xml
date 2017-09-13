@@ -83,7 +83,7 @@
 		ORDER BY brdid DESC
 		LIMIT 5
 	</select>
-	<select id="findFoodList" parameterType="MainVO" resultType="TipVO">
+	<select id="findTipsList" parameterType="MainVO" resultType="TipVO">
 		SELECT
 			a.brdid,
 			a.title,
@@ -95,24 +95,7 @@
 			( SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = a.brdid ) as repcount
 		FROM brd_extratips a
 		LEFT JOIN cod_extratips c ON a.tipid = c.tipid
-		WHERE c.ptypeid = 6
-		ORDER BY brdid DESC
-		LIMIT 6
-	</select>
-	<select id="findMarketList" parameterType="MainVO" resultType="TipVO">
-		SELECT
-			a.brdid,
-			a.title,
-			CASE WHEN a.regdate > CURDATE()
-				THEN DATE_FORMAT(a.regdate, '%Y-%m-%d')
-				ELSE DATE_FORMAT(a.regdate, '%Y-%m-%d')
-			END as regdate,
-			c.name as typename,
-			( SELECT COUNT(*) FROM brd_extratips_reply c WHERE c.brdid = a.brdid ) as repcount
-			
-		FROM brd_extratips a
-		LEFT JOIN cod_extratips c ON a.tipid = c.tipid
-		WHERE c.ptypeid = 7
+		WHERE c.ptypeid = #{ptypeid}
 		ORDER BY brdid DESC
 		LIMIT 6
 	</select>

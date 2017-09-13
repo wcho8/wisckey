@@ -52,6 +52,10 @@ public class AdminService extends CommonService{
 			cod_table = "cod_employment";
 			idname = "empid";
 			break;
+		case 9:
+			cod_table = "cod_extratips";
+			idname = "tipid";
+			break;
 		}
 		
 		paramVO.setCod_table(cod_table);

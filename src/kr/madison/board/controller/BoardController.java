@@ -69,7 +69,6 @@ public class BoardController {
 	@RequestMapping("/BoardEdit")
 	public ModelAndView boardEdit(@ModelAttribute("paramVO") BoardVO paramVO, HttpServletResponse res){
 		ModelAndView mav = new ModelAndView();
-		paramVO.setTypeid(1);
 		List<BoardVO> frtypes = boardService.getFrtypes(paramVO);
 		try{
 		}catch(Exception e){

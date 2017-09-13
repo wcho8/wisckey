@@ -12,6 +12,7 @@ public class AdminVO extends CommonVO{
 	private Integer id;
 	private String cod_table;
 	private String idname; //코드 테이블의 PK id 이름
+	private String regdate;
 	
 	public Integer getBid() {
 		return bid;
@@ -54,6 +55,12 @@ public class AdminVO extends CommonVO{
 	}
 	public void setIdname(String idname) {
 		this.idname = idname;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 	
 }

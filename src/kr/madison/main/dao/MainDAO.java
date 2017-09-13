@@ -36,12 +36,8 @@ public class MainDAO extends CommonDAO{
 		return getSqlSession().selectList("Main.findOrgBoardList", paramVO);
 	}
 	
-	public List<TipVO> findFoodList(MainVO paramVO){
-		return getSqlSession().selectList("Main.findFoodList", paramVO);
-	}
-	
-	public List<TipVO> findMarketList(MainVO paramVO){
-		return getSqlSession().selectList("Main.findMarketList", paramVO);
+	public List<TipVO> findTipsList(MainVO paramVO){
+		return getSqlSession().selectList("Main.findTipsList", paramVO);
 	}
 
 	//Q&A

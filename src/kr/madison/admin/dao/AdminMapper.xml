@@ -25,7 +25,7 @@
 			${idname} as id,
 			name,
 			comment,
-			regdate,
+			DATE_FORMAT(regdate, '%Y-%m-%d') as regdate,
 			useyn
 		FROM ${cod_table}
 		WHERE ptypeid = #{ptypeid}

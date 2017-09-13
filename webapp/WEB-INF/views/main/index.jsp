@@ -40,27 +40,27 @@ $(document).ready(function(){
 		});
 	});
 	
-	$.post("./findFoodList", {}, function(data){
+	$.post("./findTipsList", {ptypeid:6}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
 			if(byteCheck(title)> 56){
 				title = cutInUTF8(title, 56);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/foodBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=6'>" + "<b>[" + item.typename + "]</b> " + title
 			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#food_list").append(li);
 		});
 	});
 	
-	$.post("./findMarketList", {}, function(data){
+	$.post("./findTipsList", {ptypeid:7}, function(data){
 		$.each(data, function(index, item){
 			var title = item.title
 			if(byteCheck(title)> 56){
 				title = cutInUTF8(title, 56);
 				title += "...";
 			}
-			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/marketBoardView?brdid=" + item.brdid + "'>" + "<b>[" + item.typename + "]</b> " + title
+			var li = "<li style='margin-top:8px;margin-left:0px;font-size:14px;' class='no_li'><a href='/Tip/tipsBoardView?brdid=" + item.brdid + "&ptypeid=7'>" + "<b>[" + item.typename + "]</b> " + title
 			+"<span style='color:#910019;'> (" + item.repcount + ")  </span>" + "<span style='float:right;font-size:12px;'>" + item.regdate + "</span>";
 			$("#market_list").append(li);
 		});
@@ -350,7 +350,7 @@ td{
 						</div>
 						
 						<div id="advertisea" class="body_div mt15">
-							<img src="../images/ads_1.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
+							<img src="../images/aeds_1.png" style="width:280px; margin-bottom:20px;height:210px; margin-left:5px;padding-left:10px; margin-top: 18px;" />
 							<img src="../images/kusa_picnic.jpg" style="width:280px; height:210px; margin-left:5px;padding-left:10px;margin-bottom:3px;" />
 						</div>
 					</div>

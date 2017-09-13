@@ -45,12 +45,8 @@ public class MainService extends CommonService{
 		return mainDAO.findOrgBoardList(paramVO);
 	}
 	
-	public List<TipVO> findFoodList(MainVO paramVO){
-		return mainDAO.findFoodList(paramVO);
-	}
-	
-	public List<TipVO> findMarketList(MainVO paramVO){
-		return mainDAO.findMarketList(paramVO);
+	public List<TipVO> findTipsList(MainVO paramVO){
+		return mainDAO.findTipsList(paramVO);
 	}
 	
 	public int addQnABoardData(MainVO paramVO) {
