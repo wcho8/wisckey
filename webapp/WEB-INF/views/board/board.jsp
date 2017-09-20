@@ -179,8 +179,7 @@ font-size:75%;
 									<td style="text-align: center; font-size: 80%;">
 										<c:choose>
 										  <c:when test="${list.chk_anonymous == '1'    }">
-										   익명
-										  
+										 	  익명
 										  </c:when>
 										  <c:when test="${list.chk_anonymous == '0'  }">
 										  &nbsp;${list.writer}
@@ -234,7 +233,6 @@ font-size:75%;
 		</div>
 		<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
 	</div>
-</div>
 
 
 <!-- e:container -->

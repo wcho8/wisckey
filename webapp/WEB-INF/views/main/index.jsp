@@ -325,7 +325,8 @@ td{
 								</div>
 								
 								<div class="detail" style=" width: 100%; height:45px; text-align:center; padding-right:25px;">
-									<span style="font-size: 90%;"><a href="/Member/memberView">내 정보</a></span>
+									<span style="font-size: 90%;"><a href="/Member/memberView">내 정보</a></span> |
+									<span style="font-size: 90%;"><a href="/Geul/">내 글 보기</a></span>
 								</div>
 								
 								<a href="/LogInOut/Logout"> <button type="button" class="btn btn-warning" style="color: white; height:45px; width:255px;

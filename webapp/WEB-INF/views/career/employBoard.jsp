@@ -106,15 +106,6 @@ function viewBoard(brdid){
 	text-decoration: none;
 	
 }
-#l_title{
-/*
-	border: 2px solid #808080;
-	border-radius: 25px;
-	padding-left: 10px;
-	box-shadow: 2px 2px #778899;
-*/
- /*border-right:2px solid #a80e34; */
-}
 #title_list>li{
 	list-style-type: disc;
 	list-style-position: inside ;

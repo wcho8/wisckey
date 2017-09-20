@@ -142,9 +142,9 @@ $(document).ready(function(){
 	var title = new String($("#title").text());
 	var length = ~-encodeURI(title).split(/%..|./).length;
 	//76바이트가 넘으면 alt
-	if(length>50){
+	if(length>100){
 		$('span#title').attr('title',title);
-		var title = cutInUTF8(title, 50);
+		var title = cutInUTF8(title, 100);
 		title += "...";
 		$("#title").text(title);
 	}
@@ -424,12 +424,11 @@ display:none;
 				<div style="clear:both;"></div>
 				<div id="main_board" style="width:100%;border:1px solid #cacaca;margin-top:5px;padding:10px;background-color:white;">
 					<div id="boardTitle" style="width:100%; background-color:lightgrey;font-size:20px;padding:5px;border-top:2px solid grey;">
-						<span id="title" style="font-weight: bold;">[${vo.typename}] ${vo.title}</span> <span style="float:right;font-size:14px;">${vo.regdate}</span><br/>
+						<div style="display:inline-block;font-weight:bold; max-width: 70%; word-wrap:break-word;"><span  id="title" >[${vo.typename}] ${vo.title }</span></div>
+						<span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>					
 					</div>
 					<div id="other_infos" style="width:100%;padding:5px;background-color:white;font-size:12px;">
 						<span style="float:left;">
-						
-					 
 							<c:choose>
 							  <c:when test="${ vo.chk_anonymous == '1'    }">
 							    작성자: <b>익명</b>

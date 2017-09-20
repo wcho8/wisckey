@@ -19,6 +19,7 @@ public class AdminService extends CommonService{
 	public AdminVO checkTables(AdminVO paramVO){
 		String cod_table = "";
 		String idname = "";
+		
 		switch(paramVO.getPtypeid()){
 		case 1:
 			cod_table = "cod_freeboard";
