@@ -105,6 +105,16 @@ public class MemberController extends CommonController{
 		
 		return mav;
 	}
+
+	//내가 쓴 글
+	@RequestMapping("/findEachList")
+	@ResponseBody
+	public ModelAndView memberGeul(@ModelAttribute("paramVO") MemberVO paramVO, HttpServletRequest res){
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/member/memberGeul");
+		return null;
+	}
 	
 	@RequestMapping
 	@ResponseBody
@@ -167,6 +177,8 @@ public class MemberController extends CommonController{
 		MemberVO vo = memberService.findID(paramVO);
 		return vo;
 	}
+	 
+
 }
 	
 	

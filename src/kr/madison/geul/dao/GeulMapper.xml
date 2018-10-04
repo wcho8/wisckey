@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+
+<mapper namespace="Geul">
+	<select id="findGeulList" resultType="GeulVO" parameterType="GeulVO">
+		SELECT
+			b.brdid,
+			b.title,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			b.count,
+			(SELECT COUNT(*) FROM ${table_name}_reply c WHERE c.brdid = b.brdid) as repNum
+		FROM ${table_name} b
+		WHERE userno = #{userno}
+		ORDER BY b.regdate DESC
+		LIMIT #{srow}, #{rows}
+	</select>
+	<select id="findGeulTypes" resultType="GeulVO" parameterType="GeulVO">
+		SELECT
+			typeid,
+			name as typename
+		FROM cod_boardtypes
+		WHERE typeid != 2 and typeid != 4 and typeid != 8
+			and ptypeid=0
+	</select>
+	<select id="findGeulTotalCnt" resultType="int" parameterType="GeulVO">
+		SELECT
+			COUNT(*)
+		FROM ${table_name}
+		WHERE userno = #{userno}
+	</select>
+	<select id="findGeulRepList" resultType="GeulVO" parameterType="GeulVO">
+		SELECT
+			b.brdid,
+			b.title,
+			DATE_FORMAT(b.regdate, '%Y-%m-%d %H:%i:%s') as regdate,
+			(SELECT COUNT(*) FROM ${table_name}_reply c WHERE c.userno = #{userno} AND c.brdid = b.brdid) as myRepNum,
+			(SELECT COUNT(*) FROM ${table_name}_reply c WHERE c.brdid = b.brdid) as repNum
+		FROM ${table_name} b
+		WHERE userno = #{userno}
+		ORDER BY b.regdate DESC
+		LIMIT #{srow}, #{rows}
+	</select>
+</mapper>

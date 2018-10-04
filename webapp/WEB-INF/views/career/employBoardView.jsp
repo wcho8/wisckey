@@ -101,9 +101,9 @@ $(document).ready(function(){
 	var length = ~-encodeURI(title).split(/%..|./).length;
 	//76바이트가 넘으면 alt
 	
-	if(length>76){
+	if(length>90){
 		$('span#title').attr('title',title);
-		var title = cutInUTF8(title, 76);
+		var title = cutInUTF8(title, 90);
 		title += "...";
 		$("#title").text(title);
 	}
@@ -406,7 +406,8 @@ display:none;
 				
 				<div id="employBoard_main" style="width: 100%; border: 1px solid #cacaca; margin-top: 5px; padding: 10px; background-color: white;">
 					<div id="employBoard_title" style="width: 100%; background-color: lightgrey; font-size: 20px; padding:5px; border-top: 2px solid grey; ">
-						<span id="title" style="font-weight: bold;">[${vo.typename}]${vo.title }</span> <span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
+						<div style="display:inline-block;font-weight:bold; max-width: 70%; word-wrap:break-word;"><span id="title">[${vo.typename}]${vo.title }</span> </div>
+						<span style="float: right; font-size:14px;"> ${vo.regdate }</span><br/>
 					</div>
 					<div id="employBoard_extra" style="width:100%; background-color: white; padding:5px; font-size:12px;">
 						<span style="float: left;">
